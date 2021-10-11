@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InternshipBE
+namespace WebApi
 {
 	public class Startup
 	{
@@ -30,7 +30,7 @@ namespace InternshipBE
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternshipBE", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
 			});
 
 			services.AddCors(c =>
@@ -49,7 +49,7 @@ namespace InternshipBE
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InternshipBE v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 			}
 
 			//app.UseHttpsRedirection();
