@@ -2,10 +2,10 @@
 {
     public enum Stack
     {
-        Frontend,
-        Backend,
+        FrontEnd,
+        BackEnd,
         FullStack,
-        BusinessФnalysis,
+        BusinessAnalysis,
         DevOps,
         Testing
     }

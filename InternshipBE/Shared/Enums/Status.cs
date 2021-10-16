@@ -2,6 +2,10 @@
 {
     public enum Status
     {
-        // Being clarified ...
+        New,
+        Awaiting,
+        Accepted,
+        Rejected,
+        Questionable
     }
 }
