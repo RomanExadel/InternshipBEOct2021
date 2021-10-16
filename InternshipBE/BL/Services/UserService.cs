@@ -1,5 +1,4 @@
-﻿using BL.DTOs;
-using BL.Interfaces;
+﻿using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +15,11 @@ namespace BL.Services
 {
 	public class UserService : IUserService
 	{
-		private readonly IUserRepository _userRepository;
+		private readonly IRepository<User> _userRepository;
 		private UserManager<User> _userManager;
 		private readonly IConfiguration _configuration;
 
-		public UserService(IUserRepository userRepository, UserManager<User> userManager, IConfiguration configuration)
+		public UserService(IRepository<User> userRepository, UserManager<User> userManager, IConfiguration configuration)
 		{
 			_userRepository = userRepository;
 			_userManager = userManager;
@@ -38,7 +36,7 @@ namespace BL.Services
 				var authClaims = new List<Claim>
 				{
 					new Claim(ClaimTypes.Name, user.UserName),
-					//new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid.ToString())
+					//new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid.ToString()) //Doesn't work
 				};
 
 				foreach(var role in roles)
@@ -63,11 +61,6 @@ namespace BL.Services
 			}
 
 			return null;
-		}
-
-		public void Dispose()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

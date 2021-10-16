@@ -1,42 +1,35 @@
-﻿using DAL.Database;
-using DAL.Entities;
+﻿using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-	public class UserRepository : IUserRepository
+	public class UserRepository : IRepository<User>
 	{
-		private UserManager<User> _userManager; 
+		private UserManager<User> _userManager;
 
 		public UserRepository(UserManager<User> userManager)
 		{
 			_userManager = userManager;
 		}
 
-		public void Create(User user, string password)
+		public void Create(User user)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Delete(Guid token)
+		public void Delete()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Dispose()
+		public async Task<User> GetAsync(object model)
 		{
-			throw new NotImplementedException();
-		}
+			string login = (string)model;
 
-		public async Task<User> GetAsync(string login)
-		{
 			var user = await _userManager.FindByNameAsync(login);
 
 			return user;

@@ -1,12 +1,6 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Models.Authorization;
 
 namespace WebApi.Controllers
@@ -23,9 +17,9 @@ namespace WebApi.Controllers
 
 		[HttpPost]
 		[AllowAnonymous]
-		public IActionResult Post([FromBody] CredentialsViewModel credentials)
+		public IActionResult Login([FromBody] CredentialsViewModel credentials)
 		{ 
-			var token = _userService.Authenticate(credentials.Login, credentials.Password);
+			var token = _userService.Authenticate(credentials.Email, credentials.Password);
 
 			if (token != null)
 			{
