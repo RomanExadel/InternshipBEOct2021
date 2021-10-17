@@ -32,7 +32,8 @@ namespace WebApi
 					BearerFormat = "JWT",
 					Scheme = "bearer"
 				});
-				c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
                     {
 						new OpenApiSecurityScheme
                         {
