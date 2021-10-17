@@ -24,7 +24,8 @@ namespace WebApi
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
 					In = ParameterLocation.Header,
 					Description = "Please insert token",
 					Name = "Authorization",
