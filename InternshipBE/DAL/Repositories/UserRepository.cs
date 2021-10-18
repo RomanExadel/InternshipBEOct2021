@@ -1,48 +1,23 @@
-﻿using DAL.Entities;
+﻿using DAL.Database;
+using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-	public class UserRepository : IRepository<User>
+	public class UserRepository : GenericRepository<User>, IUserRepository
 	{
 		private UserManager<User> _userManager;
+		private ApplicationDbContext _context;
+		private DbSet<User> _dbSet;
 
-		public UserRepository(UserManager<User> userManager)
+		public UserRepository(UserManager<User> userManager, DbSet<User> dbSet, ApplicationDbContext context)
+				: base(context, dbSet)
 		{
 			_userManager = userManager;
-		}
-
-		public void Create(User user)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Delete()
-		{
-			throw new NotImplementedException();
-		}
-
-		public async Task<User> GetAsync(object model)
-		{
-			string login = (string)model;
-
-			var user = await _userManager.FindByNameAsync(login);
-
-			return user;
-		}
-
-		public List<User> GetAll()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Update(User user)
-		{
-			throw new NotImplementedException();
+			_dbSet = dbSet;
+			_context = context;
 		}
 	}
 }

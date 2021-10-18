@@ -1,6 +1,5 @@
 ﻿using BL.Interfaces;
 using DAL.Entities;
-using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -15,20 +14,18 @@ namespace BL.Services
 {
 	public class UserService : IUserService
 	{
-		private readonly IRepository<User> _userRepository;
 		private UserManager<User> _userManager;
 		private readonly IConfiguration _configuration;
 
-		public UserService(IRepository<User> userRepository, UserManager<User> userManager, IConfiguration configuration)
+		public UserService(UserManager<User> userManager, IConfiguration configuration)
 		{
-			_userRepository = userRepository;
 			_userManager = userManager;
 			_configuration = configuration;
 		}
 
-		public async Task<string> Authenticate(string login, string password)
+		public async Task<string> AuthenticateAsync(string login, string password)
 		{
-			var user = await _userRepository.GetAsync(login);
+			var user = await _userManager.FindByNameAsync(login);
 
 			if (user != null && await _userManager.CheckPasswordAsync(user, password))
 			{
@@ -36,7 +33,6 @@ namespace BL.Services
 				var authClaims = new List<Claim>
 				{
 					new Claim(ClaimTypes.Name, user.UserName),
-					//new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid.ToString()) //Doesn't work
 				};
 
 				foreach(var role in roles)
@@ -52,7 +48,7 @@ namespace BL.Services
 				_configuration["Jwt:Audience"],
 				notBefore: currentTime,
 				claims: authClaims,
-				expires: currentTime.Add(TimeSpan.FromMinutes(int.Parse(_configuration["Jwt:LifeTimeMinutes"]))), 
+				expires: currentTime.Add(TimeSpan.FromDays(int.Parse(_configuration["Jwt:LifeTimeInDays"]))), 
 				signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256));
 
 				var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);

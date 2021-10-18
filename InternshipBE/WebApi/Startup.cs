@@ -48,7 +48,8 @@ namespace WebApi
 				.AllowAnyHeader());
 			});
 
-			services.AddTransient<IRepository<User>, UserRepository>();
+			services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
+			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IUserService, UserService>();
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -1,6 +1,7 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WebApi.Models.Authorization;
 
 namespace WebApi.Controllers
@@ -10,6 +11,7 @@ namespace WebApi.Controllers
 	public class AuthenticateController : ControllerBase
 	{
 		private readonly IUserService _userService; 
+
 		public AuthenticateController(IUserService userService)
 		{
 			_userService = userService;
@@ -17,9 +19,9 @@ namespace WebApi.Controllers
 
 		[HttpPost]
 		[AllowAnonymous]
-		public IActionResult Login([FromBody] CredentialsViewModel credentials)
+		public async Task<IActionResult> LoginAsync([FromBody] CredentialsViewModel credentials)
 		{ 
-			var token = _userService.Authenticate(credentials.Email, credentials.Password);
+			var token = await _userService.AuthenticateAsync(credentials.Email, credentials.Password);
 
 			if (token != null)
 			{
