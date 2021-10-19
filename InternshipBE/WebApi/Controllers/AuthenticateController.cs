@@ -19,7 +19,7 @@ namespace WebApi.Controllers
 
 		[HttpPost]
 		[AllowAnonymous]
-		public async Task<IActionResult> LoginAsync([FromBody] CredentialsViewModel credentials)
+		public async Task<IActionResult> Login([FromBody] CredentialsViewModel credentials)
 		{ 
 			var token = await _userService.AuthenticateAsync(credentials.Email, credentials.Password);
 

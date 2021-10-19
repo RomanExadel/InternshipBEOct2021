@@ -14,7 +14,7 @@ namespace BL.Services
 {
 	public class UserService : IUserService
 	{
-		private UserManager<User> _userManager;
+		private readonly UserManager<User> _userManager;
 		private readonly IConfiguration _configuration;
 
 		public UserService(UserManager<User> userManager, IConfiguration configuration)

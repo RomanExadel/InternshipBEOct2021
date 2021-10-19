@@ -1,9 +1,5 @@
-using BL.Interfaces;
-using BL.Services;
 using DAL.Database;
 using DAL.Entities;
-using DAL.Interfaces;
-using DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using WebApi.Extensions;
 
 namespace WebApi
 {
@@ -48,9 +45,8 @@ namespace WebApi
 				.AllowAnyHeader());
 			});
 
-			services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
-			services.AddTransient<IUserRepository, UserRepository>();
-			services.AddTransient<IUserService, UserService>();
+			RegisterRepositories.LoadRepositories(services);
+			RegisterServices.LoadServices(services);
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			   .AddJwtBearer(options =>

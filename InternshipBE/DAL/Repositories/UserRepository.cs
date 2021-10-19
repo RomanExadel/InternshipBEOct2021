@@ -7,17 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Repositories
 {
 	public class UserRepository : GenericRepository<User>, IUserRepository
-	{
-		private UserManager<User> _userManager;
-		private ApplicationDbContext _context;
-		private DbSet<User> _dbSet;
-
-		public UserRepository(UserManager<User> userManager, DbSet<User> dbSet, ApplicationDbContext context)
-				: base(context, dbSet)
+	{ 
+		public UserRepository(ApplicationDbContext context) : base(context)
 		{
-			_userManager = userManager;
-			_dbSet = dbSet;
-			_context = context;
 		}
 	}
 }

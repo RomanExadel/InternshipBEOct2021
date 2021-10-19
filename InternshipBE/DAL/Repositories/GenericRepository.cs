@@ -8,13 +8,13 @@ namespace DAL.Repositories
 {
 	public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 	{
-		private ApplicationDbContext _context;
-		private DbSet<TEntity> _dbSet;
+		protected readonly ApplicationDbContext _context;
+		private readonly DbSet<TEntity> _dbSet;
 
-		public GenericRepository(ApplicationDbContext context, DbSet<TEntity> dbSet)
+		public GenericRepository(ApplicationDbContext context)
 		{
 			_context = context;
-			_dbSet = dbSet;
+			_dbSet = _context.Set<TEntity>();
 		}
 
 		public async Task<TEntity> CreateAsync(TEntity entity)
