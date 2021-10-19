@@ -5,12 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApi.Extensions
 {
-	public static class RegisterRepositories 
+	public static class RegisterRepositories
 	{
-		public static void AddRepositories(this IServiceCollection services)
+		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
 			services.AddTransient<IUserRepository, UserRepository>();
+
+			return services;
 		}
 	}
 }

@@ -68,8 +68,7 @@ namespace WebApi
 				.AllowAnyHeader());
 			});
 
-			services.AddRepositories();
-			services.AddServices();
+			services.AddRepositories().AddServices();
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			   .AddJwtBearer(options =>
