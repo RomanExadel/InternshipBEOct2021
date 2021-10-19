@@ -41,14 +41,13 @@ namespace BL.Services
 				}
 
 				var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-				var currentTime = DateTime.UtcNow;
 
 				var token = new JwtSecurityToken(
 				_configuration["Jwt:Issuer"],
 				_configuration["Jwt:Audience"],
-				notBefore: currentTime,
+				notBefore: DateTime.UtcNow,
 				claims: authClaims,
-				expires: currentTime.Add(TimeSpan.FromDays(int.Parse(_configuration["Jwt:LifeTimeInDays"]))), 
+				expires: DateTime.UtcNow.Add(TimeSpan.FromDays(int.Parse(_configuration["Jwt:LifeTimeInDays"]))), 
 				signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256));
 
 				var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
@@ -56,7 +55,7 @@ namespace BL.Services
 				return encodedJwt;
 			}
 
-			return null;
+			return string.Empty;
 		}
 	}
 }

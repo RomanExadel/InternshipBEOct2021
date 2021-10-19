@@ -15,7 +15,7 @@ using WebApi.Extensions;
 
 namespace WebApi
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -37,6 +37,29 @@ namespace WebApi
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					In = ParameterLocation.Header,
+					Description = "Please insert token",
+					Name = "Authorization",
+					Type = SecuritySchemeType.Http,
+					BearerFormat = "JWT",
+					Scheme = "bearer"
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+                    			{
+						new OpenApiSecurityScheme
+                        			{
+							Reference = new OpenApiReference
+                            				{
+								Type = ReferenceType.SecurityScheme,
+								Id = "Bearer"
+                            				}
+                        			},
+						new string[] {}
+                    			}
+				});
 			});
 
 			services.AddCors(c =>
@@ -45,8 +68,8 @@ namespace WebApi
 				.AllowAnyHeader());
 			});
 
-			RegisterRepositories.LoadRepositories(services);
-			RegisterServices.LoadServices(services);
+			services.AddRepositories();
+			services.AddServices();
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			   .AddJwtBearer(options =>

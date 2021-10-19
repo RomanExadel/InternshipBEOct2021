@@ -6,7 +6,7 @@ namespace WebApi.Extensions
 {
 	public static class RegisterServices
 	{
-		public static void LoadServices(IServiceCollection services)
+		public static void AddServices(this IServiceCollection services)
 		{
 			services.AddTransient<IUserService, UserService>();
 		}

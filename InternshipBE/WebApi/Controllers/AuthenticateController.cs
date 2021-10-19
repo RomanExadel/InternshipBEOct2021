@@ -23,7 +23,7 @@ namespace WebApi.Controllers
 		{ 
 			var token = await _userService.AuthenticateAsync(credentials.Email, credentials.Password);
 
-			if (token != null)
+			if (token != string.Empty)
 			{
 				return Unauthorized(new 
 				{
