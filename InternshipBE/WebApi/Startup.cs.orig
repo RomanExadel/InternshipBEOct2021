@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 using DAL.Database;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+=======
 using DAL;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+>>>>>>> 4910f68 (Models created and Initial migration added)
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,14 +33,16 @@ namespace WebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-
+<<<<<<< HEAD
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+=======
+			services.AddDbContext<SandboxContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+>>>>>>> 4910f68 (Models created and Initial migration added)
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{

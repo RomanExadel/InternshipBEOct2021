@@ -1,6 +1,12 @@
 ﻿using DAL.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 
 namespace DAL.Database
 {
@@ -10,9 +16,29 @@ namespace DAL.Database
 		{
 		}
 
+		public DbSet<Feedback> Feedbacks { get; set; }
+
+		public DbSet<Evaluation> Evaluations { get; set; }
+
+		public DbSet<Skill> Skills { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
+		public DbSet<InterviewInvite> InterviewInvites { get; set; }
+
+		public DbSet<Candidate> Candidates { get; set; }
+
+		public DbSet<Internship> Internships { get; set; }
+
+		public DbSet<InternshipStack> InternshipStacks { get; set; }
+
+		public DbSet<UserCandidate> UserCandidates { get; set; }
+
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
 		}
+
 	}
 }

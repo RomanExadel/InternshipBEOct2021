@@ -5,17 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace DAL.Entities
 {
-    public class Skill
+    public class InternshipStack
     {
         public int Id { get; set; }
 
-        public Stack Stack { get; set; }
+        public int InternshipId { get; set; }
 
-        public string Name { get; set; }
-
-        public string IsHardSkill { get; set; }
-
+        public Stack TechnologyStack { get; set; }
     }
 }

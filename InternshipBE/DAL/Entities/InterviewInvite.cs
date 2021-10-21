@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace DAL.Entities
 {
-    public class Evaluation
+    public class InterviewInvite
     {
         public int Id { get; set; }
 
-        public int FeedbackId { get; set; }
+        public int UserCandidateId { get; set; }
 
-        public int SkillId { get; set; }
-
-        public int Value { get; set; }
+        public DateTime ContactDate { get; set; }
 
     }
 }

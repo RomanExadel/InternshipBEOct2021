@@ -1,7 +1,7 @@
 ﻿using Shared.Enums;
 using System;
 
-namespace DAL.Models
+namespace DAL.Entities
 {
     public class Internship
     {
