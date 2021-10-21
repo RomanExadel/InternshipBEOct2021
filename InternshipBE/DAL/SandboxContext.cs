@@ -27,5 +27,10 @@ namespace DAL
 
         public DbSet<InterviewInvite> InterviewInvites { get; set; }
 
+        public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<Internship> Internships {  get; set; }
+        public DbSet<InternshipStack> InternshipStacks { get; set; }
+        public DbSet<UserCandidate> UserCandidates { get; set; }
+
     }
 }
