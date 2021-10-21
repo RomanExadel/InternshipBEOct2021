@@ -32,7 +32,6 @@ namespace WebApi
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
-
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
