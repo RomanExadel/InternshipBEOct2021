@@ -1,3 +1,4 @@
+using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,6 +85,8 @@ namespace WebApi
 					   ValidateIssuerSigningKey = true,
 				   };
 			   });
+
+			services.AddAutoMapper();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
