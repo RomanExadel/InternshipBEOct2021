@@ -9,7 +9,7 @@ namespace DAL.Database
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
 		{
 		}
-		public DbSet<User> User { get; set; }
+		public DbSet<User> Users { get; set; }
 
 		public DbSet<Feedback> Feedbacks { get; set; }
 

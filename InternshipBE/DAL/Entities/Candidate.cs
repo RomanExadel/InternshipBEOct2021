@@ -49,6 +49,5 @@ namespace DAL.Entities
         public Internship Internship { get; set; }
 
         public ICollection<UserCandidate> UserCandidate { get; set; }
-
     }
 }
