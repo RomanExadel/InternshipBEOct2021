@@ -9,6 +9,7 @@ namespace Shared.Middleware
 {
     public class ExceptionMiddleware
     {
+        private const string JsonContentType = "application/json";
         private readonly RequestDelegate _next;
 
         public ExceptionMiddleware(RequestDelegate next)
@@ -30,7 +31,7 @@ namespace Shared.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = JsonContentType;
 
             var responseError = new
             {
