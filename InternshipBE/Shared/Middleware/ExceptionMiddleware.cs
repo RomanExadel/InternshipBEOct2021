@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -19,16 +18,13 @@ namespace Shared.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var exceptionDetails = context.Features.Get<IExceptionHandlerFeature>();
-            var exception = exceptionDetails?.Error;
-
-            if (exception != null)
-            {
-                await HandleExceptionAsync(context, exception);
-            }
-            else
+            try
             {
                 await _next.Invoke(context);
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(context, ex);
             }
         }
 
