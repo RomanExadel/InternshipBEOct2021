@@ -98,7 +98,7 @@ namespace WebApi
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 			}
 
-			app.ConfigureExceptionHandler();
+			app.UseGlobalExceptionMiddleware();
 
 			//app.UseHttpsRedirection();
 
