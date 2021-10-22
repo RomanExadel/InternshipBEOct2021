@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
@@ -12,5 +9,9 @@ namespace DAL.Entities
         public int UserId {  get; set; }
         public int CandidateId { get; set; }
 
+        public Candidate Candidate { get; set; }
+        public User User { get; set; }
+        public ICollection<InterviewInvite> InterviewInvite { get; set; }
+        public ICollection<Feedback> Feedback { get; set; }
     }
 }

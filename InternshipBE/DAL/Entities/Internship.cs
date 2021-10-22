@@ -1,5 +1,6 @@
 ﻿using Shared.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace DAL.Entities
 {
@@ -12,5 +13,8 @@ namespace DAL.Entities
         public string Requirements { get; set; }
         public int MaxCandidateCount { get; set; }
         public Language Language { get; set; }
+
+        public ICollection<Candidate> Candidate { get; set; }
+        public ICollection<InternshipStack> InternshipStack { get; set; }
     }
 }
