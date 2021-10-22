@@ -3,22 +3,22 @@ using AutoMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace BL.Mappers
+namespace BL.Mapping
 {
     public static class MapperConfigurationProvider
     {
-        public static MapperConfigurationExpression Expression { get; }
+        public static MapperConfigurationExpression MapperConfigurationExpression { get; }
 
         static MapperConfigurationProvider()
         {
-            Expression = new MapperConfigurationExpression();
+            MapperConfigurationExpression = new MapperConfigurationExpression();
 
-            Expression.AddMaps(Assembly.GetExecutingAssembly());
+            MapperConfigurationExpression.AddMaps(Assembly.GetExecutingAssembly());
         }
 
         public static MapperConfiguration GetConfig()
         {
-            var configuration = new MapperConfiguration(Expression);
+            var configuration = new MapperConfiguration(MapperConfigurationExpression);
             
             configuration.AssertConfigurationIsValid();
 
@@ -27,7 +27,9 @@ namespace BL.Mappers
 
         public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {
-            services.AddSingleton(GetConfig().CreateMapper());
+            var mapper = GetConfig().CreateMapper();
+
+            services.AddSingleton(mapper);
 
             return services;
         }
