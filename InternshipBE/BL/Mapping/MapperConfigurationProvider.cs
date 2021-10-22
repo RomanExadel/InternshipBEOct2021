@@ -29,9 +29,7 @@ namespace BL.Mapping
         {
             var mapper = GetConfig().CreateMapper();
 
-            services.AddSingleton(mapper);
-
-            return services;
+            return services.AddSingleton(mapper);
         }
     }
 }
