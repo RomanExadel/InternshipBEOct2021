@@ -26,7 +26,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -62,6 +62,8 @@ namespace DAL.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Requirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaxCandidateCount = table.Column<int>(type: "int", nullable: false),
+                    RegistrationStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RegistrationFinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Language = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

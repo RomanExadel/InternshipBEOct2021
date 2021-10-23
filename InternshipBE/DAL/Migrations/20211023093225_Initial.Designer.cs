@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211022165536_Initial")]
+    [Migration("20211023093225_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,6 +165,12 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("RegistrationFinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RegistrationStartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Requirements")
                         .HasColumnType("nvarchar(max)");
 
@@ -291,7 +297,7 @@ namespace DAL.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")

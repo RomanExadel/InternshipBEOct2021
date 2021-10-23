@@ -163,6 +163,12 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("RegistrationFinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RegistrationStartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Requirements")
                         .HasColumnType("nvarchar(max)");
 
@@ -289,7 +295,7 @@ namespace DAL.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
