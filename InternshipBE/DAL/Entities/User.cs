@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace DAL.Entities
 {
 	public class User : IdentityUser
 	{
-        public int RoleId { get; set; }
+        public Role Role { get; set; }
 
         public string Login { get; set; }
 
