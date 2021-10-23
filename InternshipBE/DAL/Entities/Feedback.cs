@@ -16,7 +16,7 @@ namespace DAL.Entities
 
         public string Description { get; set; }
 
-        public UserCandidate UserCandidate { get; set; }
+        public ICollection<UserCandidate> UserCandidate { get; set; }
 
         public ICollection<Evaluation> Evaluation { get; set; }
     }
