@@ -18,6 +18,10 @@ namespace DAL.Entities
 
         public int MaxCandidateCount { get; set; }
 
+        public DateTime RegistrationStartDate { get; set; }
+
+        public DateTime RegistrationFinishDate { get; set; }
+
         public Language Language { get; set; }
 
         public ICollection<Candidate> Candidate { get; set; }
