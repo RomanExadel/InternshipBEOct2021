@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Shared.Extensions;
 using System.Text;
 using WebApi.Extensions;
 
@@ -100,6 +101,8 @@ namespace WebApi
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 			}
+
+			app.UseGlobalExceptionMiddleware();
 
 			//app.UseHttpsRedirection();
 
