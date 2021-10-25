@@ -9,6 +9,23 @@ namespace DAL.Database
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
 		{
 		}
+		public DbSet<User> Users { get; set; }
+
+		public DbSet<Feedback> Feedbacks { get; set; }
+
+		public DbSet<Evaluation> Evaluations { get; set; }
+
+		public DbSet<Skill> Skills { get; set; }
+
+       	public DbSet<InterviewInvite> InterviewInvites { get; set; }
+
+		public DbSet<Candidate> Candidates { get; set; }
+
+		public DbSet<Internship> Internships { get; set; }
+
+		public DbSet<InternshipStack> InternshipStacks { get; set; }
+
+		public DbSet<UserCandidate> UserCandidates { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
