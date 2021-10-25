@@ -36,11 +36,11 @@ namespace DAL.Entities
 
         public int TestTaskEvaluation { get; set; }
 
-        public StatusType Status { get; set; }
+        public StatusType StatusType { get; set; }
 
-        public StackType Stack { get; set; }
+        public StackType StackType { get; set; }
 
-        public EnglishLevelType EnglishLevel { get; set; } 
+        public EnglishLevelType EnglishLevelType { get; set; } 
         
         public bool IsPlanningToJoin { get; set; }
 
