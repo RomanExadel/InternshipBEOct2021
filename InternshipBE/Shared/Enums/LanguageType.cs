@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum Language
+    public enum LanguageType
     {
         English,
         Russian,

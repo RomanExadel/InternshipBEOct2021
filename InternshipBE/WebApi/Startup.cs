@@ -1,3 +1,4 @@
+using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Shared.Extensions;
 using System.Text;
 using WebApi.Extensions;
 
@@ -27,8 +29,7 @@ namespace WebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -48,17 +49,17 @@ namespace WebApi
 				});
 				c.AddSecurityRequirement(new OpenApiSecurityRequirement
 				{
-                    			{
+                    {
 						new OpenApiSecurityScheme
-                        			{
+                        {
 							Reference = new OpenApiReference
-                            				{
+                            {
 								Type = ReferenceType.SecurityScheme,
 								Id = "Bearer"
-                            				}
-                        			},
+                            }
+                        },
 						new string[] {}
-                    			}
+                    }
 				});
 			});
 
@@ -84,6 +85,8 @@ namespace WebApi
 					   ValidateIssuerSigningKey = true,
 				   };
 			   });
+
+			services.AddAutoMapper();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,6 +100,8 @@ namespace WebApi
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 			}
+
+			app.UseGlobalExceptionMiddleware();
 
 			//app.UseHttpsRedirection();
 

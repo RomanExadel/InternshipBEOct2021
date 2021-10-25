@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum Status
+    public enum StatusType
     {
         New,
         Awaiting,

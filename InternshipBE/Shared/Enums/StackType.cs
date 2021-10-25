@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum Stack
+    public enum StackType
     {
         FrontEnd,
         BackEnd,

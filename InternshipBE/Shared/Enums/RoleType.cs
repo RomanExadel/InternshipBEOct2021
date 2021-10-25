@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum Role
+    public enum RoleType
     {
         Guest,
         Hr,
