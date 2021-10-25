@@ -8,7 +8,7 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
 
-        public Stack Stack { get; set; }
+        public StackType Stack { get; set; }
 
         public string Name { get; set; }
 

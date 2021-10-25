@@ -7,7 +7,7 @@ namespace DAL.Entities
 {
 	public class User : IdentityUser
 	{
-        public Role Role { get; set; }
+        public RoleType Role { get; set; }
 
         public string Login { get; set; }
 
