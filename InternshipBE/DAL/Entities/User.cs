@@ -18,5 +18,7 @@ namespace DAL.Entities
         public DateTime BestContactTime { get; set; }
 
         public ICollection<UserCandidate> UserCandidate { get; set; }
+
+        public ICollection<UserInternship> UserInternship { get; set; }
     }	
 }

@@ -346,6 +346,31 @@ namespace DAL.Migrations
                     b.ToTable("UserCandidates");
                 });
 
+            modelBuilder.Entity("DAL.Entities.UserInternship", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InternshipId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InternshipId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("UserInternship");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -555,6 +580,23 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DAL.Entities.UserInternship", b =>
+                {
+                    b.HasOne("DAL.Entities.Internship", "Internship")
+                        .WithMany("UserInternship")
+                        .HasForeignKey("InternshipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.User", "User")
+                        .WithMany("UserInternship")
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("Internship");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -621,6 +663,8 @@ namespace DAL.Migrations
                     b.Navigation("Candidate");
 
                     b.Navigation("InternshipStack");
+
+                    b.Navigation("UserInternship");
                 });
 
             modelBuilder.Entity("DAL.Entities.Skill", b =>
@@ -631,6 +675,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
                     b.Navigation("UserCandidate");
+
+                    b.Navigation("UserInternship");
                 });
 
             modelBuilder.Entity("DAL.Entities.UserCandidate", b =>

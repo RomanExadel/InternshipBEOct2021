@@ -27,5 +27,7 @@ namespace DAL.Entities
         public ICollection<Candidate> Candidate { get; set; }
 
         public ICollection<InternshipStack> InternshipStack { get; set; }
+
+        public ICollection<UserInternship> UserInternship { get; set; }
     }
 }
