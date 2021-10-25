@@ -10,7 +10,7 @@ namespace DAL.Entities
 
         public int UserCandidateId { get; set; }
 
-        public EnglishLevel EnglishLevel { get; set; }
+        public EnglishLevelType EnglishLevelType { get; set; }
 
         public DateTime Date { get; set; }
 

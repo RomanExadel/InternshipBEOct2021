@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum EnglishLevel
+    public enum EnglishLevelType
     {
         A1,
         A2,

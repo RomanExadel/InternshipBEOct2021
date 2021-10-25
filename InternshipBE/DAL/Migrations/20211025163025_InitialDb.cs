@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
+                    RoleType = table.Column<int>(type: "int", nullable: false),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -64,7 +64,7 @@ namespace DAL.Migrations
                     MaxCandidateCount = table.Column<int>(type: "int", nullable: false),
                     RegistrationStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RegistrationFinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Language = table.Column<int>(type: "int", nullable: false)
+                    LanguageType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,7 +77,7 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Stack = table.Column<int>(type: "int", nullable: false),
+                    StackType = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsHardSkill = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -212,9 +212,9 @@ namespace DAL.Migrations
                     ProfessionalCertificates = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BestContactTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TestTaskEvaluation = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Stack = table.Column<int>(type: "int", nullable: false),
-                    EnglishLevel = table.Column<int>(type: "int", nullable: false),
+                    StatusType = table.Column<int>(type: "int", nullable: false),
+                    StackType = table.Column<int>(type: "int", nullable: false),
+                    EnglishLevelType = table.Column<int>(type: "int", nullable: false),
                     IsPlanningToJoin = table.Column<bool>(type: "bit", nullable: false),
                     RegistationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     InternshipId = table.Column<int>(type: "int", nullable: true)
@@ -237,13 +237,40 @@ namespace DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InternshipId = table.Column<int>(type: "int", nullable: false),
-                    TechnologyStack = table.Column<int>(type: "int", nullable: false)
+                    TechnologyStackType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InternshipStacks", x => x.Id);
                     table.ForeignKey(
                         name: "FK_InternshipStacks_Internships_InternshipId",
+                        column: x => x.InternshipId,
+                        principalTable: "Internships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserInternship",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    InternshipId = table.Column<int>(type: "int", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserInternship", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserInternship_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserInternship_Internships_InternshipId",
                         column: x => x.InternshipId,
                         principalTable: "Internships",
                         principalColumn: "Id",
@@ -284,7 +311,7 @@ namespace DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserCandidateId = table.Column<int>(type: "int", nullable: false),
-                    EnglishLevel = table.Column<int>(type: "int", nullable: false),
+                    EnglishLevelType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -424,6 +451,16 @@ namespace DAL.Migrations
                 name: "IX_UserCandidates_UserId1",
                 table: "UserCandidates",
                 column: "UserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserInternship_InternshipId",
+                table: "UserInternship",
+                column: "InternshipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserInternship_UserId1",
+                table: "UserInternship",
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -451,6 +488,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "InterviewInvites");
+
+            migrationBuilder.DropTable(
+                name: "UserInternship");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

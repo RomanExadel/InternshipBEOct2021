@@ -1,14 +1,14 @@
-﻿using Shared.Enums;
-
-namespace DAL.Entities
+﻿namespace DAL.Entities
 {
-    public class InternshipStack
+    public class UserInternship
     {
         public int Id { get; set; }
 
+        public int UserId { get; set; }
+
         public int InternshipId { get; set; }
 
-        public StackType TechnologyStackType { get; set; }
+        public User User { get; set; }
 
         public Internship Internship { get; set; }
     }

@@ -7,7 +7,7 @@ namespace DAL.Entities
 {
 	public class User : IdentityUser
 	{
-        public Role Role { get; set; }
+        public RoleType RoleType { get; set; }
 
         public string Login { get; set; }
 
@@ -18,5 +18,7 @@ namespace DAL.Entities
         public DateTime BestContactTime { get; set; }
 
         public ICollection<UserCandidate> UserCandidate { get; set; }
+
+        public ICollection<UserInternship> UserInternship { get; set; }
     }	
 }

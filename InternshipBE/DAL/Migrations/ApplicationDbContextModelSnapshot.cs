@@ -38,7 +38,7 @@ namespace DAL.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnglishLevel")
+                    b.Property<int>("EnglishLevelType")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -77,10 +77,10 @@ namespace DAL.Migrations
                     b.Property<string>("Skype")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stack")
+                    b.Property<int>("StackType")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("StatusType")
                         .HasColumnType("int");
 
                     b.Property<int>("TestTaskEvaluation")
@@ -131,7 +131,7 @@ namespace DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnglishLevel")
+                    b.Property<int>("EnglishLevelType")
                         .HasColumnType("int");
 
                     b.Property<int>("UserCandidateId")
@@ -154,7 +154,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Language")
+                    b.Property<int>("LanguageType")
                         .HasColumnType("int");
 
                     b.Property<int>("MaxCandidateCount")
@@ -190,7 +190,7 @@ namespace DAL.Migrations
                     b.Property<int>("InternshipId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TechnologyStack")
+                    b.Property<int>("TechnologyStackType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -233,7 +233,7 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stack")
+                    b.Property<int>("StackType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -295,7 +295,7 @@ namespace DAL.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Role")
+                    b.Property<int>("RoleType")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -344,6 +344,31 @@ namespace DAL.Migrations
                     b.HasIndex("UserId1");
 
                     b.ToTable("UserCandidates");
+                });
+
+            modelBuilder.Entity("DAL.Entities.UserInternship", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InternshipId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InternshipId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("UserInternship");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -555,6 +580,23 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DAL.Entities.UserInternship", b =>
+                {
+                    b.HasOne("DAL.Entities.Internship", "Internship")
+                        .WithMany("UserInternship")
+                        .HasForeignKey("InternshipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.User", "User")
+                        .WithMany("UserInternship")
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("Internship");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -621,6 +663,8 @@ namespace DAL.Migrations
                     b.Navigation("Candidate");
 
                     b.Navigation("InternshipStack");
+
+                    b.Navigation("UserInternship");
                 });
 
             modelBuilder.Entity("DAL.Entities.Skill", b =>
@@ -631,6 +675,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
                     b.Navigation("UserCandidate");
+
+                    b.Navigation("UserInternship");
                 });
 
             modelBuilder.Entity("DAL.Entities.UserCandidate", b =>

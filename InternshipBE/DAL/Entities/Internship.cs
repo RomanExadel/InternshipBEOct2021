@@ -22,10 +22,12 @@ namespace DAL.Entities
 
         public DateTime RegistrationFinishDate { get; set; }
 
-        public Language Language { get; set; }
+        public LanguageType LanguageType { get; set; }
 
         public ICollection<Candidate> Candidate { get; set; }
 
         public ICollection<InternshipStack> InternshipStack { get; set; }
+
+        public ICollection<UserInternship> UserInternship { get; set; }
     }
 }
