@@ -38,7 +38,7 @@ namespace DAL.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnglishLevel")
+                    b.Property<int>("EnglishLevelType")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -77,10 +77,10 @@ namespace DAL.Migrations
                     b.Property<string>("Skype")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stack")
+                    b.Property<int>("StackType")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("StatusType")
                         .HasColumnType("int");
 
                     b.Property<int>("TestTaskEvaluation")
@@ -131,7 +131,7 @@ namespace DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnglishLevel")
+                    b.Property<int>("EnglishLevelType")
                         .HasColumnType("int");
 
                     b.Property<int>("UserCandidateId")
@@ -154,7 +154,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Language")
+                    b.Property<int>("LanguageType")
                         .HasColumnType("int");
 
                     b.Property<int>("MaxCandidateCount")
@@ -190,7 +190,7 @@ namespace DAL.Migrations
                     b.Property<int>("InternshipId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TechnologyStack")
+                    b.Property<int>("TechnologyStackType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -233,7 +233,7 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stack")
+                    b.Property<int>("StackType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -295,7 +295,7 @@ namespace DAL.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Role")
+                    b.Property<int>("RoleType")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
