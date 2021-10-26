@@ -10,11 +10,11 @@ using System.Text.Unicode;
 
 namespace BL.Services
 {
-    public class GoogleSheetService : IGoogleSheetService
-    {
-        private readonly string Scope = SheetsService.Scope.Spreadsheets;
-        private readonly IGoogleSheetConfig _sheetConfig;
-        private SheetsService service;
+	public class GoogleSheetService : IGoogleSheetService
+	{
+		private readonly string Scope = SheetsService.Scope.Spreadsheets;
+		private readonly IGoogleSheetConfig _sheetConfig;
+		private SheetsService service;
 
 		public GoogleSheetService(IGoogleSheetConfig sheetConfig)
 		{
@@ -22,25 +22,23 @@ namespace BL.Services
 		}
 
 		public string ReadEntries()
-        { 
-            var credential = GoogleCredential.FromFile("client_secrets.json").CreateScoped(Scope);
+		{
+			var credential = GoogleCredential.FromFile(_sheetConfig.ClientSecrets).CreateScoped(Scope);
 
-            service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = _sheetConfig.ApplicationName
-            });
+			service = new SheetsService(new BaseClientService.Initializer()
+			{
+				HttpClientInitializer = credential,
+				ApplicationName = _sheetConfig.ApplicationName
+			});
 
-            var range = $"{_sheetConfig.Sheet}!A1:ZZ";
-            var request = service.Spreadsheets.Values.Get(_sheetConfig.SpreadsheetId, range);
+			var range = $"{_sheetConfig.Sheet}{_sheetConfig.RangeSettings}";
+			var request = service.Spreadsheets.Values.Get(_sheetConfig.SpreadsheetId, range);
 
-            try
-            {
-                var response = request.Execute();
-				var values = response.Values;
+			var response = request.Execute();
+			var values = response.Values;
 
-				if (values != null && values.Count > 0)
-				{
+			if (values != null && values.Count > 0)
+			{
 				var options = new JsonSerializerOptions
 				{
 					Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
@@ -49,16 +47,12 @@ namespace BL.Services
 				string json = JsonSerializer.Serialize(values, options);
 
 				return json;
-                }
-                else
-                {
-                    throw new Exception("No data was found");
-                }
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-    }
+			}
+			else
+			{
+				throw new Exception("No data was found");
+			}
+		}
+	}
 }
+

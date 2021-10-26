@@ -7,5 +7,9 @@
 		public string SpreadsheetId { get; }
 
 		public string Sheet { get; }
+
+		public string RangeSettings { get; }
+
+		public string ClientSecrets { get; }
 	}
 }

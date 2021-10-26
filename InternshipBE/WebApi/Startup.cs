@@ -106,6 +106,9 @@ namespace WebApi
 			//app.UseHttpsRedirection();
 
 			app.UseRouting();
+
+			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 			app.UseAuthentication();
 
 			app.UseAuthorization();
