@@ -6,10 +6,13 @@ namespace DAL.Database
 {
 	public class ApplicationDbContext : IdentityDbContext<User>
 	{
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
 		{
 		}
-		public DbSet<User> Users { get; set; }
+
+		public ApplicationDbContext()
+		{
+		}
 
 		public DbSet<Feedback> Feedbacks { get; set; }
 
@@ -26,6 +29,8 @@ namespace DAL.Database
 		public DbSet<InternshipStack> InternshipStacks { get; set; }
 
 		public DbSet<UserCandidate> UserCandidates { get; set; }
+
+		public DbSet<UserInternship> UserInternships { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
