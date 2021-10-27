@@ -12,8 +12,8 @@ namespace WebApi.Controllers
     [ApiController]
     public class CandidateController : Controller
     {
-        private ICandidateService _service;
-        private IMapper _mapper;
+        private readonly ICandidateService _service;
+        private readonly IMapper _mapper;
 
         public CandidateController(ICandidateService service, IMapper mapper)
         {

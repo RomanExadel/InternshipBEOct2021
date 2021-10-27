@@ -10,8 +10,8 @@ namespace BL.Services
 {
     public class CandidateService : ICandidateService
     {
-        private IUnitOfWork _unitOfWork;
-        private IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
         {
