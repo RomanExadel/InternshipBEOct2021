@@ -38,7 +38,7 @@ namespace DAL.Repositories
             _db = db;
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();
         }
