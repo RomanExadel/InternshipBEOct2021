@@ -7,7 +7,7 @@ namespace Shared.Config
 	{
 		private readonly IConfiguration _configuration;
 
-		private const string rangeSettings = "!A!:ZZ";
+		private const string rangeSettings = "!A1:ZZ";
 		private const string clientSecrets = "client_secrets.json";
 
 		public GoogleSheetConfig(IConfiguration configuration)

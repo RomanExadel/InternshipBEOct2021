@@ -1,12 +1,14 @@
-﻿using BL.Interfaces;
+﻿using AutoMapper;
+using BL.DTOs;
+using BL.Interfaces;
+using DAL.Entities;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Shared.Config.Interfaces;
 using System;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BL.Services
 {
@@ -14,14 +16,53 @@ namespace BL.Services
 	{
 		private readonly string Scope = SheetsService.Scope.Spreadsheets;
 		private readonly IGoogleSheetConfig _sheetConfig;
+		private IMapper _mapper; 
 		private SheetsService service;
 
-		public GoogleSheetService(IGoogleSheetConfig sheetConfig)
+		public GoogleSheetService(IGoogleSheetConfig sheetConfig, IMapper mapper)
 		{
+			_mapper = mapper;
 			_sheetConfig = sheetConfig;
 		}
 
-		public string ReadEntries()
+		public void SaveNewToDataBase()
+		{
+			var values = CheckNew();
+
+			if (values != null)
+			{
+				var models = _mapper.Map(values, new List<CandidateDTO>());
+				var candidates = _mapper.Map(models, new List<Candidate>());
+
+				//When UnitOfWork will be added, we going to change this row.
+				//_candidateService.AddListAsync(candidates); 
+			}
+			else
+			{
+				throw new Exception("No data was found");
+			}
+		}
+
+		private IList<IList<object>> CheckNew()
+		{
+			var values = GetValuesFromTable();
+			values.RemoveAt(0);
+
+			//When UnitOfWork will be added, we going to change this row.
+			//var candidates = _genericCandidate.GetAll().Result;
+
+			if (values.Count > candidates.Count)
+			{
+				var newCandidates = values.Skip(candidates.Count).ToList();
+				return newCandidates;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private IList<IList<object>> GetValuesFromTable()
 		{
 			var credential = GoogleCredential.FromFile(_sheetConfig.ClientSecrets).CreateScoped(Scope);
 
@@ -37,21 +78,7 @@ namespace BL.Services
 			var response = request.Execute();
 			var values = response.Values;
 
-			if (values != null && values.Count > 0)
-			{
-				var options = new JsonSerializerOptions
-				{
-					Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-					WriteIndented = true
-				};
-				string json = JsonSerializer.Serialize(values, options);
-
-				return json;
-			}
-			else
-			{
-				throw new Exception("No data was found");
-			}
+			return values;
 		}
 	}
 }
