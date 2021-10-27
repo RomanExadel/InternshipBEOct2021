@@ -1,6 +1,7 @@
 ﻿using DAL.Database;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +16,9 @@ namespace DAL.Repositories
 
         public async Task<List<Candidate>> GetAllByInternshipIdAsync(int id, int itemsCount, int pageNumber)
         {
-            return await Task.Run(() => _context.Internships.FirstOrDefault(x => x.Id == id)?.Candidate
-                                                            .Skip(itemsCount * pageNumber)
-                                                            .Take(itemsCount)
-                                                            .ToList());
+            var internship = await _context.Internships.Include(x => x.Candidate).FirstOrDefaultAsync(x => x.Id == id);
+
+            return internship?.Candidate.Skip(itemsCount * pageNumber).Take(itemsCount).ToList();
         }
     }
 }
