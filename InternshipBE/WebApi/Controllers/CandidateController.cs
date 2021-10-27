@@ -49,11 +49,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateCandidate")]
-        public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO updatedCandidate)
+        public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO candidate)
         {
-            var candidate = await _service.UpdateCandidateAsync(updatedCandidate);
+            var updatedCandidate = await _service.UpdateCandidateAsync(candidate);
 
-            return Ok(candidate);
+            return Ok(updatedCandidate);
         }
     }
 }
