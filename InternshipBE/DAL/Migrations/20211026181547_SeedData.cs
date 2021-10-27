@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using DAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Shared.Enums;
 using System;
 
@@ -7,21 +9,24 @@ namespace DAL.Migrations
     public partial class SeedData : Migration
     {       
         protected override void Up(MigrationBuilder migrationBuilder)
-        {           
-           
-            migrationBuilder.InsertData("AspNetUsers", new[] { "Id", "RoleType", "Login", "Password", "Position", "BestContactTime", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" },
-                new object[] { "3", 4, "admin@gmail.com", "Password1", "Product Owner", DateTime.Now, true, true, true, true, 1 });
+        {
+            var password = "Password1";
+            var userHasher = new PasswordHasher<User>();
+            var hashPassword = userHasher.HashPassword(null, password);
 
-            migrationBuilder.InsertData("AspNetUsers", new[] { "Id", "RoleType", "Login", "Password", "Position", "BestContactTime", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" },
-                new object[] { "2", 1, "hr@gmail.com", "Password1", "HR", DateTime.Now, true, true, true, true, 2 });
+            migrationBuilder.InsertData("AspNetUsers", new[] { "Id", "RoleType", "Login", "PasswordHash", "Position", "BestContactTime", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" },
+                new object[] { "3", 4, "admin@gmail.com", hashPassword, "Product Owner", DateTime.Now, true, true, true, true, 1 });
+
+            migrationBuilder.InsertData("AspNetUsers", new[] { "Id", "RoleType", "Login", "PasswordHash", "Position", "BestContactTime", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" },
+                new object[] { "2", 1, "hr@gmail.com", hashPassword, "HR", DateTime.Now, true, true, true, true, 2 });
 
             migrationBuilder.InsertData("Candidates", new[] { "Id", "FirstName", "LastName", "Location", "Phone","Email", "Skype", "Education", "Links", "OtherInfo", "PrimarySkill",
-            "CurrentJob", "ProfessionalCertificates", "BestContactTime", "TestTaskEvaluation", "StatusType", "StackType", "EnglishLevelType", "IsPlanningToJoin", "RegistationDate"},
+                "CurrentJob", "ProfessionalCertificates", "BestContactTime", "TestTaskEvaluation", "StatusType", "StackType", "EnglishLevelType", "IsPlanningToJoin", "RegistationDate"},
                 new object[] {1, "John", "Snow", "Arizona", "+123456789", "j.snow@gmail.com","live:j.snow", "Harvard University", "-","-","OOP, C#", "Student", "-", DateTime.Now,
                 4, 1, 1, 4, true, DateTime.Now});
 
             migrationBuilder.InsertData("Candidates", new[] { "Id", "FirstName", "LastName", "Location", "Phone","Email", "Skype", "Education", "Links", "OtherInfo", "PrimarySkill",
-            "CurrentJob", "ProfessionalCertificates", "BestContactTime", "TestTaskEvaluation", "StatusType", "StackType", "EnglishLevelType", "IsPlanningToJoin", "RegistationDate"},
+                "CurrentJob", "ProfessionalCertificates", "BestContactTime", "TestTaskEvaluation", "StatusType", "StackType", "EnglishLevelType", "IsPlanningToJoin", "RegistationDate"},
                 new object[] { 2, "Hermione", "Granger", "London", "+2356416789", "h.granger@gmail.com","live:h.granger", "Hogwarts", "-","-","C++, QA basics", "Student", "-", DateTime.Now,
                 4, 1, 5, 4, true, DateTime.Now});
 
