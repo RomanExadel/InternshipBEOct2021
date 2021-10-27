@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-	public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 	{
 		protected readonly ApplicationDbContext _context;
 		private readonly DbSet<TEntity> _dbSet;
@@ -20,15 +20,13 @@ namespace DAL.Repositories
 		public async Task<TEntity> CreateAsync(TEntity entity)
 		{
 			await _dbSet.AddAsync(entity);
-			await _context.SaveChangesAsync();
 
 			return entity;
 		}
 
 		public async Task<TEntity> DeleteAsync(TEntity entity)
 		{
-			_dbSet.Remove(entity);
-			await _context.SaveChangesAsync();
+			await Task.Run(() => _dbSet.Remove(entity));
 
 			return entity;
 		}
@@ -45,8 +43,7 @@ namespace DAL.Repositories
 
 		public async Task<TEntity> UpdateAsync(TEntity entity)
 		{
-			_dbSet.Update(entity);
-			await _context.SaveChangesAsync();
+			await Task.Run(() => _dbSet.Update(entity));
 
 			return entity;
 		}
