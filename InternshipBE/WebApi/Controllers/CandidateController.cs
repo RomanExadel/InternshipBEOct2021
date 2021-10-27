@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using BL.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Models;
 using System.Threading.Tasks;
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
