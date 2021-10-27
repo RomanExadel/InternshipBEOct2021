@@ -1,12 +1,12 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Models;
 using System.Threading.Tasks;
-using WebApi.Models.Authorization;
 
 namespace WebApi.Controllers
 {
-	[Route("api/authenticate")]
+    [Route("api/authenticate")]
 	[ApiController]
 	public class AuthenticateController : ControllerBase
 	{

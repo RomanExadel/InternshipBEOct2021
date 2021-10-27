@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
@@ -7,5 +8,7 @@ namespace DAL.Interfaces
         ICandidateRepository Candidates { get; }
 
         IInternshipRepository Internships { get; }
+
+        Task Save();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DAL.Database;
 using DAL.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
@@ -35,6 +36,11 @@ namespace DAL.Repositories
         public EFUnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+        }
+
+        public async Task Save()
+        {
+            await _db.SaveChangesAsync();
         }
 
         public virtual void Dispose(bool disposing)

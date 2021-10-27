@@ -6,10 +6,12 @@ namespace BL.Interfaces
 {
     public interface ICandidateService
     {
-        Task<CandidateDTO> GetCandidate(int id);
+        Task<CandidateDTO> GetCandidateAsync(int id);
 
-        Task<CandidateDTO> UpdateCandidate(CandidateDTO newCandidate);
+        Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate);
 
-        Task<List<CandidateDTO>> GetCandidates(int count, int offset, int internshipId);
+        Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO updatedCandidate);
+
+        Task<List<CandidateDTO>> GetAllByInternshipIdAsync(int internshipId, int itemsCount, int pageNumber);
     }
 }

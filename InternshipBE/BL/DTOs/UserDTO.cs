@@ -1,8 +1,10 @@
-﻿namespace BL.DTOs
+﻿using Shared.Enums;
+
+namespace BL.DTOs
 {
 	public class UserDTO
 	{
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Email { get; set; }
 
@@ -14,6 +16,6 @@
 
         public string Address { get; set; }
 
-        public string Role { get; set; }
+        public RoleType Role { get; set; }
     }
 }

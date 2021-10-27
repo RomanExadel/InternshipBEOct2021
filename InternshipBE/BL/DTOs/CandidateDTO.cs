@@ -2,7 +2,7 @@
 {
     public class CandidateDTO
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 
@@ -30,6 +30,6 @@
 
         public string BestContactTime { get; set; }
 
-        public string TestTaskEvaluation { get; set; }
+        public int TestTaskEvaluation { get; set; }
     }
 }
