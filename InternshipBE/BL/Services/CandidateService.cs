@@ -13,9 +13,9 @@ namespace BL.Services
         private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public CandidateService(IUnitOfWork uow, IMapper mapper)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _unitOfWork = uow;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
