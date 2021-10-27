@@ -1,5 +1,7 @@
 ﻿using BL.Interfaces;
 using BL.Services;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApi.Extensions
@@ -10,6 +12,8 @@ namespace WebApi.Extensions
 		{
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<IGoogleSheetService, GoogleSheetService>();
+			services.AddTransient<ICandidateService, CandidateService>();
+			services.AddTransient<IUnitOfWork, EFUnitOfWork>();
 
 			return services;
 		}

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApi.Models.Authorization
+namespace WebApi.Models
 {
 	public class CredentialsViewModel
 	{

@@ -9,10 +9,10 @@ using static Shared.Constants.ImportFileOffsets;
 
 namespace BL.Mapping.Profiles
 {
-	public class CandidateProfile : Profile
-	{
-		public CandidateProfile()
-		{
+    public class CandidateProfile : Profile
+    {
+        public CandidateProfile()
+        {
 			CreateMap<IList<object>, CandidateDTO>()
 				.ForMember(e => e.FirstName, source => source.MapFrom(s => s[FIRST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.LastName, source => source.MapFrom(s => s[LAST_NAME_OFFSET].ToString()))
@@ -52,6 +52,6 @@ namespace BL.Mapping.Profiles
 				.ForPath(x => x.StackType, o => o.MapFrom(src => src.StackType))
 				.ForPath(x => x.OtherInfo, o => o.MapFrom(src => src.OtherInfo))
 				.ForAllOtherMembers(x => x.Ignore());
-		}
-	}
+        }
+    }
 }
