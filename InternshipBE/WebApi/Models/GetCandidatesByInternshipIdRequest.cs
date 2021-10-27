@@ -1,4 +1,4 @@
-﻿namespace Shared.Models
+﻿namespace WebApi.Models
 {
     public class GetCandidatesByInternshipIdRequest
     {
