@@ -10,18 +10,18 @@ namespace BL.Services
 {
     public class CandidateService : ICandidateService
     {
-        private IUnitOfWork _uow;
+        private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
         public CandidateService(IUnitOfWork uow, IMapper mapper)
         {
-            _uow = uow;
+            _unitOfWork = uow;
             _mapper = mapper;
         }
 
         public async Task<CandidateDTO> GetCandidateAsync(int id)
         {
-            var candidateEntity = await _uow.Candidates.GetByIdAsync(id);
+            var candidateEntity = await _unitOfWork.Candidates.GetByIdAsync(id);
 
             return _mapper.Map<CandidateDTO>(candidateEntity);
         }
@@ -29,9 +29,9 @@ namespace BL.Services
         public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
         {
             var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
-            var candidate = await _uow.Candidates.CreateAsync(mappedCandidate);
+            var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
 
-            await _uow.Save();
+            await _unitOfWork.Save();
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -39,16 +39,16 @@ namespace BL.Services
         public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO updatedCandidate)
         {
             var mappedCandidate = _mapper.Map<Candidate>(updatedCandidate);
-            var resultCandidate = await _uow.Candidates.UpdateAsync(mappedCandidate);
+            var resultCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
 
-            await _uow.Save();
+            await _unitOfWork.Save();
 
             return _mapper.Map<CandidateDTO>(resultCandidate);
         }
 
         public async Task<List<CandidateDTO>> GetAllByInternshipIdAsync(int internshipId, int itemsCount, int pageNumber)
         {
-            var candidates = await _uow.Candidates.GetAllByInternshipIdAsync(internshipId, itemsCount, pageNumber);
+            var candidates = await _unitOfWork.Candidates.GetAllByInternshipIdAsync(internshipId, itemsCount, pageNumber);
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
