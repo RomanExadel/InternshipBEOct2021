@@ -3,9 +3,12 @@
     public enum StatusType
     {
         New,
-        Awaiting,
+        HR,
+        TestTask,
+        Interview,
+        Pending,
         Accepted,
-        Rejected,
-        Questionable
+        Questionable,
+        Declined
     }
 }
