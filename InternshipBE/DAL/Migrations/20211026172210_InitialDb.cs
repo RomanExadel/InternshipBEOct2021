@@ -251,7 +251,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserInternship",
+                name: "UserInternships",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -262,15 +262,15 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInternship", x => x.Id);
+                    table.PrimaryKey("PK_UserInternships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserInternship_AspNetUsers_UserId1",
+                        name: "FK_UserInternships_AspNetUsers_UserId1",
                         column: x => x.UserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserInternship_Internships_InternshipId",
+                        name: "FK_UserInternships_Internships_InternshipId",
                         column: x => x.InternshipId,
                         principalTable: "Internships",
                         principalColumn: "Id",
@@ -453,13 +453,13 @@ namespace DAL.Migrations
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInternship_InternshipId",
-                table: "UserInternship",
+                name: "IX_UserInternships_InternshipId",
+                table: "UserInternships",
                 column: "InternshipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInternship_UserId1",
-                table: "UserInternship",
+                name: "IX_UserInternships_UserId1",
+                table: "UserInternships",
                 column: "UserId1");
         }
 
@@ -490,7 +490,7 @@ namespace DAL.Migrations
                 name: "InterviewInvites");
 
             migrationBuilder.DropTable(
-                name: "UserInternship");
+                name: "UserInternships");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
