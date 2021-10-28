@@ -5,7 +5,10 @@ using BL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using WebApi.Models;
+=======
+>>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
 
 namespace WebApi.Controllers
 {
@@ -28,10 +31,17 @@ namespace WebApi.Controllers
             return Ok(internship);
         } 
 
+<<<<<<< HEAD
         [HttpPost("GetAllInternshipsPartial")]
         public async Task<IActionResult> GetAllInternshipsPartial([FromBody] GetAllInternshipsRequest body)
         {
             var internships = await _service.GetAllInternshipsPartialAsync(body.ItemsCount, body.PageNumber);
+=======
+        [HttpGet("GetAllInternships")]
+        public async Task<IActionResult> GetAllInternships()
+        {
+            var internships = await _service.GetAllInternshipAsync();
+>>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
 
             return Ok(internships);
         }

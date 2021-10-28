@@ -29,9 +29,15 @@ namespace BL.Services
             return _mapper.Map<InternshipDTO>(internship);
         }
 
+<<<<<<< HEAD
         public async Task<List<InternshipDTO>> GetAllInternshipsPartialAsync(int itemsCount, int pageNumber)
         {
             var internships = await _unitOfWork.Internships.GetAllInternshipsPartialAsync(itemsCount, pageNumber);
+=======
+        public async Task<List<InternshipDTO>> GetAllInternshipAsync()
+        {
+            var internships = await _unitOfWork.Internships.GetAllAsync();
+>>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
             return _mapper.Map<List<InternshipDTO>>(internships);
         }
 

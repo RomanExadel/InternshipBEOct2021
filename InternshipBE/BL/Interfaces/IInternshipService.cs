@@ -12,6 +12,10 @@ namespace BL.Interfaces
 
         Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship);
 
+<<<<<<< HEAD
         Task<List<InternshipDTO>> GetAllInternshipsPartialAsync(int itemsCount, int pageNumber);
+=======
+        Task<List<InternshipDTO>> GetAllInternshipAsync();
+>>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
     }
 }
