@@ -25,10 +25,10 @@ namespace BL.DTOs
 
         public LanguageType LanguageType { get; set; }
 
-        public ICollection<Candidate> Candidate { get; set; }
+        public List<CandidateDTO> Candidate { get; set; }
 
-        public ICollection<InternshipStack> InternshipStack { get; set; }
+        public List<InternshipStackDTO> InternshipStack { get; set; }
 
-        public ICollection<UserInternship> UserInternship { get; set; }
+        public List<UserInternshipDTO> UserInternship { get; set; }
     }
 }
