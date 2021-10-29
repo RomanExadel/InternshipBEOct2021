@@ -46,12 +46,12 @@ namespace DAL.Migrations
             migrationBuilder.InsertData("Candidates", new[] { "Id", "FirstName", "LastName", "Location", "Phone","Email", "Skype", "Education", "Links", "OtherInfo", "PrimarySkill",
                 "CurrentJob", "ProfessionalCertificates", "BestContactTime", "TestTaskEvaluation", "StatusType", "StackType", "EnglishLevelType", "IsPlanningToJoin", "RegistationDate", "InternshipId", "TeamId" },
                 new object[] {1, "John", "Snow", "Arizona", "+123456789", "j.snow@gmail.com","live:j.snow", "Harvard University", "-","-","OOP, C#", "Student", "-", DateTime.Now,
-                4, (int)StatusType.Awaiting, (int)StackType.BackEnd, (int)EnglishLevelType.C1, true, DateTime.Now, 1, 1 });
+                4, (int)StatusType.New, (int)StackType.BackEnd, (int)EnglishLevelType.C1, true, DateTime.Now, 1, 1 });
 
             migrationBuilder.InsertData("Candidates", new[] { "Id", "FirstName", "LastName", "Location", "Phone","Email", "Skype", "Education", "Links", "OtherInfo", "PrimarySkill",
                 "CurrentJob", "ProfessionalCertificates", "BestContactTime", "TestTaskEvaluation", "StatusType", "StackType", "EnglishLevelType", "IsPlanningToJoin", "RegistationDate", "InternshipId", "TeamId" },
                 new object[] { 2, "Hermione", "Granger", "London", "+2356416789", "h.granger@gmail.com","live:h.granger", "Hogwarts", "-","-","C++, QA basics", "Student", "-", DateTime.Now,
-                4, (int)StatusType.Awaiting, (int)StackType.Testing, (int)EnglishLevelType.C2, true, DateTime.Now, 2, 2 });
+                4, (int)StatusType.New, (int)StackType.Testing, (int)EnglishLevelType.C2, true, DateTime.Now, 2, 2 });
 
             //Requirements: CandidateId, UserId
             migrationBuilder.InsertData("Feedbacks", 
