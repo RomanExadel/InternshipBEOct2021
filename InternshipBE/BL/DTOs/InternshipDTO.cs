@@ -24,11 +24,5 @@ namespace BL.DTOs
         public DateTime RegistrationFinishDate { get; set; }
 
         public LanguageType LanguageType { get; set; }
-
-        public List<CandidateDTO> Candidate { get; set; }
-
-        public List<InternshipStackDTO> InternshipStack { get; set; }
-
-        public List<UserInternshipDTO> UserInternship { get; set; }
     }
 }

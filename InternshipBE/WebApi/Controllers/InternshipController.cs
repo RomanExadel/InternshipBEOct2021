@@ -5,6 +5,7 @@ using BL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
@@ -27,10 +28,10 @@ namespace WebApi.Controllers
             return Ok(internship);
         } 
 
-        [HttpGet("GetAllInternships")]
-        public async Task<IActionResult> GetAllInternships()
+        [HttpPost("GetAllInternshipsPartial")]
+        public async Task<IActionResult> GetAllInternshipsPartial([FromBody] GetAllInternshipsRequest body)
         {
-            var internships = await _service.GetAllInternshipAsync();
+            var internships = await _service.GetAllInternshipsPartialAsync(body.ItemsCount, body.PageNumber);
 
             return Ok(internships);
         }
