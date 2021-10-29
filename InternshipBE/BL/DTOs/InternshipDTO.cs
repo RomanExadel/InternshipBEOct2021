@@ -24,32 +24,8 @@ namespace BL.DTOs
         public DateTime RegistrationFinishDate { get; set; }
 
         public LanguageType LanguageType { get; set; }
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        public List<CandidateDTO> Candidate { get; set; }
 
-        public List<InternshipStackDTO> InternshipStack { get; set; }
 
-        public List<UserDTO> User { get; set; }
-
-        public List<TeamDTO> Team { get; set; }
-=======
-        public ICollection<Candidate> Candidate { get; set; }
-=======
-        public List<CandidateDTO> Candidate { get; set; }
->>>>>>> 92d55f7 (Change ICollection to List and Entities to DTO. Make InternshipStackDTO and UserInternshipDTO)
-
-        public List<InternshipStackDTO> InternshipStack { get; set; }
-
-<<<<<<< HEAD
-        public ICollection<UserInternship> UserInternship { get; set; }
->>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
-=======
-        public List<UserInternshipDTO> UserInternship { get; set; }
->>>>>>> 92d55f7 (Change ICollection to List and Entities to DTO. Make InternshipStackDTO and UserInternshipDTO)
-=======
->>>>>>> 955ab32 (Delete Useless DTO, Fixed Problems)
     }
 }
