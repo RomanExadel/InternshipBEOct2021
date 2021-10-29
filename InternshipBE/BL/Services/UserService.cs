@@ -25,7 +25,7 @@ namespace BL.Services
 
 		public async Task<string> AuthenticateAsync(string login, string password)
 		{
-			var user = await _userManager.FindByNameAsync(login);
+			var user = await _userManager.FindByEmailAsync(login);
 
 			if (user != null && await _userManager.CheckPasswordAsync(user, password))
 			{
