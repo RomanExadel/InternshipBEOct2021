@@ -8,7 +8,7 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
 
-        public int UserCandidateId { get; set; }
+        public int CandidateId { get; set; }
 
         public EnglishLevelType EnglishLevelType { get; set; }
 
@@ -16,7 +16,9 @@ namespace DAL.Entities
 
         public string Description { get; set; }
 
-        public UserCandidate UserCandidate { get; set; }
+        public User User { get; set; }
+
+        public Candidate Candidate { get; set; }
 
         public ICollection<Evaluation> Evaluation { get; set; }
     }

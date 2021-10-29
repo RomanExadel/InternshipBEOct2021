@@ -28,6 +28,8 @@ namespace DAL.Entities
 
         public ICollection<InternshipStack> InternshipStack { get; set; }
 
-        public ICollection<UserInternship> UserInternship { get; set; }
+        public ICollection<User> User { get; set; }
+
+        public ICollection<Team> Team { get; set; }
     }
 }
