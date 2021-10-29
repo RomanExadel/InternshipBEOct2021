@@ -13,6 +13,8 @@ namespace WebApi.Extensions
 		{
 			services.AddTransient<IGoogleSheetConfig, GoogleSheetConfig>();
 			services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
+			services.AddTransient<IGenericRepository<Candidate>, GenericRepository<Candidate>>();
+			services.AddTransient<ICandidateRepository, CandidateRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
 	
 			return services;

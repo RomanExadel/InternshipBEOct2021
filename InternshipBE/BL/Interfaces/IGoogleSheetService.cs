@@ -1,7 +1,9 @@
-﻿namespace BL.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace BL.Interfaces
 {
 	public interface IGoogleSheetService
 	{
-		public void SaveNewToDataBase();
+		public Task SaveNewCandidates();
 	}
 }

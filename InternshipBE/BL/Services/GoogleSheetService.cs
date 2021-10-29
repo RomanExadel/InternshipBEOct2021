@@ -2,6 +2,7 @@
 using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Interfaces;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -9,6 +10,7 @@ using Shared.Config.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BL.Services
 {
@@ -16,42 +18,41 @@ namespace BL.Services
 	{
 		private readonly string Scope = SheetsService.Scope.Spreadsheets;
 		private readonly IGoogleSheetConfig _sheetConfig;
-		private IMapper _mapper; 
+		private readonly ICandidateRepository _candidateRepository;
+		private IMapper _mapper;
 		private SheetsService service;
 
-		public GoogleSheetService(IGoogleSheetConfig sheetConfig, IMapper mapper)
+		public GoogleSheetService(IGoogleSheetConfig sheetConfig, IMapper mapper, ICandidateRepository candidateRepository)
 		{
+			_candidateRepository = candidateRepository;
 			_mapper = mapper;
 			_sheetConfig = sheetConfig;
 		}
 
-		public void SaveNewToDataBase()
+		public async Task SaveNewCandidates()
 		{
-			var values = CheckNew();
+			var values = CheckCandidates().Result;
 
 			if (values != null)
 			{
 				var models = _mapper.Map(values, new List<CandidateDTO>());
 				var candidates = _mapper.Map(models, new List<Candidate>());
 
-				//When UnitOfWork will be added, we going to change this row.
-				//_candidateService.AddListAsync(candidates); 
+				await _candidateRepository.SaveListCandidatesAsync(candidates);
 			}
 			else
 			{
-				throw new Exception("No data was found");
+				await Task.Run(() => throw new Exception("No new candidates was found"));
 			}
 		}
 
-		private IList<IList<object>> CheckNew()
+		private async Task<IList<IList<object>>> CheckCandidates()
 		{
-			var values = GetValuesFromTable();
-			values.RemoveAt(0);
+			var values = GetValuesFromTable().Skip(1);
 
-			//When UnitOfWork will be added, we going to change this row.
-			//var candidates = _genericCandidate.GetAll().Result;
+			var candidates = await _candidateRepository.GetAllAsync();
 
-			if (values.Count > candidates.Count)
+			if (values.Count() > candidates.Count)
 			{
 				var newCandidates = values.Skip(candidates.Count).ToList();
 				return newCandidates;

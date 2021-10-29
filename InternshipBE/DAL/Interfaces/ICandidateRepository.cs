@@ -7,5 +7,7 @@ namespace DAL.Interfaces
     public interface ICandidateRepository : IGenericRepository<Candidate>
     {
         Task<List<Candidate>> GetAllByInternshipIdAsync(int id, int itemsCount, int pageNumber);
+
+        Task SaveListCandidatesAsync(List<Candidate> candidates);
     }
 }
