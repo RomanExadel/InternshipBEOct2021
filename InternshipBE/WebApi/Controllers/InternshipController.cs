@@ -49,7 +49,7 @@ namespace WebApi.Controllers
 >>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
 =======
         [HttpPost("GetAllInternshipsPartial")]
-        public async Task<IActionResult> GetAllInternshipsPartial([FromBody] GetAllInternshipsRequest body)
+        public async Task<IActionResult> GetAllInternshipsPartial([FromBody] AGGridBaseRequest body)
         {
             var internships = await _service.GetAllInternshipsPartialAsync(body.ItemsCount, body.PageNumber);
 >>>>>>> 955ab32 (Delete Useless DTO, Fixed Problems)
