@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using BL.DTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
-using BL.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
@@ -39,7 +36,7 @@ namespace WebApi.Controllers
         [HttpPost("CreateInternship")]
         public async Task<IActionResult> CreateInternship ([FromBody] InternshipDTO internship)
         {
-          return Ok(await _service.CreateInternshipAsync(internship));
+            return Ok(await _service.CreateInternshipAsync(internship));
         }
 
         [HttpPut("UpdateInternship")]
