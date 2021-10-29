@@ -1,4 +1,6 @@
 ﻿using Shared.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace BL.DTOs
 {
@@ -6,16 +8,20 @@ namespace BL.DTOs
 	{
         public int Id { get; set; }
 
-        public string Email { get; set; }
-
-        public string Password { get; set; }
-
         public string UserName { get; set; }
 
-        public string Name { get; set; }
+        public string Email { get; set; }
 
-        public string Address { get; set; }
+        public RoleType RoleType { get; set; }
 
-        public RoleType Role { get; set; }
+        public string Position { get; set; }
+
+        public DateTime BestContactTime { get; set; }
+
+        public List<CandidateDTO> Candidate { get; set; }
+
+        public List<InternshipDTO> Internship { get; set; }
+
+        public List<TeamDTO> Team { get; set; }
     }
 }
