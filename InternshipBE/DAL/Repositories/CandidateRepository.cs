@@ -18,12 +18,7 @@ namespace DAL.Repositories
 		{
 			var internship = await _context.Internships.Include(x => x.Candidate).FirstOrDefaultAsync(x => x.Id == id);
 
-			return internship?.Candidate.Skip(itemsCount * pageNumber).Take(itemsCount).ToList();
-		}
-
-		public async Task<int> GetCandidatesCountAsync()
-		{
-			return await _context.Candidates.CountAsync();
-		}
-	}
+            return internship?.Candidate.Skip(itemsCount * --pageNumber).Take(itemsCount).ToList();
+        }
+    }
 }
