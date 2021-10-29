@@ -8,7 +8,6 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    [Authorize(Roles = "Hr, Admin, Interviewer, Guest, Mananger")]
     [Route("api/[controller]")]
     [ApiController]
     public class CandidateController : Controller
