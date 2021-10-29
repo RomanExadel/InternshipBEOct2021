@@ -1,7 +1,5 @@
-﻿using DAL.Entities;
-using Shared.Enums;
+﻿using Shared.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace BL.DTOs
 {
@@ -24,13 +22,5 @@ namespace BL.DTOs
         public DateTime RegistrationFinishDate { get; set; }
 
         public LanguageType LanguageType { get; set; }
-
-        public List<CandidateDTO> Candidate { get; set; }
-
-        public List<InternshipStackDTO> InternshipStack { get; set; }
-
-        public List<UserDTO> User { get; set; }
-
-        public List<TeamDTO> Team { get; set; }
     }
 }
