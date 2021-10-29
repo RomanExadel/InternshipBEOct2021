@@ -14,11 +14,11 @@ namespace DAL.Repositories
 		{
 		}
 
-		public async Task<List<Candidate>> GetAllByInternshipIdAsync(int id, int itemsCount, int pageNumber)
-		{
-			var internship = await _context.Internships.Include(x => x.Candidate).FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<List<Candidate>> GetAllByInternshipIdAsync(int id, int pageSize, int pageNumber)
+        {
+            var internship = await _context.Internships.Include(x => x.Candidate).FirstOrDefaultAsync(x => x.Id == id);
 
-            return internship?.Candidate.Skip(itemsCount * --pageNumber).Take(itemsCount).ToList();
+            return internship?.Candidate.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
         }
     }
 }

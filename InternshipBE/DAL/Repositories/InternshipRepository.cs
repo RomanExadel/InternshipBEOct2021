@@ -14,9 +14,9 @@ namespace DAL.Repositories
         {
         }
 
-        public async Task<List<Internship>> GetAllInternshipsPartialAsync(int itemsCount, int pageNumber)
+        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber)
         {
-            return await _context.Internships.Skip(itemsCount * --pageNumber).Take(itemsCount).ToListAsync();
+            return await _context.Internships.Skip(pageSize * --pageNumber).Take(pageSize).ToListAsync();
         }
     }
 }
