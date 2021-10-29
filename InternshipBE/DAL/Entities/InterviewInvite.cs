@@ -6,10 +6,12 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
 
-        public int UserCandidateId { get; set; }
+        public User User { get; set; }
+
+        public int CandidateId { get; set; }
+
+        public Candidate Candidate { get; set; }
 
         public DateTime ContactDate { get; set; }
-
-        public UserCandidate UserCandidate { get; set; }
     }
 }

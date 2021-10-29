@@ -28,9 +28,7 @@ namespace DAL.Database
 
 		 public DbSet<InternshipStack> InternshipStacks { get; set; }
 
-		 public DbSet<UserCandidate> UserCandidates { get; set; }
-
-		 public DbSet<UserInternship> UserInternships { get; set; }
+		 public DbSet<Team> Teams { get; set; }
 
 		 protected override void OnModelCreating(ModelBuilder builder)
 		 {

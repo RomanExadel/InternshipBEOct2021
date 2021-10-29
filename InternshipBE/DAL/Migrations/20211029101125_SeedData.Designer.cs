@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211026172210_InitialDb")]
-    partial class InitialDb
+    [Migration("20211029101125_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CandidateUser", b =>
+                {
+                    b.Property<int>("CandidateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CandidateId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CandidateUser");
+                });
 
             modelBuilder.Entity("DAL.Entities.Candidate", b =>
                 {
@@ -85,12 +100,17 @@ namespace DAL.Migrations
                     b.Property<int>("StatusType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TestTaskEvaluation")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InternshipId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Candidates");
                 });
@@ -127,6 +147,9 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CandidateId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -136,12 +159,14 @@ namespace DAL.Migrations
                     b.Property<int>("EnglishLevelType")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserCandidateId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserCandidateId");
+                    b.HasIndex("CandidateId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Feedbacks");
                 });
@@ -209,15 +234,20 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CandidateId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ContactDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserCandidateId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserCandidateId");
+                    b.HasIndex("CandidateId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("InterviewInvites");
                 });
@@ -241,6 +271,26 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InternshipId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InternshipId");
+
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -271,9 +321,6 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -281,9 +328,6 @@ namespace DAL.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -323,54 +367,19 @@ namespace DAL.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("DAL.Entities.UserCandidate", b =>
+            modelBuilder.Entity("InternshipUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CandidateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CandidateId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserCandidates");
-                });
-
-            modelBuilder.Entity("DAL.Entities.UserInternship", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("InternshipId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("InternshipId", "UserId");
 
-                    b.HasIndex("InternshipId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserInternships");
+                    b.ToTable("InternshipUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -504,13 +513,49 @@ namespace DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TeamUser", b =>
+                {
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TeamId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TeamUser");
+                });
+
+            modelBuilder.Entity("CandidateUser", b =>
+                {
+                    b.HasOne("DAL.Entities.Candidate", null)
+                        .WithMany()
+                        .HasForeignKey("CandidateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DAL.Entities.Candidate", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
                         .WithMany("Candidate")
                         .HasForeignKey("InternshipId");
 
+                    b.HasOne("DAL.Entities.Team", "Team")
+                        .WithMany("Candidate")
+                        .HasForeignKey("TeamId");
+
                     b.Navigation("Internship");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("DAL.Entities.Evaluation", b =>
@@ -534,13 +579,19 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.Feedback", b =>
                 {
-                    b.HasOne("DAL.Entities.UserCandidate", "UserCandidate")
-                        .WithMany("Feedback")
-                        .HasForeignKey("UserCandidateId")
+                    b.HasOne("DAL.Entities.Candidate", "Candidate")
+                        .WithMany()
+                        .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserCandidate");
+                    b.HasOne("DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DAL.Entities.InternshipStack", b =>
@@ -556,47 +607,45 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.InterviewInvite", b =>
                 {
-                    b.HasOne("DAL.Entities.UserCandidate", "UserCandidate")
-                        .WithMany("InterviewInvite")
-                        .HasForeignKey("UserCandidateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserCandidate");
-                });
-
-            modelBuilder.Entity("DAL.Entities.UserCandidate", b =>
-                {
                     b.HasOne("DAL.Entities.Candidate", "Candidate")
-                        .WithMany("UserCandidate")
+                        .WithMany()
                         .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.User", "User")
-                        .WithMany("UserCandidate")
-                        .HasForeignKey("UserId1");
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Candidate");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DAL.Entities.UserInternship", b =>
+            modelBuilder.Entity("DAL.Entities.Team", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
-                        .WithMany("UserInternship")
+                        .WithMany("Team")
                         .HasForeignKey("InternshipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Entities.User", "User")
-                        .WithMany("UserInternship")
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("Internship");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("InternshipUser", b =>
+                {
+                    b.HasOne("DAL.Entities.Internship", null)
+                        .WithMany()
+                        .HasForeignKey("InternshipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -650,9 +699,19 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAL.Entities.Candidate", b =>
+            modelBuilder.Entity("TeamUser", b =>
                 {
-                    b.Navigation("UserCandidate");
+                    b.HasOne("DAL.Entities.Team", null)
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entities.Feedback", b =>
@@ -666,7 +725,7 @@ namespace DAL.Migrations
 
                     b.Navigation("InternshipStack");
 
-                    b.Navigation("UserInternship");
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("DAL.Entities.Skill", b =>
@@ -674,18 +733,9 @@ namespace DAL.Migrations
                     b.Navigation("Evaluation");
                 });
 
-            modelBuilder.Entity("DAL.Entities.User", b =>
+            modelBuilder.Entity("DAL.Entities.Team", b =>
                 {
-                    b.Navigation("UserCandidate");
-
-                    b.Navigation("UserInternship");
-                });
-
-            modelBuilder.Entity("DAL.Entities.UserCandidate", b =>
-                {
-                    b.Navigation("Feedback");
-
-                    b.Navigation("InterviewInvite");
+                    b.Navigation("Candidate");
                 });
 #pragma warning restore 612, 618
         }
