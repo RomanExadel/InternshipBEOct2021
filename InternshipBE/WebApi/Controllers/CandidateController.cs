@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using BL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Hr, Admin, Interviewer, Guest, Mananger")]
     [Route("api/[controller]")]
     [ApiController]
     public class CandidateController : Controller
