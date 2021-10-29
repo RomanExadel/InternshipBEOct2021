@@ -24,6 +24,7 @@ namespace BL.DTOs
         public DateTime RegistrationFinishDate { get; set; }
 
         public LanguageType LanguageType { get; set; }
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -48,5 +49,7 @@ namespace BL.DTOs
 =======
         public List<UserInternshipDTO> UserInternship { get; set; }
 >>>>>>> 92d55f7 (Change ICollection to List and Entities to DTO. Make InternshipStackDTO and UserInternshipDTO)
+=======
+>>>>>>> 955ab32 (Delete Useless DTO, Fixed Problems)
     }
 }

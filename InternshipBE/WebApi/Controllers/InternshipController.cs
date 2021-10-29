@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 <<<<<<< HEAD
+<<<<<<< HEAD
 using WebApi.Models;
 =======
 >>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
+=======
+using WebApi.Models;
+>>>>>>> 955ab32 (Delete Useless DTO, Fixed Problems)
 
 namespace WebApi.Controllers
 {
@@ -32,6 +36,7 @@ namespace WebApi.Controllers
         } 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         [HttpPost("GetAllInternshipsPartial")]
         public async Task<IActionResult> GetAllInternshipsPartial([FromBody] GetAllInternshipsRequest body)
         {
@@ -42,6 +47,12 @@ namespace WebApi.Controllers
         {
             var internships = await _service.GetAllInternshipAsync();
 >>>>>>> 6b6dd06 (Implement Internship service and controller. Implement API for Create, Update, Get one and Get all internships.)
+=======
+        [HttpPost("GetAllInternshipsPartial")]
+        public async Task<IActionResult> GetAllInternshipsPartial([FromBody] GetAllInternshipsRequest body)
+        {
+            var internships = await _service.GetAllInternshipsPartialAsync(body.ItemsCount, body.PageNumber);
+>>>>>>> 955ab32 (Delete Useless DTO, Fixed Problems)
 
             return Ok(internships);
         }
