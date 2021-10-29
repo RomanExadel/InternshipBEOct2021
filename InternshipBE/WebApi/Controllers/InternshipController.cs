@@ -39,11 +39,7 @@ namespace WebApi.Controllers
         [HttpPost("CreateInternship")]
         public async Task<IActionResult> CreateInternship ([FromBody] InternshipDTO internship)
         {
-<<<<<<< HEAD
-          return Ok(await _service.CreateInternshipAsync(internship));
-=======
             return Ok(await _internshipService.CreateInternshipAsync(internship));
->>>>>>> 5f7b80c (Services were renamed)
         }
 
         [HttpPut("UpdateInternship")]
