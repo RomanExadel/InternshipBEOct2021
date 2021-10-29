@@ -32,7 +32,7 @@ namespace BL.Services
 
         public async Task<List<InternshipDTO>> GetAllInternshipsPartialAsync(int itemsCount, int pageNumber)
         {
-            var internships = await _unitOfWork.Internships.GetAllInternshipsPartialAsync(itemsCount, pageNumber);
+            var internships = await _unitOfWork.Internships.GetInternshipsAsync(itemsCount, pageNumber);
             return _mapper.Map<List<InternshipDTO>>(internships);
         }
 
