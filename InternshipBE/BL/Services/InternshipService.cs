@@ -19,6 +19,7 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
