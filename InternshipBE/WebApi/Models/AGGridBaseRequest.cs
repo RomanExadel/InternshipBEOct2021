@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Models
 {
-    public class GetAllInternshipsRequest
+    public class AGGridBaseRequest
     {
         public int ItemsCount { get; set; }
 
