@@ -29,9 +29,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("GetCandidateListByInternshipId")]
-        public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest body)
+        public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
-            var candidates = await _candidateService.GetAllByInternshipIdAsync(body.InternshipId, body.ItemsCount, body.PageNumber);
+            var candidates = await _candidateService.GetAllByInternshipIdAsync(request.InternshipId, request.ItemsCount, request.PageNumber);
 
             return Ok(candidates);
         }

@@ -26,9 +26,9 @@ namespace WebApi.Controllers
         } 
 
         [HttpPost("GetAllInternshipsPartial")]
-        public async Task<IActionResult> GetAllInternshipsPartial([FromBody] AGGridBaseRequest body)
+        public async Task<IActionResult> GetAllInternshipsPartial([FromBody] AGGridBaseRequest request)
         {
-            var internships = await _internshipService.GetAllInternshipsPartialAsync(body.ItemsCount, body.PageNumber);
+            var internships = await _internshipService.GetAllInternshipsPartialAsync(request.ItemsCount, request.PageNumber);
 
             return Ok(internships);
         }
