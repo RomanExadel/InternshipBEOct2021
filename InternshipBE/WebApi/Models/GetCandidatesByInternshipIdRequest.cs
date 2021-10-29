@@ -1,11 +1,7 @@
 ﻿namespace WebApi.Models
 {
-    public class GetCandidatesByInternshipIdRequest
+    public class GetCandidatesByInternshipIdRequest : AGGridBaseRequest
     {
         public int InternshipId { get; set; }
-
-        public int ItemsCount { get; set; }
-
-        public int PageNumber { get; set; }
     }
 }
