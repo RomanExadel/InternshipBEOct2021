@@ -1,7 +1,5 @@
-﻿using DAL.Entities;
-using Shared.Enums;
+﻿using Shared.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace BL.DTOs
 {

@@ -1,10 +1,9 @@
 ﻿using Shared.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace BL.DTOs
 {
-	public class UserDTO
+    public class UserDTO
 	{
         public int Id { get; set; }
 
@@ -17,11 +16,5 @@ namespace BL.DTOs
         public string Position { get; set; }
 
         public DateTime BestContactTime { get; set; }
-
-        public List<CandidateDTO> Candidate { get; set; }
-
-        public List<InternshipDTO> Internship { get; set; }
-
-        public List<TeamDTO> Team { get; set; }
     }
 }
