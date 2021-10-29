@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using BL.DTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
-using BL.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
