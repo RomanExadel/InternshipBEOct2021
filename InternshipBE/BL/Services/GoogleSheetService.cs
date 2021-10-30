@@ -7,7 +7,6 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Shared.Config.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,10 +52,7 @@ namespace BL.Services
 				var newCandidates = values.Skip(candidates.Count).ToList();
 				return newCandidates;
 			}
-			else
-			{
-				throw new Exception("No new candidates was found");
-			}
+			else return null;
 		}
 
 		private IList<IList<object>> GetValuesFromTable()
