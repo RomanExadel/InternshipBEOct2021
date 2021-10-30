@@ -6,7 +6,7 @@ namespace BL.Interfaces
 {
     public interface IInternshipService
     {
-        Task<InternshipDTO> GetInternshipById(int internshipId);
+        Task<InternshipDTO> GetInternshipByIdAsync(int internshipId);
 
         Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship);
 
