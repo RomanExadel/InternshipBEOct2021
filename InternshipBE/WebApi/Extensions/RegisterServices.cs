@@ -11,6 +11,7 @@ namespace WebApi.Extensions
 		public static IServiceCollection AddServices(this IServiceCollection services)
 		{
 			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<IGoogleSheetService, GoogleSheetService>();
 			services.AddTransient<ICandidateService, CandidateService>();
 			services.AddTransient<IUnitOfWork, EFUnitOfWork>();
 

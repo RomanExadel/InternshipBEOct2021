@@ -41,6 +41,12 @@ namespace DAL.Repositories
 			return await _dbSet.FindAsync(id);
 		}
 
+		public async Task RangeSaveAsync(List<TEntity> entities)
+		{
+			await _dbSet.AddRangeAsync(entities);
+			await _context.SaveChangesAsync();
+		}
+
 		public async Task<TEntity> UpdateAsync(TEntity entity)
 		{
 			await Task.Run(() => _dbSet.Update(entity));

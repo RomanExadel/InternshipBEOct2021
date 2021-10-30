@@ -17,7 +17,7 @@ using WebApi.Extensions;
 
 namespace WebApi
 {
-    public class Startup
+	public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -49,24 +49,18 @@ namespace WebApi
 				});
 				c.AddSecurityRequirement(new OpenApiSecurityRequirement
 				{
-                    {
+					{
 						new OpenApiSecurityScheme
-                        {
+						{
 							Reference = new OpenApiReference
-                            {
+							{
 								Type = ReferenceType.SecurityScheme,
 								Id = "Bearer"
-                            }
-                        },
+							}
+						},
 						new string[] {}
-                    }
+					}
 				});
-			});
-
-			services.AddCors(c =>
-			{
-				c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
-				.AllowAnyHeader());
 			});
 
 			services.AddRepositories().AddServices();
@@ -92,8 +86,6 @@ namespace WebApi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -106,6 +98,9 @@ namespace WebApi
 			//app.UseHttpsRedirection();
 
 			app.UseRouting();
+
+			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 			app.UseAuthentication();
 
 			app.UseAuthorization();
