@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using BL.DTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
-using BL.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
@@ -31,7 +28,7 @@ namespace WebApi.Controllers
         [HttpPost("getInternships")]
         public async Task<IActionResult> GetInternships([FromBody] AGGridBaseRequest request)
         {
-            var internships = await _internshipService.GetAllInternshipsPartialAsync(body.ItemsCount, body.PageNumber);
+            var internships = await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber);
 
             return Ok(internships);
         }
