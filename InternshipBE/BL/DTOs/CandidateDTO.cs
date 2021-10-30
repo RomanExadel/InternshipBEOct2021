@@ -6,6 +6,7 @@ namespace BL.DTOs
     public class CandidateDTO
     {
         public int Id { get; set; }
+
         public DateTime RegistationDate { get; set; }
 
         public string Email { get; set; }
@@ -35,10 +36,11 @@ namespace BL.DTOs
         public string CurrentJob { get; set; }
 
         public string ProfessionalCertificates { get; set; }
+
         public bool IsPlanningToJoin { get; set; }
 
-
         public int TestTaskEvaluation { get; set; }
+
         public DateTime BestContactTime { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace BL.Interfaces
 {
 	public interface IGoogleSheetService
 	{
-		public Task SaveNewCandidates();
+		public Task SaveNewCandidatesAsync();
 	}
 }

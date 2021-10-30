@@ -19,7 +19,7 @@ namespace BL.Mapping
         public static MapperConfiguration GetConfig()
         {
             var configuration = new MapperConfiguration(MapperConfigurationExpression);
-            
+
             configuration.AssertConfigurationIsValid();
 
             return configuration;

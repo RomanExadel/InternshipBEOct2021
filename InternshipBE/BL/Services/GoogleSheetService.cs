@@ -20,7 +20,7 @@ namespace BL.Services
 		private readonly IGoogleSheetConfig _sheetConfig;
 		private readonly ICandidateRepository _candidateRepository;
 		private IMapper _mapper;
-		private SheetsService service;
+		private SheetsService _sheetService;
 
 		public GoogleSheetService(IGoogleSheetConfig sheetConfig, IMapper mapper, ICandidateRepository candidateRepository)
 		{
@@ -29,24 +29,20 @@ namespace BL.Services
 			_sheetConfig = sheetConfig;
 		}
 
-		public async Task SaveNewCandidates()
+		public async Task SaveNewCandidatesAsync()
 		{
-			var values = CheckCandidates().Result;
+			var values = await CheckNewCandidatesAsync();
 
 			if (values != null)
 			{
-				var models = _mapper.Map(values, new List<CandidateDTO>());
-				var candidates = _mapper.Map(models, new List<Candidate>());
+				var models = _mapper.Map<List<CandidateDTO>>(values);
+				var candidates = _mapper.Map<List<Candidate>>(models);
 
-				await _candidateRepository.SaveListCandidatesAsync(candidates);
-			}
-			else
-			{
-				await Task.Run(() => throw new Exception("No new candidates was found"));
+				await _candidateRepository.RangeSaveAsync(candidates);
 			}
 		}
 
-		private async Task<IList<IList<object>>> CheckCandidates()
+		private async Task<IList<IList<object>>> CheckNewCandidatesAsync()
 		{
 			var values = GetValuesFromTable().Skip(1);
 
@@ -59,7 +55,7 @@ namespace BL.Services
 			}
 			else
 			{
-				return null;
+				throw new Exception("No new candidates was found");
 			}
 		}
 
@@ -67,14 +63,14 @@ namespace BL.Services
 		{
 			var credential = GoogleCredential.FromFile(_sheetConfig.ClientSecrets).CreateScoped(Scope);
 
-			service = new SheetsService(new BaseClientService.Initializer()
+			_sheetService = new SheetsService(new BaseClientService.Initializer()
 			{
 				HttpClientInitializer = credential,
 				ApplicationName = _sheetConfig.ApplicationName
 			});
 
 			var range = $"{_sheetConfig.Sheet}{_sheetConfig.RangeSettings}";
-			var request = service.Spreadsheets.Values.Get(_sheetConfig.SpreadsheetId, range);
+			var request = _sheetService.Spreadsheets.Values.Get(_sheetConfig.SpreadsheetId, range);
 
 			var response = request.Execute();
 			var values = response.Values;
@@ -83,4 +79,5 @@ namespace BL.Services
 		}
 	}
 }
+
 

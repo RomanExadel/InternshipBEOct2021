@@ -2,7 +2,7 @@
 {
 	public interface IGoogleSheetConfig
 	{ 
-		public  string ApplicationName { get; }
+		public string ApplicationName { get; }
 
 		public string SpreadsheetId { get; }
 

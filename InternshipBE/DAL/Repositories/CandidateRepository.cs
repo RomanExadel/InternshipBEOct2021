@@ -20,11 +20,5 @@ namespace DAL.Repositories
 
 			return internship?.Candidate.Skip(itemsCount * pageNumber).Take(itemsCount).ToList();
 		}
-
-		public async Task SaveListCandidatesAsync(List<Candidate> candidates)
-		{
-			await _context.Candidates.AddRangeAsync(candidates);
-			await _context.SaveChangesAsync();
-		}
 	}
 }
