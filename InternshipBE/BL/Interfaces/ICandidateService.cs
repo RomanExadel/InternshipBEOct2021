@@ -12,6 +12,6 @@ namespace BL.Interfaces
 
         Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO updatedCandidate);
 
-        Task<List<CandidateDTO>> GetAllByInternshipIdAsync(int internshipId, int pageSize, int pageNumber);
+        Task<List<CandidateDTO>> GetAllCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber);
     }
 }
