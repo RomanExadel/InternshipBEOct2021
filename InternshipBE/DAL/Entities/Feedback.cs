@@ -20,7 +20,7 @@ namespace DAL.Entities
 
         public Candidate Candidate { get; set; }
 
-        public ICollection<Evaluation> Evaluation { get; set; }
+        public ICollection<Evaluation> Evaluations { get; set; }
     }
 }
 

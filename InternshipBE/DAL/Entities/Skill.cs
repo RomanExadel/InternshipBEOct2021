@@ -14,6 +14,6 @@ namespace DAL.Entities
 
         public bool IsHardSkill { get; set; }
 
-        public ICollection<Evaluation> Evaluation { get; set; }
+        public ICollection<Evaluation> Evaluations { get; set; }
     }
 }

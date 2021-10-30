@@ -16,9 +16,9 @@ namespace DAL.Repositories
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
         {
-            var internship = await _context.Internships.Include(x => x.Candidate).FirstOrDefaultAsync(x => x.Id == id);
+            var internship = await _context.Internships.Include(x => x.Candidates).FirstOrDefaultAsync(x => x.Id == id);
 
-            return internship?.Candidate.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
+            return internship?.Candidates.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
         }
     }
 }
