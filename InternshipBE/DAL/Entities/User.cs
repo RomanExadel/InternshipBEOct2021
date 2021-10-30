@@ -7,8 +7,6 @@ namespace DAL.Entities
 {
 	public class User : IdentityUser
 	{
-        public RoleType RoleType { get; set; }
-
         public string Position { get; set; }
 
         public DateTime BestContactTime { get; set; }
