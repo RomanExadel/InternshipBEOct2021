@@ -8,7 +8,7 @@ namespace BL.Mapping.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, UserDTO>().ForMember(x => x.RoleType, o => o.Ignore()).ReverseMap();
         }
     }
 }
