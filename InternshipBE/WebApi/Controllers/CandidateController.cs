@@ -20,7 +20,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
         
-        [HttpGet("GetCandidateById")]
+        [HttpGet("getCandidateById")]
         public async Task<IActionResult> GetCandidateById([FromQuery] int candidateId)
         {
             var candidate = await _candidateService.GetCandidateByIdAsync(candidateId);
@@ -28,7 +28,7 @@ namespace WebApi.Controllers
             return Ok(candidate);
         }
 
-        [HttpPost("GetCandidateListByInternshipId")]
+        [HttpPost("getCandidateListByInternshipId")]
         public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
             var candidates = await _candidateService.GetAllByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber);
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
             return Ok(candidates);
         }
 
-        [HttpPost("CreateCandidate")]
+        [HttpPost("createCandidate")]
         public async Task<IActionResult> CreateCandidate([FromBody] CandidateDTO candidate)
         {
             var createdCandidate = await _candidateService.CreateCandidateAsync(candidate);
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
             return Ok(createdCandidate);
         }
 
-        [HttpPut("UpdateCandidate")]
+        [HttpPut("updateCandidate")]
         public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO candidate)
         {
             var updatedCandidate = await _candidateService.UpdateCandidateAsync(candidate);
