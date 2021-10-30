@@ -38,7 +38,7 @@ namespace BL.Services
 
         public async Task<InternshipDTO> GetInternshipByIdAsync(int id)
         {
-            var internship = await _unitOfWork.Internships.GetByIdAsync(id);
+            var internship = await _unitOfWork.Internships.GetByIdAsync(internshipId);
             return _mapper.Map<InternshipDTO>(internship);
         }
 

@@ -21,7 +21,7 @@ namespace BL.Services
 
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(candidateId);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
