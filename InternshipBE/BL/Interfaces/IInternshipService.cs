@@ -6,12 +6,12 @@ namespace BL.Interfaces
 {
     public interface IInternshipService
     {
-        Task<InternshipDTO> GetInternshipAsync(int id);
+        Task<InternshipDTO> GetInternshipById(int internshipId);
 
         Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship);
 
-        Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship);
+        Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO updatedInternship);
 
-        Task<List<InternshipDTO>> GetInternshipsAsync(int itemsCount, int pageNumber);
+        Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber);
     }
 }
