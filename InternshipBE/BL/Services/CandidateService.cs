@@ -19,9 +19,9 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public async Task<CandidateDTO> GetCandidateByIdAsync(int candidateId)
+        public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(candidateId);
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -46,9 +46,9 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> GetAllCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber)
+        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber)
         {
-            var candidates = await _unitOfWork.Candidates.GetAllCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
+            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
