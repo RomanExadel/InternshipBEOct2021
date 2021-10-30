@@ -11,10 +11,10 @@ namespace DAL.Entities
 
         public DateTime BestContactTime { get; set; }
         
-        public ICollection<Candidate> Candidate { get; set; }
+        public ICollection<Candidate> Candidates { get; set; }
 
-        public ICollection<Internship> Internship { get; set; }
+        public ICollection<Internship> Internships { get; set; }
         
-        public ICollection<Team> Team { get; set; }
+        public ICollection<Team> Teams { get; set; }
     }	
 }

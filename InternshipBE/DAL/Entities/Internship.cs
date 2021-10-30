@@ -24,12 +24,12 @@ namespace DAL.Entities
 
         public LanguageType LanguageType { get; set; }
 
-        public ICollection<Candidate> Candidate { get; set; }
+        public ICollection<Candidate> Candidates { get; set; }
 
-        public ICollection<InternshipStack> InternshipStack { get; set; }
+        public ICollection<InternshipStack> InternshipStacks { get; set; }
 
-        public ICollection<User> User { get; set; }
+        public ICollection<User> Users { get; set; }
 
-        public ICollection<Team> Team { get; set; }
+        public ICollection<Team> Teams { get; set; }
     }
 }
