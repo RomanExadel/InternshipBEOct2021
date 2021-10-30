@@ -21,9 +21,9 @@ namespace WebApi.Controllers
         }
         
         [HttpGet("getCandidateById")]
-        public async Task<IActionResult> GetCandidateById([FromQuery] int candidateId)
+        public async Task<IActionResult> GetCandidateById([FromQuery] int id)
         {
-            var candidate = await _candidateService.GetCandidateByIdAsync(candidateId);
+            var candidate = await _candidateService.GetCandidateByIdAsync(id);
 
             return Ok(candidate);
         }
@@ -31,7 +31,7 @@ namespace WebApi.Controllers
         [HttpPost("getCandidateListByInternshipId")]
         public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
-            var candidates = await _candidateService.GetAllCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber);
+            var candidates = await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber);
 
             return Ok(candidates);
         }
