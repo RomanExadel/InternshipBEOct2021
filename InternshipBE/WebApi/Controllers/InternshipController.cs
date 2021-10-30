@@ -17,7 +17,7 @@ namespace WebApi.Controllers
             _internshipService = internshipService; 
         }
 
-        [HttpGet("GetInternshipById")]
+        [HttpGet("getInternshipById")]
         public async Task<IActionResult> GetInternshipById([FromQuery] int id)
         {
             var internship = await _internshipService.GetInternshipByIdAsync(id); 
@@ -25,7 +25,7 @@ namespace WebApi.Controllers
             return Ok(internship);
         } 
 
-        [HttpPost("GetInternships")]
+        [HttpPost("getInternships")]
         public async Task<IActionResult> GetInternships([FromBody] AGGridBaseRequest request)
         {
             var internships = await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber);
@@ -33,13 +33,13 @@ namespace WebApi.Controllers
             return Ok(internships);
         }
 
-        [HttpPost("CreateInternship")]
+        [HttpPost("createInternship")]
         public async Task<IActionResult> CreateInternship([FromBody] InternshipDTO internship)
         {
             return Ok(await _internshipService.CreateInternshipAsync(internship));
         }
 
-        [HttpPut("UpdateInternship")]
+        [HttpPut("updateInternship")]
         public async Task<IActionResult> UpdateInternship([FromBody] InternshipDTO internship)
         {
             return Ok(await _internshipService.UpdateInternshipAsync(internship));
