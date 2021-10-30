@@ -21,7 +21,7 @@ namespace BL.Services
 		private IMapper _mapper;
 		private SheetsService _sheetService;
 
-		private const int ROW_WITH_COLUMN_NAMES = 1;
+		private const int COLUMN_NAMES_ROW = 1;
 
 		public GoogleSheetService(IGoogleSheetConfig sheetConfig, IMapper mapper, ICandidateRepository candidateRepository)
 		{
@@ -45,7 +45,7 @@ namespace BL.Services
 
 		private async Task<IList<IList<object>>> GetNewCandidatesAsync()
 		{
-			var values = GetValuesFromTable().Skip(ROW_WITH_COLUMN_NAMES);
+			var values = GetValuesFromTable().Skip(COLUMN_NAMES_ROW);
 			var candidatesAmount = await _candidateRepository.GetCandidatesCountAsync();
 
 			if (values.Count() > candidatesAmount)
