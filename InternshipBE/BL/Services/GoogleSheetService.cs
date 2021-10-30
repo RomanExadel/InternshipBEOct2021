@@ -30,7 +30,7 @@ namespace BL.Services
 
 		public async Task SaveNewCandidatesAsync()
 		{
-			var values = await CheckNewCandidatesAsync();
+			var values = await GetNewCandidatesAsync();
 
 			if (values != null)
 			{
@@ -41,15 +41,14 @@ namespace BL.Services
 			}
 		}
 
-		private async Task<IList<IList<object>>> CheckNewCandidatesAsync()
+		private async Task<IList<IList<object>>> GetNewCandidatesAsync()
 		{
 			var values = GetValuesFromTable().Skip(1);
+			var candidatesAmount = await _candidateRepository.GetCandidatesCountAsync();
 
-			var candidates = await _candidateRepository.GetAllAsync();
-
-			if (values.Count() > candidates.Count)
+			if (values.Count() > candidatesAmount)
 			{
-				var newCandidates = values.Skip(candidates.Count).ToList();
+				var newCandidates = values.Skip(candidatesAmount).ToList();
 				return newCandidates;
 			}
 			else return null;
