@@ -4,6 +4,6 @@ namespace BL.Interfaces
 {
 	public interface IUserService
 	{
-		Task<string> AuthenticateAsync(string login, string password);
+		Task<string> AuthenticateAsync(string email, string password);
 	}
 }

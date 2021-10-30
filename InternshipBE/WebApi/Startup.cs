@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shared.Extensions;
 using System.Text;
+using System.Text.Json;
 using WebApi.Extensions;
 
 namespace WebApi
@@ -34,7 +35,9 @@ namespace WebApi
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
-			services.AddControllers();
+			services.AddControllers()
+					.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
