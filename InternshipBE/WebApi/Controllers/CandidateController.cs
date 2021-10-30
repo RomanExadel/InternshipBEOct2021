@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         [HttpGet("GetCandidateById")]
         public async Task<IActionResult> GetCandidateById([FromQuery] int candidateId)
         {
-            var candidate = await _candidateService.GetCandidateAsync(candidateId);
+            var candidate = await _candidateService.GetCandidateByIdAsync(candidateId);
 
             return Ok(candidate);
         }
