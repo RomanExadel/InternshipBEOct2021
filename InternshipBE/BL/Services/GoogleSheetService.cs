@@ -46,7 +46,8 @@ namespace BL.Services
 		private async Task<IList<IList<object>>> GetNewCandidatesAsync()
 		{
 			var values = GetValuesFromTable().Skip(COLUMN_NAMES_ROW);
-			var candidatesAmount = await _candidateRepository.GetCandidatesCountAsync();
+			var candidates = await _candidateRepository.GetAllAsync();
+			var candidatesAmount = candidates.Count;
 
 			if (values.Count() > candidatesAmount)
 			{

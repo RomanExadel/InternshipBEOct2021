@@ -36,8 +36,9 @@ namespace BL.Mapping.Profiles
 			CreateMap<CandidateDTO, Candidate>()
 				.ForMember(x => x.TestTaskEvaluation, o => o.Ignore())
 				.ForMember(x => x.StatusType, o => o.Ignore())
-				.ForMember(x => x.UserCandidate, o => o.Ignore())
 				.ForMember(x => x.Internship, o => o.Ignore())
+				.ForMember(x => x.Team, o => o.Ignore())
+				.ForMember(x => x.Users, o => o.Ignore())
 				.ReverseMap();
 		}
 	}
