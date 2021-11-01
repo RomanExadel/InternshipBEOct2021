@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211030100556_InitialDb")]
+    [Migration("20211101091704_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,15 +23,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("CandidateUser", b =>
                 {
-                    b.Property<int>("CandidateId")
+                    b.Property<int>("CandidatesId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UsersId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CandidateId", "UserId");
+                    b.HasKey("CandidatesId", "UsersId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("CandidateUser");
                 });
@@ -366,15 +366,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("InternshipUser", b =>
                 {
-                    b.Property<int>("InternshipId")
+                    b.Property<int>("InternshipsId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UsersId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("InternshipId", "UserId");
+                    b.HasKey("InternshipsId", "UsersId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("InternshipUser");
                 });
@@ -512,15 +512,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("TeamUser", b =>
                 {
-                    b.Property<int>("TeamId")
+                    b.Property<int>("TeamsId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UsersId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("TeamId", "UserId");
+                    b.HasKey("TeamsId", "UsersId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("TeamUser");
                 });
@@ -529,13 +529,13 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Entities.Candidate", null)
                         .WithMany()
-                        .HasForeignKey("CandidateId")
+                        .HasForeignKey("CandidatesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -543,11 +543,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Candidate", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
-                        .WithMany("Candidate")
+                        .WithMany("Candidates")
                         .HasForeignKey("InternshipId");
 
                     b.HasOne("DAL.Entities.Team", "Team")
-                        .WithMany("Candidate")
+                        .WithMany("Candidates")
                         .HasForeignKey("TeamId");
 
                     b.Navigation("Internship");
@@ -558,13 +558,13 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Evaluation", b =>
                 {
                     b.HasOne("DAL.Entities.Feedback", "Feedback")
-                        .WithMany("Evaluation")
+                        .WithMany("Evaluations")
                         .HasForeignKey("FeedbackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.Skill", "Skill")
-                        .WithMany("Evaluation")
+                        .WithMany("Evaluations")
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -594,7 +594,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.InternshipStack", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
-                        .WithMany("InternshipStack")
+                        .WithMany("InternshipStacks")
                         .HasForeignKey("InternshipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,7 +622,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Team", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
-                        .WithMany("Team")
+                        .WithMany("Teams")
                         .HasForeignKey("InternshipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -634,13 +634,13 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Entities.Internship", null)
                         .WithMany()
-                        .HasForeignKey("InternshipId")
+                        .HasForeignKey("InternshipsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -700,39 +700,39 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Entities.Team", null)
                         .WithMany()
-                        .HasForeignKey("TeamId")
+                        .HasForeignKey("TeamsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entities.Feedback", b =>
                 {
-                    b.Navigation("Evaluation");
+                    b.Navigation("Evaluations");
                 });
 
             modelBuilder.Entity("DAL.Entities.Internship", b =>
                 {
-                    b.Navigation("Candidate");
+                    b.Navigation("Candidates");
 
-                    b.Navigation("InternshipStack");
+                    b.Navigation("InternshipStacks");
 
-                    b.Navigation("Team");
+                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("DAL.Entities.Skill", b =>
                 {
-                    b.Navigation("Evaluation");
+                    b.Navigation("Evaluations");
                 });
 
             modelBuilder.Entity("DAL.Entities.Team", b =>
                 {
-                    b.Navigation("Candidate");
+                    b.Navigation("Candidates");
                 });
 #pragma warning restore 612, 618
         }
