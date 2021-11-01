@@ -1,6 +1,8 @@
+using BL.Interfaces;
 using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,9 @@ namespace WebApi
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddHangfireServer();
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -91,6 +96,9 @@ namespace WebApi
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+
+				app.UseHangfireDashboard();
+				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), Cron.Minutely);
 			}
 
 			app.UseGlobalExceptionMiddleware();
@@ -108,6 +116,7 @@ namespace WebApi
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
+				endpoints.MapHangfireDashboard();
 			});
 		}
 	}
