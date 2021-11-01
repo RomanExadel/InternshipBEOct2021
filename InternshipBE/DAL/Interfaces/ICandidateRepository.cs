@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-	public interface ICandidateRepository : IGenericRepository<Candidate>
-	{
-		Task<List<Candidate>> GetAllByInternshipIdAsync(int id, int itemsCount, int pageNumber);
+    public interface ICandidateRepository : IGenericRepository<Candidate>
+    {
+        Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber);
 
-		Task<int> GetCandidatesCountAsync();
-	}
+        Task<int> GetCandidatesCountAsync();
+    }
 }

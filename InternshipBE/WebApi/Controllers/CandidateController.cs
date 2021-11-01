@@ -7,48 +7,47 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CandidateController : Controller
     {
-        private readonly ICandidateService _service;
+        private readonly ICandidateService _candidateService;
         private readonly IMapper _mapper;
 
-        public CandidateController(ICandidateService service, IMapper mapper)
+        public CandidateController(ICandidateService candidateService, IMapper mapper)
         {
-            _service = service;
+            _candidateService = candidateService;
             _mapper = mapper;
         }
         
-        [HttpGet("GetCandidateById")]
-        public async Task<IActionResult> GetCandidateById([FromQuery] int candidateId)
+        [HttpGet("getCandidateById")]
+        public async Task<IActionResult> GetCandidateById([FromQuery] int id)
         {
-            var candidate = await _service.GetCandidateAsync(candidateId);
+            var candidate = await _candidateService.GetCandidateByIdAsync(id);
 
             return Ok(candidate);
         }
 
-        [HttpPost("GetCandidateListByInternshipId")]
-        public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest body)
+        [HttpPost("getCandidateListByInternshipId")]
+        public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
-            var candidates = await _service.GetAllByInternshipIdAsync(body.InternshipId, body.ItemsCount, body.PageNumber);
+            var candidates = await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber);
 
             return Ok(candidates);
         }
 
-        [HttpPost("CreateCandidate")]
+        [HttpPost("createCandidate")]
         public async Task<IActionResult> CreateCandidate([FromBody] CandidateDTO candidate)
         {
-            var createdCandidate = await _service.CreateCandidateAsync(candidate);
+            var createdCandidate = await _candidateService.CreateCandidateAsync(candidate);
 
             return Ok(createdCandidate);
         }
 
-        [HttpPut("UpdateCandidate")]
+        [HttpPut("updateCandidate")]
         public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO candidate)
         {
-            var updatedCandidate = await _service.UpdateCandidateAsync(candidate);
+            var updatedCandidate = await _candidateService.UpdateCandidateAsync(candidate);
 
             return Ok(updatedCandidate);
         }

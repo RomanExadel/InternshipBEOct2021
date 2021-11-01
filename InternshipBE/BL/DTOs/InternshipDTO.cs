@@ -1,10 +1,9 @@
 ﻿using Shared.Enums;
 using System;
-using System.Collections.Generic;
 
-namespace DAL.Entities
+namespace BL.DTOs
 {
-    public class Internship
+    public class InternshipDTO
     {
         public int Id { get; set; }
 
@@ -23,13 +22,5 @@ namespace DAL.Entities
         public DateTime RegistrationFinishDate { get; set; }
 
         public LanguageType LanguageType { get; set; }
-
-        public ICollection<Candidate> Candidates { get; set; }
-
-        public ICollection<InternshipStack> InternshipStacks { get; set; }
-
-        public ICollection<User> Users { get; set; }
-
-        public ICollection<Team> Teams { get; set; }
     }
 }

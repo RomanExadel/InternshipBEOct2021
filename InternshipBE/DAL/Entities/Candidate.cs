@@ -50,6 +50,6 @@ namespace DAL.Entities
 
         public Team Team { get; set; }
 
-        public ICollection<User> User { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }
