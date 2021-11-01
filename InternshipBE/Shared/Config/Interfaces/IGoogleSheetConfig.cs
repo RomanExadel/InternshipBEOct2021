@@ -11,5 +11,7 @@
 		public string RangeSettings { get; }
 
 		public string ClientSecrets { get; }
+
+		public string DateTimeFormat{ get; }
 	}
 }

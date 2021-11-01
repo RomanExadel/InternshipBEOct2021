@@ -17,6 +17,7 @@ using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
 using WebApi.Extensions;
+using static Shared.Constants.ConfiguratioConstants;
 
 namespace WebApi
 {
@@ -32,10 +33,10 @@ namespace WebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
 
 			services.AddHangfire(x =>
-					x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"))
+					x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString))
 			);
 
 			services.AddHangfireServer();
