@@ -51,5 +51,9 @@ namespace DAL.Entities
         public Team Team { get; set; }
 
         public ICollection<User> Users { get; set; }
+
+        public int InternshipId { get; set; }
+
+        //public int TeamId { get; set; }
     }
 }

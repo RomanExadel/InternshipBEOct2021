@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211101091704_InitialDb")]
+    [Migration("20211101153018_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace DAL.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("InternshipId")
+                    b.Property<int>("InternshipId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsPlanningToJoin")
@@ -544,7 +544,9 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
                         .WithMany("Candidates")
-                        .HasForeignKey("InternshipId");
+                        .HasForeignKey("InternshipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DAL.Entities.Team", "Team")
                         .WithMany("Candidates")

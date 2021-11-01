@@ -21,6 +21,8 @@ namespace DAL.Entities
         public Candidate Candidate { get; set; }
 
         public ICollection<Evaluation> Evaluations { get; set; }
+
+        public string UserId { get; set; }
     }
 }
 

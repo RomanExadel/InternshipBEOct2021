@@ -278,8 +278,8 @@ namespace DAL.Migrations
                     EnglishLevelType = table.Column<int>(type: "int", nullable: false),
                     IsPlanningToJoin = table.Column<bool>(type: "bit", nullable: false),
                     RegistationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InternshipId = table.Column<int>(type: "int", nullable: true),
-                    TeamId = table.Column<int>(type: "int", nullable: true)
+                    TeamId = table.Column<int>(type: "int", nullable: true),
+                    InternshipId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -289,7 +289,7 @@ namespace DAL.Migrations
                         column: x => x.InternshipId,
                         principalTable: "Internships",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Candidates_Teams_TeamId",
                         column: x => x.TeamId,
