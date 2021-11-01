@@ -49,7 +49,6 @@ namespace BL.Services
             await _unitOfWork.SaveAsync();
 
             return _mapper.Map<InternshipDTO>(updatedInternship);
-
         }
     }
 }

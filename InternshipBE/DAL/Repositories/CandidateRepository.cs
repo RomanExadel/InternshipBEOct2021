@@ -20,5 +20,10 @@ namespace DAL.Repositories
 
             return internship?.Candidates.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
         }
-    }
+
+		public async Task<int> GetCandidatesCountAsync()
+		{
+			return await _context.Candidates.CountAsync();
+		}
+	}
 }
