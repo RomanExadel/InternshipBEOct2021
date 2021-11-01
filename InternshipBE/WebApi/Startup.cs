@@ -33,7 +33,10 @@ namespace WebApi
 		{
 			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddHangfire(x =>
+					x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"))
+			);
+
 			services.AddHangfireServer();
 
 			services.AddIdentity<User, IdentityRole>()
@@ -98,7 +101,7 @@ namespace WebApi
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
 				app.UseHangfireDashboard();
-				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), Cron.Minutely);
+				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), Cron.Hourly);
 			}
 
 			app.UseGlobalExceptionMiddleware();
@@ -116,7 +119,6 @@ namespace WebApi
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
-				endpoints.MapHangfireDashboard();
 			});
 		}
 	}
