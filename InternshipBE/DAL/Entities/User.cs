@@ -9,10 +9,6 @@ namespace DAL.Entities
 	{
         public RoleType RoleType { get; set; }
 
-        public string Login { get; set; }
-
-        public string Password { get; set; }
-
         public string Position { get; set; }
 
         public DateTime BestContactTime { get; set; }
