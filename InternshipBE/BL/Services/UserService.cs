@@ -15,12 +15,14 @@ namespace BL.Services
 	public class UserService : IUserService
 	{
 		private readonly UserManager<User> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly IConfiguration _configuration;
 
-		public UserService(UserManager<User> userManager, IConfiguration configuration)
+		public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
 		{
 			_userManager = userManager;
 			_configuration = configuration;
+			_roleManager = roleManager;
 		}
 
 		public async Task<string> AuthenticateAsync(string email, string password)
@@ -29,10 +31,13 @@ namespace BL.Services
 
 			if (user != null && await _userManager.CheckPasswordAsync(user, password))
 			{
+				await EnsureCreateRoleAsync(user);
+
 				var roles = await _userManager.GetRolesAsync(user);
 				var authClaims = new List<Claim>
 				{
 					new Claim(ClaimTypes.Name, user.UserName),
+					new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 				};
 
 				foreach(var role in roles)
@@ -56,6 +61,19 @@ namespace BL.Services
 			}
 
 			return string.Empty;
+		}
+
+		private async Task EnsureCreateRoleAsync(User user) 
+		{
+			if (!await _roleManager.RoleExistsAsync(user.RoleType.ToString()))
+			{
+				await _roleManager.CreateAsync(new IdentityRole(user.RoleType.ToString()));
+			}
+
+			if (await _roleManager.RoleExistsAsync(user.RoleType.ToString()))
+			{
+				await _userManager.AddToRoleAsync(user, user.RoleType.ToString());
+			}
 		}
 	}
 }
