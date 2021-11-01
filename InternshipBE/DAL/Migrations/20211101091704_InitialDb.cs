@@ -26,7 +26,6 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleType = table.Column<int>(type: "int", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BestContactTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -214,21 +213,21 @@ namespace DAL.Migrations
                 name: "InternshipUser",
                 columns: table => new
                 {
-                    InternshipId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    InternshipsId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InternshipUser", x => new { x.InternshipId, x.UserId });
+                    table.PrimaryKey("PK_InternshipUser", x => new { x.InternshipsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_InternshipUser_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_InternshipUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InternshipUser_Internships_InternshipId",
-                        column: x => x.InternshipId,
+                        name: "FK_InternshipUser_Internships_InternshipsId",
+                        column: x => x.InternshipsId,
                         principalTable: "Internships",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -303,21 +302,21 @@ namespace DAL.Migrations
                 name: "TeamUser",
                 columns: table => new
                 {
-                    TeamId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    TeamsId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeamUser", x => new { x.TeamId, x.UserId });
+                    table.PrimaryKey("PK_TeamUser", x => new { x.TeamsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_TeamUser_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_TeamUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TeamUser_Teams_TeamId",
-                        column: x => x.TeamId,
+                        name: "FK_TeamUser_Teams_TeamsId",
+                        column: x => x.TeamsId,
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -327,21 +326,21 @@ namespace DAL.Migrations
                 name: "CandidateUser",
                 columns: table => new
                 {
-                    CandidateId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CandidatesId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CandidateUser", x => new { x.CandidateId, x.UserId });
+                    table.PrimaryKey("PK_CandidateUser", x => new { x.CandidatesId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_CandidateUser_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_CandidateUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CandidateUser_Candidates_CandidateId",
-                        column: x => x.CandidateId,
+                        name: "FK_CandidateUser_Candidates_CandidatesId",
+                        column: x => x.CandidatesId,
                         principalTable: "Candidates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -480,9 +479,9 @@ namespace DAL.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CandidateUser_UserId",
+                name: "IX_CandidateUser_UsersId",
                 table: "CandidateUser",
-                column: "UserId");
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Evaluations_FeedbackId",
@@ -510,9 +509,9 @@ namespace DAL.Migrations
                 column: "InternshipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InternshipUser_UserId",
+                name: "IX_InternshipUser_UsersId",
                 table: "InternshipUser",
-                column: "UserId");
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InterviewInvites_CandidateId",
@@ -530,9 +529,9 @@ namespace DAL.Migrations
                 column: "InternshipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamUser_UserId",
+                name: "IX_TeamUser_UsersId",
                 table: "TeamUser",
-                column: "UserId");
+                column: "UsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

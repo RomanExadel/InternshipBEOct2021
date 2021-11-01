@@ -12,8 +12,8 @@ namespace DAL.Entities
 
         public Internship Internship { get; set; }
 
-        public ICollection<User> User { get; set; }
+        public ICollection<User> Users { get; set; }
 
-        public ICollection<Candidate> Candidate { get; set; }
+        public ICollection<Candidate> Candidates { get; set; }
     }
 }

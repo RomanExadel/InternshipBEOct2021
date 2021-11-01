@@ -38,7 +38,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(x => x.StatusType, o => o.Ignore())
 				.ForMember(x => x.Internship, o => o.Ignore())
 				.ForMember(x => x.Team, o => o.Ignore())
-				.ForMember(x => x.User, o => o.Ignore())
+				.ForMember(x => x.Users, o => o.Ignore())
 				.ReverseMap();
 		}
 	}

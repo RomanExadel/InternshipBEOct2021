@@ -14,6 +14,7 @@ namespace WebApi.Extensions
 			services.AddTransient<IGoogleSheetService, GoogleSheetService>();
 			services.AddTransient<ICandidateService, CandidateService>();
 			services.AddTransient<IUnitOfWork, EFUnitOfWork>();
+			services.AddTransient<IInternshipService, InternshipService>();
 
 			return services;
 		}
