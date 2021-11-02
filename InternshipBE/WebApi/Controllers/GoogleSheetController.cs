@@ -21,6 +21,6 @@ namespace WebApi.Controllers
 			await _googleSheetService.SaveNewCandidatesAsync();
 
 			return Ok();
-		}	
+		}
 	}
 }
