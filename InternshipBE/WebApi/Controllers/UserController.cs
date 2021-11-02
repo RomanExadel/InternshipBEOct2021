@@ -17,7 +17,7 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet("GetUserInfo")]
+        [HttpGet("getUserInfo")]
         public async Task<IActionResult> GetUserInfo()
         {
             var userName = User.Identity.Name;
