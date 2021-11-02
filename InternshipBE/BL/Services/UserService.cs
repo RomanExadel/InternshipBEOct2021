@@ -66,9 +66,9 @@ namespace BL.Services
             return string.Empty;
         }
 
-        public async Task<UserDTO> GetUserByUserNameAsync(string userName)
+        public async Task<UserDTO> GetUserInfoByUserNameAsync(string userName)
         {
-            var user = await CheckPresenceUserAsync(userName);
+            var user = await GetUserByUserNameAsync(userName);
 
             var userRole = await GetUserRoleAsync(user);
 
@@ -86,14 +86,12 @@ namespace BL.Services
             if (roles == null)
             {
                 throw new ArgumentNullException(nameof(roles),"roles is null");
-            }
-            
-            string userRole = roles.SingleOrDefault(); 
+            } 
 
-            return userRole;
+            return roles.Single();
         }
 
-        private async Task<User> CheckPresenceUserAsync(string userName)
+        private async Task<User> GetUserByUserNameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
 
