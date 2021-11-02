@@ -18,11 +18,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetUserInfo")]
-        public async Task<IActionResult> GetUserInfo([FromQuery] string userId)
+        public async Task<IActionResult> GetUserInfo([FromQuery] string id)
         {
-            var user = await _userService.GetUserInfoAsync(userId);
+            var user = await _userService.GetUserInfoAsync(id);
 
-            if (user == null) 
+            if (user == null)
             {
                 return BadRequest("Invalid input data");
             }

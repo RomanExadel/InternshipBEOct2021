@@ -91,6 +91,7 @@ namespace WebApi
 
             services.AddAutoMapper();
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -103,14 +104,12 @@ namespace WebApi
 
             app.UseGlobalExceptionMiddleware();
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
-           
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -118,6 +117,5 @@ namespace WebApi
                 endpoints.MapControllers();
             });
         }
-
     }
 }

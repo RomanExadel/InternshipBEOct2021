@@ -64,17 +64,12 @@ namespace BL.Services
             return string.Empty;
         }
 
-        public async Task<UserDTO> GetUserInfoAsync(string userId)
+        public async Task<UserDTO> GetUserInfoAsync(string id)
         {
-            string userRole = string.Empty;
-
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(id);
             var roles = await _userManager.GetRolesAsync(user);
 
-            foreach (var role in roles)
-            {
-                userRole = role;
-            }
+            string userRole = roles[0];
 
             if (user != null)
             {
