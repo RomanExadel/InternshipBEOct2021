@@ -20,22 +20,22 @@ namespace DAL.Extensions
 
         public static ModelBuilder Seed(this ModelBuilder builder)
         {
-            builder.FillRoles();
-            builder.FillUsers();
-            builder.FillUserRoles();
-            builder.FillInternships();
-            builder.FillTeams();
-            builder.FillInternshipStacks();
-            builder.FillCandidates();
-            builder.FillFeedbacks();
-            builder.FillSkills();
-            builder.FillEvaluations();
-            builder.FillInterviewInvites();
+            builder.FillRoles()
+                   .FillUsers()
+                   .FillUserRoles()
+                   .FillInternships()
+                   .FillTeams()
+                   .FillInternshipStacks()
+                   .FillCandidates()
+                   .FillFeedbacks()
+                   .FillSkills()
+                   .FillEvaluations()
+                   .FillInterviewInvites();
 
             return builder;
         }
 
-        public static void FillRoles(this ModelBuilder builder)
+        public static ModelBuilder FillRoles(this ModelBuilder builder)
         {
             var roles = new IdentityRole[]
             {
@@ -77,9 +77,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<IdentityRole>().HasData(roles);
+
+            return builder;
         }
 
-        public static void FillUsers(this ModelBuilder builder)
+        public static ModelBuilder FillUsers(this ModelBuilder builder)
         {
             var userName1 = "Masha";
             var email1 = "li@gmail.com";
@@ -184,9 +186,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<User>().HasData(users);
+
+            return builder;
         }
 
-        public static void FillUserRoles(this ModelBuilder builder)
+        public static ModelBuilder FillUserRoles(this ModelBuilder builder)
         {
             var userRoles = new List<IdentityUserRole<string>>();
 
@@ -200,9 +204,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<IdentityUserRole<string>>().HasData(userRoles);
+
+            return builder;
         }
 
-        public static void FillInternships(this ModelBuilder builder)
+        public static ModelBuilder FillInternships(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -242,9 +248,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<Internship>().HasData(internships);
+
+            return builder;
         }
 
-        public static void FillTeams(this ModelBuilder builder)
+        public static ModelBuilder FillTeams(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -265,9 +273,11 @@ namespace DAL.Extensions
             };
 
             builder.Entity<Team>().HasData(teams);
+
+            return builder;
         }
 
-        public static void FillInternshipStacks(this ModelBuilder builder)
+        public static ModelBuilder FillInternshipStacks(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -288,9 +298,11 @@ namespace DAL.Extensions
             };
 
             builder.Entity<InternshipStack>().HasData(internshipStacks);
+
+            return builder;
         }
 
-        public static void FillCandidates(this ModelBuilder builder)
+        public static ModelBuilder FillCandidates(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -356,9 +368,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<Candidate>().HasData(candidates);
+
+            return builder;
         }
 
-        public static void FillFeedbacks(this ModelBuilder builder)
+        public static ModelBuilder FillFeedbacks(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -392,9 +406,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<Feedback>().HasData(feedbacks);
+
+            return builder;
         }
 
-        public static void FillSkills(this ModelBuilder builder)
+        public static ModelBuilder FillSkills(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -424,9 +440,11 @@ namespace DAL.Extensions
             }
 
             builder.Entity<Skill>().HasData(skills);
+
+            return builder;
         }
 
-        public static void FillEvaluations(this ModelBuilder builder)
+        public static ModelBuilder FillEvaluations(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -449,9 +467,11 @@ namespace DAL.Extensions
             };
 
             builder.Entity<Evaluation>().HasData(evaluations);
+
+            return builder;
         }
 
-        public static void FillInterviewInvites(this ModelBuilder builder)
+        public static ModelBuilder FillInterviewInvites(this ModelBuilder builder)
         {
             var id = 1;
 
@@ -474,6 +494,8 @@ namespace DAL.Extensions
             };
 
             builder.Entity<InterviewInvite>().HasData(interviewInvites);
+
+            return builder;
         }
     }
 }
