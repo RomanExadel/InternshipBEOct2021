@@ -24,11 +24,6 @@ namespace WebApi.Controllers
 
             var user = await _userService.GetUserInfoAsync(userName);
 
-            if (user == null)
-            {
-                return BadRequest("Invalid input data");
-            }
-
             return Ok(user);
         }
     }

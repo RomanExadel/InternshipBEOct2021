@@ -5,6 +5,7 @@ using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -67,6 +68,11 @@ namespace BL.Services
         public async Task<UserDTO> GetUserInfoAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) 
+            {
+                throw new Exception();
+            }
+
             var roles = await _userManager.GetRolesAsync(user);
 
             string userRole = roles[0];
@@ -75,7 +81,7 @@ namespace BL.Services
             {
                 var userDTO = _mapper.Map<UserDTO>(user);
 
-                userDTO.RoleType = Enum.Parse<Shared.Enums.RoleType>(userRole);
+                userDTO.RoleType = Enum.Parse<RoleType>(userRole);
 
                 return userDTO;
             }
