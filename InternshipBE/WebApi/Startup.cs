@@ -36,9 +36,7 @@ namespace WebApi
 		{
 			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
 
-			services.AddHangfire(x =>
-					x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString))
-			);
+			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString)));
 
 			services.AddHangfireServer();
 
@@ -104,10 +102,9 @@ namespace WebApi
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-
+				
 				app.UseHangfireDashboard();
-				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), 
-					CronConfiguration.ReturnCron(Configuration));
+				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
 			}
 
 			app.UseGlobalExceptionMiddleware();

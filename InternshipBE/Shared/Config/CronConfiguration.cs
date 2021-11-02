@@ -1,26 +1,22 @@
 ﻿using Hangfire;
 using Microsoft.Extensions.Configuration;
+using static Shared.Constants.CronConstants;
 
 namespace Shared.Config
 {
 	public static class CronConfiguration
 	{
-		public static string ReturnCron(IConfiguration configuration)
+		public static string SetCron(IConfiguration configuration)
 		{
-			var cronConfig = configuration["CronSetting"];
-			string format = null;
-
-			switch (cronConfig)
+			switch (configuration["CronSetting"])
 			{
-				case "Minuteli":
-					format = Cron.Minutely();
-					break;
-				case "Hourly":
-					format = Cron.Hourly();
-					break;
+				case Minuteli:
+					return Cron.Minutely();
+				case Hourly:
+					return Cron.Hourly();
+				default:
+					return Cron.Minutely();
 			}
-
-			return format;
 		}
 	}
 }

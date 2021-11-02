@@ -6,11 +6,11 @@ namespace WebApi.Controllers
 {
 	[Route("api/hangfire")]
 	[ApiController]
-	public class HangfireController : ControllerBase
+	public class GoogleSheetController : ControllerBase
 	{
 		private readonly IGoogleSheetService _googleSheetService;
 
-		public HangfireController(IGoogleSheetService googleSheetService)
+		public GoogleSheetController(IGoogleSheetService googleSheetService)
 		{
 			_googleSheetService = googleSheetService;
 		}
