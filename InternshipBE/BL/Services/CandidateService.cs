@@ -3,6 +3,7 @@ using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -52,5 +53,15 @@ namespace BL.Services
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
+
+        public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, StatusType type)
+        {
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+            candidate.StatusType = type;
+            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
+
+            return _mapper.Map<CandidateDTO>(updatedCandidate);
+        }
+
     }
 }
