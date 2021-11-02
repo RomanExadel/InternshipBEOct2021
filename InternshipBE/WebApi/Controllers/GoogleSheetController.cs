@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
-	[Route("api/hangfire")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class GoogleSheetController : ControllerBase
 	{
