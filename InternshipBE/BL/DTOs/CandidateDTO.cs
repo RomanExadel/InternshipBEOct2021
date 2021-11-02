@@ -42,5 +42,9 @@ namespace BL.DTOs
         public int TestTaskEvaluation { get; set; }
 
         public DateTime BestContactTime { get; set; }
+
+        public int InternshipId { get; set; }
+
+        public int TeamId { get; set; }
     }
 }
