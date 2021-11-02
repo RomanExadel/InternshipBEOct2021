@@ -1,25 +1,28 @@
 ﻿using DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace DAL.Extensions
 {
     public static class ModelBuilderExtensions
     {
-        private static User[] _users;
-        private static Internship[] _internships;
-        private static Team[] _teams;
-        private static InternshipStack[] _internshipStacks;
-        private static Candidate[] _candidates;
-        private static Feedback[] _feedbacks;
-        private static Skill[] _skills;
-        private static Evaluation[] _evaluations;
-        private static InterviewInvite[] _interviewInvites;
+        private static readonly string _password = "Password";
 
-        public static void Seed(this ModelBuilder builder)
+        private static string[] _roleIds;
+        private static string[] _userIds;
+        private static int[] _internshipIds;
+        private static int[] _candidateIds;
+        private static int[] _feedbackIds;
+        private static int[] _skillIds;
+
+        public static ModelBuilder Seed(this ModelBuilder builder)
         {
+            builder.FillRoles();
             builder.FillUsers();
+            builder.FillUserRoles();
             builder.FillInternships();
             builder.FillTeams();
             builder.FillInternshipStacks();
@@ -28,6 +31,52 @@ namespace DAL.Extensions
             builder.FillSkills();
             builder.FillEvaluations();
             builder.FillInterviewInvites();
+
+            return builder;
+        }
+
+        public static void FillRoles(this ModelBuilder builder)
+        {
+            var roles = new IdentityRole[]
+            {
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Hr.ToString(),
+                    NormalizedName = RoleType.Hr.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                },
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Interviewer.ToString(),
+                    NormalizedName = RoleType.Interviewer.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                },
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Manager.ToString(),
+                    NormalizedName = RoleType.Manager.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                },
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Admin.ToString(),
+                    NormalizedName = RoleType.Admin.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                }
+            };
+
+            _roleIds = new string[roles.Length];
+
+            for (int i = 0; i < roles.Length; i++)
+            {
+                _roleIds[i] = roles[i].Id;
+            }
+
+            builder.Entity<IdentityRole>().HasData(roles);
         }
 
         public static void FillUsers(this ModelBuilder builder)
@@ -41,11 +90,13 @@ namespace DAL.Extensions
             var userName4 = "Alexandr";
             var email4 = "admin@gmail.com";
 
-            _users = new User[]
+            var passwordHasher = new PasswordHasher<User>();
+
+            var users = new User[]
             {
                 new User
                 {
-                    Id = "3827e25d-8989-4881-9f25-807d14878c1b",
+                    Id = Guid.NewGuid().ToString(),
                     Position = "BA",
                     BestContactTime = DateTime.UtcNow,
                     UserName = userName1,
@@ -53,9 +104,9 @@ namespace DAL.Extensions
                     Email = email1,
                     NormalizedEmail = email1.ToUpper(),
                     EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEFrfBeLl7wG60Syi2unYkVUM4kp/0A8RAZdc51M8e/5GokOv0qDZF+aGBSVaSV6vag==",
+                    PasswordHash = passwordHasher.HashPassword(null, _password),
                     SecurityStamp = "E5BBMDK3I3PX6MZCUDSP2TGQMJNHIOU7",
-                    ConcurrencyStamp = "d722e70d-72fc-4f08-8fdc-afec3cef3c4f",
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PhoneNumber = "+123656787",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
@@ -65,7 +116,7 @@ namespace DAL.Extensions
                 },
                 new User
                 {
-                    Id = "5516d40a-40bf-482c-8575-34a18478ac89",
+                    Id = Guid.NewGuid().ToString(),
                     Position = "Back",
                     BestContactTime = DateTime.UtcNow,
                     UserName = userName2,
@@ -73,9 +124,9 @@ namespace DAL.Extensions
                     Email = email2,
                     NormalizedEmail = email2.ToUpper(),
                     EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEA/2Sy0cS1B+wbGk2R/Llrp6iuFzZjbJGu1Egoj2MYPPMaowQUgECV4Teg/K5xy/fg==",
+                    PasswordHash = passwordHasher.HashPassword(null, _password),
                     SecurityStamp = "M3ZDA3WQP6J2ZVGKBIZHOE7GKC4BR2ZF",
-                    ConcurrencyStamp = "2c39a495-1b10-49f9-926c-a40d078418ad",
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PhoneNumber = "+125656787",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
@@ -85,7 +136,7 @@ namespace DAL.Extensions
                 },
                 new User
                 {
-                    Id = "57f2fe4e-64af-40b4-a279-5af5f1db8a8a",
+                    Id = Guid.NewGuid().ToString(),
                     Position = "Front",
                     BestContactTime = DateTime.UtcNow,
                     UserName = userName3,
@@ -93,9 +144,9 @@ namespace DAL.Extensions
                     Email = email3,
                     NormalizedEmail = email3.ToUpper(),
                     EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEEVFxbsq/jnZ4avRoKtiCKb4QPzojCZDr6y9N3exNngtHExLdISgHDxhvprupVr9iQ==",
+                    PasswordHash = passwordHasher.HashPassword(null, _password),
                     SecurityStamp = "YZYNYT3QR6FM5GVYL4VRT3EX3RIOZIFC",
-                    ConcurrencyStamp = "09fb73b8-aab6-4ff4-a27b-4426a8b73570",
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PhoneNumber = "+325656787",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
@@ -105,7 +156,7 @@ namespace DAL.Extensions
                 },
                 new User
                 {
-                    Id = "ff8a8331-c30a-4a6c-8860-0b49c533aa2c",
+                    Id = Guid.NewGuid().ToString(),
                     Position = "PO",
                     BestContactTime = DateTime.UtcNow,
                     UserName = userName4,
@@ -113,9 +164,9 @@ namespace DAL.Extensions
                     Email = email4,
                     NormalizedEmail = email4.ToUpper(),
                     EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEK+m9ZBEt0HpxkxRafiiKjUsm1GShqzdyFWgzC1tGIApjSTzcLx49pKc1wIKrgN0tg==",
+                    PasswordHash = passwordHasher.HashPassword(null, _password),
                     SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
-                    ConcurrencyStamp = "66f70ef0-1083-48a6-9c14-d54557737744",
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PhoneNumber = "+325659787",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
@@ -125,14 +176,37 @@ namespace DAL.Extensions
                 }
             };
 
-            builder.Entity<User>().HasData(_users);
+            _userIds = new string[users.Length];
+
+            for (int i = 0; i < users.Length; i++)
+            {
+                _userIds[i] = users[i].Id;
+            }
+
+            builder.Entity<User>().HasData(users);
+        }
+
+        public static void FillUserRoles(this ModelBuilder builder)
+        {
+            var userRoles = new List<IdentityUserRole<string>>();
+
+            for (int i = 0; i < _roleIds.Length; i++)
+            {
+                userRoles.Add(new IdentityUserRole<string>
+                {
+                    UserId = _userIds[i],
+                    RoleId = _roleIds[i],
+                });
+            }
+
+            builder.Entity<IdentityUserRole<string>>().HasData(userRoles);
         }
 
         public static void FillInternships(this ModelBuilder builder)
         {
             var id = 1;
 
-            _internships = new Internship[]
+            var internships = new Internship[]
             {
                 new Internship
                 {
@@ -160,60 +234,67 @@ namespace DAL.Extensions
                 }
             };
 
-            builder.Entity<Internship>().HasData(_internships);
+            _internshipIds = new int[internships.Length];
+
+            for (int i = 0; i < internships.Length; i++)
+            {
+                _internshipIds[i] = internships[i].Id;
+            }
+
+            builder.Entity<Internship>().HasData(internships);
         }
 
         public static void FillTeams(this ModelBuilder builder)
         {
             var id = 1;
 
-            _teams = new Team[]
+            var teams = new Team[]
             {
                 new Team
                 {
                     Id = id++,
-                    InternshipId = _internships[0].Id,
+                    InternshipId = _internshipIds[0],
                     Name = "Team 1 A",
                 },
                 new Team
                 {
                     Id = id++,
-                    InternshipId = _internships[1].Id,
+                    InternshipId = _internshipIds[1],
                     Name = "Team 1 B",
                 }
             };
 
-            builder.Entity<Team>().HasData(_teams);
+            builder.Entity<Team>().HasData(teams);
         }
 
         public static void FillInternshipStacks(this ModelBuilder builder)
         {
             var id = 1;
 
-            _internshipStacks = new InternshipStack[]
+            var internshipStacks = new InternshipStack[]
             {
                 new InternshipStack
                 {
                     Id = id++,
-                    InternshipId = _internships[0].Id,
+                    InternshipId = _internshipIds[0],
                     TechnologyStackType = StackType.BackEnd
                 },
                     new InternshipStack
                 {
                     Id = id++,
-                    InternshipId = _internships[1].Id,
+                    InternshipId = _internshipIds[1],
                     TechnologyStackType = StackType.Testing
                 }
             };
 
-            builder.Entity<InternshipStack>().HasData(_internshipStacks);
+            builder.Entity<InternshipStack>().HasData(internshipStacks);
         }
 
         public static void FillCandidates(this ModelBuilder builder)
         {
             var id = 1;
 
-            _candidates = new Candidate[]
+            var candidates = new Candidate[]
             {
                 new Candidate
                 {
@@ -237,8 +318,8 @@ namespace DAL.Extensions
                     EnglishLevelType = EnglishLevelType.C1,
                     IsPlanningToJoin = true,
                     RegistationDate = DateTime.UtcNow,
-                    InternshipId = _internships[0].Id,
-                    //TeamId = _teams[0].Id // Почему-то создаётся доп. таблица TeamUser
+                    InternshipId = _internshipIds[0],
+                    //TeamId = _teams[0].Id
                 },
                 new Candidate
                 {
@@ -262,48 +343,62 @@ namespace DAL.Extensions
                     EnglishLevelType = EnglishLevelType.C2,
                     IsPlanningToJoin = true,
                     RegistationDate = DateTime.UtcNow,
-                    InternshipId = _internships[1].Id,
-                    //TeamId = _teams[1].Id // Почему-то создаётся доп. таблица TeamUser
+                    InternshipId = _internshipIds[1],
+                    //TeamId = _teams[1].Id
                 }
             };
 
-            builder.Entity<Candidate>().HasData(_candidates);
+            _candidateIds = new int[candidates.Length];
+
+            for (int i = 0; i < candidates.Length; i++)
+            {
+                _candidateIds[i] = candidates[i].Id;
+            }
+
+            builder.Entity<Candidate>().HasData(candidates);
         }
 
         public static void FillFeedbacks(this ModelBuilder builder)
         {
             var id = 1;
 
-            _feedbacks = new Feedback[]
+            var feedbacks = new Feedback[]
             {
                 new Feedback
                 {
                     Id = id++,
-                    CandidateId = _candidates[0].Id,
+                    CandidateId = _candidateIds[0],
                     EnglishLevelType = EnglishLevelType.C1,
                     Date = DateTime.UtcNow,
                     Description = "Good knowledge of frameworks, oop, and db",
-                    UserId = _users[0].Id,
+                    UserId = _userIds[0],
                 },
                 new Feedback
                 {
                     Id = id++,
-                    CandidateId = _candidates[1].Id,
+                    CandidateId = _candidateIds[1],
                     EnglishLevelType = EnglishLevelType.C2,
                     Date = DateTime.UtcNow,
                     Description = "Excellent candidate",
-                    UserId = _users[0].Id,
+                    UserId = _userIds[0],
                 }
             };
 
-            builder.Entity<Feedback>().HasData(_feedbacks);
+            _feedbackIds = new int[feedbacks.Length];
+
+            for (int i = 0; i < feedbacks.Length; i++)
+            {
+                _feedbackIds[i] = feedbacks[i].Id;
+            }
+
+            builder.Entity<Feedback>().HasData(feedbacks);
         }
 
         public static void FillSkills(this ModelBuilder builder)
         {
             var id = 1;
 
-            _skills = new Skill[]
+            var skills = new Skill[]
             {
                 new Skill
                 {
@@ -321,57 +416,64 @@ namespace DAL.Extensions
                 }
             };
 
-            builder.Entity<Skill>().HasData(_skills);
+            _skillIds = new int[skills.Length];
+
+            for (int i = 0; i < skills.Length; i++)
+            {
+                _skillIds[i] = skills[i].Id;
+            }
+
+            builder.Entity<Skill>().HasData(skills);
         }
 
         public static void FillEvaluations(this ModelBuilder builder)
         {
             var id = 1;
 
-            _evaluations = new Evaluation[]
+            var evaluations = new Evaluation[]
             {
                 new Evaluation
                 {
                     Id = id++,
-                    FeedbackId = _feedbacks[0].Id,
-                    SkillId = _skills[0].Id,
+                    FeedbackId = _feedbackIds[0],
+                    SkillId = _skillIds[0],
                     Value = 4,
                 },
                 new Evaluation
                 {
                     Id = id++,
-                    FeedbackId = _feedbacks[1].Id,
-                    SkillId = _skills[1].Id,
+                    FeedbackId = _feedbackIds[1],
+                    SkillId = _skillIds[1],
                     Value = 4,
                 }
             };
 
-            builder.Entity<Evaluation>().HasData(_evaluations);
+            builder.Entity<Evaluation>().HasData(evaluations);
         }
 
         public static void FillInterviewInvites(this ModelBuilder builder)
         {
             var id = 1;
 
-            _interviewInvites = new InterviewInvite[]
+            var interviewInvites = new InterviewInvite[]
             {
                 new InterviewInvite
                 {
                     Id = id++,
-                    UserId = _users[0].Id,
-                    CandidateId = _candidates[0].Id,
+                    UserId = _userIds[0],
+                    CandidateId = _candidateIds[0],
                     ContactDate = DateTime.UtcNow,
                 },
                 new InterviewInvite
                 {
                     Id = id++,
-                    UserId = _users[0].Id,
-                    CandidateId = _candidates[1].Id,
+                    UserId = _userIds[0],
+                    CandidateId = _candidateIds[1],
                     ContactDate = DateTime.UtcNow,
                 }
             };
 
-            builder.Entity<InterviewInvite>().HasData(_interviewInvites);
+            builder.Entity<InterviewInvite>().HasData(interviewInvites);
         }
     }
 }

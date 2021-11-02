@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BL.DTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,12 +11,10 @@ namespace WebApi.Controllers
     public class CandidateController : Controller
     {
         private readonly ICandidateService _candidateService;
-        private readonly IMapper _mapper;
 
-        public CandidateController(ICandidateService candidateService, IMapper mapper)
+        public CandidateController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
-            _mapper = mapper;
         }
         
         [HttpGet("getCandidateById")]
