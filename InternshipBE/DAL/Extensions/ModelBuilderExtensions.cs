@@ -14,6 +14,7 @@ namespace DAL.Extensions
         private static string[] _roleIds;
         private static string[] _userIds;
         private static int[] _internshipIds;
+        private static int[] _teamIds;
         private static int[] _candidateIds;
         private static int[] _feedbackIds;
         private static int[] _skillIds;
@@ -272,6 +273,13 @@ namespace DAL.Extensions
                 }
             };
 
+            _teamIds = new int[teams.Length];
+
+            for (int i = 0; i < teams.Length; i++)
+            {
+                _teamIds[i] = teams[i].Id;
+            }
+
             builder.Entity<Team>().HasData(teams);
 
             return builder;
@@ -331,7 +339,7 @@ namespace DAL.Extensions
                     IsPlanningToJoin = true,
                     RegistationDate = DateTime.UtcNow,
                     InternshipId = _internshipIds[0],
-                    //TeamId = _teams[0].Id
+                    TeamId = _teamIds[0]
                 },
                 new Candidate
                 {
@@ -356,7 +364,7 @@ namespace DAL.Extensions
                     IsPlanningToJoin = true,
                     RegistationDate = DateTime.UtcNow,
                     InternshipId = _internshipIds[1],
-                    //TeamId = _teams[1].Id
+                    TeamId = _teamIds[1]
                 }
             };
 

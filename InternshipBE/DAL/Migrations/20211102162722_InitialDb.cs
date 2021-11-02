@@ -278,8 +278,8 @@ namespace DAL.Migrations
                     EnglishLevelType = table.Column<int>(type: "int", nullable: false),
                     IsPlanningToJoin = table.Column<bool>(type: "bit", nullable: false),
                     RegistationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: true),
-                    InternshipId = table.Column<int>(type: "int", nullable: false)
+                    InternshipId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
