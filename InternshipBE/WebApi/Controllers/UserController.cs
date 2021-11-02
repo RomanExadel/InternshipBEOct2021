@@ -18,9 +18,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetUserInfo")]
-        public async Task<IActionResult> GetUserInfo([FromQuery] string id)
+        public async Task<IActionResult> GetUserInfo()
         {
-            var user = await _userService.GetUserInfoAsync(id);
+            var userName = User.Identity.Name;
+
+            var user = await _userService.GetUserInfoAsync(userName);
 
             if (user == null)
             {

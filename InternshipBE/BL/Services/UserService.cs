@@ -64,9 +64,9 @@ namespace BL.Services
             return string.Empty;
         }
 
-        public async Task<UserDTO> GetUserInfoAsync(string id)
+        public async Task<UserDTO> GetUserInfoAsync(string userName)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByNameAsync(userName);
             var roles = await _userManager.GetRolesAsync(user);
 
             string userRole = roles[0];

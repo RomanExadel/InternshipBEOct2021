@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shared.Enums;
 using System;
 using System.Collections.Generic;
 
