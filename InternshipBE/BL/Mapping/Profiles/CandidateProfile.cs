@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using DAL.Entities;
+using Shared.Config;
+using Shared.Config.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,13 +12,20 @@ namespace BL.Mapping.Profiles
 {
 	public class CandidateProfile : Profile
 	{
+		private readonly IGoogleSheetConfig _googleSheetConfig;
+
+		public CandidateProfile(IGoogleSheetConfig googleSheetConfig)
+		{
+			_googleSheetConfig = googleSheetConfig;
+		}
+
 		public CandidateProfile()
 		{
 			CreateMap<IList<object>, CandidateDTO>()
 				.ForMember(e => e.FirstName, source => source.MapFrom(s => s[FIRST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.LastName, source => source.MapFrom(s => s[LAST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.RegistationDate, source => source
-					.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture)))
+					.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), _googleSheetConfig.DateTimeFormat, CultureInfo.InvariantCulture)))
 				.ForMember(e => e.Email, source => source.MapFrom(s => s[EMAIL_OFFSET].ToString()))
 				.ForMember(e => e.Location, source => source.MapFrom(s => s[LOCATION_OFFSET].ToString()))
 				.ForMember(e => e.Phone, source => source.MapFrom(s => s[PHONE_OFFSET].ToString()))

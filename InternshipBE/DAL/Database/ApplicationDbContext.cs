@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using DAL.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,7 +33,8 @@ namespace DAL.Database
 
 		 protected override void OnModelCreating(ModelBuilder builder)
 		 {
-			  base.OnModelCreating(builder);
+			base.OnModelCreating(builder);
+			builder.Seed();
 		 }
 	}
 }

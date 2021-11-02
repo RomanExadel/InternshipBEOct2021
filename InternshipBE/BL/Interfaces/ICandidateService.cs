@@ -1,4 +1,5 @@
 ﻿using BL.DTOs;
+using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace BL.Interfaces
         Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO updatedCandidate);
 
         Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber);
+
+        Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, StatusType type);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Enums;
 using System.Threading.Tasks;
 using WebApi.Models;
 
@@ -47,6 +48,13 @@ namespace WebApi.Controllers
             var updatedCandidate = await _candidateService.UpdateCandidateAsync(candidate);
 
             return Ok(updatedCandidate);
+        }
+
+        [HttpPut("updateCandidateStatus/{id}")]
+        public async Task<IActionResult> UpdateCandidateStatusById(int id, StatusType status)
+        {
+            var updateCandidateStatus = await _candidateService.UpdateCandidateStatusByIdAsync(id, status);
+            return Ok(updateCandidateStatus);
         }
     }
 }
