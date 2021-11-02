@@ -18,12 +18,12 @@ using WebApi.Extensions;
 
 namespace WebApi
 {
-	public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -36,42 +36,38 @@ namespace WebApi
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-			services.AddControllers()
-					.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+            services.AddControllers()
+                    .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-				{
-					In = ParameterLocation.Header,
-					Description = "Please insert token",
-					Name = "Authorization",
-					Type = SecuritySchemeType.Http,
-					BearerFormat = "JWT",
-					Scheme = "bearer"
-				});
-				c.AddSecurityRequirement(new OpenApiSecurityRequirement
-				{
-					{
-						new OpenApiSecurityScheme
-						{
-							Reference = new OpenApiReference
-							{
-								Type = ReferenceType.SecurityScheme,
-								Id = "Bearer"
-							}
-						},
-						new string[] {}
-					}
-				});
-			});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
 
-			services.AddRepositories().AddServices();
-				.AllowAnyHeader());
-			});
-
-			services.AddRepositories().AddServices();
+            services.AddRepositories().AddServices();
 
             services.AddAuthentication(options =>
             {
@@ -93,6 +89,8 @@ namespace WebApi
                    };
                });
 
+            services.AddAutoMapper();
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -102,23 +100,17 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
-				app.UseDeveloperExceptionPage();
-				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-			}
+
+            app.UseGlobalExceptionMiddleware();
+
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
-
-            //app.UseHttpsRedirection();
-
-			app.UseRouting();
-
-			app.UseAuthentication();
-
+           
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -126,5 +118,6 @@ namespace WebApi
                 endpoints.MapControllers();
             });
         }
+
     }
 }
