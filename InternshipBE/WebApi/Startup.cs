@@ -22,14 +22,14 @@ using static Shared.Constants.ConfiguratioConstants;
 
 namespace WebApi
 {
-	public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
-		public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -40,59 +40,65 @@ namespace WebApi
 
 			services.AddHangfireServer();
 
-			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-			services.AddControllers()
-					.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+            services.AddControllers()
+                    .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-				{
-					In = ParameterLocation.Header,
-					Description = "Please insert token",
-					Name = "Authorization",
-					Type = SecuritySchemeType.Http,
-					BearerFormat = "JWT",
-					Scheme = "bearer"
-				});
-				c.AddSecurityRequirement(new OpenApiSecurityRequirement
-				{
-					{
-						new OpenApiSecurityScheme
-						{
-							Reference = new OpenApiReference
-							{
-								Type = ReferenceType.SecurityScheme,
-								Id = "Bearer"
-							}
-						},
-						new string[] {}
-					}
-				});
-			});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
 
-			services.AddRepositories().AddServices();
+            services.AddRepositories().AddServices();
 
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-			   .AddJwtBearer(options =>
-			   {
-				   options.TokenValidationParameters = new TokenValidationParameters
-				   {
-					   ValidateIssuer = true,
-					   ValidIssuer = Configuration["Jwt:Issuer"],
-					   ValidateAudience = true,
-					   ValidAudience = Configuration["Jwt:Audience"],
-					   ValidateLifetime = true,
-					   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-					   ValidateIssuerSigningKey = true,
-				   };
-			   });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+               .AddJwtBearer(options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidIssuer = Configuration["Jwt:Issuer"],
+                       ValidateAudience = true,
+                       ValidAudience = Configuration["Jwt:Audience"],
+                       ValidateLifetime = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                       ValidateIssuerSigningKey = true,
+                   };
+               });
 
-			services.AddAutoMapper();
-		}
+            services.AddAutoMapper();
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -107,22 +113,20 @@ namespace WebApi
 				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
 			}
 
-			app.UseGlobalExceptionMiddleware();
+            app.UseGlobalExceptionMiddleware();
 
-			//app.UseHttpsRedirection();
+            app.UseRouting();
 
-			app.UseRouting();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseAuthentication();
 
-			app.UseAuthentication();
+            app.UseAuthorization();
 
-			app.UseAuthorization();
-
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-			});
-		}
-	}
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+    }
 }
