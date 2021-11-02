@@ -24,5 +24,7 @@ namespace Shared.Config
 		public string RangeSettings => rangeSettings;
 
 		public string ClientSecrets => clientSecrets;
+
+		public string DateTimeFormat => _configuration["DateTimeFormat"];
 	}
 }

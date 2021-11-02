@@ -1,6 +1,8 @@
+using BL.Interfaces;
 using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,10 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Shared.Config;
 using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
 using WebApi.Extensions;
+using static Shared.Constants.ConfiguratioConstants;
 
 namespace WebApi
 {
@@ -30,7 +34,11 @@ namespace WebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
+
+			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString)));
+
+			services.AddHangfireServer();
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -94,6 +102,9 @@ namespace WebApi
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+
+				app.UseHangfireDashboard();
+				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
 			}
 
 			app.UseGlobalExceptionMiddleware();
