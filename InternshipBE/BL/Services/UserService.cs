@@ -58,9 +58,7 @@ namespace BL.Services
                 expires: DateTime.UtcNow.Add(TimeSpan.FromDays(int.Parse(_configuration["Jwt:LifeTimeInDays"]))),
                 signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256));
 
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-                return encodedJwt;
+                return new JwtSecurityTokenHandler().WriteToken(token);
             }
 
             return string.Empty;
@@ -81,12 +79,12 @@ namespace BL.Services
 
         private async Task<string> GetUserRoleAsync(User user)
         {
-            var roles = await _userManager.GetRolesAsync(user); 
-            
+            var roles = await _userManager.GetRolesAsync(user);
+
             if (roles == null)
             {
-                throw new ArgumentNullException(nameof(roles),"roles is null");
-            } 
+                throw new ArgumentNullException(nameof(roles), "roles is null");
+            }
 
             return roles.Single();
         }
@@ -97,7 +95,7 @@ namespace BL.Services
 
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user),"user is null");
+                throw new ArgumentNullException(nameof(user), "user is null");
             }
 
             return user;

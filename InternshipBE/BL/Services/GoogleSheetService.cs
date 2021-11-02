@@ -70,9 +70,8 @@ namespace BL.Services
 			var request = _sheetService.Spreadsheets.Values.Get(_sheetConfig.SpreadsheetId, range);
 
 			var response = request.Execute();
-			var values = response.Values;
 
-			return values;
+			return response.Values;
 		}
 	}
 }

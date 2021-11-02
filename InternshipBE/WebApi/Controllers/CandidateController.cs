@@ -21,40 +21,31 @@ namespace WebApi.Controllers
         [HttpGet("getCandidateById")]
         public async Task<IActionResult> GetCandidateById([FromQuery] int id)
         {
-            var candidate = await _candidateService.GetCandidateByIdAsync(id);
-
-            return Ok(candidate);
+            return Ok(await _candidateService.GetCandidateByIdAsync(id));
         }
 
         [HttpPost("getCandidateListByInternshipId")]
         public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
-            var candidates = await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber);
-
-            return Ok(candidates);
+            return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber));
         }
 
         [HttpPost("createCandidate")]
         public async Task<IActionResult> CreateCandidate([FromBody] CandidateDTO candidate)
         {
-            var createdCandidate = await _candidateService.CreateCandidateAsync(candidate);
-
-            return Ok(createdCandidate);
+            return Ok(await _candidateService.CreateCandidateAsync(candidate));
         }
 
         [HttpPut("updateCandidate")]
         public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO candidate)
         {
-            var updatedCandidate = await _candidateService.UpdateCandidateAsync(candidate);
-
-            return Ok(updatedCandidate);
+            return Ok(await _candidateService.UpdateCandidateAsync(candidate));
         }
 
         [HttpPut("updateCandidateStatus/{id}")]
         public async Task<IActionResult> UpdateCandidateStatusById(int id, StatusType status)
         {
-            var updateCandidateStatus = await _candidateService.UpdateCandidateStatusByIdAsync(id, status);
-            return Ok(updateCandidateStatus);
+            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
         }
     }
 }

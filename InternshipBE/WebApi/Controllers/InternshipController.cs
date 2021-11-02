@@ -19,18 +19,14 @@ namespace WebApi.Controllers
 
         [HttpGet("getInternshipById")]
         public async Task<IActionResult> GetInternshipById([FromQuery] int id)
-        {
-            var internship = await _internshipService.GetInternshipByIdAsync(id); 
-            
-            return Ok(internship);
+        {          
+            return Ok(await _internshipService.GetInternshipByIdAsync(id));
         } 
 
         [HttpPost("getInternships")]
         public async Task<IActionResult> GetInternships([FromBody] AGGridBaseRequest request)
         {
-            var internships = await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber);
-
-            return Ok(internships);
+            return Ok(await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber));
         }
 
         [HttpPost("createInternship")]
