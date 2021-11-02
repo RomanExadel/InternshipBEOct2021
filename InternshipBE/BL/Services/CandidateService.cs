@@ -54,14 +54,14 @@ namespace BL.Services
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
 
-        public async Task<CandidateDTO> ChangeCandidateStatus(StatusType type, int id)
+        public async Task<CandidateDTO> UpdateCandidateStatus(int id, StatusType type)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
             candidate.StatusType = type;
-            var mappedCandidate = _mapper.Map<Candidate>(candidate);
-            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
+            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
 
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
+
     }
 }
