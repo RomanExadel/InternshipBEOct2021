@@ -9,6 +9,7 @@ using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,27 +66,44 @@ namespace BL.Services
             return string.Empty;
         }
 
-        public async Task<UserDTO> GetUserInfoAsync(string userName)
+        public async Task<UserDTO> GetUserByUserNameAsync(string userName)
+        {
+            var user = await CheckPresenceUserAsync(userName);
+
+            var userRole = await GetUserRoleAsync(user);
+
+            var userDTO = _mapper.Map<UserDTO>(user);
+
+            userDTO.RoleType = Enum.Parse<RoleType>(userRole);
+
+            return userDTO;
+        }
+
+        private async Task<string> GetUserRoleAsync(User user)
+        {
+            var roles = await _userManager.GetRolesAsync(user); 
+            
+            if (roles == null)
+            {
+                throw new ArgumentNullException(nameof(roles),"roles is null");
+            }
+            
+            string userRole = roles.SingleOrDefault(); 
+
+            return userRole;
+        }
+
+        private async Task<User> CheckPresenceUserAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
-            if (user == null) 
+
+            if (user == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(user),"user is null");
             }
 
-            var roles = await _userManager.GetRolesAsync(user);
-
-            string userRole = roles[0];
-
-            if (user != null)
-            {
-                var userDTO = _mapper.Map<UserDTO>(user);
-
-                userDTO.RoleType = Enum.Parse<RoleType>(userRole);
-
-                return userDTO;
-            }
-            return null;
+            return user;
         }
+
     }
 }

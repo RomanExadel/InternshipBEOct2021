@@ -7,6 +7,6 @@ namespace BL.Interfaces
     {
         Task<string> AuthenticateAsync(string email, string password);
 
-        Task<UserDTO> GetUserInfoAsync(string userName);
+        Task<UserDTO> GetUserByUserNameAsync(string userName);
     }
 }

@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         {
             var userName = User.Identity.Name;
 
-            var user = await _userService.GetUserInfoAsync(userName);
+            var user = await _userService.GetUserByUserNameAsync(userName);
 
             return Ok(user);
         }
