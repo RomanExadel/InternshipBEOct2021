@@ -41,6 +41,8 @@ namespace BL.DTOs
 
         public int TestTaskEvaluation { get; set; }
 
+        public StatusType StatusType { get; set; }
+
         public DateTime BestContactTime { get; set; }
     }
 }
