@@ -2,6 +2,7 @@
 using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
