@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Shared.Config;
 using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
@@ -105,7 +106,8 @@ namespace WebApi
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
 				app.UseHangfireDashboard();
-				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), Cron.Hourly);
+				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), 
+					CronConfiguration.ReturnCron(Configuration));
 			}
 
 			app.UseGlobalExceptionMiddleware();
