@@ -1,9 +1,7 @@
-﻿using Shared.Enums;
+﻿using DAL.Entities;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.DTOs
 {
@@ -20,5 +18,7 @@ namespace BL.DTOs
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
+
+        public ICollection<Evaluation> Evaluations { get; set; }
     }
 }
