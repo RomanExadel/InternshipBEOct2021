@@ -11,27 +11,29 @@ namespace DAL.Extensions
 	{
 		private static readonly string _password = "Password";
 
-		private static string[] _roleIds;
-		private static string[] _userIds;
-		private static int[] _internshipIds;
-		private static int[] _teamIds;
-		private static int[] _candidateIds;
-		private static int[] _feedbackIds;
-		private static int[] _skillIds;
+        private static string[] _roleIds;
+        private static string[] _userIds;
+        private static int[] _internshipIds;
+        private static int[] _countryIds;
+        private static int[] _teamIds;
+        private static int[] _candidateIds;
+        private static int[] _feedbackIds;
+        private static int[] _skillIds;
 
-		public static ModelBuilder Seed(this ModelBuilder builder)
-		{
-			builder.FillRoles()
-				   .FillUsers()
-				   .FillUserRoles()
-				   .FillInternships()
-				   .FillTeams()
-				   .FillInternshipStacks()
-				   .FillCandidates()
-				   .FillFeedbacks()
-				   .FillSkills()
-				   .FillEvaluations()
-				   .FillInterviewInvites();
+        public static ModelBuilder Seed(this ModelBuilder builder)
+        {
+            builder.FillRoles()
+                   .FillUsers()
+                   .FillUserRoles()
+                   .FillInternships()
+                   .FillCountries()
+                   .FillTeams()
+                   .FillInternshipStacks()
+                   .FillCandidates()
+                   .FillFeedbacks()
+                   .FillSkills()
+                   .FillEvaluations()
+                   .FillInterviewInvites();
 
 			return builder;
 		}
@@ -213,33 +215,37 @@ namespace DAL.Extensions
 		{
 			var id = 1;
 
-			var internships = new Internship[]
-			{
-				new Internship
-				{
-					Id = id++,
-					Name = "JS/>NET",
-					StartDate = DateTime.UtcNow,
-					EndDate = DateTime.UtcNow,
-					Requirements = "OOP, JS, C#, .Net, Angular/React",
-					MaxCandidateCount = 50,
-					RegistrationStartDate = DateTime.UtcNow,
-					RegistrationFinishDate = DateTime.UtcNow,
-					LanguageType = LanguageType.English
-				},
-				new Internship
-				{
-					Id = id++,
-					Name = "QA Automation",
-					StartDate = DateTime.UtcNow,
-					EndDate = DateTime.UtcNow,
-					Requirements = "Any programming language, QA basics",
-					MaxCandidateCount = 30,
-					RegistrationStartDate = DateTime.UtcNow,
-					RegistrationFinishDate = DateTime.UtcNow,
-					LanguageType = LanguageType.English
-				}
-			};
+            var internships = new Internship[]
+            {
+                new Internship
+                {
+                    Id = id++,
+                    Name = "JS/>NET",
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow,
+                    Requirements = "OOP, JS, C#, .Net, Angular/React",
+                    MaxCandidateCount = 50,
+                    RegistrationStartDate = DateTime.UtcNow,
+                    RegistrationFinishDate = DateTime.UtcNow,
+                    LanguageType = LanguageType.English,
+                    InternshipStatusType = InternshipStatusType.Open,
+                    ImageLink = "image/link/1"
+                },
+                new Internship
+                {
+                    Id = id++,
+                    Name = "QA Automation",
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow,
+                    Requirements = "Any programming language, QA basics",
+                    MaxCandidateCount = 30,
+                    RegistrationStartDate = DateTime.UtcNow,
+                    RegistrationFinishDate = DateTime.UtcNow,
+                    LanguageType = LanguageType.English,
+                    InternshipStatusType = InternshipStatusType.Open,
+                    ImageLink = "image/link/2"
+                }
+            };
 
 			_internshipIds = new int[internships.Length];
 
@@ -253,9 +259,44 @@ namespace DAL.Extensions
 			return builder;
 		}
 
-		public static ModelBuilder FillTeams(this ModelBuilder builder)
-		{
-			var id = 1;
+        public static ModelBuilder FillCountries(this ModelBuilder builder)
+        {
+            var id = 1;
+
+            var countries = new Country[]
+            {
+                new Country
+                {
+                    Id = id++,
+                    Name = "Belarus"
+                },
+                new Country
+                {
+                    Id = id++,
+                    Name = "Russia"
+                },
+                new Country
+                {
+                    Id = id++,
+                    Name = "Ukraine"
+                }
+            };
+
+            _countryIds = new int[countries.Length];
+
+            for (int i = 0; i < countries.Length; i++)
+            {
+                _countryIds[i] = countries[i].Id;
+            }
+
+            builder.Entity<Country>().HasData(countries);
+
+            return builder;
+        }
+
+        public static ModelBuilder FillTeams(this ModelBuilder builder)
+        {
+            var id = 1;
 
 			var teams = new Team[]
 			{
@@ -314,59 +355,59 @@ namespace DAL.Extensions
 		{
 			var id = 1;
 
-			var candidates = new Candidate[]
-			{
-				new Candidate
-				{
-					Id = id++,
-					FirstName = "John",
-					LastName = "Snow",
-					Location = "Arizona",
-					Phone = "+123456789",
-					Email = "j.snow@gmail.com",
-					Skype = "live:j.snow",
-					Education = "Harvard University",
-					Links = "-",
-					OtherInfo = "-",
-					PrimarySkill = "OOP, C#",
-					CurrentJob = "Student",
-					ProfessionalCertificates = "-",
-					BestContactTime = DateTime.UtcNow,
-					TestTaskEvaluation = 4,
-					StatusType = StatusType.New,
-					StackType = StackType.BackEnd,
-					EnglishLevelType = EnglishLevelType.C1,
-					IsPlanningToJoin = true,
-					RegistrationDate = DateTime.UtcNow,
-					InternshipId = _internshipIds[0],
-					TeamId = _teamIds[0]
-				},
-				new Candidate
-				{
-					Id = id++,
-					FirstName = "Hermione",
-					LastName = "Granger",
-					Location = "London",
-					Phone = "+2356416789",
-					Email = "h.granger@gmail.com",
-					Skype = "live:h.granger",
-					Education = "Hogwarts",
-					Links = "-",
-					OtherInfo = "-",
-					PrimarySkill = "C++, QA basics",
-					CurrentJob = "Student",
-					ProfessionalCertificates = "-",
-					BestContactTime = DateTime.UtcNow,
-					TestTaskEvaluation = 4,
-					StatusType = StatusType.New,
-					StackType = StackType.Testing,
-					EnglishLevelType = EnglishLevelType.C2,
-					IsPlanningToJoin = true,
-					RegistrationDate = DateTime.UtcNow,
-					InternshipId = _internshipIds[1],
-					TeamId = _teamIds[1]
-				}
-			};
+            var candidates = new Candidate[]
+            {
+                new Candidate
+                {
+                    Id = id++,
+                    FirstName = "John",
+                    LastName = "Snow",
+                    Location = "Arizona",
+                    Phone = "+123456789",
+                    Email = "j.snow@gmail.com",
+                    Skype = "live:j.snow",
+                    Education = "Harvard University",
+                    Links = "-",
+                    OtherInfo = "-",
+                    PrimarySkill = "OOP, C#",
+                    CurrentJob = "Student",
+                    ProfessionalCertificates = "-",
+                    BestContactTime = DateTime.UtcNow,
+                    TestTaskEvaluation = 4,
+                    StatusType = CandidateStatusType.New,
+                    StackType = StackType.BackEnd,
+                    EnglishLevelType = EnglishLevelType.C1,
+                    IsPlanningToJoin = true,
+                    RegistationDate = DateTime.UtcNow,
+                    InternshipId = _internshipIds[0],
+                    TeamId = _teamIds[0]
+                },
+                new Candidate
+                {
+                    Id = id++,
+                    FirstName = "Hermione",
+                    LastName = "Granger",
+                    Location = "London",
+                    Phone = "+2356416789",
+                    Email = "h.granger@gmail.com",
+                    Skype = "live:h.granger",
+                    Education = "Hogwarts",
+                    Links = "-",
+                    OtherInfo = "-",
+                    PrimarySkill = "C++, QA basics",
+                    CurrentJob = "Student",
+                    ProfessionalCertificates = "-",
+                    BestContactTime = DateTime.UtcNow,
+                    TestTaskEvaluation = 4,
+                    StatusType = CandidateStatusType.New,
+                    StackType = StackType.Testing,
+                    EnglishLevelType = EnglishLevelType.C2,
+                    IsPlanningToJoin = true,
+                    RegistationDate = DateTime.UtcNow,
+                    InternshipId = _internshipIds[1],
+                    TeamId = _teamIds[1]
+                }
+            };
 
 			_candidateIds = new int[candidates.Length];
 

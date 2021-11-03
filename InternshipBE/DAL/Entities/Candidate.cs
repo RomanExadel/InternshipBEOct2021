@@ -37,7 +37,7 @@ namespace DAL.Entities
 
 		public int TestTaskEvaluation { get; set; }
 
-		public StatusType StatusType { get; set; }
+        public CandidateStatusType StatusType { get; set; }
 
 		public StackType StackType { get; set; }
 

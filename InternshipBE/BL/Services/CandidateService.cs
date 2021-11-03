@@ -54,7 +54,7 @@ namespace BL.Services
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
 
-        public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, StatusType type)
+        public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
             candidate.StatusType = type;
