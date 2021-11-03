@@ -24,7 +24,7 @@ namespace BL.Mapping.Profiles
 			CreateMap<IList<object>, CandidateDTO>()
 				.ForMember(e => e.FirstName, source => source.MapFrom(s => s[FIRST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.LastName, source => source.MapFrom(s => s[LAST_NAME_OFFSET].ToString()))
-				.ForMember(e => e.RegistationDate, source => source
+				.ForMember(e => e.RegistrationDate, source => source
 					.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), _googleSheetConfig.DateTimeFormat, CultureInfo.InvariantCulture)))
 				.ForMember(e => e.Email, source => source.MapFrom(s => s[EMAIL_OFFSET].ToString()))
 				.ForMember(e => e.Location, source => source.MapFrom(s => s[LOCATION_OFFSET].ToString()))

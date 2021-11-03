@@ -7,7 +7,7 @@ namespace BL.DTOs
     {
         public int Id { get; set; }
 
-        public DateTime RegistationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
         public string Email { get; set; }
 

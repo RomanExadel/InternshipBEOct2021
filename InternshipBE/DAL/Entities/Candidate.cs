@@ -45,7 +45,7 @@ namespace DAL.Entities
         
         public bool IsPlanningToJoin { get; set; }
 
-        public DateTime RegistationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
         public Internship Internship { get; set; }
 
