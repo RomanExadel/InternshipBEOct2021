@@ -13,12 +13,6 @@ namespace DAL.Extensions
 
         private static string[] _roleIds;
         private static string[] _userIds;
-        private static int[] _internshipIds;
-        private static int[] _countryIds;
-        private static int[] _teamIds;
-        private static int[] _candidateIds;
-        private static int[] _feedbackIds;
-        private static int[] _skillIds;
 
         public static ModelBuilder Seed(this ModelBuilder builder)
         {
@@ -213,13 +207,11 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillInternships(this ModelBuilder builder)
         {
-            var id = 1;
-
             var internships = new Internship[]
             {
                 new Internship
                 {
-                    Id = id++,
+                    Id = 1,
                     Name = "JS/>NET",
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow,
@@ -233,7 +225,7 @@ namespace DAL.Extensions
                 },
                 new Internship
                 {
-                    Id = id++,
+                    Id = 2,
                     Name = "QA Automation",
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow,
@@ -247,13 +239,6 @@ namespace DAL.Extensions
                 }
             };
 
-            _internshipIds = new int[internships.Length];
-
-            for (int i = 0; i < internships.Length; i++)
-            {
-                _internshipIds[i] = internships[i].Id;
-            }
-
             builder.Entity<Internship>().HasData(internships);
 
             return builder;
@@ -261,33 +246,24 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillCountries(this ModelBuilder builder)
         {
-            var id = 1;
-
             var countries = new Country[]
             {
                 new Country
                 {
-                    Id = id++,
+                    Id = 1,
                     Name = "Belarus"
                 },
                 new Country
                 {
-                    Id = id++,
+                    Id = 2,
                     Name = "Russia"
                 },
                 new Country
                 {
-                    Id = id++,
+                    Id = 3,
                     Name = "Ukraine"
                 }
             };
-
-            _countryIds = new int[countries.Length];
-
-            for (int i = 0; i < countries.Length; i++)
-            {
-                _countryIds[i] = countries[i].Id;
-            }
 
             builder.Entity<Country>().HasData(countries);
 
@@ -296,30 +272,21 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillTeams(this ModelBuilder builder)
         {
-            var id = 1;
-
             var teams = new Team[]
             {
                 new Team
                 {
-                    Id = id++,
-                    InternshipId = _internshipIds[0],
+                    Id = 1,
+                    InternshipId = 1,
                     Name = "Team 1 A",
                 },
                 new Team
                 {
-                    Id = id++,
-                    InternshipId = _internshipIds[1],
+                    Id = 2,
+                    InternshipId = 2,
                     Name = "Team 1 B",
                 }
             };
-
-            _teamIds = new int[teams.Length];
-
-            for (int i = 0; i < teams.Length; i++)
-            {
-                _teamIds[i] = teams[i].Id;
-            }
 
             builder.Entity<Team>().HasData(teams);
 
@@ -328,20 +295,18 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillInternshipStacks(this ModelBuilder builder)
         {
-            var id = 1;
-
             var internshipStacks = new InternshipStack[]
             {
                 new InternshipStack
                 {
-                    Id = id++,
-                    InternshipId = _internshipIds[0],
+                    Id = 1,
+                    InternshipId = 1,
                     TechnologyStackType = StackType.BackEnd
                 },
                     new InternshipStack
                 {
-                    Id = id++,
-                    InternshipId = _internshipIds[1],
+                    Id = 2,
+                    InternshipId = 2,
                     TechnologyStackType = StackType.Testing
                 }
             };
@@ -353,13 +318,11 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillCandidates(this ModelBuilder builder)
         {
-            var id = 1;
-
             var candidates = new Candidate[]
             {
                 new Candidate
                 {
-                    Id = id++,
+                    Id = 1,
                     FirstName = "John",
                     LastName = "Snow",
                     Location = "Arizona",
@@ -379,12 +342,12 @@ namespace DAL.Extensions
                     EnglishLevelType = EnglishLevelType.C1,
                     IsPlanningToJoin = true,
                     RegistrationDate = DateTime.UtcNow,
-                    InternshipId = _internshipIds[0],
-                    TeamId = _teamIds[0]
+                    InternshipId = 1,
+                    TeamId = 1
                 },
                 new Candidate
                 {
-                    Id = id++,
+                    Id = 2,
                     FirstName = "Hermione",
                     LastName = "Granger",
                     Location = "London",
@@ -404,17 +367,10 @@ namespace DAL.Extensions
                     EnglishLevelType = EnglishLevelType.C2,
                     IsPlanningToJoin = true,
                     RegistrationDate = DateTime.UtcNow,
-                    InternshipId = _internshipIds[1],
-                    TeamId = _teamIds[1]
+                    InternshipId = 2,
+                    TeamId = 2
                 }
             };
-
-            _candidateIds = new int[candidates.Length];
-
-            for (int i = 0; i < candidates.Length; i++)
-            {
-                _candidateIds[i] = candidates[i].Id;
-            }
 
             builder.Entity<Candidate>().HasData(candidates);
 
@@ -423,14 +379,12 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillFeedbacks(this ModelBuilder builder)
         {
-            var id = 1;
-
             var feedbacks = new Feedback[]
             {
                 new Feedback
                 {
-                    Id = id++,
-                    CandidateId = _candidateIds[0],
+                    Id = 1,
+                    CandidateId = 1,
                     EnglishLevelType = EnglishLevelType.C1,
                     Date = DateTime.UtcNow,
                     Description = "Good knowledge of frameworks, oop, and db",
@@ -438,21 +392,14 @@ namespace DAL.Extensions
                 },
                 new Feedback
                 {
-                    Id = id++,
-                    CandidateId = _candidateIds[1],
+                    Id = 2,
+                    CandidateId = 2,
                     EnglishLevelType = EnglishLevelType.C2,
                     Date = DateTime.UtcNow,
                     Description = "Excellent candidate",
                     UserId = _userIds[0],
                 }
             };
-
-            _feedbackIds = new int[feedbacks.Length];
-
-            for (int i = 0; i < feedbacks.Length; i++)
-            {
-                _feedbackIds[i] = feedbacks[i].Id;
-            }
 
             builder.Entity<Feedback>().HasData(feedbacks);
 
@@ -461,32 +408,23 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillSkills(this ModelBuilder builder)
         {
-            var id = 1;
-
             var skills = new Skill[]
             {
                 new Skill
                 {
-                    Id = id++,
+                    Id = 1,
                     StackType = StackType.BackEnd,
                     Name = "OOP",
                     IsHardSkill = true,
                 },
                 new Skill
                 {
-                    Id = id++,
+                    Id = 2,
                     StackType = StackType.Testing,
                     Name = "Java",
                     IsHardSkill = true,
                 }
             };
-
-            _skillIds = new int[skills.Length];
-
-            for (int i = 0; i < skills.Length; i++)
-            {
-                _skillIds[i] = skills[i].Id;
-            }
 
             builder.Entity<Skill>().HasData(skills);
 
@@ -495,22 +433,20 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillEvaluations(this ModelBuilder builder)
         {
-            var id = 1;
-
             var evaluations = new Evaluation[]
             {
                 new Evaluation
                 {
-                    Id = id++,
-                    FeedbackId = _feedbackIds[0],
-                    SkillId = _skillIds[0],
+                    Id = 1,
+                    FeedbackId = 1,
+                    SkillId = 1,
                     Value = 4,
                 },
                 new Evaluation
                 {
-                    Id = id++,
-                    FeedbackId = _feedbackIds[1],
-                    SkillId = _skillIds[1],
+                    Id = 2,
+                    FeedbackId = 2,
+                    SkillId = 2,
                     Value = 4,
                 }
             };
@@ -522,22 +458,20 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillInterviewInvites(this ModelBuilder builder)
         {
-            var id = 1;
-
             var interviewInvites = new InterviewInvite[]
             {
                 new InterviewInvite
                 {
-                    Id = id++,
+                    Id = 1,
                     UserId = _userIds[0],
-                    CandidateId = _candidateIds[0],
+                    CandidateId = 1,
                     ContactDate = DateTime.UtcNow,
                 },
                 new InterviewInvite
                 {
-                    Id = id++,
+                    Id = 2,
                     UserId = _userIds[0],
-                    CandidateId = _candidateIds[1],
+                    CandidateId = 2,
                     ContactDate = DateTime.UtcNow,
                 }
             };
