@@ -31,5 +31,11 @@ namespace DAL.Entities
         public ICollection<User> Users { get; set; }
 
         public ICollection<Team> Teams { get; set; }
+
+        public ICollection<Country> Countries { get; set; }
+
+        public InternshipStatusType InternshipStatusType { get; set; }
+
+        public string ImageLink { get; set; }
     }
 }

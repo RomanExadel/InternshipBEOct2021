@@ -14,6 +14,7 @@ namespace DAL.Extensions
         private static string[] _roleIds;
         private static string[] _userIds;
         private static int[] _internshipIds;
+        private static int[] _countryIds;
         private static int[] _teamIds;
         private static int[] _candidateIds;
         private static int[] _feedbackIds;
@@ -25,6 +26,7 @@ namespace DAL.Extensions
                    .FillUsers()
                    .FillUserRoles()
                    .FillInternships()
+                   .FillCountries()
                    .FillTeams()
                    .FillInternshipStacks()
                    .FillCandidates()
@@ -225,7 +227,9 @@ namespace DAL.Extensions
                     MaxCandidateCount = 50,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.English
+                    LanguageType = LanguageType.English,
+                    InternshipStatusType = InternshipStatusType.Open,
+                    ImageLink = "image/link/1"
                 },
                 new Internship
                 {
@@ -237,7 +241,9 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.English
+                    LanguageType = LanguageType.English,
+                    InternshipStatusType = InternshipStatusType.Open,
+                    ImageLink = "image/link/2"
                 }
             };
 
@@ -249,6 +255,41 @@ namespace DAL.Extensions
             }
 
             builder.Entity<Internship>().HasData(internships);
+
+            return builder;
+        }
+
+        public static ModelBuilder FillCountries(this ModelBuilder builder)
+        {
+            var id = 1;
+
+            var countries = new Country[]
+            {
+                new Country
+                {
+                    Id = id++,
+                    Name = "Belarus"
+                },
+                new Country
+                {
+                    Id = id++,
+                    Name = "Russia"
+                },
+                new Country
+                {
+                    Id = id++,
+                    Name = "Ukraine"
+                }
+            };
+
+            _countryIds = new int[countries.Length];
+
+            for (int i = 0; i < countries.Length; i++)
+            {
+                _countryIds[i] = countries[i].Id;
+            }
+
+            builder.Entity<Country>().HasData(countries);
 
             return builder;
         }
@@ -333,7 +374,7 @@ namespace DAL.Extensions
                     ProfessionalCertificates = "-",
                     BestContactTime = DateTime.UtcNow,
                     TestTaskEvaluation = 4,
-                    StatusType = StatusType.New,
+                    StatusType = CandidateStatusType.New,
                     StackType = StackType.BackEnd,
                     EnglishLevelType = EnglishLevelType.C1,
                     IsPlanningToJoin = true,
@@ -358,7 +399,7 @@ namespace DAL.Extensions
                     ProfessionalCertificates = "-",
                     BestContactTime = DateTime.UtcNow,
                     TestTaskEvaluation = 4,
-                    StatusType = StatusType.New,
+                    StatusType = CandidateStatusType.New,
                     StackType = StackType.Testing,
                     EnglishLevelType = EnglishLevelType.C2,
                     IsPlanningToJoin = true,
