@@ -378,7 +378,7 @@ namespace DAL.Extensions
                     StackType = StackType.BackEnd,
                     EnglishLevelType = EnglishLevelType.C1,
                     IsPlanningToJoin = true,
-                    RegistationDate = DateTime.UtcNow,
+                    RegistrationDate = DateTime.UtcNow,
                     InternshipId = _internshipIds[0],
                     TeamId = _teamIds[0]
                 },
@@ -403,7 +403,7 @@ namespace DAL.Extensions
                     StackType = StackType.Testing,
                     EnglishLevelType = EnglishLevelType.C2,
                     IsPlanningToJoin = true,
-                    RegistationDate = DateTime.UtcNow,
+                    RegistrationDate = DateTime.UtcNow,
                     InternshipId = _internshipIds[1],
                     TeamId = _teamIds[1]
                 }
