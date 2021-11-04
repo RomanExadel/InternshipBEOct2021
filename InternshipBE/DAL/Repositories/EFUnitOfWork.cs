@@ -12,6 +12,7 @@ namespace DAL.Repositories
 
 		private ICandidateRepository _canidateRepository;
 		private IInternshipRepository _internshipRepository;
+		private IInternshipStackRepository _internshipStackRepository;
 
 		public ICandidateRepository Candidates
 		{
@@ -30,6 +31,16 @@ namespace DAL.Repositories
 				if (_internshipRepository == null)
 					_internshipRepository = new InternshipRepository(_db);
 				return _internshipRepository;
+			}
+		}
+
+		public IInternshipStackRepository InternshipStacks
+		{
+			get
+			{
+				if (_internshipStackRepository == null)
+					_internshipStackRepository = new InternshipStackRepository(_db);
+				return _internshipStackRepository;
 			}
 		}
 
