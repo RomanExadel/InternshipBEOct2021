@@ -2,6 +2,7 @@
 using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,12 +22,14 @@ namespace BL.Services
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper)
+        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _configuration = configuration;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<string> AuthenticateAsync(string email, string password)
@@ -77,6 +80,14 @@ namespace BL.Services
             return userDTO;
         }
 
+        public async Task<List<UserDTO>> GetMentorsByInternshipId(int id)
+        {
+            var users = await _unitOfWork.Users.GetUsersByInternshipIdAsync(id);
+            var mentors = await GetMentorsAsync(users);
+
+            return _mapper.Map<List<UserDTO>>(mentors);
+        }
+
         private async Task<string> GetUserRoleAsync(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
@@ -101,5 +112,21 @@ namespace BL.Services
             return user;
         }
 
+        private async Task<List<User>> GetMentorsAsync(List<User> users)
+        {
+            var mentors = new List<User>();
+
+            foreach (var user in users)
+            {
+                var role = await GetUserRoleAsync(user);
+
+                if (role == RoleType.Hr.ToString())
+                {
+                    mentors.Add(user);
+                }
+            }
+
+            return mentors;
+        }
     }
 }

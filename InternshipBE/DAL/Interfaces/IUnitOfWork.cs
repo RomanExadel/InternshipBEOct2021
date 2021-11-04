@@ -9,6 +9,8 @@ namespace DAL.Interfaces
 
         IInternshipRepository Internships { get; }
 
+        IUserRepository Users { get; }
+
         Task SaveAsync();
     }
 }
