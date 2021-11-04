@@ -35,14 +35,14 @@ namespace DAL.Repositories
 		}
 
 		public IFeedbackRepository Feedbacks
-        {
-            get
-            {
+		{
+			get
+			{
 				if(_feedbackRepository == null)
 					_feedbackRepository = new FeedbackRepository(_db);
 				return _feedbackRepository;
-            }
-        }
+			}
+		}
 
 		public EFUnitOfWork(ApplicationDbContext db)
 		{
