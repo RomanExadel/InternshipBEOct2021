@@ -18,7 +18,5 @@ namespace BL.DTOs
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
-
-        public ICollection<Evaluation> Evaluations { get; set; }
     }
 }
