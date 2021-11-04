@@ -131,7 +131,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            BestContactTime = new DateTime(2021, 11, 4, 11, 34, 7, 657, DateTimeKind.Utc).AddTicks(148),
+                            BestContactTime = new DateTime(2021, 11, 4, 11, 45, 8, 151, DateTimeKind.Utc).AddTicks(6622),
                             CurrentJob = "Student",
                             Education = "Harvard University",
                             Email = "j.snow@gmail.com",
@@ -146,7 +146,7 @@ namespace DAL.Migrations
                             Phone = "+123456789",
                             PrimarySkill = "OOP, C#",
                             ProfessionalCertificates = "-",
-                            RegistrationDate = new DateTime(2021, 11, 4, 11, 34, 7, 657, DateTimeKind.Utc).AddTicks(3724),
+                            RegistrationDate = new DateTime(2021, 11, 4, 11, 45, 8, 152, DateTimeKind.Utc).AddTicks(211),
                             Skype = "live:j.snow",
                             StackType = 1,
                             StatusType = 0,
@@ -156,7 +156,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            BestContactTime = new DateTime(2021, 11, 4, 11, 34, 7, 657, DateTimeKind.Utc).AddTicks(5576),
+                            BestContactTime = new DateTime(2021, 11, 4, 11, 45, 8, 152, DateTimeKind.Utc).AddTicks(2083),
                             CurrentJob = "Student",
                             Education = "Hogwarts",
                             Email = "h.granger@gmail.com",
@@ -171,7 +171,7 @@ namespace DAL.Migrations
                             Phone = "+2356416789",
                             PrimarySkill = "C++, QA basics",
                             ProfessionalCertificates = "-",
-                            RegistrationDate = new DateTime(2021, 11, 4, 11, 34, 7, 657, DateTimeKind.Utc).AddTicks(5581),
+                            RegistrationDate = new DateTime(2021, 11, 4, 11, 45, 8, 152, DateTimeKind.Utc).AddTicks(2088),
                             Skype = "live:h.granger",
                             StackType = 5,
                             StatusType = 0,
@@ -288,19 +288,19 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             CandidateId = 1,
-                            Date = new DateTime(2021, 11, 4, 11, 34, 7, 658, DateTimeKind.Utc).AddTicks(1272),
+                            Date = new DateTime(2021, 11, 4, 11, 45, 8, 152, DateTimeKind.Utc).AddTicks(8380),
                             Description = "Good knowledge of frameworks, oop, and db",
                             EnglishLevelType = 4,
-                            UserId = "6bfb5a16-52d2-4065-bc9a-778fda750b27"
+                            UserId = "740d84a0-6dc6-47bf-a535-a3390e01c41d"
                         },
                         new
                         {
                             Id = 2,
                             CandidateId = 2,
-                            Date = new DateTime(2021, 11, 4, 11, 34, 7, 658, DateTimeKind.Utc).AddTicks(3038),
+                            Date = new DateTime(2021, 11, 4, 11, 45, 8, 153, DateTimeKind.Utc).AddTicks(270),
                             Description = "Excellent candidate",
                             EnglishLevelType = 5,
-                            UserId = "6bfb5a16-52d2-4065-bc9a-778fda750b27"
+                            UserId = "740d84a0-6dc6-47bf-a535-a3390e01c41d"
                         });
                 });
 
@@ -349,30 +349,30 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            EndDate = new DateTime(2021, 11, 4, 11, 34, 7, 653, DateTimeKind.Utc).AddTicks(8502),
+                            EndDate = new DateTime(2021, 11, 4, 11, 45, 8, 145, DateTimeKind.Utc).AddTicks(9301),
                             ImageLink = "image/link/1",
                             InternshipStatusType = 0,
                             LanguageType = 0,
                             MaxCandidateCount = 50,
                             Name = "JS/>NET",
-                            RegistrationFinishDate = new DateTime(2021, 11, 4, 11, 34, 7, 654, DateTimeKind.Utc).AddTicks(876),
-                            RegistrationStartDate = new DateTime(2021, 11, 4, 11, 34, 7, 654, DateTimeKind.Utc).AddTicks(264),
+                            RegistrationFinishDate = new DateTime(2021, 11, 4, 11, 45, 8, 146, DateTimeKind.Utc).AddTicks(1700),
+                            RegistrationStartDate = new DateTime(2021, 11, 4, 11, 45, 8, 146, DateTimeKind.Utc).AddTicks(1094),
                             Requirements = "OOP, JS, C#, .Net, Angular/React",
-                            StartDate = new DateTime(2021, 11, 4, 11, 34, 7, 653, DateTimeKind.Utc).AddTicks(7846)
+                            StartDate = new DateTime(2021, 11, 4, 11, 45, 8, 145, DateTimeKind.Utc).AddTicks(8657)
                         },
                         new
                         {
                             Id = 2,
-                            EndDate = new DateTime(2021, 11, 4, 11, 34, 7, 654, DateTimeKind.Utc).AddTicks(3170),
+                            EndDate = new DateTime(2021, 11, 4, 11, 45, 8, 146, DateTimeKind.Utc).AddTicks(3989),
                             ImageLink = "image/link/2",
                             InternshipStatusType = 0,
                             LanguageType = 0,
                             MaxCandidateCount = 30,
                             Name = "QA Automation",
-                            RegistrationFinishDate = new DateTime(2021, 11, 4, 11, 34, 7, 654, DateTimeKind.Utc).AddTicks(3173),
-                            RegistrationStartDate = new DateTime(2021, 11, 4, 11, 34, 7, 654, DateTimeKind.Utc).AddTicks(3172),
+                            RegistrationFinishDate = new DateTime(2021, 11, 4, 11, 45, 8, 146, DateTimeKind.Utc).AddTicks(3992),
+                            RegistrationStartDate = new DateTime(2021, 11, 4, 11, 45, 8, 146, DateTimeKind.Utc).AddTicks(3991),
                             Requirements = "Any programming language, QA basics",
-                            StartDate = new DateTime(2021, 11, 4, 11, 34, 7, 654, DateTimeKind.Utc).AddTicks(3167)
+                            StartDate = new DateTime(2021, 11, 4, 11, 45, 8, 146, DateTimeKind.Utc).AddTicks(3985)
                         });
                 });
 
@@ -439,15 +439,15 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             CandidateId = 1,
-                            ContactDate = new DateTime(2021, 11, 4, 11, 34, 7, 659, DateTimeKind.Utc).AddTicks(8722),
-                            UserId = "6bfb5a16-52d2-4065-bc9a-778fda750b27"
+                            ContactDate = new DateTime(2021, 11, 4, 11, 45, 8, 155, DateTimeKind.Utc).AddTicks(197),
+                            UserId = "740d84a0-6dc6-47bf-a535-a3390e01c41d"
                         },
                         new
                         {
                             Id = 2,
                             CandidateId = 2,
-                            ContactDate = new DateTime(2021, 11, 4, 11, 34, 7, 659, DateTimeKind.Utc).AddTicks(9346),
-                            UserId = "6bfb5a16-52d2-4065-bc9a-778fda750b27"
+                            ContactDate = new DateTime(2021, 11, 4, 11, 45, 8, 155, DateTimeKind.Utc).AddTicks(946),
+                            UserId = "740d84a0-6dc6-47bf-a535-a3390e01c41d"
                         });
                 });
 
@@ -595,16 +595,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6bfb5a16-52d2-4065-bc9a-778fda750b27",
+                            Id = "740d84a0-6dc6-47bf-a535-a3390e01c41d",
                             AccessFailedCount = 0,
-                            BestContactTime = new DateTime(2021, 11, 4, 11, 34, 7, 638, DateTimeKind.Utc).AddTicks(5741),
-                            ConcurrencyStamp = "48a0cc92-d205-44ce-b37d-b8ec1c9178bc",
+                            BestContactTime = new DateTime(2021, 11, 4, 11, 45, 8, 133, DateTimeKind.Utc).AddTicks(3256),
+                            ConcurrencyStamp = "a331cb54-07cf-48ec-ba44-7d7b4c95c9ee",
                             Email = "li@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "LI@GMAIL.COM",
                             NormalizedUserName = "MASHA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE/MYfDsQMKTU4/uG3uSZ8DIRON0dyxamHe+VL2RCpBUJpt1pHx9c6E10GWSWg33JQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJPjaVw81vZF5mXfJz1aif2rIx3vPdezMyafZ5CQoNEoGfJaaX6KlvQ+G8I2i58D5g==",
                             PhoneNumber = "+123656787",
                             PhoneNumberConfirmed = false,
                             Position = "BA",
@@ -614,16 +614,16 @@ namespace DAL.Migrations
                         },
                         new
                         {
-                            Id = "06cb3098-fa7d-4b58-8b40-028c93389d69",
+                            Id = "43a2a5bf-5727-455a-bf8d-4df0b30feacb",
                             AccessFailedCount = 0,
-                            BestContactTime = new DateTime(2021, 11, 4, 11, 34, 7, 646, DateTimeKind.Utc).AddTicks(8590),
-                            ConcurrencyStamp = "539f5217-c62e-4446-8791-a4f0f856b34e",
+                            BestContactTime = new DateTime(2021, 11, 4, 11, 45, 8, 139, DateTimeKind.Utc).AddTicks(9157),
+                            ConcurrencyStamp = "4ac7530b-4d38-47f8-9a34-b1c6ab42519b",
                             Email = "max@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "MAX@GMAIL.COM",
                             NormalizedUserName = "MAXIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECUkYmnH/OHECg3n2MFmmZiteP59sdvva9g5ninPHGnzyQcWVAOCQBbUfjXNrGZcIg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMgwsPqTa5MWnmRJ97Ehdj11Bst3GT0EiMWWAlnN68NWOpUAODHYSLLrOQlDknO8cA==",
                             PhoneNumber = "+125656787",
                             PhoneNumberConfirmed = false,
                             Position = "Back",
@@ -633,16 +633,16 @@ namespace DAL.Migrations
                         },
                         new
                         {
-                            Id = "04fd1df2-9c21-42d4-9004-62626dd56a0c",
+                            Id = "86a2be45-f46f-457a-9f52-6a1bb50ba8d7",
                             AccessFailedCount = 0,
-                            BestContactTime = new DateTime(2021, 11, 4, 11, 34, 7, 648, DateTimeKind.Utc).AddTicks(7832),
-                            ConcurrencyStamp = "8fc95743-5998-4c08-95f4-bb4ebd6a3b71",
+                            BestContactTime = new DateTime(2021, 11, 4, 11, 45, 8, 141, DateTimeKind.Utc).AddTicks(5406),
+                            ConcurrencyStamp = "985fcf17-870d-4a0f-b438-c5d02fcbf88f",
                             Email = "user@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "USER@EXAMPLE.COM",
                             NormalizedUserName = "DASHA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMO5ZppODXkjEoxCRld39ej05bgm7/lXUzBubSdscl3I+unghwG5iJLgU9D+A0TYlQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOimy80QXNTkhKV9pIkPMpPGiqxTyGj7bt/LTEokCV3CJCahaYLhQXmzMyVIAweLzA==",
                             PhoneNumber = "+325656787",
                             PhoneNumberConfirmed = false,
                             Position = "Front",
@@ -652,16 +652,16 @@ namespace DAL.Migrations
                         },
                         new
                         {
-                            Id = "6754eb6c-5ff3-4b73-9a5b-e19e2b64d42a",
+                            Id = "777835bd-fc5b-46ba-ab7d-8bc38fffa9ad",
                             AccessFailedCount = 0,
-                            BestContactTime = new DateTime(2021, 11, 4, 11, 34, 7, 650, DateTimeKind.Utc).AddTicks(4480),
-                            ConcurrencyStamp = "835e9c2b-536c-4d8e-bf7c-4a905f955ea0",
+                            BestContactTime = new DateTime(2021, 11, 4, 11, 45, 8, 143, DateTimeKind.Utc).AddTicks(1291),
+                            ConcurrencyStamp = "e8536d46-1339-4a22-8dc5-ceb0a8028d6e",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ALEXANDR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE1TVcXht+2eOi6ALjEgbXv+QD4s4cIq3S+/9DVgabtTWhYVO9xxwu5k+1wQT1QyaQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENuTAqbumxnRNNUkH5yWrQUsYzon8BdiPuDMxfLez8Y5cDc8mbQ4UQBKjvPjVJN+iQ==",
                             PhoneNumber = "+325659787",
                             PhoneNumberConfirmed = false,
                             Position = "PO",
@@ -715,29 +715,29 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ced29eb1-477a-46a9-8f19-61856525f989",
-                            ConcurrencyStamp = "77321d09-c30a-4ec3-9ef2-ea7913661ea9",
+                            Id = "9e40e7b2-8878-40a9-82b2-a51e4e3a074a",
+                            ConcurrencyStamp = "0be4c94a-1693-4526-9a04-140e6b640292",
                             Name = "Hr",
                             NormalizedName = "HR"
                         },
                         new
                         {
-                            Id = "71abc672-d385-44a9-bbf8-f5a382ce49c1",
-                            ConcurrencyStamp = "e6f0fa43-051c-4619-8452-117cf185ca44",
+                            Id = "66d7ea30-e758-439d-8be4-bef40a00f165",
+                            ConcurrencyStamp = "a38d269d-e54d-44f4-ba28-0c57ed57a362",
                             Name = "Interviewer",
                             NormalizedName = "INTERVIEWER"
                         },
                         new
                         {
-                            Id = "0e33b9dd-5cd2-4d4b-acb3-5c5ec827432b",
-                            ConcurrencyStamp = "18f38ebd-4b35-4c83-ae12-f6b3a9941dfd",
+                            Id = "13178c2c-b049-46dc-8e62-7765c1afc912",
+                            ConcurrencyStamp = "d66fc8f7-0779-460f-b976-83f1378960c6",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "70476c6b-db2e-421c-8c2c-2af2c2472628",
-                            ConcurrencyStamp = "7a3b5384-e4e3-4ba9-981f-4600c366af7e",
+                            Id = "051bd651-a9b7-41dd-8877-4e4be6110975",
+                            ConcurrencyStamp = "9e043c15-5768-4a4c-bccb-f39535f9a037",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -830,23 +830,23 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6bfb5a16-52d2-4065-bc9a-778fda750b27",
-                            RoleId = "ced29eb1-477a-46a9-8f19-61856525f989"
+                            UserId = "740d84a0-6dc6-47bf-a535-a3390e01c41d",
+                            RoleId = "9e40e7b2-8878-40a9-82b2-a51e4e3a074a"
                         },
                         new
                         {
-                            UserId = "06cb3098-fa7d-4b58-8b40-028c93389d69",
-                            RoleId = "71abc672-d385-44a9-bbf8-f5a382ce49c1"
+                            UserId = "43a2a5bf-5727-455a-bf8d-4df0b30feacb",
+                            RoleId = "66d7ea30-e758-439d-8be4-bef40a00f165"
                         },
                         new
                         {
-                            UserId = "04fd1df2-9c21-42d4-9004-62626dd56a0c",
-                            RoleId = "0e33b9dd-5cd2-4d4b-acb3-5c5ec827432b"
+                            UserId = "86a2be45-f46f-457a-9f52-6a1bb50ba8d7",
+                            RoleId = "13178c2c-b049-46dc-8e62-7765c1afc912"
                         },
                         new
                         {
-                            UserId = "6754eb6c-5ff3-4b73-9a5b-e19e2b64d42a",
-                            RoleId = "70476c6b-db2e-421c-8c2c-2af2c2472628"
+                            UserId = "777835bd-fc5b-46ba-ab7d-8bc38fffa9ad",
+                            RoleId = "051bd651-a9b7-41dd-8877-4e4be6110975"
                         });
                 });
 
