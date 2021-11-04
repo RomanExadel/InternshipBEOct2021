@@ -24,5 +24,11 @@ namespace WebApi.Controllers
 
             return Ok(await _userService.GetUserInfoByUserNameAsync(userName));
         }
+
+        [HttpGet("getAllUsersByInternship")]
+        public async Task<IActionResult> GetAllUsersByInternshipId([FromQuery] int id)
+        {
+            return Ok(await _userService.GetMentorsByInternshipId(id));            
+        }
     }
 }
