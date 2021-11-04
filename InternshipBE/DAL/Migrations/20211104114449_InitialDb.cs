@@ -49,6 +49,19 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Countries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Internships",
                 columns: table => new
                 {
@@ -61,7 +74,9 @@ namespace DAL.Migrations
                     MaxCandidateCount = table.Column<int>(type: "int", nullable: false),
                     RegistrationStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RegistrationFinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LanguageType = table.Column<int>(type: "int", nullable: false)
+                    LanguageType = table.Column<int>(type: "int", nullable: false),
+                    InternshipStatusType = table.Column<int>(type: "int", nullable: false),
+                    ImageLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,6 +200,30 @@ namespace DAL.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CountryInternship",
+                columns: table => new
+                {
+                    CountriesId = table.Column<int>(type: "int", nullable: false),
+                    InternshipsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CountryInternship", x => new { x.CountriesId, x.InternshipsId });
+                    table.ForeignKey(
+                        name: "FK_CountryInternship_Countries_CountriesId",
+                        column: x => x.CountriesId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CountryInternship_Internships_InternshipsId",
+                        column: x => x.InternshipsId,
+                        principalTable: "Internships",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -484,6 +523,11 @@ namespace DAL.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CountryInternship_InternshipsId",
+                table: "CountryInternship",
+                column: "InternshipsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Evaluations_FeedbackId",
                 table: "Evaluations",
                 column: "FeedbackId");
@@ -555,6 +599,9 @@ namespace DAL.Migrations
                 name: "CandidateUser");
 
             migrationBuilder.DropTable(
+                name: "CountryInternship");
+
+            migrationBuilder.DropTable(
                 name: "Evaluations");
 
             migrationBuilder.DropTable(
@@ -571,6 +618,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "Feedbacks");

@@ -43,7 +43,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("updateCandidateStatus/{id}")]
-        public async Task<IActionResult> UpdateCandidateStatusById(int id, StatusType status)
+        public async Task<IActionResult> UpdateCandidateStatusById(int id, CandidateStatusType status)
         {
             return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
         }

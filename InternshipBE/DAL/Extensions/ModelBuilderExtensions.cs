@@ -11,27 +11,23 @@ namespace DAL.Extensions
 	{
 		private static readonly string _password = "Password";
 
-		private static string[] _roleIds;
-		private static string[] _userIds;
-		private static int[] _internshipIds;
-		private static int[] _teamIds;
-		private static int[] _candidateIds;
-		private static int[] _feedbackIds;
-		private static int[] _skillIds;
+        private static string[] _roleIds;
+        private static string[] _userIds;
 
-		public static ModelBuilder Seed(this ModelBuilder builder)
-		{
-			builder.FillRoles()
-				   .FillUsers()
-				   .FillUserRoles()
-				   .FillInternships()
-				   .FillTeams()
-				   .FillInternshipStacks()
-				   .FillCandidates()
-				   .FillFeedbacks()
-				   .FillSkills()
-				   .FillEvaluations()
-				   .FillInterviewInvites();
+        public static ModelBuilder Seed(this ModelBuilder builder)
+        {
+            builder.FillRoles()
+                   .FillUsers()
+                   .FillUserRoles()
+                   .FillInternships()
+                   .FillCountries()
+                   .FillTeams()
+                   .FillInternshipStacks()
+                   .FillCandidates()
+                   .FillFeedbacks()
+                   .FillSkills()
+                   .FillEvaluations()
+                   .FillInterviewInvites();
 
 			return builder;
 		}
@@ -209,297 +205,276 @@ namespace DAL.Extensions
 			return builder;
 		}
 
-		public static ModelBuilder FillInternships(this ModelBuilder builder)
-		{
-			var id = 1;
+        public static ModelBuilder FillInternships(this ModelBuilder builder)
+        {
+            var internships = new Internship[]
+            {
+                new Internship
+                {
+                    Id = 1,
+                    Name = "JS/>NET",
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow,
+                    Requirements = "OOP, JS, C#, .Net, Angular/React",
+                    MaxCandidateCount = 50,
+                    RegistrationStartDate = DateTime.UtcNow,
+                    RegistrationFinishDate = DateTime.UtcNow,
+                    LanguageType = LanguageType.English,
+                    InternshipStatusType = InternshipStatusType.Open,
+                    ImageLink = "image/link/1"
+                },
+                new Internship
+                {
+                    Id = 2,
+                    Name = "QA Automation",
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow,
+                    Requirements = "Any programming language, QA basics",
+                    MaxCandidateCount = 30,
+                    RegistrationStartDate = DateTime.UtcNow,
+                    RegistrationFinishDate = DateTime.UtcNow,
+                    LanguageType = LanguageType.English,
+                    InternshipStatusType = InternshipStatusType.Open,
+                    ImageLink = "image/link/2"
+                }
+            };
 
-			var internships = new Internship[]
-			{
-				new Internship
-				{
-					Id = id++,
-					Name = "JS/>NET",
-					StartDate = DateTime.UtcNow,
-					EndDate = DateTime.UtcNow,
-					Requirements = "OOP, JS, C#, .Net, Angular/React",
-					MaxCandidateCount = 50,
-					RegistrationStartDate = DateTime.UtcNow,
-					RegistrationFinishDate = DateTime.UtcNow,
-					LanguageType = LanguageType.English
-				},
-				new Internship
-				{
-					Id = id++,
-					Name = "QA Automation",
-					StartDate = DateTime.UtcNow,
-					EndDate = DateTime.UtcNow,
-					Requirements = "Any programming language, QA basics",
-					MaxCandidateCount = 30,
-					RegistrationStartDate = DateTime.UtcNow,
-					RegistrationFinishDate = DateTime.UtcNow,
-					LanguageType = LanguageType.English
-				}
-			};
-
-			_internshipIds = new int[internships.Length];
-
-			for (int i = 0; i < internships.Length; i++)
-			{
-				_internshipIds[i] = internships[i].Id;
-			}
-
-			builder.Entity<Internship>().HasData(internships);
+            builder.Entity<Internship>().HasData(internships);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillTeams(this ModelBuilder builder)
-		{
-			var id = 1;
+        public static ModelBuilder FillCountries(this ModelBuilder builder)
+        {
+            var countries = new Country[]
+            {
+                new Country
+                {
+                    Id = 1,
+                    Name = "Belarus"
+                },
+                new Country
+                {
+                    Id = 2,
+                    Name = "Russia"
+                },
+                new Country
+                {
+                    Id = 3,
+                    Name = "Ukraine"
+                }
+            };
 
-			var teams = new Team[]
-			{
-				new Team
-				{
-					Id = id++,
-					InternshipId = _internshipIds[0],
-					Name = "Team 1 A",
-				},
-				new Team
-				{
-					Id = id++,
-					InternshipId = _internshipIds[1],
-					Name = "Team 1 B",
-				}
-			};
+            builder.Entity<Country>().HasData(countries);
 
-			_teamIds = new int[teams.Length];
+            return builder;
+        }
 
-			for (int i = 0; i < teams.Length; i++)
-			{
-				_teamIds[i] = teams[i].Id;
-			}
+        public static ModelBuilder FillTeams(this ModelBuilder builder)
+        {
+            var teams = new Team[]
+            {
+                new Team
+                {
+                    Id = 1,
+                    InternshipId = 1,
+                    Name = "Team 1 A",
+                },
+                new Team
+                {
+                    Id = 2,
+                    InternshipId = 2,
+                    Name = "Team 1 B",
+                }
+            };
 
-			builder.Entity<Team>().HasData(teams);
+            builder.Entity<Team>().HasData(teams);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillInternshipStacks(this ModelBuilder builder)
-		{
-			var id = 1;
-
-			var internshipStacks = new InternshipStack[]
-			{
-				new InternshipStack
-				{
-					Id = id++,
-					InternshipId = _internshipIds[0],
-					TechnologyStackType = StackType.BackEnd
-				},
-					new InternshipStack
-				{
-					Id = id++,
-					InternshipId = _internshipIds[1],
-					TechnologyStackType = StackType.Testing
-				}
-			};
+        public static ModelBuilder FillInternshipStacks(this ModelBuilder builder)
+        {
+            var internshipStacks = new InternshipStack[]
+            {
+                new InternshipStack
+                {
+                    Id = 1,
+                    InternshipId = 1,
+                    TechnologyStackType = StackType.BackEnd
+                },
+                    new InternshipStack
+                {
+                    Id = 2,
+                    InternshipId = 2,
+                    TechnologyStackType = StackType.Testing
+                }
+            };
 
 			builder.Entity<InternshipStack>().HasData(internshipStacks);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillCandidates(this ModelBuilder builder)
-		{
-			var id = 1;
+        public static ModelBuilder FillCandidates(this ModelBuilder builder)
+        {
+            var candidates = new Candidate[]
+            {
+                new Candidate
+                {
+                    Id = 1,
+                    FirstName = "John",
+                    LastName = "Snow",
+                    Location = "Arizona",
+                    Phone = "+123456789",
+                    Email = "j.snow@gmail.com",
+                    Skype = "live:j.snow",
+                    Education = "Harvard University",
+                    Links = "-",
+                    OtherInfo = "-",
+                    PrimarySkill = "OOP, C#",
+                    CurrentJob = "Student",
+                    ProfessionalCertificates = "-",
+                    BestContactTime = DateTime.UtcNow,
+                    TestTaskEvaluation = 4,
+                    StatusType = CandidateStatusType.New,
+                    StackType = StackType.BackEnd,
+                    EnglishLevelType = EnglishLevelType.C1,
+                    IsPlanningToJoin = true,
+                    RegistrationDate = DateTime.UtcNow,
+                    InternshipId = 1,
+                    TeamId = 1
+                },
+                new Candidate
+                {
+                    Id = 2,
+                    FirstName = "Hermione",
+                    LastName = "Granger",
+                    Location = "London",
+                    Phone = "+2356416789",
+                    Email = "h.granger@gmail.com",
+                    Skype = "live:h.granger",
+                    Education = "Hogwarts",
+                    Links = "-",
+                    OtherInfo = "-",
+                    PrimarySkill = "C++, QA basics",
+                    CurrentJob = "Student",
+                    ProfessionalCertificates = "-",
+                    BestContactTime = DateTime.UtcNow,
+                    TestTaskEvaluation = 4,
+                    StatusType = CandidateStatusType.New,
+                    StackType = StackType.Testing,
+                    EnglishLevelType = EnglishLevelType.C2,
+                    IsPlanningToJoin = true,
+                    RegistrationDate = DateTime.UtcNow,
+                    InternshipId = 2,
+                    TeamId = 2
+                }
+            };
 
-			var candidates = new Candidate[]
-			{
-				new Candidate
-				{
-					Id = id++,
-					FirstName = "John",
-					LastName = "Snow",
-					Location = "Arizona",
-					Phone = "+123456789",
-					Email = "j.snow@gmail.com",
-					Skype = "live:j.snow",
-					Education = "Harvard University",
-					Links = "-",
-					OtherInfo = "-",
-					PrimarySkill = "OOP, C#",
-					CurrentJob = "Student",
-					ProfessionalCertificates = "-",
-					BestContactTime = DateTime.UtcNow,
-					TestTaskEvaluation = 4,
-					StatusType = StatusType.New,
-					StackType = StackType.BackEnd,
-					EnglishLevelType = EnglishLevelType.C1,
-					IsPlanningToJoin = true,
-					RegistrationDate = DateTime.UtcNow,
-					InternshipId = _internshipIds[0],
-					TeamId = _teamIds[0]
-				},
-				new Candidate
-				{
-					Id = id++,
-					FirstName = "Hermione",
-					LastName = "Granger",
-					Location = "London",
-					Phone = "+2356416789",
-					Email = "h.granger@gmail.com",
-					Skype = "live:h.granger",
-					Education = "Hogwarts",
-					Links = "-",
-					OtherInfo = "-",
-					PrimarySkill = "C++, QA basics",
-					CurrentJob = "Student",
-					ProfessionalCertificates = "-",
-					BestContactTime = DateTime.UtcNow,
-					TestTaskEvaluation = 4,
-					StatusType = StatusType.New,
-					StackType = StackType.Testing,
-					EnglishLevelType = EnglishLevelType.C2,
-					IsPlanningToJoin = true,
-					RegistrationDate = DateTime.UtcNow,
-					InternshipId = _internshipIds[1],
-					TeamId = _teamIds[1]
-				}
-			};
-
-			_candidateIds = new int[candidates.Length];
-
-			for (int i = 0; i < candidates.Length; i++)
-			{
-				_candidateIds[i] = candidates[i].Id;
-			}
-
-			builder.Entity<Candidate>().HasData(candidates);
+            builder.Entity<Candidate>().HasData(candidates);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillFeedbacks(this ModelBuilder builder)
-		{
-			var id = 1;
+        public static ModelBuilder FillFeedbacks(this ModelBuilder builder)
+        {
+            var feedbacks = new Feedback[]
+            {
+                new Feedback
+                {
+                    Id = 1,
+                    CandidateId = 1,
+                    EnglishLevelType = EnglishLevelType.C1,
+                    Date = DateTime.UtcNow,
+                    Description = "Good knowledge of frameworks, oop, and db",
+                    UserId = _userIds[0],
+                },
+                new Feedback
+                {
+                    Id = 2,
+                    CandidateId = 2,
+                    EnglishLevelType = EnglishLevelType.C2,
+                    Date = DateTime.UtcNow,
+                    Description = "Excellent candidate",
+                    UserId = _userIds[0],
+                }
+            };
 
-			var feedbacks = new Feedback[]
-			{
-				new Feedback
-				{
-					Id = id++,
-					CandidateId = _candidateIds[0],
-					EnglishLevelType = EnglishLevelType.C1,
-					Date = DateTime.UtcNow,
-					Description = "Good knowledge of frameworks, oop, and db",
-					UserId = _userIds[0],
-				},
-				new Feedback
-				{
-					Id = id++,
-					CandidateId = _candidateIds[1],
-					EnglishLevelType = EnglishLevelType.C2,
-					Date = DateTime.UtcNow,
-					Description = "Excellent candidate",
-					UserId = _userIds[0],
-				}
-			};
-
-			_feedbackIds = new int[feedbacks.Length];
-
-			for (int i = 0; i < feedbacks.Length; i++)
-			{
-				_feedbackIds[i] = feedbacks[i].Id;
-			}
-
-			builder.Entity<Feedback>().HasData(feedbacks);
+            builder.Entity<Feedback>().HasData(feedbacks);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillSkills(this ModelBuilder builder)
-		{
-			var id = 1;
+        public static ModelBuilder FillSkills(this ModelBuilder builder)
+        {
+            var skills = new Skill[]
+            {
+                new Skill
+                {
+                    Id = 1,
+                    StackType = StackType.BackEnd,
+                    Name = "OOP",
+                    IsHardSkill = true,
+                },
+                new Skill
+                {
+                    Id = 2,
+                    StackType = StackType.Testing,
+                    Name = "Java",
+                    IsHardSkill = true,
+                }
+            };
 
-			var skills = new Skill[]
-			{
-				new Skill
-				{
-					Id = id++,
-					StackType = StackType.BackEnd,
-					Name = "OOP",
-					IsHardSkill = true,
-				},
-				new Skill
-				{
-					Id = id++,
-					StackType = StackType.Testing,
-					Name = "Java",
-					IsHardSkill = true,
-				}
-			};
-
-			_skillIds = new int[skills.Length];
-
-			for (int i = 0; i < skills.Length; i++)
-			{
-				_skillIds[i] = skills[i].Id;
-			}
-
-			builder.Entity<Skill>().HasData(skills);
+            builder.Entity<Skill>().HasData(skills);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillEvaluations(this ModelBuilder builder)
-		{
-			var id = 1;
-
-			var evaluations = new Evaluation[]
-			{
-				new Evaluation
-				{
-					Id = id++,
-					FeedbackId = _feedbackIds[0],
-					SkillId = _skillIds[0],
-					Value = 4,
-				},
-				new Evaluation
-				{
-					Id = id++,
-					FeedbackId = _feedbackIds[1],
-					SkillId = _skillIds[1],
-					Value = 4,
-				}
-			};
+        public static ModelBuilder FillEvaluations(this ModelBuilder builder)
+        {
+            var evaluations = new Evaluation[]
+            {
+                new Evaluation
+                {
+                    Id = 1,
+                    FeedbackId = 1,
+                    SkillId = 1,
+                    Value = 4,
+                },
+                new Evaluation
+                {
+                    Id = 2,
+                    FeedbackId = 2,
+                    SkillId = 2,
+                    Value = 4,
+                }
+            };
 
 			builder.Entity<Evaluation>().HasData(evaluations);
 
 			return builder;
 		}
 
-		public static ModelBuilder FillInterviewInvites(this ModelBuilder builder)
-		{
-			var id = 1;
-
-			var interviewInvites = new InterviewInvite[]
-			{
-				new InterviewInvite
-				{
-					Id = id++,
-					UserId = _userIds[0],
-					CandidateId = _candidateIds[0],
-					ContactDate = DateTime.UtcNow,
-				},
-				new InterviewInvite
-				{
-					Id = id++,
-					UserId = _userIds[0],
-					CandidateId = _candidateIds[1],
-					ContactDate = DateTime.UtcNow,
-				}
-			};
+        public static ModelBuilder FillInterviewInvites(this ModelBuilder builder)
+        {
+            var interviewInvites = new InterviewInvite[]
+            {
+                new InterviewInvite
+                {
+                    Id = 1,
+                    UserId = _userIds[0],
+                    CandidateId = 1,
+                    ContactDate = DateTime.UtcNow,
+                },
+                new InterviewInvite
+                {
+                    Id = 2,
+                    UserId = _userIds[0],
+                    CandidateId = 2,
+                    ContactDate = DateTime.UtcNow,
+                }
+            };
 
 			builder.Entity<InterviewInvite>().HasData(interviewInvites);
 

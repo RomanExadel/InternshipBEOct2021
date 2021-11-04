@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum StatusType
+    public enum CandidateStatusType
     {
         New,
         HR,

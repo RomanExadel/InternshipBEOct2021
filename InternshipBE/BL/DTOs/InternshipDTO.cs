@@ -22,5 +22,9 @@ namespace BL.DTOs
         public DateTime RegistrationFinishDate { get; set; }
 
         public LanguageType LanguageType { get; set; }
+
+        public InternshipStatusType InternshipStatusType { get; set; }
+
+        public string ImageLink { get; set; }
     }
 }

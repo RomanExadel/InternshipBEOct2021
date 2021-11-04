@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211103154557_InitialDb")]
+    [Migration("20211104114449_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,21 @@ namespace DAL.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("CandidateUser");
+                });
+
+            modelBuilder.Entity("CountryInternship", b =>
+                {
+                    b.Property<int>("CountriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InternshipsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CountriesId", "InternshipsId");
+
+                    b.HasIndex("InternshipsId");
+
+                    b.ToTable("CountryInternship");
                 });
 
             modelBuilder.Entity("DAL.Entities.Candidate", b =>
@@ -115,6 +130,21 @@ namespace DAL.Migrations
                     b.ToTable("Candidates");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("DAL.Entities.Evaluation", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +210,12 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InternshipStatusType")
+                        .HasColumnType("int");
 
                     b.Property<int>("LanguageType")
                         .HasColumnType("int");
@@ -536,6 +572,21 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CountryInternship", b =>
+                {
+                    b.HasOne("DAL.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.Internship", null)
+                        .WithMany()
+                        .HasForeignKey("InternshipsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
