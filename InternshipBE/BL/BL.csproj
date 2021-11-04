@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis" Version="1.55.0" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.55.0.2490" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.55.0.2371" />
   </ItemGroup>
 

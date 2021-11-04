@@ -12,9 +12,9 @@ namespace BL.Mapping.Profiles
 {
 	public class CandidateProfile : Profile
 	{
-		private readonly IGoogleSheetConfig _googleSheetConfig;
+		private readonly IGoogleConfig _googleSheetConfig;
 
-		public CandidateProfile(IGoogleSheetConfig googleSheetConfig)
+		public CandidateProfile(IGoogleConfig googleSheetConfig)
 		{
 			_googleSheetConfig = googleSheetConfig;
 		}

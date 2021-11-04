@@ -3,14 +3,14 @@ using Shared.Config.Interfaces;
 
 namespace Shared.Config
 {
-	public class GoogleSheetConfig : IGoogleSheetConfig
+	public class GoogleConfig : IGoogleConfig
 	{
 		private readonly IConfiguration _configuration;
 
 		private const string rangeSettings = "!A1:ZZ";
 		private const string clientSecrets = "client_secrets.json";
 
-		public GoogleSheetConfig(IConfiguration configuration)
+		public GoogleConfig(IConfiguration configuration)
 		{
 			_configuration = configuration;
 		}
