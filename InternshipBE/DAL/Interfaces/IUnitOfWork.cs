@@ -9,8 +9,6 @@ namespace DAL.Interfaces
 
         IInternshipRepository Internships { get; }
 
-        IInternshipStackRepository InternshipStacks { get; }
-
         Task SaveAsync();
     }
 }

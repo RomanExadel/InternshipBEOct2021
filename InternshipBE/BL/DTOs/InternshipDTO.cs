@@ -1,5 +1,6 @@
 ﻿using Shared.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace BL.DTOs
 {
@@ -26,5 +27,7 @@ namespace BL.DTOs
         public InternshipStatusType InternshipStatusType { get; set; }
 
         public string ImageLink { get; set; }
+
+        public List<StackType> InternshipStackTypes { get; set; }
     }
 }
