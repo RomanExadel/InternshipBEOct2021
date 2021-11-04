@@ -1,6 +1,6 @@
 ﻿namespace Shared.Config.Interfaces
 {
-	public interface IGoogleSheetConfig
+	public interface IGoogleConfig
 	{ 
 		public string ApplicationName { get; }
 

@@ -11,7 +11,7 @@ namespace WebApi.Extensions
 	{
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
-			services.AddTransient<IGoogleSheetConfig, GoogleSheetConfig>();
+			services.AddTransient<IGoogleConfig, GoogleConfig>();
 			services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
 			services.AddTransient<IGenericRepository<Candidate>, GenericRepository<Candidate>>();
 			services.AddTransient<ICandidateRepository, CandidateRepository>();
