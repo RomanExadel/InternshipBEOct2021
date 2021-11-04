@@ -237,7 +237,6 @@ namespace DAL.Extensions
 					InternshipStatusType = InternshipStatusType.Open,
 					ImageLink = "image/link/2"
 				},
-
 				new Internship
 				{
 					Id = 3,
@@ -252,7 +251,6 @@ namespace DAL.Extensions
 					InternshipStatusType = InternshipStatusType.Open,
 					ImageLink = "image/link/2"
 				},
-
 			   new Internship
 				{
 					Id = 4,
