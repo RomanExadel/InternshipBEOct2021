@@ -10,6 +10,7 @@
         Accepted,
         Questionable,
         Declined,
-        Abandoned
+        Abandoned,
+        SuccessfullyСompleted
     }
 }
