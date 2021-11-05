@@ -30,7 +30,7 @@ namespace BL.DTOs
 
         public List<StackType> InternshipStackTypes { get; set; }
 
-        public List<string> Locations { get; set; }
+        public List<int> LocationIds { get; set; }
 
         public int CandidatesCount { get; set; }
 
