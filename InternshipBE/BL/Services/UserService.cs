@@ -6,6 +6,7 @@ using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -74,9 +75,9 @@ namespace BL.Services
             return userDTO;
         }
 
-        public async Task<List<UserDTO>> GetMentorsByInternshipIdAsync(int id)
+        public async Task<List<UserDTO>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType)
         {
-            var mentors = await _unitOfWork.Users.GetMentorsByInternshipIdAsync(id);
+            var mentors = await _unitOfWork.Users.GetSpecificUsersByInternshipIdAsync(id, roleType);
 
             var usersDTO = _mapper.Map<List<UserDTO>>(mentors);
 

@@ -1,7 +1,8 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Enums;
 using System.Threading.Tasks;
-
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
@@ -26,9 +27,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getMentorsByInternshipId")]
-        public async Task<IActionResult> GetMentorsByInternshipId([FromQuery] int id)
+        public async Task<IActionResult> GetMentorsByInternshipId([FromQuery] GetSpecificUsersRequest usersRequest)
         {
-            return Ok(await _userService.GetMentorsByInternshipIdAsync(id));
+            return Ok(await _userService.GetSpecificUsersByInternshipIdAsync(usersRequest.Id, usersRequest.RoleType));
         }
     }
 }

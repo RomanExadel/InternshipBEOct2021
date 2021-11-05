@@ -1,4 +1,5 @@
 ﻿using BL.DTOs;
+using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +11,6 @@ namespace BL.Interfaces
 
         Task<UserDTO> GetUserInfoByUserNameAsync(string userName);
 
-        Task<List<UserDTO>> GetMentorsByInternshipIdAsync(int id);
+        Task<List<UserDTO>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType);
     }
 }
