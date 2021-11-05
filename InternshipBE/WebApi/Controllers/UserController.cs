@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         [HttpGet("getMentorsByInternshipId")]
         public async Task<IActionResult> GetMentorsByInternshipId([FromQuery] int id)
         {
-            return Ok(await _userService.GetMentorsByInternshipIdAsync(id));            
+            return Ok(await _userService.GetMentorsByInternshipIdAsync(id));
         }
     }
 }
