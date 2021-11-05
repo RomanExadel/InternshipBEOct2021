@@ -1,5 +1,7 @@
 ﻿using DAL.Database;
+using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -9,6 +11,7 @@ namespace DAL.Repositories
     {
         private bool _disposed;
         private ApplicationDbContext _db;
+        private UserManager<User> _userManager;
 
         private ICandidateRepository _canidateRepository;
         private IInternshipRepository _internshipRepository;
@@ -39,14 +42,15 @@ namespace DAL.Repositories
             get
             {
                 if (_userRepository == null)
-                    _userRepository = new UserRepository(_db);
+                    _userRepository = new UserRepository(_db, _userManager);
                 return _userRepository;
             }
         }
 
-        public EFUnitOfWork(ApplicationDbContext db)
+        public EFUnitOfWork(ApplicationDbContext db, UserManager<User> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
 
         public async Task SaveAsync()
