@@ -1,7 +1,6 @@
 ﻿using DAL.Database;
 using DAL.Entities;
 using DAL.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System;
@@ -22,7 +21,7 @@ namespace DAL.Repositories
         {
             var internship = await _context.Internships.AsNoTracking().Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
 
-            var roles = _context.Users.Where(x => x.RoleType == RoleType.Hr).Select(x => x.Id);
+            var roles = _context.Users.Where(x => x.RoleType == RoleType.Mentor).Select(x => x.Id);
 
             var mentors = internship?.Users.Where(x => roles.Contains(x.Id)).ToList();          
 
