@@ -12,6 +12,7 @@ namespace DAL.Repositories
 
 		private ICandidateRepository _canidateRepository;
 		private IInternshipRepository _internshipRepository;
+		private IFeedbackRepository _feedbackRepository;
 
 		public ICandidateRepository Candidates
 		{
@@ -30,6 +31,16 @@ namespace DAL.Repositories
 				if (_internshipRepository == null)
 					_internshipRepository = new InternshipRepository(_db);
 				return _internshipRepository;
+			}
+		}
+
+		public IFeedbackRepository Feedbacks
+		{
+			get
+			{
+				if(_feedbackRepository == null)
+					_feedbackRepository = new FeedbackRepository(_db);
+				return _feedbackRepository;
 			}
 		}
 

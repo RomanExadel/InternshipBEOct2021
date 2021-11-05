@@ -17,6 +17,7 @@ namespace WebApi.Extensions
 			services.AddTransient<ICandidateRepository, CandidateRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IInternshipRepository , InternshipRepository>();
+			services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 
 			return services;
 		}
