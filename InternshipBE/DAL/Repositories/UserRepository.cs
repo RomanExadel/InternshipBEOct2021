@@ -3,7 +3,6 @@ using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,15 +16,13 @@ namespace DAL.Repositories
         {
         }
 
-        public async Task<List<User>> GetMentorsByInternshipIdAsync(int id)
+        public async Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType = null)
         {
-            var internship = await _context.Internships.AsNoTracking().Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
+            var internship = await _context.Internships.AsNoTracking()
+                                                       .Include(x => x.Users.Where(u => u.RoleType == roleType || roleType == null))
+                                                       .FirstOrDefaultAsync(x => x.Id == id);
 
-            var roles = _context.Users.Where(x => x.RoleType == RoleType.Mentor).Select(x => x.Id);
-
-            var mentors = internship?.Users.Where(x => roles.Contains(x.Id)).ToList();          
-
-            return mentors;
+            return internship?.Users.ToList();
         }
     }
 }
