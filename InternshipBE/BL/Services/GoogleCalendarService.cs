@@ -24,9 +24,11 @@ namespace BL.Services
 			_googleConfig = googleConfig;
 		}
 
-		public Task GetCalendarEvents()
+		public async Task<Events> GetCalendarEvents()
 		{
-			throw new NotImplementedException();
+			var events = GetEventsFromCalendar();
+
+			return events;
 		}
 
 		private Events GetEventsFromCalendar()
