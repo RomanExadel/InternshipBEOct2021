@@ -106,6 +106,6 @@ namespace BL.Services
 
             return user;
         }
-       
+
     }
 }

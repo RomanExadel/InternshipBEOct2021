@@ -40,7 +40,7 @@ namespace DAL.Repositories
             {
                 var role = await GetUserRoleAsync(user);
 
-                if (role == RoleType.Hr.ToString())
+                if (role == RoleType.Mentor.ToString())
                 {
                     mentors.Add(user);
                 }
