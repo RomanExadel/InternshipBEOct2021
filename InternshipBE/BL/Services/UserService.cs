@@ -10,7 +10,6 @@ using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,7 +70,7 @@ namespace BL.Services
         {
             var user = await GetUserByUserNameAsync(userName);
 
-            var userRole = await GetUserRoleAsync(user);
+            var userRole = await _unitOfWork.Users.GetUserRoleAsync(user);
 
             var userDTO = _mapper.Map<UserDTO>(user);
 
@@ -80,24 +79,20 @@ namespace BL.Services
             return userDTO;
         }
 
-        public async Task<List<UserDTO>> GetMentorsByInternshipId(int id)
+        public async Task<List<UserDTO>> GetMentorsByInternshipIdAsync(int id)
         {
-            var users = await _unitOfWork.Users.GetUsersByInternshipIdAsync(id);
-            var mentors = await GetMentorsAsync(users);
+            var mentors = await _unitOfWork.Users.GetUsersByInternshipIdAsync(id);
 
-            return _mapper.Map<List<UserDTO>>(mentors);
-        }
+            var usersDTO = _mapper.Map<List<UserDTO>>(mentors);
 
-        private async Task<string> GetUserRoleAsync(User user)
-        {
-            var roles = await _userManager.GetRolesAsync(user);
+            string role = "Mentor";
 
-            if (roles == null)
+            foreach (var mentor in usersDTO)
             {
-                throw new ArgumentNullException(nameof(roles), "roles is null");
+                mentor.RoleType = Enum.Parse<RoleType>(role);
             }
 
-            return roles.Single();
+            return usersDTO;
         }
 
         private async Task<User> GetUserByUserNameAsync(string userName)
@@ -111,22 +106,6 @@ namespace BL.Services
 
             return user;
         }
-
-        private async Task<List<User>> GetMentorsAsync(List<User> users)
-        {
-            var mentors = new List<User>();
-
-            foreach (var user in users)
-            {
-                var role = await GetUserRoleAsync(user);
-
-                if (role == RoleType.Mentor.ToString())
-                {
-                    mentors.Add(user);
-                }
-            }
-
-            return mentors;
-        }
+       
     }
 }

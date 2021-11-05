@@ -10,6 +10,6 @@ namespace BL.Interfaces
 
         Task<UserDTO> GetUserInfoByUserNameAsync(string userName);
 
-        Task<List<UserDTO>> GetMentorsByInternshipId(int id);
+        Task<List<UserDTO>> GetMentorsByInternshipIdAsync(int id);
     }
 }
