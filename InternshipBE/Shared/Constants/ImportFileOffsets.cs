@@ -19,5 +19,6 @@
 		public const int PRIMARY_SKILL_OFFSET = 14;
 		public const int STACK_OFFSET = 15;
 		public const int ENGLISH_LEVEL_OFFSET = 16;
+		public const int INTERNSHIP_OFFSET = 17;
 	}
 }
