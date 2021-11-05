@@ -31,5 +31,17 @@ namespace BL.DTOs
         public List<StackType> InternshipStackTypes { get; set; }
 
         public List<string> Locations { get; set; }
+
+        public int CandidatesCount { get; set; }
+
+        public int DeclinedCandidatesCount { get; set; }
+
+        public int AcceptedCandidatesCount { get; set; }
+
+        public int AbandonedCandidatesCount { get; set; }
+
+        public int SuccessfullyFinishedCandidatesCount { get; set; }
+
+        public int TeamsCount { get; set; }
     }
 }
