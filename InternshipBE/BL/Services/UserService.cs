@@ -6,7 +6,6 @@ using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -70,27 +69,16 @@ namespace BL.Services
         {
             var user = await GetUserByUserNameAsync(userName);
 
-            var userRole = await _unitOfWork.Users.GetUserRoleAsync(user);
-
             var userDTO = _mapper.Map<UserDTO>(user);
-
-            userDTO.RoleType = Enum.Parse<RoleType>(userRole);
 
             return userDTO;
         }
 
         public async Task<List<UserDTO>> GetMentorsByInternshipIdAsync(int id)
         {
-            var mentors = await _unitOfWork.Users.GetUsersByInternshipIdAsync(id);
+            var mentors = await _unitOfWork.Users.GetMentorsByInternshipIdAsync(id);
 
             var usersDTO = _mapper.Map<List<UserDTO>>(mentors);
-
-            string role = "Mentor";
-
-            foreach (var mentor in usersDTO)
-            {
-                mentor.RoleType = Enum.Parse<RoleType>(role);
-            }
 
             return usersDTO;
         }

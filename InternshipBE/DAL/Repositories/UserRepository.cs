@@ -13,52 +13,20 @@ namespace DAL.Repositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly UserManager<User> _userManager;
 
-        public UserRepository(ApplicationDbContext context, UserManager<User> userManager) : base(context)
+        public UserRepository(ApplicationDbContext context) : base(context)
         {
-            _userManager = userManager;
         }
 
-        public async Task<List<User>> GetUsersByInternshipIdAsync(int id)
+        public async Task<List<User>> GetMentorsByInternshipIdAsync(int id)
         {
-            var internship = await _context.Internships.Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
-            var users = internship?.Users.ToList();
-            var mentors = await GetMentorsAsync(users);
+            var internship = await _context.Internships.AsNoTracking().Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
+
+            var roles = _context.Users.Where(x => x.RoleType == RoleType.Hr).Select(x => x.Id);
+
+            var mentors = internship?.Users.Where(x => roles.Contains(x.Id)).ToList();          
 
             return mentors;
-        }
-
-        private async Task<List<User>> GetMentorsAsync(List<User> users)
-        {
-            var mentors = new List<User>();
-
-            if (users == null)
-                throw new ArgumentNullException(nameof(users), "users is null");
-
-            foreach (var user in users)
-            {
-                var role = await GetUserRoleAsync(user);
-
-                if (role == RoleType.Mentor.ToString())
-                {
-                    mentors.Add(user);
-                }
-            }
-
-            return mentors;
-        }
-
-        public async Task<string> GetUserRoleAsync(User user)
-        {
-            var roles = await _userManager.GetRolesAsync(user);
-
-            if (roles == null)
-            {
-                throw new ArgumentNullException(nameof(roles), "roles is null");
-            }
-
-            return roles.Single();
         }
     }
 }

@@ -96,7 +96,8 @@ namespace DAL.Extensions
 				new User
 				{
 					Id = Guid.NewGuid().ToString(),
-					Position = "BA",
+                    RoleType = RoleType.Hr,
+                    Position = "BA",
 					BestContactTime = DateTime.UtcNow,
 					UserName = userName1,
 					NormalizedUserName = userName1.ToUpper(),
@@ -116,7 +117,8 @@ namespace DAL.Extensions
 				new User
 				{
 					Id = Guid.NewGuid().ToString(),
-					Position = "Back",
+                    RoleType = RoleType.Interviewer,
+                    Position = "Back",
 					BestContactTime = DateTime.UtcNow,
 					UserName = userName2,
 					NormalizedUserName = userName2.ToUpper(),
@@ -136,7 +138,8 @@ namespace DAL.Extensions
 				new User
 				{
 					Id = Guid.NewGuid().ToString(),
-					Position = "Front",
+                    RoleType = RoleType.Manager,
+                    Position = "Front",
 					BestContactTime = DateTime.UtcNow,
 					UserName = userName3,
 					NormalizedUserName = userName3.ToUpper(),
@@ -156,6 +159,7 @@ namespace DAL.Extensions
 				new User
 				{
 					Id = Guid.NewGuid().ToString(),
+                    RoleType = RoleType.Admin,
 					Position = "PO",
 					BestContactTime = DateTime.UtcNow,
 					UserName = userName4,
