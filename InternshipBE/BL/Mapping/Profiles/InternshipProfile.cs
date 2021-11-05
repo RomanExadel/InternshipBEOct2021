@@ -11,8 +11,7 @@ namespace BL.Mapping.Profiles
         public InternshipProfile()
         {
             CreateMap<Internship, InternshipDTO>()
-                .ForMember(dto => dto.InternshipStackTypes, src => src.MapFrom(entity => entity.InternshipStacks.Select(x => x.TechnologyStackType)))
-                .ForMember(dto => dto.LocationIds, src => src.MapFrom(entity => entity.Countries.Select(x => x.Id)))
+                .ForMember(dto => dto.Locations, src => src.MapFrom(entity => entity.Countries))
                 .ForMember(dto => dto.CandidatesCount, src => src.MapFrom(entity => entity.Candidates.Count))
                 .ForMember(dto => dto.SuccessfullyFinishedCandidatesCount, src => src.MapFrom(entity => entity.Candidates.Where(x => x.StatusType == CandidateStatusType.SuccessfullyСompleted).Count()))
                 .ForMember(dto => dto.DeclinedCandidatesCount, src => src.MapFrom(entity => entity.Candidates.Where(x => x.StatusType == CandidateStatusType.Declined).Count()))

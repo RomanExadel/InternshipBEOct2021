@@ -28,9 +28,9 @@ namespace BL.DTOs
 
         public string ImageLink { get; set; }
 
-        public List<StackType> InternshipStackTypes { get; set; }
+        public List<InternshipStackDTO> InternshipStacks { get; set; }
 
-        public List<int> LocationIds { get; set; }
+        public List<CountryDTO> Locations { get; set; }
 
         public int CandidatesCount { get; set; }
 
