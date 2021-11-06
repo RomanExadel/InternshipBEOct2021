@@ -15,8 +15,6 @@ namespace DAL.Repositories
         private ICandidateRepository _canidateRepository;
         private IInternshipRepository _internshipRepository;
         private IUserRepository _userRepository;
-		private ICandidateRepository _canidateRepository;
-		private IInternshipRepository _internshipRepository;
 		private IFeedbackRepository _feedbackRepository;
 
         public ICandidateRepository Candidates
