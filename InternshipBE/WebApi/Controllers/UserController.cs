@@ -1,6 +1,5 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Enums;
 using System.Threading.Tasks;
 using WebApi.Models;
 
@@ -26,8 +25,8 @@ namespace WebApi.Controllers
             return Ok(await _userService.GetUserInfoByUserNameAsync(userName));
         }
 
-        [HttpGet("getMentorsByInternshipId")]
-        public async Task<IActionResult> GetMentorsByInternshipId([FromQuery] GetSpecificUsersRequest usersRequest)
+        [HttpGet("getSpecificUsersByInternshipId")]
+        public async Task<IActionResult> GetSpecificUsersByInternshipId([FromQuery] GetSpecificUsersRequest usersRequest)
         {
             return Ok(await _userService.GetSpecificUsersByInternshipIdAsync(usersRequest.Id, usersRequest.RoleType));
         }
