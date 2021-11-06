@@ -10,7 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<< HEAD:InternshipBE/DAL/Migrations/20211106114906_InitialDb.Designer.cs
     [Migration("20211106114906_InitialDb")]
+=======
+    [Migration("20211105125420_InitialDb")]
+>>>>>>> 6db81dc8b819b296d080d2e132deb999640b1b9d:InternshipBE/DAL/Migrations/20211105125420_InitialDb.Designer.cs
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
