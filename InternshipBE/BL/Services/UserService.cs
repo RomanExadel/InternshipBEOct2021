@@ -84,6 +84,15 @@ namespace BL.Services
             return usersDTO;
         }
 
+        public async Task<List<UserDTO>> GetUsersByCandidateIdAsync(int id)
+        {
+            var users = await _unitOfWork.Users.GetUsersByCandidateIdAsync(id);
+
+            var usersDTO = _mapper.Map<List<UserDTO>>(users);
+
+            return usersDTO;
+        }
+
         private async Task<User> GetUserByUserNameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);

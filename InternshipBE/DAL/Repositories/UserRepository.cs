@@ -24,5 +24,14 @@ namespace DAL.Repositories
 
             return internship?.Users.ToList();
         }
+
+        public async Task<List<User>> GetUsersByCandidateIdAsync(int id)
+        {
+            var candidat = await _context.Candidates.AsNoTracking()
+                                                    .Include(x => x.Users)
+                                                    .FirstOrDefaultAsync(x => x.Id == id);
+
+            return candidat?.Users.ToList();
+        }
     }
 }

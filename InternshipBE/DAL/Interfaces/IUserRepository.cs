@@ -8,5 +8,7 @@ namespace DAL.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType);
+
+        Task<List<User>> GetUsersByCandidateIdAsync(int id);
     }
 }
