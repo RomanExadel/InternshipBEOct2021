@@ -11,6 +11,8 @@ namespace DAL.Interfaces
 
         IFeedbackRepository Feedbacks { get; }
 
+        IUserRepository Users { get; }
+
         Task SaveAsync();
     }
 }

@@ -1,6 +1,12 @@
-﻿namespace DAL.Interfaces
+﻿using DAL.Entities;
+using Shared.Enums;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace DAL.Interfaces
 {
-	public interface IUserRepository
-	{
-	}
+    public interface IUserRepository : IGenericRepository<User>
+    {
+        Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType);
+    }
 }
