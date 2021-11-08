@@ -12,5 +12,7 @@ namespace BL.Interfaces
         Task<UserDTO> GetUserInfoByUserNameAsync(string userName);
 
         Task<List<UserDTO>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType);
+
+        Task<List<UserDTO>> GetUsersByCandidateIdAsync(int id);
     }
 }
