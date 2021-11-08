@@ -1,6 +1,10 @@
 ﻿using DAL.Database;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
@@ -8,6 +12,11 @@ namespace DAL.Repositories
     {
         public EvaluationRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<List<Evaluation>> GetEvaluationsByFeedbackId(int feedbackId)
+        {
+            return await _context.Evaluations.Where(x => x.FeedbackId == feedbackId).ToListAsync();
         }
     }
 }

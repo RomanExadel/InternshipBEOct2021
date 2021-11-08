@@ -21,5 +21,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _evaluationService.CreateEvaluationAsync(evaluationDto));
         }
+
+        [HttpPost("getEvaluationsByFeedbackId")]
+        public async Task<IActionResult> GetEvaluationsByFeedbackId([FromQuery] int feedbackId)
+        {
+            return Ok(await _evaluationService.GetEvaluationsByFeedbackId(feedbackId));
+        }
     }
 }

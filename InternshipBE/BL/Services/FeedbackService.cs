@@ -4,6 +4,7 @@ using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -26,6 +27,12 @@ namespace BL.Services
             await _unitOfWork.SaveAsync();
 
             return _mapper.Map<FeedbackDTO>(feedback);
+        }
+
+        public async Task<List<FeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId)
+        {
+            var feedbacks = await _unitOfWork.Feedbacks.GetFeedbacksByCandidateIdAsync(candidateId);
+            return _mapper.Map<List<FeedbackDTO>>(feedbacks);
         }
 
         public async Task<FeedbackDTO> GetFeedbackByIdAsync(int id)

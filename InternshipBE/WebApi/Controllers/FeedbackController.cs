@@ -33,5 +33,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _feedbackService.UpdateFeedbackAsync(feedback));
         }
+
+        [HttpPost("getFeedbacksByCandidateId")]
+        public async Task<IActionResult> GetFeedbacksByCandidateId ([FromQuery] int candidateId)
+        {
+            return Ok(await _feedbackService.GetFeedbacksByCandidateIdAsync(candidateId));
+        }
     }
 }
