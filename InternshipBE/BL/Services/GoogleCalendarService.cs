@@ -1,55 +1,72 @@
-﻿using BL.Interfaces;
+﻿using BL.DTOs;
+using BL.Interfaces;
+using DAL.Entities;
+using DAL.Interfaces;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
+using Microsoft.AspNetCore.Identity;
 using Shared.Config.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static Google.Apis.Calendar.v3.CalendarService;
 
 namespace BL.Services
 {
 	public class GoogleCalendarService : IGoogleCalendarService
 	{
-		private readonly string Scope = CalendarService.Scope.CalendarEventsReadonly;
+		private readonly string[] Scopes =
+		{
+			CalendarService.Scope.Calendar,
+			CalendarService.Scope.CalendarEvents,
+			CalendarService.Scope.CalendarEventsReadonly
+		};
+		private readonly UserManager<User> _userManager;
 		private readonly IGoogleConfig _googleConfig;
 		private CalendarService _calendarService;
 
-		public GoogleCalendarService(IGoogleConfig googleConfig)
+		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, UserManager<User> userManager)
 		{
+			_userManager = userManager;
 			_googleConfig = googleConfig;
 		}
 
-		public async Task<Events> GetCalendarEvents()
+		public async Task CreateEventInCalendarAsync(string interviewerID, BestContactTimeDTO model)
 		{
-			var events = GetEventsFromCalendar();
+			var user = await _userManager.FindByIdAsync(interviewerID);
 
-			return events;
+			CreateEvent(user.Email, model);
 		}
 
-		private Events GetEventsFromCalendar()
+		private void CreateEvent(string email, BestContactTimeDTO model)
 		{
-			var credential = GoogleCredential.FromFile(_googleConfig.ClientSecrets).CreateScoped(Scope);
+			var credential = GoogleCredential.FromFile(_googleConfig.ClientSecrets).CreateScoped(Scopes);
 
-			var _calendarService = new CalendarService(new BaseClientService.Initializer()
+			_calendarService = new CalendarService(new BaseClientService.Initializer()
 			{
 				HttpClientInitializer = credential,
 				ApplicationName = _googleConfig.ApplicationName,
 			});
 
-			EventsResource.ListRequest request = _calendarService.Events.List("primary");
-			request.TimeMin = DateTime.Now;
-			request.ShowDeleted = false;
-			request.SingleEvents = true;
-			request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+			Event newEvent = new Event()
+			{
+				//All next rows with text will be moved to const variables."
+				Summary = "Technical interview",
+				Location = "Exadel. Minsk",
+				Description = "Internship technical interview.",
+				Start = new EventDateTime()
+				{
+					DateTime = model.StartTime,
+				},
+				End = new EventDateTime()
+				{
+					DateTime = model.EndTime,
+				},
+				Recurrence = new string[] { "RRULE:FREQ=DAILY;COUNT=2" }
+			};
 
-			Events events = request.Execute();
-
-			return events;
+			EventsResource.InsertRequest request = _calendarService.Events.Insert(newEvent, email);
+			request.Execute();
 		}
 	}
 }

@@ -97,7 +97,6 @@ namespace DAL.Extensions
 				{
 					Id = Guid.NewGuid().ToString(),
 					Position = "BA",
-					BestContactTime = DateTime.UtcNow,
 					UserName = userName1,
 					NormalizedUserName = userName1.ToUpper(),
 					Email = email1,
@@ -117,7 +116,6 @@ namespace DAL.Extensions
 				{
 					Id = Guid.NewGuid().ToString(),
 					Position = "Back",
-					BestContactTime = DateTime.UtcNow,
 					UserName = userName2,
 					NormalizedUserName = userName2.ToUpper(),
 					Email = email2,
@@ -137,7 +135,6 @@ namespace DAL.Extensions
 				{
 					Id = Guid.NewGuid().ToString(),
 					Position = "Front",
-					BestContactTime = DateTime.UtcNow,
 					UserName = userName3,
 					NormalizedUserName = userName3.ToUpper(),
 					Email = email3,
@@ -157,7 +154,6 @@ namespace DAL.Extensions
 				{
 					Id = Guid.NewGuid().ToString(),
 					Position = "PO",
-					BestContactTime = DateTime.UtcNow,
 					UserName = userName4,
 					NormalizedUserName = userName4.ToUpper(),
 					Email = email4,

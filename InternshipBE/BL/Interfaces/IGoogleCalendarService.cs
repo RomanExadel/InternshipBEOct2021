@@ -1,10 +1,10 @@
-﻿using Google.Apis.Calendar.v3.Data;
+﻿using BL.DTOs;
 using System.Threading.Tasks;
 
 namespace BL.Interfaces
 {
 	public interface IGoogleCalendarService
 	{
-		public Task<Events> GetCalendarEvents();
+		Task CreateEventInCalendarAsync(string interviewerID, BestContactTimeDTO model);
 	}
 }
