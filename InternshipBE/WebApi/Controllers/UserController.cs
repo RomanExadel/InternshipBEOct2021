@@ -1,5 +1,7 @@
-﻿using BL.Interfaces;
+﻿using BL.DTOs;
+using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Models;
 
@@ -35,6 +37,12 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetUsersByCandidateId([FromQuery] int id) 
         {                       
             return Ok(await _userService.GetUsersByCandidateIdAsync(id));
+        }
+
+        [HttpPut("updateUsersFromInternship")]
+        public async Task<IActionResult> UpdateUsersFromInternship([FromQuery] int id, [FromBody] string[] usersId)
+        {
+            return Ok(await _userService.UpdateUsersFromInternshipAsync(id, usersId));
         }
     }
 }

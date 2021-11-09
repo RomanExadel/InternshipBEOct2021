@@ -33,5 +33,24 @@ namespace DAL.Repositories
 
             return candidat?.Users.ToList();
         }
+
+        public async Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId)
+        {
+            var users = await _context.Users.Include(x => x.Internships.Where(i => i.Id == id))
+                                                          .Where(x => usersId.Contains(x.Id))
+                                                          .ToListAsync();
+
+            var internship = await _context.Internships.Include(x => x.Users.Where(i => users.Contains(i)))
+                                                       .FirstOrDefaultAsync(x => x.Id == id);
+
+            foreach (var user in users)
+            {
+                user.Internships.Remove(internship);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return users;
+        }
     }
 }
