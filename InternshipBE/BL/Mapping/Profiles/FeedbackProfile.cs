@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using DAL.Entities;
+using Shared.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.Mapping.Profiles
 {
@@ -13,7 +10,10 @@ namespace BL.Mapping.Profiles
     {
         public FeedbackProfile()
         {
-            CreateMap<Feedback, FeedbackDTO>().ReverseMap();
+            CreateMap<Feedback, FeedbackDTO>()
+                .ForMember(dto => dto.EnglishLevelType, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
+                .ReverseMap()
+                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelType)));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using DAL.Entities;
+using Shared.Enums;
+using System;
 
 namespace BL.Mapping.Profiles
 {
@@ -8,7 +10,10 @@ namespace BL.Mapping.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, UserDTO>()
+                .ForMember(dto => dto.RoleType, src => src.MapFrom(entity => entity.RoleType.ToString()))
+                .ReverseMap()
+                .ForMember(entity => entity.RoleType, src => src.MapFrom(dto => Enum.Parse<RoleType>(dto.RoleType)));
         }
     }
 }

@@ -3,6 +3,7 @@ using BL.DTOs;
 using DAL.Entities;
 using Shared.Config;
 using Shared.Config.Interfaces;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -44,13 +45,18 @@ namespace BL.Mapping.Profiles
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
+				.ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelType)))
+				.ForMember(entity => entity.StackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.StackType)))
+				.ForMember(entity => entity.StatusType, src => src.MapFrom(dto => Enum.Parse<CandidateStatusType>(dto.StatusType)))
 				.ForMember(x => x.TestTaskEvaluation, o => o.Ignore())
-				.ForMember(x => x.StatusType, o => o.Ignore())
 				.ForMember(x => x.TeamId, o => o.Ignore())
 				.ForMember(x => x.Team, o => o.Ignore())
 				.ForMember(x => x.Users, o => o.Ignore())
 				.ForMember(x => x.Internship, o => o.Ignore())
-				.ReverseMap();
+				.ReverseMap()
+				.ForMember(dto => dto.EnglishLevelType, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
+				.ForMember(dto => dto.StackType, src => src.MapFrom(entity => entity.StackType.ToString()))
+				.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()));
 		}
 	}
 }

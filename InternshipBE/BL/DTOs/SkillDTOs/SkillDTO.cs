@@ -1,12 +1,8 @@
-﻿using Shared.Enums;
-
-namespace BL.DTOs
+﻿namespace BL.DTOs
 {
     public class SkillDTO
     {
-        public int Id { get; set; }
-
-        public StackType StackType { get; set; }
+        public string StackType { get; set; }
 
         public string Name { get; set; }
 

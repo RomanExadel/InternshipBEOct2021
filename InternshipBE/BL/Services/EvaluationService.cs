@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BL.DTOs;
+using BL.DTOs.EvaluationDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -19,30 +20,28 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public async Task<EvaluationDTO> CreateEvaluationAsync(EvaluationDTO evaluationDto)
+        public async Task<CreateEvaluationDTO> CreateEvaluationAsync(CreateEvaluationDTO createEvaluationDto)
         {
-            //var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(evaluationDto.FeedbackId);
-            //var skill = await _unitOfWork.Skills.GetByIdAsync(evaluationDto.SkillId);
-
-            //var evaluation = new Evaluation()
-            //{
-            //    FeedbackId = feedback.Id,
-            //    Feedback = feedback,
-            //    SkillId = skill.Id,
-            //    Skill = skill,
-            //    Value = evaluationDto.Value
-            //};
-
-            var evaluation = await _unitOfWork.Evaluations.CreateAsync(_mapper.Map<Evaluation>(evaluationDto));
+            var evaluation = await _unitOfWork.Evaluations.CreateAsync(_mapper.Map<Evaluation>(createEvaluationDto));
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<EvaluationDTO>(evaluation);
+            return _mapper.Map<CreateEvaluationDTO>(evaluation);
         }
 
-        public async Task<List<EvaluationDTO>> GetEvaluationsByFeedbackId(int feedbackId)
+        public async Task<List<GetEvaluationDTO>> GetEvaluationsByFeedbackId(int feedbackId)
         {
             var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedbackId);
-            return _mapper.Map<List<EvaluationDTO>>(evaluations);
+            return _mapper.Map<List<GetEvaluationDTO>>(evaluations);
+        }
+
+        public async Task<FullEvaluationDTO> UpdateEvaluationAsync(FullEvaluationDTO fullEvaluationDto)
+        {
+            var evaluation = _mapper.Map<Evaluation>(fullEvaluationDto);
+
+            evaluation = await _unitOfWork.Evaluations.UpdateAsync(evaluation);
+            await _unitOfWork.SaveAsync();
+
+            return _mapper.Map<FullEvaluationDTO>(evaluation);
         }
     }
 }

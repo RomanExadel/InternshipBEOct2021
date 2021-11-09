@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using DAL.Entities;
+using Shared.Enums;
+using System;
 
 namespace BL.Mapping.Profiles
 {
@@ -8,7 +10,10 @@ namespace BL.Mapping.Profiles
     {
         public InternshipStackProfile()
         {
-            CreateMap<InternshipStack, InternshipStackDTO>().ReverseMap();
+            CreateMap<InternshipStack, InternshipStackDTO>()
+                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => entity.TechnologyStackType.ToString()))
+                .ReverseMap()
+                .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.TechnologyStackType)));
         }
     }
 }

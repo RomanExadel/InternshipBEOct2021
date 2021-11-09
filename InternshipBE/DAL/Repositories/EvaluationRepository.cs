@@ -16,7 +16,12 @@ namespace DAL.Repositories
 
         public async Task<List<Evaluation>> GetEvaluationsByFeedbackId(int feedbackId)
         {
-            return await _context.Evaluations.Where(x => x.FeedbackId == feedbackId).ToListAsync();
+            return await _context.Evaluations
+                .AsNoTracking()
+                .Include(x => x.Feedback)
+                .Include(x => x.Skill)
+                .Where(x => x.FeedbackId == feedbackId)
+                .ToListAsync();
         }
     }
 }

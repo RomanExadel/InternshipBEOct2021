@@ -8,6 +8,6 @@ namespace BL.DTOs
 
         public int InternshipId { get; set; }
 
-        public StackType TechnologyStackType { get; set; }
+        public string TechnologyStackType { get; set; }
     }
 }
