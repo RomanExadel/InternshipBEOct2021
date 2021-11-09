@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using BL.DTOs;
+using BL.DTOs.FeedbackDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -29,24 +28,27 @@ namespace BL.Services
             return _mapper.Map<FeedbackDTO>(feedback);
         }
 
-        public async Task<List<FeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId)
+        public async Task<List<UpdateFeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId)
         {
             var feedbacks = await _unitOfWork.Feedbacks.GetFeedbacksByCandidateIdAsync(candidateId);
-            return _mapper.Map<List<FeedbackDTO>>(feedbacks);
+            
+            return _mapper.Map<List<UpdateFeedbackDTO>>(feedbacks);
         }
 
-        public async Task<FeedbackDTO> GetFeedbackByIdAsync(int id)
+        public async Task<GetFeedbackDTO> GetFeedbackByIdAsync(int id)
         {
-            return _mapper.Map<FeedbackDTO>(await _unitOfWork.Feedbacks.GetByIdAsync(id));
+            var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(id);
+
+            return _mapper.Map<GetFeedbackDTO>(feedback);
         }
 
-        public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
+        public async Task<UpdateFeedbackDTO> UpdateFeedbackAsync(UpdateFeedbackDTO updatedFeedback)
         {
             var feedback = await _unitOfWork.Feedbacks.UpdateAsync(_mapper.Map<Feedback>(updatedFeedback));
 
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<FeedbackDTO>(feedback);
+            return _mapper.Map<UpdateFeedbackDTO>(feedback);
         }
     }
 }

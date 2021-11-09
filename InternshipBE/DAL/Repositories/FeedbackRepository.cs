@@ -14,9 +14,20 @@ namespace DAL.Repositories
         {
         }
 
+        public override async Task<Feedback> GetByIdAsync(int id)
+        {
+            return await _context.Feedbacks
+                .AsNoTracking()
+                .Include(x => x.Candidate)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<Feedback>> GetFeedbacksByCandidateIdAsync(int id)
         {
-            return await _context.Feedbacks.Where(x => x.CandidateId == id).ToListAsync();
+            return await _context.Feedbacks
+                .AsNoTracking()
+                .Where(x => x.CandidateId == id)
+                .ToListAsync();
         }
     }
 }

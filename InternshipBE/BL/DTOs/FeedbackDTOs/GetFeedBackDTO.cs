@@ -1,6 +1,9 @@
 ﻿namespace BL.DTOs.FeedbackDTOs
 {
-    public class GetFeedBackDTO
+    public class GetFeedbackDTO : FeedbackDTO
     {
+        public string CandidateFirstName { get; set; }
+
+        public string CandidateLastName { get; set; }
     }
 }

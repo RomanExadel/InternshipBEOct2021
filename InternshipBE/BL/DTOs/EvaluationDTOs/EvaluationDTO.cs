@@ -1,4 +1,4 @@
-﻿namespace BL.DTOs
+﻿namespace BL.DTOs.EvaluationDTOs
 {
     public class EvaluationDTO
     {
