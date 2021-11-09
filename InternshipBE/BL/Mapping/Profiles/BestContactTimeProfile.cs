@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs;
+using BL.DTOs.BestContactTimeDTO;
 using DAL.Entities;
 
 namespace BL.Mapping.Profiles
@@ -9,8 +9,9 @@ namespace BL.Mapping.Profiles
 		public BestContactTimeProfile()
 		{
 			CreateMap<BestContactTime, BestContactTimeDTO>();
-			CreateMap<BestContactTimeDTO, BestContactTime>()
-				.ForMember(x => x.Id, o => o.Ignore());
+			CreateMap<BestContactTimeDTO, BestContactTime>();
+			CreateMap<CreateBestContactTimeDTO, BestContactTime>();
+			CreateMap<BestContactTimeEventDTO, BestContactTime>();
 		}
 	}
 }

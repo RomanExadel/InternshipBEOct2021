@@ -2,8 +2,8 @@ using DAL.Database;
 using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
@@ -16,7 +16,12 @@ namespace DAL.Repositories
 
 		public async Task<List<BestContactTime>> GetAllByUserIdAsync(string userId)
 		{
-			return await _context.BestContactTimes.Where(x => x.User.Id == userId).ToListAsync();
+			return await _context.BestContactTimes.Include(x => x.User).ToListAsync();
+		}
+
+		public async Task<BestContactTime> GetByTimeIntervalAsync(DateTime startTime, DateTime endTime)
+		{
+			return await _context.BestContactTimes.FirstOrDefaultAsync(x => x.StartTime == startTime && x.EndTime == endTime);
 		}
 	}
 }

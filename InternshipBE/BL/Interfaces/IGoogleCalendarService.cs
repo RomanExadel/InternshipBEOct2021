@@ -1,10 +1,10 @@
-﻿using BL.DTOs;
+﻿using BL.DTOs.BestContactTimeDTO;
 using System.Threading.Tasks;
 
 namespace BL.Interfaces
 {
 	public interface IGoogleCalendarService
 	{
-		Task CreateEventInCalendarAsync(string interviewerID, BestContactTimeDTO model);
+		Task CreateEventInCalendarAsync(BestContactTimeEventDTO model);
 	}
 }

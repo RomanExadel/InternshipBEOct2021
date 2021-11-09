@@ -1,11 +1,7 @@
-﻿using BL.DTOs;
+﻿using BL.DTOs.BestContactTimeDTO;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -23,9 +19,9 @@ namespace WebApi.Controllers
 
 		[HttpPost("setEventToGoogleCalendar")]
 		[Authorize]
-		public async Task<IActionResult> SetEventToGoogleCalendar([FromBody] string interviewerId, BestContactTimeDTO model)
+		public async Task<IActionResult> SetEventToGoogleCalendar([FromBody] BestContactTimeEventDTO model)
 		{
-			await _googleCalendarService.CreateEventInCalendarAsync(interviewerId, model);
+			await _googleCalendarService.CreateEventInCalendarAsync(model);
 
 			return Ok();
 		}

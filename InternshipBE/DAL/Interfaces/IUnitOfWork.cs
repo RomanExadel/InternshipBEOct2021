@@ -3,14 +3,16 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
-    {
-        IBestContactTimeRepository BestContactTime { get; }
+	public interface IUnitOfWork : IDisposable
+	{
+		IBestContactTimeRepository BestContactTime { get; }
 
-        ICandidateRepository Candidates { get; }
+		ICandidateRepository Candidates { get; }
 
-        IInternshipRepository Internships { get; }
+		IInternshipRepository Internships { get; }
 
-        Task SaveAsync();
-    }
+		IUserRepository Users { get; }
+
+		Task SaveAsync();
+	}
 }

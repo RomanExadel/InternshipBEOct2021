@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using BL.DTOs;
+﻿using BL.DTOs.BestContactTimeDTO;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -12,28 +12,26 @@ namespace WebApi.Controllers
 	public class BestContactTimeController : ControllerBase
 	{
 		private readonly IBestContactTimeService _bestContactTimeService;
-		private readonly IMapper _mapper;
 
-		public BestContactTimeController(IBestContactTimeService bestContactTimeService, IMapper mapper)
+		public BestContactTimeController(IBestContactTimeService bestContactTimeService)
 		{
 			_bestContactTimeService = bestContactTimeService;
-			_mapper = mapper;
 		}
 
 		[HttpPost("setBestContactTime")]
 		[Authorize]
-		public async Task<IActionResult> SetBestContactTimeAsync([FromBody] BestContactTimeDTO model)
+		public async Task<IActionResult> SetBestContactTimeAsync([FromBody] List<CreateBestContactTimeDTO> models)
 		{
 			var userName = User.Identity.Name;
 
-			await _bestContactTimeService.SaveBestContactTimeAsync(userName, model);
+			await _bestContactTimeService.SaveBestContactTimeAsync(userName, models);
 
 			return Ok();
 		}
 
-		[HttpGet("GetAllBestContactTimeByUserId")]
+		[HttpGet("{interviewerId}")]
 		[Authorize]
-		public async Task<IActionResult> GetAllBestContactTimeByUserId([FromBody] string interviewerId)
+		public async Task<IActionResult> GetAllBestContactTimeByUserId(string interviewerId)
 		{
 			var models = await _bestContactTimeService.GetAllBestTimeByIdAsync(interviewerId);
 

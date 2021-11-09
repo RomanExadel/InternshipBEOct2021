@@ -1,4 +1,5 @@
-﻿using BL.DTOs;
+﻿using AutoMapper;
+using BL.DTOs.BestContactTimeDTO;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -9,6 +10,7 @@ using Google.Apis.Services;
 using Microsoft.AspNetCore.Identity;
 using Shared.Config.Interfaces;
 using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -24,21 +26,32 @@ namespace BL.Services
 		private readonly UserManager<User> _userManager;
 		private readonly IGoogleConfig _googleConfig;
 		private CalendarService _calendarService;
+		private readonly ICalendarEventsConfig _calendarEventsConfig;
+		private readonly IUnitOfWork _unitOfWork;
+		private readonly IMapper _mapper;
 
-		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, UserManager<User> userManager)
+		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, UserManager<User> userManager, ICalendarEventsConfig calendarEventsConfig, IMapper mapper)
 		{
 			_userManager = userManager;
 			_googleConfig = googleConfig;
+			_calendarEventsConfig = calendarEventsConfig;
+			_unitOfWork = unitOfWork;
+			_mapper = mapper;
 		}
 
-		public async Task CreateEventInCalendarAsync(string interviewerID, BestContactTimeDTO model)
+		public async Task CreateEventInCalendarAsync(BestContactTimeEventDTO model)
 		{
-			var user = await _userManager.FindByIdAsync(interviewerID);
+			var user = await _userManager.FindByIdAsync(model.InterviewerId);
 
 			CreateEvent(user.Email, model);
+
+			//var bestContactTime = await _unitOfWork.BestContactTime.GetByTimeIntervalAsync(model.StartTime, model.EndTime);
+			//bestContactTime.User = user;
+
+			//await _unitOfWork.BestContactTime.DeleteAsync(bestContactTime);
 		}
 
-		private void CreateEvent(string email, BestContactTimeDTO model)
+		private void CreateEvent(string email, CreateBestContactTimeDTO model)
 		{
 			var credential = GoogleCredential.FromFile(_googleConfig.ClientSecrets).CreateScoped(Scopes);
 
@@ -50,19 +63,19 @@ namespace BL.Services
 
 			Event newEvent = new Event()
 			{
-				//All next rows with text will be moved to const variables."
-				Summary = "Technical interview",
-				Location = "Exadel. Minsk",
-				Description = "Internship technical interview.",
+				Summary = _calendarEventsConfig.Summary,
+				Location = _calendarEventsConfig.Location,
+				Description = _calendarEventsConfig.Description,
 				Start = new EventDateTime()
 				{
 					DateTime = model.StartTime,
+					TimeZone = _calendarEventsConfig.TimeZone,
 				},
 				End = new EventDateTime()
 				{
 					DateTime = model.EndTime,
+					TimeZone = _calendarEventsConfig.TimeZone,
 				},
-				Recurrence = new string[] { "RRULE:FREQ=DAILY;COUNT=2" }
 			};
 
 			EventsResource.InsertRequest request = _calendarService.Events.Insert(newEvent, email);

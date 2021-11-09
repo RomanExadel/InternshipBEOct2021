@@ -12,11 +12,12 @@ namespace WebApi.Extensions
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddTransient<IGoogleConfig, GoogleConfig>();
+			services.AddTransient<ICalendarEventsConfig, CalendarEventsConfig>();
 			services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
 			services.AddTransient<IGenericRepository<Candidate>, GenericRepository<Candidate>>();
 			services.AddTransient<ICandidateRepository, CandidateRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
-			services.AddTransient<IInternshipRepository , InternshipRepository>();
+			services.AddTransient<IInternshipRepository, InternshipRepository>();
 
 			return services;
 		}

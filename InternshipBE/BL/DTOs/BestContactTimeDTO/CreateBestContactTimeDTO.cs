@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace BL.DTOs
+namespace BL.DTOs.BestContactTimeDTO
 {
-	public class BestContactTimeDTO
+	public class CreateBestContactTimeDTO
 	{
-		public int Id { get; set; }
-
 		public DateTime StartTime { get; set; }
 
 		public DateTime EndTime { get; set; }

@@ -13,6 +13,7 @@ namespace DAL.Repositories
 		private ICandidateRepository _canidateRepository;
 		private IInternshipRepository _internshipRepository;
 		private IBestContactTimeRepository _bestContactTimeRepository;
+		private IUserRepository _userRepository;
 
 		public IBestContactTimeRepository BestContactTime
 		{
@@ -41,6 +42,16 @@ namespace DAL.Repositories
 				if (_internshipRepository == null)
 					_internshipRepository = new InternshipRepository(_db);
 				return _internshipRepository;
+			}
+		}
+
+		public IUserRepository Users
+		{
+			get
+			{
+				if (_userRepository == null)
+					_userRepository = new UserRepository(_db);
+				return _userRepository;
 			}
 		}
 

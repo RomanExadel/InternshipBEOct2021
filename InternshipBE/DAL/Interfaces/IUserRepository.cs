@@ -1,6 +1,8 @@
-﻿namespace DAL.Interfaces
+﻿using DAL.Entities;
+
+namespace DAL.Interfaces
 {
-	public interface IUserRepository
-	{
+	public interface IUserRepository : IGenericRepository<User>
+	{ 
 	}
 }
