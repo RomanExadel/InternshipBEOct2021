@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("updateEvaluation")]
-        public async Task<ActionResult> UpdateEvaluation([FromBody] FullEvaluationDTO fullEvaluationDto)
+        public async Task<ActionResult> UpdateEvaluation([FromBody] FullCreateEvaluationDTO fullEvaluationDto)
         {
             return Ok(await _evaluationService.UpdateEvaluationAsync(fullEvaluationDto));
         }

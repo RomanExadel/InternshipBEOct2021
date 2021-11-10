@@ -2,7 +2,7 @@
 
 namespace BL.DTOs.FeedbackDTOs
 {
-    public class FullFeedbackDTO : GetFeedbackDTO
+    public class FullGetFeedbackDTO : GetFeedbackDTO
     {
         public int Id { get; set; }
     }

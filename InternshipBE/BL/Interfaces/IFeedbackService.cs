@@ -8,10 +8,10 @@ namespace BL.Interfaces
     {
         Task<GetFeedbackDTO> GetFeedbackByIdAsync(int id);
 
-        Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback);
+        Task<FullGetFeedbackDTO> CreateFeedbackAsync(CreateFeedbackDTO newFeedback);
 
         Task<UpdateFeedbackDTO> UpdateFeedbackAsync(UpdateFeedbackDTO updatedFeedback);
 
-        Task<List<UpdateFeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId);
+        Task<List<FullGetFeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId);
     }
 }

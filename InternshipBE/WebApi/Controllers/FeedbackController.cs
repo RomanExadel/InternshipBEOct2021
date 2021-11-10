@@ -23,12 +23,12 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("createFeedback")]
-        public async Task<IActionResult> CreateFeedback([FromBody] FeedbackDTO feedbackDto)
+        public async Task<IActionResult> CreateFeedback([FromBody] CreateFeedbackDTO feedbackDto)
         {
             return Ok(await _feedbackService.CreateFeedbackAsync(feedbackDto));
         }
 
-        [HttpPost("updateFeedback")]
+        [HttpPut("updateFeedback")]
         public async Task<IActionResult> UpdateFeedback([FromBody] UpdateFeedbackDTO updateFeedback)
         {
             return Ok(await _feedbackService.UpdateFeedbackAsync(updateFeedback));

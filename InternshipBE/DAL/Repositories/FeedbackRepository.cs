@@ -19,6 +19,8 @@ namespace DAL.Repositories
             return await _context.Feedbacks
                 .AsNoTracking()
                 .Include(x => x.Candidate)
+                .Include(x => x.Evaluations)
+                .ThenInclude(x => x.Skill)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -26,8 +28,17 @@ namespace DAL.Repositories
         {
             return await _context.Feedbacks
                 .AsNoTracking()
+                .Include(x => x.Evaluations)
+                .ThenInclude(x => x.Skill)
                 .Where(x => x.CandidateId == id)
                 .ToListAsync();
+        }
+
+        public async override Task<Feedback> UpdateAsync(Feedback feedback)
+        {
+            await Task.Run(() => _context.Evaluations.UpdateRange(feedback.Evaluations));
+            
+            return await base.UpdateAsync(feedback);
         }
     }
 }

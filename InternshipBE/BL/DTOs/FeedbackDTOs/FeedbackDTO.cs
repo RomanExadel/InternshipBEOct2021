@@ -1,4 +1,6 @@
+using BL.DTOs.EvaluationDTOs;
 using System;
+using System.Collections.Generic;
 
 namespace BL.DTOs.FeedbackDTOs
 {
@@ -13,5 +15,7 @@ namespace BL.DTOs.FeedbackDTOs
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
+
+        public virtual List<GetEvaluationDTO> Evaluations { get; set; }
     }
 }

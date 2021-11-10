@@ -28,20 +28,20 @@ namespace BL.Services
             return _mapper.Map<CreateEvaluationDTO>(evaluation);
         }
 
-        public async Task<List<GetEvaluationDTO>> GetEvaluationsByFeedbackId(int feedbackId)
+        public async Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackId(int feedbackId)
         {
             var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedbackId);
-            return _mapper.Map<List<GetEvaluationDTO>>(evaluations);
+            return _mapper.Map<List<StackGetEvaluationDTO>>(evaluations);
         }
 
-        public async Task<FullEvaluationDTO> UpdateEvaluationAsync(FullEvaluationDTO fullEvaluationDto)
+        public async Task<FullCreateEvaluationDTO> UpdateEvaluationAsync(FullCreateEvaluationDTO fullEvaluationDto)
         {
             var evaluation = _mapper.Map<Evaluation>(fullEvaluationDto);
 
             evaluation = await _unitOfWork.Evaluations.UpdateAsync(evaluation);
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<FullEvaluationDTO>(evaluation);
+            return _mapper.Map<FullCreateEvaluationDTO>(evaluation);
         }
     }
 }

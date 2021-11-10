@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BL.DTOs;
 using BL.DTOs.EvaluationDTOs;
 using DAL.Entities;
 
@@ -20,12 +19,18 @@ namespace BL.Mapping.Profiles
                 .ReverseMap()
                 .ForMember(entity => entity.FeedbackId, o => o.Ignore());
 
+            CreateMap<Evaluation, StackGetEvaluationDTO>()
+                .ForMember(dto => dto.SkillName, src => src.MapFrom(entity => entity.Skill.Name))
+                .ForMember(dto => dto.StackType, src => src.MapFrom(entity => entity.Skill.StackType.ToString()))
+                .ReverseMap()
+                .ForMember(entity => entity.FeedbackId, o => o.Ignore());
+
             CreateMap<Evaluation, CreateEvaluationDTO>()
                 .ForMember(dto => dto.SkillName, src => src.MapFrom(entity => entity.Skill.Name))
                 .ReverseMap()
                 .ForMember(entity => entity.Id, o => o.Ignore());
 
-            CreateMap<Evaluation, FullEvaluationDTO>()
+            CreateMap<Evaluation, FullCreateEvaluationDTO>()
                 .ForMember(dto => dto.SkillName, src => src.MapFrom(entity => entity.Skill.Name))
                 .ReverseMap();
         }

@@ -1,6 +1,6 @@
 ﻿namespace BL.DTOs.EvaluationDTOs
 {
-    public class FullEvaluationDTO : CreateEvaluationDTO
+    public class FullCreateEvaluationDTO : CreateEvaluationDTO
     {
         public int Id { get; set; }
     }
