@@ -10,13 +10,13 @@ namespace DAL.Entities
         public RoleType RoleType { get; set; }
 
         public string Position { get; set; }
-
-        public DateTime BestContactTime { get; set; }
         
         public ICollection<Candidate> Candidates { get; set; }
 
         public ICollection<Internship> Internships { get; set; }
         
         public ICollection<Team> Teams { get; set; }
+
+        public ICollection<BestContactTime> BestContactTimes { get; set; }
     }	
 }

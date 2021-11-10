@@ -33,10 +33,12 @@ namespace DAL.Database
 
         public DbSet<Country> Countries { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.Seed();
-        }
-    }
+		public DbSet<BestContactTime> BestContactTimes  { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+			builder.Seed();
+		}
+	}
 }

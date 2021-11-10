@@ -18,6 +18,17 @@ namespace DAL.Repositories
 		private IFeedbackRepository _feedbackRepository;
 		private IEvaluationRepository _evaluationRepository;
 		private ISkillRepository _skillRepository;
+		private IBestContactTimeRepository _bestContactTimeRepository;
+
+		public IBestContactTimeRepository BestContactTime
+		{
+			get
+			{
+				if (_bestContactTimeRepository == null)
+					_bestContactTimeRepository = new BestContactTimeRepository(_db);
+				return _bestContactTimeRepository;
+			}
+		}
 
         public ICandidateRepository Candidates
         {

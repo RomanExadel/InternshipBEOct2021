@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
-    {
-        ICandidateRepository Candidates { get; }
+	public interface IUnitOfWork : IDisposable
+	{
+		IBestContactTimeRepository BestContactTime { get; }
 
-        IInternshipRepository Internships { get; }
+		ICandidateRepository Candidates { get; }
+
+		IInternshipRepository Internships { get; }
 
         IFeedbackRepository Feedbacks { get; }
 

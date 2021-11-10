@@ -16,18 +16,18 @@ namespace BL.Services
     public class GoogleSheetService : IGoogleSheetService
 	{
 		private readonly string Scope = SheetsService.Scope.Spreadsheets;
-		private readonly IGoogleSheetConfig _sheetConfig;
+		private readonly IGoogleConfig _googleConfig;
 		private readonly ICandidateRepository _candidateRepository;
 		private IMapper _mapper;
 		private SheetsService _sheetService;
 
 		private const int COLUMN_NAMES_ROW = 1;
 
-		public GoogleSheetService(IGoogleSheetConfig sheetConfig, IMapper mapper, ICandidateRepository candidateRepository)
+		public GoogleSheetService(IGoogleConfig googleConfig, IMapper mapper, ICandidateRepository candidateRepository)
 		{
 			_candidateRepository = candidateRepository;
 			_mapper = mapper;
-			_sheetConfig = sheetConfig;
+			_googleConfig = googleConfig;
 		}
 
 		public async Task SaveNewCandidatesAsync()
@@ -58,16 +58,16 @@ namespace BL.Services
 
 		private IList<IList<object>> GetValuesFromTable()
 		{
-			var credential = GoogleCredential.FromFile(_sheetConfig.ClientSecrets).CreateScoped(Scope);
+			var credential = GoogleCredential.FromFile(_googleConfig.ClientSecrets).CreateScoped(Scope);
 
 			_sheetService = new SheetsService(new BaseClientService.Initializer()
 			{
 				HttpClientInitializer = credential,
-				ApplicationName = _sheetConfig.ApplicationName
+				ApplicationName = _googleConfig.ApplicationName
 			});
 
-			var range = $"{_sheetConfig.Sheet}{_sheetConfig.RangeSettings}";
-			var request = _sheetService.Spreadsheets.Values.Get(_sheetConfig.SpreadsheetId, range);
+			var range = $"{_googleConfig.Sheet}{_googleConfig.RangeSettings}";
+			var request = _sheetService.Spreadsheets.Values.Get(_googleConfig.SpreadsheetId, range);
 
 			var response = request.Execute();
 

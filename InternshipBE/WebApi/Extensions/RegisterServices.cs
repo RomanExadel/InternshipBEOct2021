@@ -18,6 +18,8 @@ namespace WebApi.Extensions
 			services.AddTransient<IFeedbackService, FeedbackService>();
 			services.AddTransient<IEvaluationService, EvaluationService>();
 			services.AddTransient<ISkillService, SkillService>();
+			services.AddTransient<IBestContactTimeService, BestContactTimeService>();
+			services.AddTransient<IGoogleCalendarService, GoogleCalendarService>();
 
 			return services;
 		}
