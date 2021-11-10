@@ -5,20 +5,20 @@ namespace DAL.Interfaces
 {
 	public interface IUnitOfWork : IDisposable
 	{
-		IBestContactTimeRepository BestContactTime { get; }
-
 		ICandidateRepository Candidates { get; }
 
 		IInternshipRepository Internships { get; }
 
-        IFeedbackRepository Feedbacks { get; }
+		IFeedbackRepository Feedbacks { get; }
 
-        IEvaluationRepository Evaluations { get; }
+		IEvaluationRepository Evaluations { get; }
 
-        ISkillRepository Skills { get; }
+		ISkillRepository Skills { get; }
 
-        IUserRepository Users { get; }
+		IUserRepository Users { get; }
 
-        Task SaveAsync();
-    }
+		IBestContactTimeRepository BestContactTime { get; }
+
+		Task SaveAsync();
+	}
 }
