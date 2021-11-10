@@ -8,7 +8,7 @@ namespace BL.Interfaces
     {
         Task<CreateEvaluationDTO> CreateEvaluationAsync(CreateEvaluationDTO createEvaluationDto);
 
-        Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackId(int feedbackId);
+        Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId);
 
         Task<FullCreateEvaluationDTO> UpdateEvaluationAsync(FullCreateEvaluationDTO fullEvaluationDto);
     }

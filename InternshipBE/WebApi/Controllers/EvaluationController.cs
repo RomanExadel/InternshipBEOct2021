@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         [HttpPost("getEvaluationsByFeedbackId")]
         public async Task<IActionResult> GetEvaluationsByFeedbackId([FromQuery] int feedbackId)
         {
-            return Ok(await _evaluationService.GetEvaluationsByFeedbackId(feedbackId));
+            return Ok(await _evaluationService.GetEvaluationsByFeedbackIdAsync(feedbackId));
         }
 
         [HttpPut("updateEvaluation")]

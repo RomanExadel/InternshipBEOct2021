@@ -33,12 +33,5 @@ namespace DAL.Repositories
                 .Where(x => x.CandidateId == id)
                 .ToListAsync();
         }
-
-        public async override Task<Feedback> UpdateAsync(Feedback feedback)
-        {
-            await Task.Run(() => _context.Evaluations.UpdateRange(feedback.Evaluations));
-            
-            return await base.UpdateAsync(feedback);
-        }
     }
 }

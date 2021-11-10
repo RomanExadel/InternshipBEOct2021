@@ -28,7 +28,7 @@ namespace BL.Services
             return _mapper.Map<CreateEvaluationDTO>(evaluation);
         }
 
-        public async Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackId(int feedbackId)
+        public async Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId)
         {
             var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedbackId);
             return _mapper.Map<List<StackGetEvaluationDTO>>(evaluations);
