@@ -22,7 +22,7 @@ namespace BL.DTOs.CandidateDTOs
 
         public string StackType { get; set; }
 
-        public string EnglishLevelType { get; set; }
+        public string EnglishLevelName { get; set; }
 
         public string Education { get; set; }
 
