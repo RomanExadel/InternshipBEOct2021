@@ -1,4 +1,6 @@
-﻿namespace BL.DTOs.BestContactTimeDTO
+﻿using BL.DTOs.UserDTOs;
+
+namespace BL.DTOs.BestContactTimeDTO
 {
 	public class BestContactTimeDTO : CreateBestContactTimeDTO
 	{

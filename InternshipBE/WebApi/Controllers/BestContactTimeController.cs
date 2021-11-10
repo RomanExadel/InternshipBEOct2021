@@ -35,7 +35,7 @@ namespace WebApi.Controllers
 		{
 			var models = await _bestContactTimeService.GetAllBestTimeByIdAsync(interviewerId);
 
-			return Ok(new { models });
+			return Ok(models);
 		}
 	}
 }

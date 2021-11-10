@@ -9,8 +9,6 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Microsoft.AspNetCore.Identity;
 using Shared.Config.Interfaces;
-using System;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BL.Services
