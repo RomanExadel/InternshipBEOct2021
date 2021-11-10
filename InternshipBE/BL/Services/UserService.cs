@@ -93,9 +93,9 @@ namespace BL.Services
             return usersDTO;
         }
 
-        public async Task<List<UserDTO>> UpdateUsersFromInternshipAsync(int id, string[] usersId) 
+        public async Task<List<UserDTO>> UpdateUsersFromInternshipAsync(int id, string[] userIds)
         {
-            var result = await _unitOfWork.Users.UpdateUsersFromInternshipAsync(id, usersId);
+            var result = await _unitOfWork.Users.UpdateUsersFromInternshipAsync(id, userIds);
 
             return _mapper.Map<List<UserDTO>>(result);
         }

@@ -32,15 +32,15 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getUsersByCandidateId")]
-        public async Task<IActionResult> GetUsersByCandidateId([FromQuery] int id) 
-        {                       
+        public async Task<IActionResult> GetUsersByCandidateId([FromQuery] int id)
+        {
             return Ok(await _userService.GetUsersByCandidateIdAsync(id));
         }
 
         [HttpPut("updateUsersFromInternship")]
-        public async Task<IActionResult> UpdateUsersFromInternship([FromQuery] int id, [FromBody] string[] usersId)
+        public async Task<IActionResult> UpdateUsersFromInternship([FromBody] UpdateUsersFromInternshipRequest updateRequest)
         {
-            return Ok(await _userService.UpdateUsersFromInternshipAsync(id, usersId));
+            return Ok(await _userService.UpdateUsersFromInternshipAsync(updateRequest.InternshipId, updateRequest.UserIds));
         }
     }
 }

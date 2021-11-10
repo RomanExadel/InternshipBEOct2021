@@ -40,13 +40,7 @@ namespace DAL.Repositories
                                                           .Where(x => usersId.Contains(x.Id))
                                                           .ToListAsync();
 
-            var internship = await _context.Internships.Include(x => x.Users.Where(i => users.Contains(i)))
-                                                       .FirstOrDefaultAsync(x => x.Id == id);
-
-            foreach (var user in users)
-            {
-                user.Internships.Remove(internship);
-            }
+            users.ForEach(x => x.Internships.Clear());
 
             await _context.SaveChangesAsync();
 
