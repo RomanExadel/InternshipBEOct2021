@@ -1,6 +1,7 @@
 ﻿using Shared.Enums;
+using System;
 
-namespace BL.DTOs
+namespace BL.DTOs.UserDTOs
 {
 	public class UserDTO
 	{
@@ -14,6 +15,6 @@ namespace BL.DTOs
 
 		public string UserName { get; set; }
 
-		public RoleType RoleType { get; set; }
-	}
+        public string RoleType { get; set; }
+    }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using BL.DTOs;
+using BL.DTOs.CandidateDTOs;
 using DAL.Entities;
-using Shared.Config;
 using Shared.Config.Interfaces;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +10,7 @@ using static Shared.Constants.ImportFileOffsets;
 
 namespace BL.Mapping.Profiles
 {
-	public class CandidateProfile : Profile
+    public class CandidateProfile : Profile
 	{
 		private readonly IGoogleConfig _googleSheetConfig;
 
@@ -31,7 +31,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(e => e.Phone, source => source.MapFrom(s => s[PHONE_OFFSET].ToString()))
 				.ForMember(e => e.Skype, source => source.MapFrom(s => s[SKYPE_OFFSET].ToString()))
 				.ForMember(e => e.StackType, source => source.MapFrom(s => Enum.Parse<Shared.Enums.StackType>(s[STACK_OFFSET].ToString())))
-				.ForMember(e => e.EnglishLevelType, source => source.MapFrom(s => Enum.Parse<Shared.Enums.EnglishLevelType>(s[ENGLISH_LEVEL_OFFSET].ToString())))
+				.ForMember(e => e.EnglishLevelName, source => source.MapFrom(s => Enum.Parse<Shared.Enums.EnglishLevelType>(s[ENGLISH_LEVEL_OFFSET].ToString())))
 				.ForMember(e => e.Education, source => source.MapFrom(s => s[EDUCATION_OFFSET].ToString()))
 				.ForMember(e => e.Links, source => source.MapFrom(s => s[LINKS_OFFSET].ToString()))
 				.ForMember(e => e.CurrentJob, source => source.MapFrom(s => s[CURRENT_JOB_OFFSET].ToString()))
@@ -44,13 +44,18 @@ namespace BL.Mapping.Profiles
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
+				.ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelName)))
+				.ForMember(entity => entity.StackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.StackType)))
+				.ForMember(entity => entity.StatusType, src => src.MapFrom(dto => Enum.Parse<CandidateStatusType>(dto.StatusType)))
 				.ForMember(x => x.TestTaskEvaluation, o => o.Ignore())
-				.ForMember(x => x.StatusType, o => o.Ignore())
 				.ForMember(x => x.TeamId, o => o.Ignore())
 				.ForMember(x => x.Team, o => o.Ignore())
 				.ForMember(x => x.Users, o => o.Ignore())
 				.ForMember(x => x.Internship, o => o.Ignore())
-				.ReverseMap();
+				.ReverseMap()
+				.ForMember(dto => dto.EnglishLevelName, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
+				.ForMember(dto => dto.StackType, src => src.MapFrom(entity => entity.StackType.ToString()))
+				.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()));
 		}
 	}
 }

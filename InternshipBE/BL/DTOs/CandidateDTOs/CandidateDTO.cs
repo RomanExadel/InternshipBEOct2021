@@ -1,7 +1,6 @@
-﻿using Shared.Enums;
-using System;
+﻿using System;
 
-namespace BL.DTOs
+namespace BL.DTOs.CandidateDTOs
 {
     public class CandidateDTO
     {
@@ -21,9 +20,9 @@ namespace BL.DTOs
 
         public string Skype { get; set; }
 
-        public StackType StackType { get; set; }
+        public string StackType { get; set; }
 
-        public EnglishLevelType EnglishLevelType { get; set; }
+        public string EnglishLevelName { get; set; }
 
         public string Education { get; set; }
 
@@ -41,7 +40,7 @@ namespace BL.DTOs
 
         public int TestTaskEvaluation { get; set; }
 
-        public CandidateStatusType StatusType { get; set; }
+        public string StatusType { get; set; }
 
         public DateTime BestContactTime { get; set; }
 
