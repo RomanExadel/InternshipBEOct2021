@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211106121600_InitialDb")]
+    [Migration("20211110155344_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,29 @@ namespace DAL.Migrations
                     b.HasIndex("InternshipsId");
 
                     b.ToTable("CountryInternship");
+                });
+
+            modelBuilder.Entity("DAL.Entities.BestContactTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BestContactTimes");
                 });
 
             modelBuilder.Entity("DAL.Entities.Candidate", b =>
@@ -337,9 +360,6 @@ namespace DAL.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BestContactTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -594,6 +614,15 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DAL.Entities.BestContactTime", b =>
+                {
+                    b.HasOne("DAL.Entities.User", "User")
+                        .WithMany("BestContactTimes")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DAL.Entities.Candidate", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
@@ -787,6 +816,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Team", b =>
                 {
                     b.Navigation("Candidates");
+                });
+
+            modelBuilder.Entity("DAL.Entities.User", b =>
+                {
+                    b.Navigation("BestContactTimes");
                 });
 #pragma warning restore 612, 618
         }

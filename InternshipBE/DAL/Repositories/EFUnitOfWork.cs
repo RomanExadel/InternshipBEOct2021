@@ -16,10 +16,7 @@ namespace DAL.Repositories
         private IInternshipRepository _internshipRepository;
         private IUserRepository _userRepository;
 		private IFeedbackRepository _feedbackRepository;
-		private ICandidateRepository _canidateRepository;
-		private IInternshipRepository _internshipRepository;
 		private IBestContactTimeRepository _bestContactTimeRepository;
-		private IUserRepository _userRepository;
 
 		public IBestContactTimeRepository BestContactTime
 		{

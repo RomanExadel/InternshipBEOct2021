@@ -25,9 +25,8 @@ namespace BL.Services
 		public async Task<List<BestContactTimeDTO>> GetAllBestTimeByIdAsync(string interviewerId)
 		{
 			var timeList = await _unitOfWork.BestContactTime.GetAllByUserIdAsync(interviewerId);
-			var models = _mapper.Map<List<BestContactTimeDTO>>(timeList);
 
-			return models;
+			return _mapper.Map<List<BestContactTimeDTO>>(timeList);
 		}
 
 		public async Task SaveBestContactTimeAsync(string userName, List<CreateBestContactTimeDTO> models)
