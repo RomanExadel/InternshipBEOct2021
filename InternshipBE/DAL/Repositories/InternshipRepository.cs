@@ -14,9 +14,28 @@ namespace DAL.Repositories
         {
         }
 
+        public override async Task<Internship> GetByIdAsync(int id)
+        {
+            return await _context.Internships.AsNoTracking()
+                                             .Include(x => x.InternshipStacks)
+                                             .Include(x => x.Countries)
+                                             .Include(x => x.Candidates)
+                                             .Include(x => x.Teams)
+                                             .Include(x => x.Users)
+                                             .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber)
         {
-            return await _context.Internships.Skip(pageSize * --pageNumber).Take(pageSize).ToListAsync();
+            return await _context.Internships.AsNoTracking()
+                                             .Include(x => x.InternshipStacks)
+                                             .Include(x => x.Countries)
+                                             .Include(x => x.Candidates)
+                                             .Include(x => x.Teams)
+                                             .Include(x => x.Users)
+                                             .Skip(pageSize * --pageNumber)
+                                             .Take(pageSize)
+                                             .ToListAsync();
         }
     }
 }

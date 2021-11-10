@@ -1,7 +1,7 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
@@ -23,6 +23,24 @@ namespace WebApi.Controllers
             var userName = User.Identity.Name;
 
             return Ok(await _userService.GetUserInfoByUserNameAsync(userName));
+        }
+
+        [HttpGet("getSpecificUsersByInternshipId")]
+        public async Task<IActionResult> GetSpecificUsersByInternshipId([FromQuery] GetSpecificUsersRequest usersRequest)
+        {
+            return Ok(await _userService.GetSpecificUsersByInternshipIdAsync(usersRequest.Id, usersRequest.RoleType));
+        }
+
+        [HttpGet("getUsersByCandidateId")]
+        public async Task<IActionResult> GetUsersByCandidateId([FromQuery] int id)
+        {
+            return Ok(await _userService.GetUsersByCandidateIdAsync(id));
+        }
+
+        [HttpPut("updateUsersFromInternship")]
+        public async Task<IActionResult> UpdateUsersFromInternship([FromBody] UpdateUsersFromInternshipRequest request)
+        {
+            return Ok(await _userService.UpdateUsersFromInternshipAsync(request.InternshipId, request.UserIds));
         }
     }
 }

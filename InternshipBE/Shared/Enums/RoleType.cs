@@ -2,7 +2,7 @@
 {
     public enum RoleType
     {
-        Guest,
+        Mentor,
         Hr,
         Interviewer,
         Manager,

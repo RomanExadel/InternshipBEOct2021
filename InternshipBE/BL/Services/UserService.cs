@@ -2,6 +2,7 @@
 using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +10,6 @@ using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +21,14 @@ namespace BL.Services
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper)
+        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _configuration = configuration;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<string> AuthenticateAsync(string email, string password)
@@ -68,25 +70,34 @@ namespace BL.Services
         {
             var user = await GetUserByUserNameAsync(userName);
 
-            var userRole = await GetUserRoleAsync(user);
-
             var userDTO = _mapper.Map<UserDTO>(user);
-
-            userDTO.RoleType = Enum.Parse<RoleType>(userRole);
 
             return userDTO;
         }
 
-        private async Task<string> GetUserRoleAsync(User user)
+        public async Task<List<UserDTO>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType)
         {
-            var roles = await _userManager.GetRolesAsync(user);
+            var mentors = await _unitOfWork.Users.GetSpecificUsersByInternshipIdAsync(id, roleType);
 
-            if (roles == null)
-            {
-                throw new ArgumentNullException(nameof(roles), "roles is null");
-            }
+            var usersDTO = _mapper.Map<List<UserDTO>>(mentors);
 
-            return roles.Single();
+            return usersDTO;
+        }
+
+        public async Task<List<UserDTO>> GetUsersByCandidateIdAsync(int id)
+        {
+            var users = await _unitOfWork.Users.GetUsersByCandidateIdAsync(id);
+
+            var usersDTO = _mapper.Map<List<UserDTO>>(users);
+
+            return usersDTO;
+        }
+
+        public async Task<List<UserDTO>> UpdateUsersFromInternshipAsync(int id, string[] userIds)
+        {
+            var result = await _unitOfWork.Users.UpdateUsersFromInternshipAsync(id, userIds);
+
+            return _mapper.Map<List<UserDTO>>(result);
         }
 
         private async Task<User> GetUserByUserNameAsync(string userName)

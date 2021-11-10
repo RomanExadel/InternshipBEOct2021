@@ -11,8 +11,10 @@ namespace DAL.Interfaces
 
 		IInternshipRepository Internships { get; }
 
-		IUserRepository Users { get; }
+        IFeedbackRepository Feedbacks { get; }
 
-		Task SaveAsync();
-	}
+        IUserRepository Users { get; }
+
+        Task SaveAsync();
+    }
 }

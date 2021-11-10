@@ -40,6 +40,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(e => e.IsPlanningToJoin, source => source.MapFrom(s => s[IS_PLANNING_TO_JOIN_OFFSET].ToString().ToLower() == "yes" ? true : false))
 				.ForMember(e => e.PrimarySkill, source => source.MapFrom(s => s[PRIMARY_SKILL_OFFSET].ToString()))
 				.ForMember(e => e.BestContactTime, source => source.MapFrom(s => DateTime.Parse(s[BEST_CONTACT_TIME_OFFSET].ToString())))
+				.ForMember(e => e.InternshipId, source => source.MapFrom(s => Convert.ToInt32(s[INTERNSHIP_OFFSET].ToString().Substring(0, 1))))
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
@@ -49,7 +50,6 @@ namespace BL.Mapping.Profiles
 				.ForMember(x => x.Team, o => o.Ignore())
 				.ForMember(x => x.Users, o => o.Ignore())
 				.ForMember(x => x.Internship, o => o.Ignore())
-				.ForMember(x => x.InternshipId, o => o.Ignore())
 				.ReverseMap();
 		}
 	}
