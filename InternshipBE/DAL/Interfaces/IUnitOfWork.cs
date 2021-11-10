@@ -11,6 +11,10 @@ namespace DAL.Interfaces
 
         IFeedbackRepository Feedbacks { get; }
 
+        IEvaluationRepository Evaluations { get; }
+
+        ISkillRepository Skills { get; }
+
         IUserRepository Users { get; }
 
         Task SaveAsync();

@@ -1,14 +1,17 @@
-﻿using BL.DTOs;
+﻿using BL.DTOs.FeedbackDTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BL.Interfaces
 {
     public interface IFeedbackService
     {
-        Task<FeedbackDTO> GetFeedbackByIdAsync(int id);
+        Task<GetFeedbackDTO> GetFeedbackByIdAsync(int id);
 
-        Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback);
+        Task<FullGetFeedbackDTO> CreateFeedbackAsync(CreateFeedbackDTO newFeedback);
 
-        Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback);
+        Task<UpdateFeedbackDTO> UpdateFeedbackAsync(UpdateFeedbackDTO updatedFeedback);
+
+        Task<List<FullGetFeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId);
     }
 }

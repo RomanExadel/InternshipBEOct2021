@@ -1,8 +1,9 @@
-﻿using Shared.Enums;
+﻿using BL.DTOs.CountryDTOs;
+using BL.DTOs.InternshipStackDTOs;
 using System;
 using System.Collections.Generic;
 
-namespace BL.DTOs
+namespace BL.DTOs.InternshipDTOs
 {
     public class InternshipDTO
     {
@@ -22,9 +23,9 @@ namespace BL.DTOs
 
         public DateTime RegistrationFinishDate { get; set; }
 
-        public LanguageType LanguageType { get; set; }
+        public string LanguageType { get; set; }
 
-        public InternshipStatusType InternshipStatusType { get; set; }
+        public string InternshipStatusType { get; set; }
 
         public string ImageLink { get; set; }
 

@@ -16,6 +16,8 @@ namespace DAL.Repositories
         private IInternshipRepository _internshipRepository;
         private IUserRepository _userRepository;
 		private IFeedbackRepository _feedbackRepository;
+		private IEvaluationRepository _evaluationRepository;
+		private ISkillRepository _skillRepository;
 
         public ICandidateRepository Candidates
         {
@@ -46,20 +48,40 @@ namespace DAL.Repositories
                 return _userRepository;
             }
         }
+        public IFeedbackRepository Feedbacks
+        {
+            get
+            {
+                if (_feedbackRepository == null)
+                    _feedbackRepository = new FeedbackRepository(_db);
+                return _feedbackRepository;
+            }
+        }
+
+        public IEvaluationRepository Evaluations
+        {
+            get
+            {
+                if (_evaluationRepository == null)
+                    _evaluationRepository = new EvaluationRepository(_db);
+                return _evaluationRepository;
+            }
+        }
+
+        public ISkillRepository Skills
+        {
+            get
+            {
+                if (_skillRepository == null)
+                    _skillRepository = new SkillRepository(_db);
+                return _skillRepository;
+            }
+        }
 
         public EFUnitOfWork(ApplicationDbContext db, UserManager<User> userManager)
         {
             _db = db;
         }
-		public IFeedbackRepository Feedbacks
-		{
-			get
-			{
-				if(_feedbackRepository == null)
-					_feedbackRepository = new FeedbackRepository(_db);
-				return _feedbackRepository;
-			}
-		}
 
 		public EFUnitOfWork(ApplicationDbContext db)
 		{
