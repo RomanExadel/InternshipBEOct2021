@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BL.DTOs
+namespace BL.DTOs.UserDTOs
 {
     public class UserDTO
 	{

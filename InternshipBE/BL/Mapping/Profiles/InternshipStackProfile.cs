@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs;
+using BL.DTOs.InternshipStackDTOs;
 using DAL.Entities;
 using Shared.Enums;
 using System;

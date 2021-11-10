@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using BL.DTOs;
+using BL.DTOs.CandidateDTOs;
 using DAL.Entities;
-using Shared.Config;
 using Shared.Config.Interfaces;
 using Shared.Enums;
 using System;
@@ -11,7 +10,7 @@ using static Shared.Constants.ImportFileOffsets;
 
 namespace BL.Mapping.Profiles
 {
-	public class CandidateProfile : Profile
+    public class CandidateProfile : Profile
 	{
 		private readonly IGoogleSheetConfig _googleSheetConfig;
 

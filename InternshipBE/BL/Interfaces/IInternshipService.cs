@@ -1,4 +1,4 @@
-﻿using BL.DTOs;
+﻿using BL.DTOs.InternshipDTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

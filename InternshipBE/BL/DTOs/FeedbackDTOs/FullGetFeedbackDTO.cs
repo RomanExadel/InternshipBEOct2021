@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BL.DTOs.FeedbackDTOs
+﻿namespace BL.DTOs.FeedbackDTOs
 {
     public class FullGetFeedbackDTO : GetFeedbackDTO
     {

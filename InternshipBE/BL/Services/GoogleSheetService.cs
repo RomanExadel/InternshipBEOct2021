@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs;
+using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-	public class GoogleSheetService : IGoogleSheetService
+    public class GoogleSheetService : IGoogleSheetService
 	{
 		private readonly string Scope = SheetsService.Scope.Spreadsheets;
 		private readonly IGoogleSheetConfig _sheetConfig;

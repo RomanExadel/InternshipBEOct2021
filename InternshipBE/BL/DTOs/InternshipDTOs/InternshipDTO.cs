@@ -1,8 +1,9 @@
-﻿using Shared.Enums;
+﻿using BL.DTOs.CountryDTOs;
+using BL.DTOs.InternshipStackDTOs;
 using System;
 using System.Collections.Generic;
 
-namespace BL.DTOs
+namespace BL.DTOs.InternshipDTOs
 {
     public class InternshipDTO
     {

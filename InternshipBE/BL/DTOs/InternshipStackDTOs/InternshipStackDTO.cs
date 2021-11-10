@@ -1,6 +1,4 @@
-﻿using Shared.Enums;
-
-namespace BL.DTOs
+﻿namespace BL.DTOs.InternshipStackDTOs
 {
     public class InternshipStackDTO
     {
