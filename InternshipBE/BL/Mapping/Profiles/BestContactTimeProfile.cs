@@ -11,7 +11,7 @@ namespace BL.Mapping.Profiles
 			CreateMap<BestContactTime, BestContactTimeDTO>();
 			CreateMap<BestContactTimeDTO, BestContactTime>();
 			CreateMap<CreateBestContactTimeDTO, BestContactTime>();
-			CreateMap<BestContactTimeEventDTO, BestContactTime>();
+			CreateMap<EventDTO, BestContactTime>();
 		}
 	}
 }

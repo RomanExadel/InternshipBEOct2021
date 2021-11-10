@@ -5,6 +5,6 @@ namespace BL.Interfaces
 {
 	public interface IGoogleCalendarService
 	{
-		Task CreateEventInCalendarAsync(BestContactTimeEventDTO model);
+		Task CreateEventInCalendarAsync(EventDTO model);
 	}
 }

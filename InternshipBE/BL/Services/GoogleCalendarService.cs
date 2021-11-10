@@ -39,19 +39,23 @@ namespace BL.Services
 			_mapper = mapper;
 		}
 
-		public async Task CreateEventInCalendarAsync(BestContactTimeEventDTO model)
+		public async Task CreateEventInCalendarAsync(EventDTO model)
 		{
-			var user = await _userManager.FindByIdAsync(model.InterviewerId);
+			var user = await _userManager.FindByEmailAsync(model.InterviewerEmail);
 
-			CreateEvent(user.Email, model);
+			CreateEvent(model);
 
-			//var bestContactTime = await _unitOfWork.BestContactTime.GetByTimeIntervalAsync(model.StartTime, model.EndTime);
-			//bestContactTime.User = user;
+			var bestContactTime = _mapper.Map<BestContactTime>(model);
 
-			//await _unitOfWork.BestContactTime.DeleteAsync(bestContactTime);
+			bestContactTime.User = user;
+			bestContactTime.UserId = user.Id;
+			bestContactTime = await _unitOfWork.BestContactTime.GetByTimeIntervalAsync(bestContactTime);
+
+			await _unitOfWork.BestContactTime.DeleteAsync(bestContactTime);
+			await _unitOfWork.SaveAsync();
 		}
 
-		private void CreateEvent(string email, CreateBestContactTimeDTO model)
+		private void CreateEvent(EventDTO model)
 		{
 			var credential = GoogleCredential.FromFile(_googleConfig.ClientSecrets).CreateScoped(Scopes);
 
@@ -78,7 +82,7 @@ namespace BL.Services
 				},
 			};
 
-			EventsResource.InsertRequest request = _calendarService.Events.Insert(newEvent, email);
+			EventsResource.InsertRequest request = _calendarService.Events.Insert(newEvent, model.InterviewerEmail);
 			request.Execute();
 		}
 	}
