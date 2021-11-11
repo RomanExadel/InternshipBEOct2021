@@ -1,4 +1,5 @@
-﻿using BL.Interfaces;
+﻿using BL.DTOs.CountryDTOs;
+using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -17,9 +18,15 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getLocations")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetLocations()
         {
             return Ok(await _locationService.GetLocationsAsync());
+        }
+
+        [HttpPost("createLocation")]
+        public async Task<IActionResult> CreateLocation(CountryDTO NameLocation)
+        {
+            return Ok(await _locationService.CreateLocationAsync(NameLocation));
         }
     }
 }
