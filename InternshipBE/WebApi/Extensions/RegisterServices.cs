@@ -18,6 +18,7 @@ namespace WebApi.Extensions
 			services.AddTransient<IFeedbackService, FeedbackService>();
 			services.AddTransient<IEvaluationService, EvaluationService>();
 			services.AddTransient<ISkillService, SkillService>();
+			services.AddTransient<IInternshipStackService, InternshipStackService>();
 
 			return services;
 		}
