@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    interface ILocationRepository: IGenericRepository<Country>
+    public interface ILocationRepository: IGenericRepository<Country>
     {
         Task<List<Country>> GetLocationsAsync();
     }
