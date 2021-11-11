@@ -5,6 +5,7 @@ using DAL.Entities;
 using DAL.Interfaces;
 using Shared.Enums;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -47,11 +48,48 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber)
+        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy)
         {
             var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
 
+            if (sortBy != null)
+            {
+                candidates = SortCandidates(candidates, sortBy, desc);
+            }
+
+            if (filterBy != null)
+            {
+                candidates = FilterCandidates(candidates, filterBy);
+            }
+
+
             return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
+
+        private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)
+        {
+            var propertyInfo = typeof(Candidate).GetProperty(sortBy);
+
+            if (desc)
+                candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
+
+            else
+                candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
+
+            return candidates;
+        }
+
+        private List<Candidate> FilterCandidates(List<Candidate> candidates, CandidateFilterModelDTO filterBy)
+        {
+            var _candidates = candidates.AsQueryable();
+            if (!string.IsNullOrEmpty(filterBy.Location))
+                _candidates = _candidates.Where(c => c.Location == filterBy.Location);
+            if (filterBy.StackType.HasValue)
+                _candidates = _candidates.Where(c => c.StackType == filterBy.StackType);
+            if (filterBy.StatusType.HasValue)
+                _candidates = _candidates.Where(c => c.StatusType == filterBy.StatusType);
+
+            return _candidates.ToList();
         }
 
         public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type)
