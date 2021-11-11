@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
+using BL.SearchModels;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,43 +12,43 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public class CandidateService : ICandidateService
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+	public class CandidateService : ICandidateService
+	{
+		private readonly IUnitOfWork _unitOfWork;
+		private readonly IMapper _mapper;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-        }
+		public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
+		{
+			_unitOfWork = unitOfWork;
+			_mapper = mapper;
+		}
 
-        public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
-        {
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+		public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
+		{
+			var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            return _mapper.Map<CandidateDTO>(candidate);
-        }
+			return _mapper.Map<CandidateDTO>(candidate);
+		}
 
-        public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
-        {
-            var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
-            var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
+		public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
+		{
+			var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
+			var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
 
-            await _unitOfWork.SaveAsync();
+			await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<CandidateDTO>(candidate);
-        }
+			return _mapper.Map<CandidateDTO>(candidate);
+		}
 
-        public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
-        {
-            var mappedCandidate = _mapper.Map<Candidate>(candidate);
-            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
+		public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
+		{
+			var mappedCandidate = _mapper.Map<Candidate>(candidate);
+			var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
 
-            await _unitOfWork.SaveAsync();
+			await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<CandidateDTO>(updatedCandidate);
-        }
+			return _mapper.Map<CandidateDTO>(updatedCandidate);
+		}
 
         public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy)
         {
@@ -98,8 +100,15 @@ namespace BL.Services
             candidate.StatusType = type;
             var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
 
-            return _mapper.Map<CandidateDTO>(updatedCandidate);
-        }
+			return _mapper.Map<CandidateDTO>(updatedCandidate);
+		}
 
-    }
+		public async Task<List<CandidateDTO>> SearchAsync(CandidateSearchModel searchModel)
+		{
+			var query = _unitOfWork.Candidates.GetAllCandidates();
+			var searchQuery = searchModel.Find(query);
+
+			return _mapper.Map<List<CandidateDTO>>(await searchQuery.Body.ToListAsync());
+		}
+	}
 }
