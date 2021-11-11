@@ -19,6 +19,7 @@ namespace DAL.Repositories
         private IEvaluationRepository _evaluationRepository;
         private ISkillRepository _skillRepository;
         private IBestContactTimeRepository _bestContactTimeRepository;
+        private IInternshipStackRepository _internshipStackRepository;
         private ILocationRepository _locationRepository;
 
         public ILocationRepository Locations
@@ -30,11 +31,6 @@ namespace DAL.Repositories
                 return _locationRepository;
             }
         }
-		private IFeedbackRepository _feedbackRepository;
-		private IEvaluationRepository _evaluationRepository;
-		private ISkillRepository _skillRepository;
-		private IInternshipStackRepository _internshipStackRepository;
-		private IBestContactTimeRepository _bestContactTimeRepository;
 
         public IBestContactTimeRepository BestContactTime
         {
