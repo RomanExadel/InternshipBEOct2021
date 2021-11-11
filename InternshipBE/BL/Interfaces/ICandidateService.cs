@@ -18,6 +18,6 @@ namespace BL.Interfaces
 
 		Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type);
 
-		List<CandidateDTO> Search(CandidateSearchModel searchModel);
+		Task<List<CandidateDTO>> SearchAsync(CandidateSearchModel searchModel);
 	}
 }

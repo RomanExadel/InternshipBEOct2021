@@ -14,12 +14,12 @@ namespace BL.SearchModels
 		{
 			switch (Predicate)
 			{
-				case "FirstName":
+				case nameof(FirstName):
 					{
 						return Order(query, x => x.FirstName);
 					};
 
-				case "LastName":
+				case nameof(LastName):
 					{
 						return Order(query, x => x.LastName);
 					}
@@ -31,8 +31,8 @@ namespace BL.SearchModels
 
 		public override IQueryable<Candidate> Filter(IQueryable<Candidate> query)
 		{
-			if (!string.IsNullOrEmpty(FirstName)) query = query.Where(x => x.FirstName.ToUpper().Contains(FirstName.ToUpper()));
-			if (!string.IsNullOrEmpty(LastName)) query = query.Where(x => x.LastName.ToUpper().Contains(LastName.ToUpper()));
+			if (!string.IsNullOrEmpty(FirstName)) query = query.Where(x => x.FirstName == FirstName);
+			if (!string.IsNullOrEmpty(LastName)) query = query.Where(x => x.LastName == LastName);
 			return base.Filter(query);
 		}
 

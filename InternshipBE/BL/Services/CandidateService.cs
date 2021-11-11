@@ -4,9 +4,9 @@ using BL.Interfaces;
 using BL.SearchModels;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -65,12 +65,12 @@ namespace BL.Services
 			return _mapper.Map<CandidateDTO>(updatedCandidate);
 		}
 
-		public List<CandidateDTO> Search(CandidateSearchModel searchModel)
+		public async Task<List<CandidateDTO>> SearchAsync(CandidateSearchModel searchModel)
 		{
 			var query = _unitOfWork.Candidates.GetAllCandidates();
 			var searchQuery = searchModel.Find(query);
 
-			return _mapper.Map<List<CandidateDTO>>(searchQuery.Body.ToList());
+			return _mapper.Map<List<CandidateDTO>>(await searchQuery.Body.ToListAsync());
 		}
 	}
 }

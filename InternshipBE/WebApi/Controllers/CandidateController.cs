@@ -52,9 +52,9 @@ namespace WebApi.Controllers
 
 		[HttpPost("candidateSearch")]
 		[Authorize]
-		public IActionResult SearchCandidate([FromBody] CandidateSearchModel searchModel)
+		public async Task<IActionResult> SearchCandidate([FromBody] CandidateSearchModel searchModel)
 		{
-			var searchResult = _candidateService.Search(searchModel);
+			var searchResult = await _candidateService.SearchAsync(searchModel);
 
 			return Ok(searchResult);
 		}
