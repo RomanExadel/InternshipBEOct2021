@@ -9,5 +9,7 @@ namespace BL.Interfaces
         Task<List<GetInternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId);
 
         Task<FullInternshipStackDTO> CreateInternshipStackAsync(CreateInternshipStackDTO internshipStackDto);
+
+        Task<FullInternshipStackDTO> UpdateInternshipStackAsync(FullInternshipStackDTO internshipStackDto);
     }
 }

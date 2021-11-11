@@ -26,5 +26,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _internshipStackService.CreateInternshipStackAsync(internshipStackDto));
         }
+
+        [HttpPut("updateInternshipStackById")]
+        public async Task<IActionResult> UpdateInternshipStackById([FromBody] FullInternshipStackDTO internshipStackDto)
+        {
+            return Ok(await _internshipStackService.UpdateInternshipStackAsync(internshipStackDto));
+        }
     }
 }
