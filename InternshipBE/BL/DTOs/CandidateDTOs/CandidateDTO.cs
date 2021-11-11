@@ -29,7 +29,7 @@ namespace BL.DTOs.CandidateDTOs
         public string Links { get; set; }
 
         public string OtherInfo { get; set; }
-
+        
         public string PrimarySkill { get; set; }
 
         public string CurrentJob { get; set; }

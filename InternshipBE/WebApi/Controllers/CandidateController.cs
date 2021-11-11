@@ -26,11 +26,11 @@ namespace WebApi.Controllers
 			return Ok(await _candidateService.GetCandidateByIdAsync(id));
 		}
 
-		[HttpPost("getCandidateListByInternshipId")]
-		public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
-		{
-			return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber));
-		}
+        [HttpPost("getCandidateListByInternshipId")]
+        public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
+        {
+            return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber, request.SortBy, request.Desc,  request.FilterBy));
+        }
 
 		[HttpPost("createCandidate")]
 		public async Task<IActionResult> CreateCandidate([FromBody] CandidateDTO candidate)
