@@ -37,5 +37,16 @@ namespace BL.Services
 
             return internshipStacksDtos;
         }
+        
+        public async Task<FullInternshipStackDTO> UpdateInternshipStackAsync(FullInternshipStackDTO internshipStackDto)
+        {
+            var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
+
+            internshipStack = await _unitOfWork.InternshipStacks.UpdateAsync(internshipStack);
+
+            await _unitOfWork.SaveAsync();
+
+            return _mapper.Map<FullInternshipStackDTO>(internshipStack);
+        }
     }
 }
