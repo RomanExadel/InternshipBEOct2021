@@ -6,7 +6,7 @@ namespace BL.DTOs.CandidateDTOs
 {
     public class CandidateFilterModelDTO
     {
-		public string? Location { get; set; }
+        public string? Location { get; set; }
 
         public StackType? StackType { get; set; }
 
