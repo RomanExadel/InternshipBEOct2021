@@ -29,7 +29,7 @@ namespace BL.DTOs.InternshipDTOs
 
         public string ImageLink { get; set; }
 
-        public List<InternshipStackDTO> InternshipStacks { get; set; }
+        public List<GetInternshipStackDTO> InternshipStacks { get; set; }
 
         public List<CountryDTO> Locations { get; set; }
 
