@@ -25,5 +25,13 @@ namespace DAL.Repositories
 		{
 			return await _context.Candidates.CountAsync();
 		}
+
+		public IQueryable<Candidate> GetAllCandidates()
+		{
+			return _context.Candidates
+				.Include(x => x.Users)
+				.Include(x => x.Team)
+				.AsQueryable();
+		}
 	}
 }
