@@ -18,6 +18,7 @@ namespace DAL.Repositories
 		private IFeedbackRepository _feedbackRepository;
 		private IEvaluationRepository _evaluationRepository;
 		private ISkillRepository _skillRepository;
+		private IInternshipStackRepository _internshipStackRepository;
 		private IBestContactTimeRepository _bestContactTimeRepository;
 
 		public IBestContactTimeRepository BestContactTime
@@ -86,6 +87,16 @@ namespace DAL.Repositories
                 if (_skillRepository == null)
                     _skillRepository = new SkillRepository(_db);
                 return _skillRepository;
+            }
+        }
+        
+        public IInternshipStackRepository InternshipStacks
+        {
+            get
+            {
+                if (_internshipStackRepository == null)
+                    _internshipStackRepository = new InternshipStackRepository(_db);
+                return _internshipStackRepository;
             }
         }
 
