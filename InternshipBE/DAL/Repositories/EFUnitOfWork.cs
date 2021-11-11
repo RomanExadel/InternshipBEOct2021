@@ -15,20 +15,31 @@ namespace DAL.Repositories
         private ICandidateRepository _canidateRepository;
         private IInternshipRepository _internshipRepository;
         private IUserRepository _userRepository;
-		private IFeedbackRepository _feedbackRepository;
-		private IEvaluationRepository _evaluationRepository;
-		private ISkillRepository _skillRepository;
-		private IBestContactTimeRepository _bestContactTimeRepository;
+        private IFeedbackRepository _feedbackRepository;
+        private IEvaluationRepository _evaluationRepository;
+        private ISkillRepository _skillRepository;
+        private IBestContactTimeRepository _bestContactTimeRepository;
+        private ILocationRepository _locationRepository;
 
-		public IBestContactTimeRepository BestContactTime
-		{
-			get
-			{
-				if (_bestContactTimeRepository == null)
-					_bestContactTimeRepository = new BestContactTimeRepository(_db);
-				return _bestContactTimeRepository;
-			}
-		}
+        public ILocationRepository Locations
+        {
+            get
+            {
+                if (_locationRepository == null)
+                    _locationRepository = new LocationRepository(_db);
+                return _locationRepository;
+            }
+        }
+
+        public IBestContactTimeRepository BestContactTime
+        {
+            get
+            {
+                if (_bestContactTimeRepository == null)
+                    _bestContactTimeRepository = new BestContactTimeRepository(_db);
+                return _bestContactTimeRepository;
+            }
+        }
 
         public ICandidateRepository Candidates
         {
@@ -94,10 +105,10 @@ namespace DAL.Repositories
             _db = db;
         }
 
-		public EFUnitOfWork(ApplicationDbContext db)
-		{
-			_db = db;
-		}
+        public EFUnitOfWork(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
         public async Task SaveAsync()
         {
