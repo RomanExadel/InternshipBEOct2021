@@ -30,13 +30,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("createInternship")]
-        public async Task<IActionResult> CreateInternship([FromBody] InternshipDTO internship)
+        public async Task<IActionResult> CreateInternship([FromBody] CreateInternshipDTO internship)
         {
             return Ok(await _internshipService.CreateInternshipAsync(internship));
         }
 
         [HttpPut("updateInternship")]
-        public async Task<IActionResult> UpdateInternship([FromBody] InternshipDTO internship)
+        public async Task<IActionResult> UpdateInternship([FromBody] UpdateInternshipDTO internship)
         {
             return Ok(await _internshipService.UpdateInternshipAsync(internship));
         }
