@@ -17,6 +17,8 @@ namespace DAL.Interfaces
 
         ISkillRepository Skills { get; }
 
+        IInternshipStackRepository InternshipStacks { get; }
+
         IUserRepository Users { get; }
 
         ILocationRepository Locations { get; }
