@@ -19,40 +19,40 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
+        public async Task<UpdateInternshipDTO> CreateInternshipAsync(CreateInternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
             var internship = await _unitOfWork.Internships.CreateAsync(mappedInternship);
 
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<InternshipDTO>(internship);
+            return _mapper.Map<UpdateInternshipDTO>(internship);
         }
 
-        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber)
+        public async Task<List<GetInternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber)
         {
             var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber);
-            var internshipDtos = _mapper.Map<List<InternshipDTO>>(internships);
+            var internshipDtos = _mapper.Map<List<GetInternshipDTO>>(internships);
 
             return internshipDtos;
         }
 
-        public async Task<InternshipDTO> GetInternshipByIdAsync(int id)
+        public async Task<GetInternshipDTO> GetInternshipByIdAsync(int id)
         {
             var internship = await _unitOfWork.Internships.GetByIdAsync(id);
-            var internshipDto = _mapper.Map<InternshipDTO>(internship);
+            var internshipDto = _mapper.Map<GetInternshipDTO>(internship);
 
             return internshipDto;
         }
 
-        public async Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship)
+        public async Task<UpdateInternshipDTO> UpdateInternshipAsync(UpdateInternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
             var updatedInternship = await _unitOfWork.Internships.UpdateAsync(mappedInternship);
 
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<InternshipDTO>(updatedInternship);
+            return _mapper.Map<UpdateInternshipDTO>(updatedInternship);
         }
     }
 }
