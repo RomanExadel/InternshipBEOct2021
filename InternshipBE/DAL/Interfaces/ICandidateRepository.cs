@@ -9,6 +9,8 @@ namespace DAL.Interfaces
 	{
 		Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber);
 
+		Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id);
+
 		Task<int> GetCandidatesCountAsync();
 
 		IQueryable<Candidate> GetAllCandidates();
