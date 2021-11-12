@@ -21,6 +21,7 @@ namespace WebApi.Extensions
 			services.AddTransient<IInternshipStackService, InternshipStackService>();
 			services.AddTransient<IBestContactTimeService, BestContactTimeService>();
 			services.AddTransient<IGoogleCalendarService, GoogleCalendarService>();
+			services.AddTransient<IEmailService, EmailService>();
 
 			return services;
 		}
