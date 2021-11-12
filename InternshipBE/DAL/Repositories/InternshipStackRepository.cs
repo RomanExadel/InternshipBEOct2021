@@ -16,10 +16,10 @@ namespace DAL.Repositories
 
         public async Task<List<InternshipStack>> GetAllByInternshipIdAsync(int internshipId)
         {
-            return await _context.InternshipStacks.AsNoTracking()
-                                                  .Include(x => x.Internship)
-                                                  .Where(x => x.InternshipId == internshipId)
-                                                  .ToListAsync();
+            return await Task.Run(() => _context.Internships.AsNoTracking()
+                                                            .Include(x => x.InternshipStacks)
+                                                            .FirstOrDefault(x => x.Id == internshipId).InternshipStacks
+                                                            .ToList());
         }
     }
 }

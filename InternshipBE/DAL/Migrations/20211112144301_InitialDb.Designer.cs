@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211110155435_SeedData")]
-    partial class SeedData
+    [Migration("20211112144301_InitialDb")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,58 +151,6 @@ namespace DAL.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Candidates");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BestContactTime = new DateTime(2021, 11, 10, 15, 54, 34, 520, DateTimeKind.Utc).AddTicks(4595),
-                            CurrentJob = "Student",
-                            Education = "Harvard University",
-                            Email = "j.snow@gmail.com",
-                            EnglishLevelType = 4,
-                            FirstName = "John",
-                            InternshipId = 1,
-                            IsPlanningToJoin = true,
-                            LastName = "Snow",
-                            Links = "-",
-                            Location = "Arizona",
-                            OtherInfo = "-",
-                            Phone = "+123456789",
-                            PrimarySkill = "OOP, C#",
-                            ProfessionalCertificates = "-",
-                            RegistrationDate = new DateTime(2021, 11, 10, 15, 54, 34, 520, DateTimeKind.Utc).AddTicks(7601),
-                            Skype = "live:j.snow",
-                            StackType = 1,
-                            StatusType = 0,
-                            TeamId = 1,
-                            TestTaskEvaluation = 4
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BestContactTime = new DateTime(2021, 11, 10, 15, 54, 34, 520, DateTimeKind.Utc).AddTicks(9215),
-                            CurrentJob = "Student",
-                            Education = "Hogwarts",
-                            Email = "h.granger@gmail.com",
-                            EnglishLevelType = 5,
-                            FirstName = "Hermione",
-                            InternshipId = 2,
-                            IsPlanningToJoin = true,
-                            LastName = "Granger",
-                            Links = "-",
-                            Location = "London",
-                            OtherInfo = "-",
-                            Phone = "+2356416789",
-                            PrimarySkill = "C++, QA basics",
-                            ProfessionalCertificates = "-",
-                            RegistrationDate = new DateTime(2021, 11, 10, 15, 54, 34, 520, DateTimeKind.Utc).AddTicks(9221),
-                            Skype = "live:h.granger",
-                            StackType = 5,
-                            StatusType = 0,
-                            TeamId = 2,
-                            TestTaskEvaluation = 4
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Country", b =>
@@ -218,23 +166,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Belarus"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Russia"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Ukraine"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Evaluation", b =>
@@ -260,22 +191,6 @@ namespace DAL.Migrations
                     b.HasIndex("SkillId");
 
                     b.ToTable("Evaluations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FeedbackId = 1,
-                            SkillId = 1,
-                            Value = 4
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FeedbackId = 2,
-                            SkillId = 2,
-                            Value = 4
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Feedback", b =>
@@ -307,26 +222,6 @@ namespace DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Feedbacks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CandidateId = 1,
-                            Date = new DateTime(2021, 11, 10, 15, 54, 34, 521, DateTimeKind.Utc).AddTicks(8155),
-                            Description = "Good knowledge of frameworks, oop, and db",
-                            EnglishLevelType = 4,
-                            UserId = "0cfb5c57-b58b-432b-9b03-2d5e945f1e2e"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CandidateId = 2,
-                            Date = new DateTime(2021, 11, 10, 15, 54, 34, 521, DateTimeKind.Utc).AddTicks(9720),
-                            Description = "Excellent candidate",
-                            EnglishLevelType = 5,
-                            UserId = "0cfb5c57-b58b-432b-9b03-2d5e945f1e2e"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Internship", b =>
@@ -369,64 +264,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Internships");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2021, 11, 10, 15, 54, 34, 516, DateTimeKind.Utc).AddTicks(7942),
-                            ImageLink = "image/link/1",
-                            InternshipStatusType = 0,
-                            LanguageType = 0,
-                            MaxCandidateCount = 50,
-                            Name = "JS/>NET",
-                            RegistrationFinishDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(86),
-                            RegistrationStartDate = new DateTime(2021, 11, 10, 15, 54, 34, 516, DateTimeKind.Utc).AddTicks(9555),
-                            Requirements = "OOP, JS, C#, .Net, Angular/React",
-                            StartDate = new DateTime(2021, 11, 10, 15, 54, 34, 516, DateTimeKind.Utc).AddTicks(7257)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EndDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2310),
-                            ImageLink = "image/link/2",
-                            InternshipStatusType = 0,
-                            LanguageType = 0,
-                            MaxCandidateCount = 30,
-                            Name = "QA Automation",
-                            RegistrationFinishDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2315),
-                            RegistrationStartDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2313),
-                            Requirements = "Any programming language, QA basics",
-                            StartDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2306)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EndDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2404),
-                            ImageLink = "image/link/2",
-                            InternshipStatusType = 0,
-                            LanguageType = 1,
-                            MaxCandidateCount = 30,
-                            Name = "GameDev",
-                            RegistrationFinishDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2407),
-                            RegistrationStartDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2406),
-                            Requirements = "OOP, Unity, C#, SQL",
-                            StartDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2402)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EndDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2411),
-                            ImageLink = "image/link/2",
-                            InternshipStatusType = 0,
-                            LanguageType = 1,
-                            MaxCandidateCount = 30,
-                            Name = "Angular/>NET",
-                            RegistrationFinishDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2414),
-                            RegistrationStartDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2413),
-                            Requirements = "OOP, JS, C#, .Net, Angular/React",
-                            StartDate = new DateTime(2021, 11, 10, 15, 54, 34, 517, DateTimeKind.Utc).AddTicks(2410)
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.InternshipStack", b =>
@@ -436,31 +273,12 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("InternshipId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TechnologyStackType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InternshipId");
-
                     b.ToTable("InternshipStacks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            InternshipId = 1,
-                            TechnologyStackType = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            InternshipId = 2,
-                            TechnologyStackType = 5
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.InterviewInvite", b =>
@@ -486,22 +304,6 @@ namespace DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("InterviewInvites");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CandidateId = 1,
-                            ContactDate = new DateTime(2021, 11, 10, 15, 54, 34, 524, DateTimeKind.Utc).AddTicks(8975),
-                            UserId = "0cfb5c57-b58b-432b-9b03-2d5e945f1e2e"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CandidateId = 2,
-                            ContactDate = new DateTime(2021, 11, 10, 15, 54, 34, 524, DateTimeKind.Utc).AddTicks(9557),
-                            UserId = "0cfb5c57-b58b-432b-9b03-2d5e945f1e2e"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Skill", b =>
@@ -523,22 +325,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Skills");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsHardSkill = true,
-                            Name = "OOP",
-                            StackType = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsHardSkill = true,
-                            Name = "Java",
-                            StackType = 5
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Team", b =>
@@ -559,20 +345,6 @@ namespace DAL.Migrations
                     b.HasIndex("InternshipId");
 
                     b.ToTable("Teams");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            InternshipId = 1,
-                            Name = "Team 1 A"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            InternshipId = 2,
-                            Name = "Team 1 B"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -644,84 +416,21 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "0cfb5c57-b58b-432b-9b03-2d5e945f1e2e",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d15b1e4f-9e1e-45ee-b568-373039f91981",
-                            Email = "li@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "LI@GMAIL.COM",
-                            NormalizedUserName = "MASHA",
-                            PasswordHash = "AQAAAAEAACcQAAAAECurHPpEX5uoVeH2zb3zhYwBAXUyoW//HTTltCvAUql2bMFSwfWCqFdzfHH0+RIhmQ==",
-                            PhoneNumber = "+123656787",
-                            PhoneNumberConfirmed = false,
-                            Position = "BA",
-                            RoleType = 1,
-                            SecurityStamp = "E5BBMDK3I3PX6MZCUDSP2TGQMJNHIOU7",
-                            TwoFactorEnabled = false,
-                            UserName = "Masha"
-                        },
-                        new
-                        {
-                            Id = "51cc826e-5592-48df-9fe2-963a3bda36d6",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "616bd0b2-f77b-4be7-801b-e4ed44f67cc7",
-                            Email = "max@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "MAX@GMAIL.COM",
-                            NormalizedUserName = "MAXIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHlyxG5AQAEBgMmBgciCQ8bbj9laEyOdjK+BdmKUclTN5w9JJFCf/9FSU7osWvVvgA==",
-                            PhoneNumber = "+125656787",
-                            PhoneNumberConfirmed = false,
-                            Position = "Back",
-                            RoleType = 2,
-                            SecurityStamp = "M3ZDA3WQP6J2ZVGKBIZHOE7GKC4BR2ZF",
-                            TwoFactorEnabled = false,
-                            UserName = "Maxim"
-                        },
-                        new
-                        {
-                            Id = "1703ac8d-fea6-47b2-825a-535a83ea7f18",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "39e44cf0-c1f0-47fe-b34f-ff3cf37cf55f",
-                            Email = "user@example.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "USER@EXAMPLE.COM",
-                            NormalizedUserName = "DASHA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOiqLaSGF0ApYqKKm/hFGGrtrUbRnQFbcZlbha78nbtCGGQpBiftBAyYf9b/b3jRHQ==",
-                            PhoneNumber = "+325656787",
-                            PhoneNumberConfirmed = false,
-                            Position = "Front",
-                            RoleType = 3,
-                            SecurityStamp = "YZYNYT3QR6FM5GVYL4VRT3EX3RIOZIFC",
-                            TwoFactorEnabled = false,
-                            UserName = "Dasha"
-                        },
-                        new
-                        {
-                            Id = "86ae18cb-6041-4fb2-9ac8-26721f73afc4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "038eefcb-3c67-44fc-8b91-f5de97538836",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ALEXANDR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHll1VJRz3t6qEJPoaIeml8k8BdjLaiKE+eMa1fJN0JNpaOb2uA7wGth/5hL3PbjTg==",
-                            PhoneNumber = "+325659787",
-                            PhoneNumberConfirmed = false,
-                            Position = "PO",
-                            RoleType = 4,
-                            SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
-                            TwoFactorEnabled = false,
-                            UserName = "Alexandr"
-                        });
+            modelBuilder.Entity("InternshipInternshipStack", b =>
+                {
+                    b.Property<int>("InternshipStacksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InternshipsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("InternshipStacksId", "InternshipsId");
+
+                    b.HasIndex("InternshipsId");
+
+                    b.ToTable("InternshipInternshipStack");
                 });
 
             modelBuilder.Entity("InternshipUser", b =>
@@ -764,36 +473,6 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b3018285-4880-41a7-bfdd-b3a781f6be90",
-                            ConcurrencyStamp = "136fe9c0-d7f6-4e02-b29b-33a149738ca5",
-                            Name = "Hr",
-                            NormalizedName = "HR"
-                        },
-                        new
-                        {
-                            Id = "c11429c1-c3ef-46eb-b3d2-11db5c81dc02",
-                            ConcurrencyStamp = "4524f403-7759-4fce-a498-61283f9147d1",
-                            Name = "Interviewer",
-                            NormalizedName = "INTERVIEWER"
-                        },
-                        new
-                        {
-                            Id = "d5ee3c24-aa34-4dbd-afc8-c8383b21b1f7",
-                            ConcurrencyStamp = "69703144-067b-4a5c-976b-26e2b50e1d48",
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = "bd4df129-4537-4fef-b6cb-66bd75adca97",
-                            ConcurrencyStamp = "0c871c6e-bfa5-455e-ab13-2589766b7a2c",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -879,28 +558,6 @@ namespace DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "0cfb5c57-b58b-432b-9b03-2d5e945f1e2e",
-                            RoleId = "b3018285-4880-41a7-bfdd-b3a781f6be90"
-                        },
-                        new
-                        {
-                            UserId = "51cc826e-5592-48df-9fe2-963a3bda36d6",
-                            RoleId = "c11429c1-c3ef-46eb-b3d2-11db5c81dc02"
-                        },
-                        new
-                        {
-                            UserId = "1703ac8d-fea6-47b2-825a-535a83ea7f18",
-                            RoleId = "d5ee3c24-aa34-4dbd-afc8-c8383b21b1f7"
-                        },
-                        new
-                        {
-                            UserId = "86ae18cb-6041-4fb2-9ac8-26721f73afc4",
-                            RoleId = "bd4df129-4537-4fef-b6cb-66bd75adca97"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -1027,17 +684,6 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DAL.Entities.InternshipStack", b =>
-                {
-                    b.HasOne("DAL.Entities.Internship", "Internship")
-                        .WithMany("InternshipStacks")
-                        .HasForeignKey("InternshipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Internship");
-                });
-
             modelBuilder.Entity("DAL.Entities.InterviewInvite", b =>
                 {
                     b.HasOne("DAL.Entities.Candidate", "Candidate")
@@ -1064,6 +710,21 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Internship");
+                });
+
+            modelBuilder.Entity("InternshipInternshipStack", b =>
+                {
+                    b.HasOne("DAL.Entities.InternshipStack", null)
+                        .WithMany()
+                        .HasForeignKey("InternshipStacksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.Internship", null)
+                        .WithMany()
+                        .HasForeignKey("InternshipsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InternshipUser", b =>
@@ -1155,8 +816,6 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Internship", b =>
                 {
                     b.Navigation("Candidates");
-
-                    b.Navigation("InternshipStacks");
 
                     b.Navigation("Teams");
                 });
