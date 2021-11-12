@@ -24,10 +24,10 @@ namespace WebApi.Controllers
         {
             var fileName = await _reportService.GetCandidatesReportByInternshipIdAsync(request.InternshipId, request.ReportType);
 
-            string file_path = Path.Combine(_webHost.ContentRootPath, fileName);
-            string file_type = "application/xlsx";
+            var filePath = Path.Combine(_webHost.ContentRootPath, fileName);
+            var fileType = "application/xlsx";
 
-            return PhysicalFile(file_path, file_type, fileName);
+            return PhysicalFile(filePath, fileType, fileName);
         }
     }
 }

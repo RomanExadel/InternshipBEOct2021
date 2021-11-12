@@ -9,6 +9,6 @@ namespace WebApi.Models
         public int InternshipId { get; set; }
 
         [Required(ErrorMessage = "ReportType is required")]
-        public ReportType ReportType { get; set; } 
+        public ReportType ReportType { get; set; }
     }
 }
