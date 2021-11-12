@@ -8,6 +8,6 @@ namespace BL.Interfaces
     {
         Task<List<GetCountryDTO>> GetLocationsAsync();
 
-        Task<CountryDTO> CreateLocationAsync(CountryDTO NameLocation);
+        Task<GetCountryDTO> CreateLocationAsync(CountryDTO NameLocation);
     }
 }
