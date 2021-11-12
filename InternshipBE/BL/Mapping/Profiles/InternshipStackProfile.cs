@@ -14,11 +14,6 @@ namespace BL.Mapping.Profiles
                 .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => entity.TechnologyStackType.ToString()))
                 .ReverseMap()
                 .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.TechnologyStackType)));
-
-            CreateMap<InternshipStack, GetInternshipStackDTO>()
-                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => entity.TechnologyStackType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.TechnologyStackType)));
         }
     }
 }
