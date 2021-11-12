@@ -22,9 +22,10 @@ namespace BL.Services
         public async Task<string> GetCandidatesReportByInternshipIdAsync(int internshipId, ReportType reportType)
         {
             var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId);
-            var result = await GetReportByAllCandidatesAsync(candidates);
-            string fileName = "/Shared/Reports/Report.xlsx";
-            await File.WriteAllBytesAsync(fileName, result);
+            var report = await GetReportByAllCandidatesAsync(candidates);
+            var path = Path.GetFullPath("../Shared/Reports/");
+            string fileName = $"{path}Report.xlsx";
+            await File.WriteAllBytesAsync(fileName, report);
 
             return fileName;
         }

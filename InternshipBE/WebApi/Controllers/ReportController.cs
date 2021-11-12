@@ -27,7 +27,6 @@ namespace WebApi.Controllers
             string file_path = Path.Combine(_webHost.ContentRootPath, fileName);
             string file_type = "application/xlsx";
 
-
             return PhysicalFile(file_path, file_type, fileName);
         }
     }
