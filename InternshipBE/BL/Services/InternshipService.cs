@@ -3,7 +3,9 @@ using BL.DTOs.InternshipDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -22,8 +24,19 @@ namespace BL.Services
         public async Task<UpdateInternshipDTO> CreateInternshipAsync(CreateInternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
+            var stacks = mappedInternship.InternshipStacks;
+
+            mappedInternship.InternshipStacks = null;
+
             var internship = await _unitOfWork.Internships.CreateAsync(mappedInternship);
 
+            foreach (var stack in stacks)
+            {
+                stack.InternshipId = internship.Id;
+            }
+
+            stacks = await _unitOfWork.InternshipStacks.CreateRangeAsync(stacks);
+            internship.InternshipStacks = stacks;
             await _unitOfWork.SaveAsync();
 
             return _mapper.Map<UpdateInternshipDTO>(internship);

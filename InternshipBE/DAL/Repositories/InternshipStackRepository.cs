@@ -14,6 +14,25 @@ namespace DAL.Repositories
         {
         }
 
+        public async Task<List<InternshipStack>> CreateRangeAsync(ICollection<InternshipStack> internshipStacks)
+        {
+            var newIntershipStacks = new List<InternshipStack>();
+
+            foreach (var internshipStack in internshipStacks)
+            {
+                if (await _context.InternshipStacks.AnyAsync(x => x.TechnologyStackType == internshipStack.TechnologyStackType))
+                {
+                    newIntershipStacks.Add(await _context.InternshipStacks.FirstOrDefaultAsync(x => x.TechnologyStackType == internshipStack.TechnologyStackType));
+                }
+                else
+                {
+                    newIntershipStacks.Add(await CreateAsync(internshipStack));
+                }
+            }
+
+            return newIntershipStacks;
+        }
+
         public async Task<List<InternshipStack>> GetAllByInternshipIdAsync(int internshipId)
         {
             var internship = await _context.Internships.AsNoTracking()
