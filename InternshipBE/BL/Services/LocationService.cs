@@ -25,13 +25,13 @@ namespace BL.Services
             return _mapper.Map<List<GetCountryDTO>>(locations);
         }
 
-        public async Task<CountryDTO> CreateLocationAsync(CountryDTO locationName)
+        public async Task<GetCountryDTO> CreateLocationAsync(CountryDTO locationName)
         {
             var result = await _unitOfWork.Locations.CreateLocationAsync(locationName.Name);
 
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<CountryDTO>(result);
+            return _mapper.Map<GetCountryDTO>(result);
         }
     }
 }
