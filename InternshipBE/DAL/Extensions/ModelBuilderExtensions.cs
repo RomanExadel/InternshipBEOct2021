@@ -328,13 +328,11 @@ namespace DAL.Extensions
                 new InternshipStack
                 {
                     Id = 1,
-                    InternshipId = 1,
                     TechnologyStackType = StackType.BackEnd
                 },
                     new InternshipStack
                 {
                     Id = 2,
-                    InternshipId = 2,
                     TechnologyStackType = StackType.Testing
                 }
             };

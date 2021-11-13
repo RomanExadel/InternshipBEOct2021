@@ -1,4 +1,5 @@
 ﻿using Shared.Enums;
+using System.Collections.Generic;
 
 namespace DAL.Entities
 {
@@ -6,10 +7,8 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
 
-        public int InternshipId { get; set; }
-
         public StackType TechnologyStackType { get; set; }
 
-        public Internship Internship { get; set; }
+        public ICollection<Internship> Internships { get; set; }
     }
 }

@@ -84,6 +84,19 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InternshipStacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TechnologyStackType = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternshipStacks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skills",
                 columns: table => new
                 {
@@ -250,26 +263,6 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternshipStacks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InternshipId = table.Column<int>(type: "int", nullable: false),
-                    TechnologyStackType = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InternshipStacks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InternshipStacks_Internships_InternshipId",
-                        column: x => x.InternshipId,
-                        principalTable: "Internships",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "InternshipUser",
                 columns: table => new
                 {
@@ -309,6 +302,30 @@ namespace DAL.Migrations
                         name: "FK_Teams_Internships_InternshipId",
                         column: x => x.InternshipId,
                         principalTable: "Internships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InternshipInternshipStack",
+                columns: table => new
+                {
+                    InternshipStacksId = table.Column<int>(type: "int", nullable: false),
+                    InternshipsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternshipInternshipStack", x => new { x.InternshipStacksId, x.InternshipsId });
+                    table.ForeignKey(
+                        name: "FK_InternshipInternshipStack_Internships_InternshipsId",
+                        column: x => x.InternshipsId,
+                        principalTable: "Internships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InternshipInternshipStack_InternshipStacks_InternshipStacksId",
+                        column: x => x.InternshipStacksId,
+                        principalTable: "InternshipStacks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -574,9 +591,9 @@ namespace DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InternshipStacks_InternshipId",
-                table: "InternshipStacks",
-                column: "InternshipId");
+                name: "IX_InternshipInternshipStack_InternshipsId",
+                table: "InternshipInternshipStack",
+                column: "InternshipsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InternshipUser_UsersId",
@@ -634,7 +651,7 @@ namespace DAL.Migrations
                 name: "Evaluations");
 
             migrationBuilder.DropTable(
-                name: "InternshipStacks");
+                name: "InternshipInternshipStack");
 
             migrationBuilder.DropTable(
                 name: "InternshipUser");
@@ -656,6 +673,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Skills");
+
+            migrationBuilder.DropTable(
+                name: "InternshipStacks");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

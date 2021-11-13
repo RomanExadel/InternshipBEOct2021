@@ -27,7 +27,7 @@ namespace BL.DTOs.InternshipDTOs
 
         public string ImageLink { get; set; }
 
-        public virtual List<GetInternshipStackDTO> InternshipStacks { get; set; }
+        public virtual List<InternshipStackDTO> InternshipStacks { get; set; }
 
         public virtual List<GetCountryDTO> Locations { get; set; }
     }
