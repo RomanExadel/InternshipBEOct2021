@@ -15,8 +15,8 @@ namespace BL.Mapping.Profiles
 
 			CreateMap<BestContactTimeDTO, BestContactTime>()
 				.ForMember(entity => entity.StartTime, src => src.MapFrom(dto => dto.StartTime))
-				.ForMember(entity => entity.StartTime, src => src.MapFrom(dto => dto.StartTime))
-				.ForMember(entity => entity.EndTime, src => src.MapFrom(dto => dto.EndTime));
+				.ForMember(entity => entity.EndTime, src => src.MapFrom(dto => dto.EndTime))
+				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<EventDTO, BestContactTime>()
 				 .ForMember(dto => dto.StartTime, src => src.MapFrom(entity => entity.StartTime))
