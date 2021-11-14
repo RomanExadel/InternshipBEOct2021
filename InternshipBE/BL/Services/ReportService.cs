@@ -7,6 +7,9 @@ using Shared.Enums;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using static Shared.Constants.ExportFileOffsets;
+using static Shared.Constants.ExportFileColumnNames;
+using static Shared.Constants.ExportFileSettings;
 
 namespace BL.Services
 {
@@ -35,13 +38,16 @@ namespace BL.Services
 
             var sheet = package.Workbook.Worksheets.Add("Candidate Report");
 
-            sheet.Cells[1, 1, 2, 1].Style.Font.Bold = true;
-            sheet.Cells[1, 1].Value = "Internship: ";
-            sheet.Cells[1, 2].Value = $"{report[0].Internship.Name}";
-            sheet.Cells[2, 1].Value = "Candidate count: ";
-            sheet.Cells[2, 2].Value = $"{report.Count}";
+            sheet.Cells[STYLE_RANGE_OFFSET].Style.Font.Bold = true;
+            sheet.Cells[INTERNSHIP_NAME_ROW_OFFSET, INTERNSHIP_NAME_COLUMN_OFFSET].Value = "Internship: ";
+            sheet.Cells[INTERNSHIP_VALUE_OFFSET].Value = $"{report[0].Internship.Name}";
+            sheet.Cells[CANDIDATE_COUNT_NAME_OFFSET].Value = "Candidate count: ";
+            sheet.Cells[CANDIDATE_COUNT_VALUE_OFFSET].Value = $"{report.Count}";
 
-            sheet.Cells[4, 1, 4, 3].LoadFromArrays(new object[][] { new[] { "FirstName", "LastName", "StatusType" } });
+            sheet.Cells[STYLE_RANGE_ARRAY_NAME_OFFSET].LoadFromArrays(new object[][]
+            {
+                new[] { COLUMN_NAME_FIRSTNAME, COLUMN_NAME_LASTNAME, COLUMN_NAME_STATUSTYPE }
+            });
 
             int row = 5, column = 1;
 
@@ -53,11 +59,11 @@ namespace BL.Services
                 row++;
             }
 
-            sheet.Cells[1, 1, row, column + 2].AutoFitColumns();
+            sheet.Cells[INTERNSHIP_NAME_ROW_OFFSET, INTERNSHIP_NAME_COLUMN_OFFSET, row, column + 2].AutoFitColumns();
             sheet.Column(2).Width = 14;
             sheet.Column(3).Width = 12;
-            sheet.Cells[4, 1, 4, 3].Style.Font.Bold = true;
-            sheet.Cells[4, 1, 4, 3].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            sheet.Cells[STYLE_RANGE_ARRAY_NAME_OFFSET].Style.Font.Bold = true;
+            sheet.Cells[STYLE_RANGE_ARRAY_NAME_OFFSET].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
             sheet.Protection.IsProtected = true;
 
             return await package.GetAsByteArrayAsync();
@@ -65,12 +71,12 @@ namespace BL.Services
 
         private async Task<string> GetPathReport(byte[] report)
         {
-            var path = Path.GetFullPath("../Shared/Reports/");
-            var fileName = $"{path}Report.xlsx";
+            var path = Path.GetFullPath(FILE_PATH);
+            var fullPath = $"{path}Report.xlsx";
 
-            await File.WriteAllBytesAsync(fileName, report);
+            await File.WriteAllBytesAsync(fullPath, report);
 
-            return fileName;
+            return fullPath;
         }
     }
 }

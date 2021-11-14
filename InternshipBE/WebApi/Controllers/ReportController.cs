@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
 using WebApi.Models;
+using static Shared.Constants.ExportFileSettings;
 
 namespace WebApi.Controllers
 {
@@ -22,12 +23,11 @@ namespace WebApi.Controllers
         [HttpGet("getCandidatesReportByInternshipId")]
         public async Task<IActionResult> GetCandidatesReportByInternshipId([FromQuery] GetCandidatesReportByInternshipIdRequest request)
         {
-            var fileName = await _reportService.GetCandidatesReportByInternshipIdAsync(request.InternshipId, request.ReportType);
+            var filePath = await _reportService.GetCandidatesReportByInternshipIdAsync(request.InternshipId, request.ReportType);
 
-            var filePath = Path.Combine(_webHost.ContentRootPath, fileName);
-            var fileType = "application/xlsx";
+            var physicalPath = Path.Combine(_webHost.ContentRootPath, filePath);
 
-            return PhysicalFile(filePath, fileType, fileName);
+            return PhysicalFile(physicalPath, FILE_TYPE, FILE_NAME);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace WebApi.Models
 {
     public class GetCandidatesReportByInternshipIdRequest
     {
-        [Required(ErrorMessage = "ReportType is required")]
+        [Required(ErrorMessage = "InternshipId is required")]
         public int InternshipId { get; set; }
 
         [Required(ErrorMessage = "ReportType is required")]
