@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.BestContactTimeDTO;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -50,7 +50,6 @@ namespace BL.Services
 			bestContactTime = await _unitOfWork.BestContactTime.GetByTimeIntervalAsync(bestContactTime);
 
 			await _unitOfWork.BestContactTime.DeleteAsync(bestContactTime);
-			await _unitOfWork.SaveAsync();
 		}
 
 		private void CreateEvent(EventDTO model)

@@ -16,14 +16,13 @@ namespace DAL.Repositories
 
 		public async Task<List<BestContactTime>> GetAllByUserIdAsync(string userId)
 		{
-			return await _context.BestContactTimes.Include(x => x.User).ToListAsync();
+			return await _context.BestContactTimes.Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
 		}
 
 		public async Task<BestContactTime> GetByTimeIntervalAsync(BestContactTime contactTime)
 		{
-			return await _context.BestContactTimes.Where(x => x.StartTime.ToString("G") == contactTime.StartTime.ToString("G"))
-				.Where(x => x.EndTime.ToString("G") == contactTime.EndTime.ToString("G"))
-				.FirstAsync(x => x.UserId == contactTime.UserId);
+			return await _context.BestContactTimes.Where(x => x.StartTime == contactTime.StartTime && x.EndTime == contactTime.EndTime)
+				.FirstOrDefaultAsync(x => x.UserId == contactTime.UserId);
 		}
 	}
 }

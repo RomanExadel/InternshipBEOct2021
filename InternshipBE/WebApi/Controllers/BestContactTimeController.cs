@@ -1,4 +1,4 @@
-﻿using BL.DTOs.BestContactTimeDTO;
+﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ namespace WebApi.Controllers
 
 		[HttpPost("setBestContactTime")]
 		[Authorize]
-		public async Task<IActionResult> SetBestContactTimeAsync([FromBody] List<CreateBestContactTimeDTO> models)
+		public async Task<IActionResult> SetBestContactTimeAsync([FromBody] List<BestContactTimeDTO> models)
 		{
 			var userName = User.Identity.Name;
 
@@ -31,7 +31,7 @@ namespace WebApi.Controllers
 
 		[HttpGet("{interviewerId}")]
 		[Authorize]
-		public async Task<IActionResult> GetAllBestContactTimeByUserId(string interviewerId)
+		public async Task<IActionResult> GetAllBestContactTimeByUserIdAsync(string interviewerId)
 		{
 			var models = await _bestContactTimeService.GetAllBestTimeByIdAsync(interviewerId);
 

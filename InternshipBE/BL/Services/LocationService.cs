@@ -29,8 +29,6 @@ namespace BL.Services
         {
             var result = await _unitOfWork.Locations.CreateLocationAsync(locationName.Name);
 
-            await _unitOfWork.SaveAsync();
-
             return _mapper.Map<CountryDTO>(result);
         }
     }

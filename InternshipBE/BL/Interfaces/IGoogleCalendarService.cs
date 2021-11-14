@@ -1,4 +1,4 @@
-﻿using BL.DTOs.BestContactTimeDTO;
+﻿using BL.DTOs;
 using System.Threading.Tasks;
 
 namespace BL.Interfaces

@@ -23,7 +23,6 @@ namespace BL.Services
         public async Task<CreateEvaluationDTO> CreateEvaluationAsync(CreateEvaluationDTO createEvaluationDto)
         {
             var evaluation = await _unitOfWork.Evaluations.CreateAsync(_mapper.Map<Evaluation>(createEvaluationDto));
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<CreateEvaluationDTO>(evaluation);
         }
@@ -39,7 +38,6 @@ namespace BL.Services
             var evaluation = _mapper.Map<Evaluation>(fullEvaluationDto);
 
             evaluation = await _unitOfWork.Evaluations.UpdateAsync(evaluation);
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<FullCreateEvaluationDTO>(evaluation);
         }

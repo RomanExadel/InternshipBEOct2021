@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class sdfsfsfsdg : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -488,6 +488,125 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "73a2c6fe-4ff0-4af7-8890-3a62c36738fc", "a2add8b3-38a5-4764-8f09-280f274a62c8", "Admin", "ADMIN" },
+                    { "f989ae2a-82ac-4658-b439-389c18f23d71", "0e08b947-d1fe-42d8-b3eb-bfb57cb23588", "Interviewer", "INTERVIEWER" },
+                    { "1d687a1d-488a-42c6-979d-df8842cca460", "cbb4b610-b543-4ce7-bf15-da89c5713b13", "Hr", "HR" },
+                    { "16284966-e3d8-4424-9c26-f80cc5e59734", "ef832f6c-0057-4ba4-af27-cb92d8d0b7be", "Manager", "MANAGER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Position", "RoleType", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "1e595201-4479-4aa5-b1f9-39a2c3aab4b0", 0, "dfcf1f8a-d449-412d-ac0d-41b8a870d4be", "admin@gmail.com", false, true, null, "ADMIN@GMAIL.COM", "ALEXANDR", "AQAAAAEAACcQAAAAELBxbIsTNvRyAozjiBtyH0ns93Lr9aObDuo8Lr5eK/t+A8hnzFq+7x+I6QkcaIlk+g==", "+325659787", false, "PO", 4, "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS", false, "Alexandr" },
+                    { "09edc525-121a-4d7a-94b7-c38f4942729f", 0, "3d2ed597-c9b9-471a-92b7-9e84c4148115", "user@example.com", false, true, null, "USER@EXAMPLE.COM", "DASHA", "AQAAAAEAACcQAAAAEA7AJQHZBXamWf8WI2AIELGHEHfT5PCfYN1ana2nO8XMnrnyYWel90SJlDr5egZW4Q==", "+325656787", false, "Front", 3, "YZYNYT3QR6FM5GVYL4VRT3EX3RIOZIFC", false, "Dasha" },
+                    { "36f855e1-36e4-4111-a228-0e45b914a015", 0, "1ac9841f-4b36-4fca-b674-6f628ab115a7", "max@gmail.com", false, true, null, "MAX@GMAIL.COM", "MAXIM", "AQAAAAEAACcQAAAAEGn4/STs6foi3rpzjdQdIR6tnXSXnrnt2H2qh/YccQ5yUhGgbGys0cfgkfQBTzfvnQ==", "+125656787", false, "Back", 2, "M3ZDA3WQP6J2ZVGKBIZHOE7GKC4BR2ZF", false, "Maxim" },
+                    { "9731dda8-7822-4db0-a189-344bf525c4dd", 0, "7fd2e6a8-8d70-468c-8027-44537f2cd55c", "li@gmail.com", false, true, null, "LI@GMAIL.COM", "MASHA", "AQAAAAEAACcQAAAAEHhjLxNKujk9poQ2ILUOQLIazBn27vp8RXDScqb8B6QU1wEOkG7Id4htp2lXOe6XUw==", "+123656787", false, "BA", 1, "E5BBMDK3I3PX6MZCUDSP2TGQMJNHIOU7", false, "Masha" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Belarus" },
+                    { 3, "Ukraine" },
+                    { 2, "Russia" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Internships",
+                columns: new[] { "Id", "EndDate", "ImageLink", "InternshipStatusType", "LanguageType", "MaxCandidateCount", "Name", "RegistrationFinishDate", "RegistrationStartDate", "Requirements", "StartDate" },
+                values: new object[,]
+                {
+                    { 4, new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(7003), "https://drive.google.com/file/d/1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB/view?usp=sharing", 0, 1, 30, "Angular/>NET", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(7007), new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(7005), "OOP, JS, C#, .Net, Angular/React", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(7001) },
+                    { 3, new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6787), "https://drive.google.com/file/d/1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc/view?usp=sharing", 0, 1, 30, "GameDev", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6791), new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6789), "OOP, Unity, C#, SQL", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6786) },
+                    { 2, new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6777), "https://drive.google.com/file/d/1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R/view?usp=sharing", 0, 0, 30, "QA Automation", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6782), new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6780), "Any programming language, QA basics", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(6765) },
+                    { 1, new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(2315), "https://drive.google.com/file/d/1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9/view?usp=sharing", 0, 0, 50, "JS/>NET", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(3937), new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(3560), "OOP, JS, C#, .Net, Angular/React", new DateTime(2021, 11, 14, 12, 27, 31, 816, DateTimeKind.Utc).AddTicks(1689) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Skills",
+                columns: new[] { "Id", "IsHardSkill", "Name", "StackType" },
+                values: new object[,]
+                {
+                    { 1, true, "OOP", 1 },
+                    { 2, true, "Java", 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "1d687a1d-488a-42c6-979d-df8842cca460", "9731dda8-7822-4db0-a189-344bf525c4dd" },
+                    { "f989ae2a-82ac-4658-b439-389c18f23d71", "36f855e1-36e4-4111-a228-0e45b914a015" },
+                    { "16284966-e3d8-4424-9c26-f80cc5e59734", "09edc525-121a-4d7a-94b7-c38f4942729f" },
+                    { "73a2c6fe-4ff0-4af7-8890-3a62c36738fc", "1e595201-4479-4aa5-b1f9-39a2c3aab4b0" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InternshipStacks",
+                columns: new[] { "Id", "InternshipId", "TechnologyStackType" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Teams",
+                columns: new[] { "Id", "InternshipId", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "Team 1 A" },
+                    { 2, 2, "Team 1 B" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Candidates",
+                columns: new[] { "Id", "BestContactTime", "CurrentJob", "Education", "Email", "EnglishLevelType", "FirstName", "InternshipId", "IsPlanningToJoin", "LastName", "Links", "Location", "OtherInfo", "Phone", "PrimarySkill", "ProfessionalCertificates", "RegistrationDate", "Skype", "StackType", "StatusType", "TeamId", "TestTaskEvaluation" },
+                values: new object[] { 1, new DateTime(2021, 11, 14, 12, 27, 31, 820, DateTimeKind.Utc).AddTicks(954), "Student", "Harvard University", "j.snow@gmail.com", 4, "John", 1, true, "Snow", "-", "Arizona", "-", "+123456789", "OOP, C#", "-", new DateTime(2021, 11, 14, 12, 27, 31, 820, DateTimeKind.Utc).AddTicks(3711), "live:j.snow", 1, 0, 1, 4 });
+
+            migrationBuilder.InsertData(
+                table: "Candidates",
+                columns: new[] { "Id", "BestContactTime", "CurrentJob", "Education", "Email", "EnglishLevelType", "FirstName", "InternshipId", "IsPlanningToJoin", "LastName", "Links", "Location", "OtherInfo", "Phone", "PrimarySkill", "ProfessionalCertificates", "RegistrationDate", "Skype", "StackType", "StatusType", "TeamId", "TestTaskEvaluation" },
+                values: new object[] { 2, new DateTime(2021, 11, 14, 12, 27, 31, 820, DateTimeKind.Utc).AddTicks(5248), "Student", "Hogwarts", "h.granger@gmail.com", 5, "Hermione", 2, true, "Granger", "-", "London", "-", "+2356416789", "C++, QA basics", "-", new DateTime(2021, 11, 14, 12, 27, 31, 820, DateTimeKind.Utc).AddTicks(5254), "live:h.granger", 5, 0, 2, 4 });
+
+            migrationBuilder.InsertData(
+                table: "Feedbacks",
+                columns: new[] { "Id", "CandidateId", "Date", "Description", "EnglishLevelType", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2021, 11, 14, 12, 27, 31, 821, DateTimeKind.Utc).AddTicks(2225), "Good knowledge of frameworks, oop, and db", 4, "9731dda8-7822-4db0-a189-344bf525c4dd" },
+                    { 2, 2, new DateTime(2021, 11, 14, 12, 27, 31, 821, DateTimeKind.Utc).AddTicks(3823), "Excellent candidate", 5, "9731dda8-7822-4db0-a189-344bf525c4dd" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InterviewInvites",
+                columns: new[] { "Id", "CandidateId", "ContactDate", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2021, 11, 14, 12, 27, 31, 823, DateTimeKind.Utc).AddTicks(2536), "9731dda8-7822-4db0-a189-344bf525c4dd" },
+                    { 2, 2, new DateTime(2021, 11, 14, 12, 27, 31, 823, DateTimeKind.Utc).AddTicks(3114), "9731dda8-7822-4db0-a189-344bf525c4dd" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Evaluations",
+                columns: new[] { "Id", "FeedbackId", "SkillId", "Value" },
+                values: new object[] { 1, 1, 1, 4 });
+
+            migrationBuilder.InsertData(
+                table: "Evaluations",
+                columns: new[] { "Id", "FeedbackId", "SkillId", "Value" },
+                values: new object[] { 2, 2, 2, 4 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -20,6 +20,7 @@ namespace DAL.Repositories
 		public virtual async Task<TEntity> CreateAsync(TEntity entity)
 		{
 			await _dbSet.AddAsync(entity);
+			await _context.SaveChangesAsync();
 
 			return entity;
 		}
@@ -27,6 +28,7 @@ namespace DAL.Repositories
 		public virtual async Task<TEntity> DeleteAsync(TEntity entity)
 		{
 			await Task.Run(() => _dbSet.Remove(entity));
+			await _context.SaveChangesAsync();
 
 			return entity;
 		}
@@ -50,6 +52,7 @@ namespace DAL.Repositories
 		public virtual async Task<TEntity> UpdateAsync(TEntity entity)
 		{
 			await Task.Run(() => _dbSet.Update(entity));
+			await _context.SaveChangesAsync();
 
 			return entity;
 		}
