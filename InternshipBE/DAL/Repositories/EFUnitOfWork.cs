@@ -1,7 +1,5 @@
 ﻿using DAL.Database;
-using DAL.Entities;
 using DAL.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -100,7 +98,7 @@ namespace DAL.Repositories
                 return _skillRepository;
             }
         }
-        
+
         public IInternshipStackRepository InternshipStacks
         {
             get
@@ -109,11 +107,6 @@ namespace DAL.Repositories
                     _internshipStackRepository = new InternshipStackRepository(_db);
                 return _internshipStackRepository;
             }
-        }
-
-        public EFUnitOfWork(ApplicationDbContext db, UserManager<User> userManager)
-        {
-            _db = db;
         }
 
         public EFUnitOfWork(ApplicationDbContext db)

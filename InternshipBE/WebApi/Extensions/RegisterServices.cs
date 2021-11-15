@@ -22,6 +22,7 @@ namespace WebApi.Extensions
             services.AddTransient<IGoogleCalendarService, GoogleCalendarService>();
             services.AddTransient<IInternshipStackService, InternshipStackService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IReportService, ReportService>();
 
             return services;
         }
