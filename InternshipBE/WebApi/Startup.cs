@@ -45,10 +45,10 @@ namespace WebApi
             {
                 options.SourcePaths = new[]
                 {
-                    @"..\InternshipBE\WebApi\",
-                    @"..\InternshipBE\BL\",
-                    @"..\InternshipBE\DAL\",
-                    @"..\InternshipBE\Shared\"
+                    @"..\WebApi\",
+                    @"..\BL\",
+                    @"..\DAL\",
+                    @"..\Shared\"
                 };
             });
 
