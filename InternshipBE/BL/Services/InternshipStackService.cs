@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.InternshipStackDTOs;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;

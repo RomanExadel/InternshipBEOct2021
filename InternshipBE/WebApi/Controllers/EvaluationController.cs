@@ -1,5 +1,4 @@
 ﻿using BL.DTOs;
-using BL.DTOs.EvaluationDTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("createEvaluation")]
-        public async Task<IActionResult> CreateEvaluation([FromBody] CreateEvaluationDTO createEvaluationDto)
+        public async Task<IActionResult> CreateEvaluation([FromBody] EvaluationDTO createEvaluationDto)
         {
             return Ok(await _evaluationService.CreateEvaluationAsync(createEvaluationDto));
         }
@@ -30,7 +29,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("updateEvaluation")]
-        public async Task<ActionResult> UpdateEvaluation([FromBody] FullCreateEvaluationDTO fullEvaluationDto)
+        public async Task<ActionResult> UpdateEvaluation([FromBody] EvaluationDTO fullEvaluationDto)
         {
             return Ok(await _evaluationService.UpdateEvaluationAsync(fullEvaluationDto));
         }

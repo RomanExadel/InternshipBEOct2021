@@ -1,4 +1,4 @@
-﻿using BL.DTOs.UserDTOs;
+﻿using BL.DTOs;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;

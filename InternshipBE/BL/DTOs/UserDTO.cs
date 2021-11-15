@@ -1,9 +1,6 @@
-﻿using Shared.Enums;
-using System;
-
-namespace BL.DTOs.UserDTOs
+﻿namespace BL.DTOs
 {
-	public class UserDTO
+    public class UserDTO
 	{
 		public string Id { get; set; }
 

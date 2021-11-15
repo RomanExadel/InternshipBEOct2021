@@ -1,11 +1,12 @@
-using BL.DTOs.EvaluationDTOs;
 using System;
 using System.Collections.Generic;
 
-namespace BL.DTOs.FeedbackDTOs
+namespace BL.DTOs
 {
     public class FeedbackDTO
     {
+        public int Id { get; set; }
+
         public string UserId { get; set; }
 
         public int CandidateId { get; set; }
@@ -16,6 +17,6 @@ namespace BL.DTOs.FeedbackDTOs
 
         public string Description { get; set; }
 
-        public virtual List<GetEvaluationDTO> Evaluations { get; set; }
+        public List<EvaluationDTO> Evaluations { get; set; }
     }
 }

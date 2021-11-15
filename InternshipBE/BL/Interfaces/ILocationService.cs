@@ -1,4 +1,4 @@
-﻿using BL.DTOs.CountryDTOs;
+﻿using BL.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +8,6 @@ namespace BL.Interfaces
     {
         Task<List<CountryDTO>> GetLocationsAsync();
 
-        Task<GetCountryDTO> CreateLocationAsync(CountryDTO NameLocation);
+        Task<CountryDTO> CreateLocationAsync(CountryDTO NameLocation);
     }
 }

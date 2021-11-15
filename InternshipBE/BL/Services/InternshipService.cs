@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.InternshipDTOs;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -21,51 +21,51 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public async Task<UpdateInternshipDTO> CreateInternshipAsync(CreateInternshipDTO newInternship)
+        public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
-            var stacks = mappedInternship.InternshipStacks;
+            //var stacks = mappedInternship.InternshipStacks;
 
             mappedInternship.InternshipStacks = null;
 
             var internship = await _unitOfWork.Internships.CreateAsync(mappedInternship);
 
-            foreach (var stack in stacks)
-            {
-                stack.InternshipId = internship.Id;
-            }
+            //foreach (var stack in stacks)
+            //{
+            //    stack.InternshipId = internship.Id;
+            //}
 
-            stacks = await _unitOfWork.InternshipStacks.CreateRangeAsync(stacks);
-            internship.InternshipStacks = stacks;
+            //stacks = await _unitOfWork.InternshipStacks.CreateRangeAsync(stacks);
+            //internship.InternshipStacks = stacks;
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<UpdateInternshipDTO>(internship);
+            return _mapper.Map<InternshipDTO>(internship);
         }
 
-        public async Task<List<GetInternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber)
+        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber)
         {
             var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber);
-            var internshipDtos = _mapper.Map<List<GetInternshipDTO>>(internships);
+            var internshipDtos = _mapper.Map<List<InternshipDTO>>(internships);
 
             return internshipDtos;
         }
 
-        public async Task<GetInternshipDTO> GetInternshipByIdAsync(int id)
+        public async Task<InternshipDTO> GetInternshipByIdAsync(int id)
         {
             var internship = await _unitOfWork.Internships.GetByIdAsync(id);
-            var internshipDto = _mapper.Map<GetInternshipDTO>(internship);
+            var internshipDto = _mapper.Map<InternshipDTO>(internship);
 
             return internshipDto;
         }
 
-        public async Task<UpdateInternshipDTO> UpdateInternshipAsync(UpdateInternshipDTO newInternship)
+        public async Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
             var updatedInternship = await _unitOfWork.Internships.UpdateAsync(mappedInternship);
 
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<UpdateInternshipDTO>(updatedInternship);
+            return _mapper.Map<InternshipDTO>(updatedInternship);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BL.DTOs;
-using BL.DTOs.SkillDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;

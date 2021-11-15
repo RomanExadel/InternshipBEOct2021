@@ -1,8 +1,6 @@
-﻿using BL.DTOs.UserDTOs;
-
-namespace BL.DTOs.BestContactTimeDTO
+﻿namespace BL.DTOs.BestContactTimeDTO
 {
-	public class BestContactTimeDTO : CreateBestContactTimeDTO
+    public class BestContactTimeDTO : CreateBestContactTimeDTO
 	{
 		public int Id { get; set; }
 

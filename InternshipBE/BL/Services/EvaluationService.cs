@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BL.DTOs;
-using BL.DTOs.EvaluationDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -20,28 +19,28 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public async Task<CreateEvaluationDTO> CreateEvaluationAsync(CreateEvaluationDTO createEvaluationDto)
+        public async Task<EvaluationDTO> CreateEvaluationAsync(EvaluationDTO createEvaluationDto)
         {
             var evaluation = await _unitOfWork.Evaluations.CreateAsync(_mapper.Map<Evaluation>(createEvaluationDto));
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<CreateEvaluationDTO>(evaluation);
+            return _mapper.Map<EvaluationDTO>(evaluation);
         }
 
-        public async Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId)
+        public async Task<List<EvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId)
         {
             var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedbackId);
-            return _mapper.Map<List<StackGetEvaluationDTO>>(evaluations);
+            return _mapper.Map<List<EvaluationDTO>>(evaluations);
         }
 
-        public async Task<FullCreateEvaluationDTO> UpdateEvaluationAsync(FullCreateEvaluationDTO fullEvaluationDto)
+        public async Task<EvaluationDTO> UpdateEvaluationAsync(EvaluationDTO fullEvaluationDto)
         {
             var evaluation = _mapper.Map<Evaluation>(fullEvaluationDto);
 
             evaluation = await _unitOfWork.Evaluations.UpdateAsync(evaluation);
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<FullCreateEvaluationDTO>(evaluation);
+            return _mapper.Map<EvaluationDTO>(evaluation);
         }
     }
 }
