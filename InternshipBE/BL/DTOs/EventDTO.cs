@@ -7,6 +7,8 @@ namespace BL.DTOs
 		private DateTime _startTime;
 		private DateTime _endTime;
 
+		public string InterviewerEmail { get; set; }
+
 		public DateTime StartTime
 		{
 			get => _startTime;
@@ -20,7 +22,5 @@ namespace BL.DTOs
 
 			set => _endTime = DateTime.Parse(value.ToString("G"));
 		}
-
-		public string InterviewerEmail { get; set; }
 	}
 }
