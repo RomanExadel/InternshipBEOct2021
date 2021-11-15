@@ -18,13 +18,5 @@ namespace DAL.Repositories
 		{
 			return await _context.BestContactTimes.Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
 		}
-
-		public async Task DeleteByIdAsync(int bestContactTimeId)
-		{
-			var bestTime = await _context.BestContactTimes.FirstOrDefaultAsync(x => x.Id == bestContactTimeId);
-			_context.BestContactTimes.Remove(bestTime);
-
-			await _context.SaveChangesAsync();
-		}
 	}
 }

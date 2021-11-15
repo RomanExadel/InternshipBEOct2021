@@ -7,7 +7,5 @@ namespace DAL.Interfaces
 	public interface IBestContactTimeRepository : IGenericRepository<BestContactTime>
 	{
 		Task<List<BestContactTime>> GetAllByUserIdAsync(string userId);
-
-		Task DeleteByIdAsync(int bestContactTimeId);
 	}
 }

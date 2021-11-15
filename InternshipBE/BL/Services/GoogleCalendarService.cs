@@ -36,11 +36,11 @@ namespace BL.Services
 
 		public async Task CreateEventInCalendarAsync(EventDTO model)
 		{
+			var bestContactTime = _mapper.Map<BestContactTime>(model);
+			await _unitOfWork.BestContactTime.DeleteByIdAsync(bestContactTime.Id);
 			CreateEvent(model);
 
-			var bestContactTime = _mapper.Map<BestContactTime>(model);
-
-			await _unitOfWork.BestContactTime.DeleteByIdAsync(bestContactTime.Id);
+		
 		}
 
 		private void CreateEvent(EventDTO model)

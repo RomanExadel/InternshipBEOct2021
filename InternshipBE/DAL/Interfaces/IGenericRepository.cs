@@ -16,5 +16,7 @@ namespace DAL.Interfaces
 		public Task<TEntity> DeleteAsync(TEntity entity);
 
 		public Task RangeSaveAsync(List<TEntity> entities);
+
+		Task DeleteByIdAsync(int Id);
 	}
 }
