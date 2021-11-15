@@ -1,4 +1,4 @@
-﻿using BL.DTOs.FeedbackDTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -23,13 +23,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("createFeedback")]
-        public async Task<IActionResult> CreateFeedback([FromBody] CreateFeedbackDTO feedbackDto)
+        public async Task<IActionResult> CreateFeedback([FromBody] FeedbackDTO feedbackDto)
         {
             return Ok(await _feedbackService.CreateFeedbackAsync(feedbackDto));
         }
 
         [HttpPut("updateFeedback")]
-        public async Task<IActionResult> UpdateFeedback([FromBody] UpdateFeedbackDTO updateFeedback)
+        public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackDTO updateFeedback)
         {
             return Ok(await _feedbackService.UpdateFeedbackAsync(updateFeedback));
         }

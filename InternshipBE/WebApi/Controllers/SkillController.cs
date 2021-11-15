@@ -1,5 +1,4 @@
 ﻿using BL.DTOs;
-using BL.DTOs.SkillDTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;

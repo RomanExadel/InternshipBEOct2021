@@ -1,4 +1,4 @@
-﻿using BL.DTOs.EvaluationDTOs;
+﻿using BL.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,10 @@ namespace BL.Interfaces
 {
     public interface IEvaluationService
     {
-        Task<CreateEvaluationDTO> CreateEvaluationAsync(CreateEvaluationDTO createEvaluationDto);
+        Task<EvaluationDTO> CreateEvaluationAsync(EvaluationDTO createEvaluationDto);
 
-        Task<List<StackGetEvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId);
+        Task<List<EvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId);
 
-        Task<FullCreateEvaluationDTO> UpdateEvaluationAsync(FullCreateEvaluationDTO fullEvaluationDto);
+        Task<EvaluationDTO> UpdateEvaluationAsync(EvaluationDTO fullEvaluationDto);
     }
 }

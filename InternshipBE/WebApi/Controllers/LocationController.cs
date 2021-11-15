@@ -1,4 +1,4 @@
-﻿using BL.DTOs.CountryDTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

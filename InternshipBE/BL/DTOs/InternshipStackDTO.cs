@@ -1,4 +1,4 @@
-﻿namespace BL.DTOs.InternshipStackDTOs
+﻿namespace BL.DTOs
 {
     public class InternshipStackDTO
     {
