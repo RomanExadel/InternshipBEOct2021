@@ -1,4 +1,4 @@
-﻿namespace BL.DTOs.CountryDTOs
+﻿namespace BL.DTOs
 {
     public class CountryDTO
     {

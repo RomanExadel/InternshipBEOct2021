@@ -1,4 +1,4 @@
-﻿namespace BL.DTOs.SkillDTOs
+﻿namespace BL.DTOs
 {
     public class SkillDTO
     {

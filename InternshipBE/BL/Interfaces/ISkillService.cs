@@ -1,5 +1,5 @@
 ﻿using BL.DTOs;
-using BL.DTOs.SkillDTOs;
+using BL.DTOs;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;

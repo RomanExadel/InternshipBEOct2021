@@ -1,4 +1,4 @@
-﻿using BL.DTOs.InternshipDTOs;
+﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -30,13 +30,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("createInternship")]
-        public async Task<IActionResult> CreateInternship([FromBody] CreateInternshipDTO internship)
+        public async Task<IActionResult> CreateInternship([FromBody] InternshipDTO internship)
         {
             return Ok(await _internshipService.CreateInternshipAsync(internship));
         }
 
         [HttpPut("updateInternship")]
-        public async Task<IActionResult> UpdateInternship([FromBody] UpdateInternshipDTO internship)
+        public async Task<IActionResult> UpdateInternship([FromBody] InternshipDTO internship)
         {
             return Ok(await _internshipService.UpdateInternshipAsync(internship));
         }

@@ -1,4 +1,4 @@
-﻿using BL.DTOs.CountryDTOs;
+﻿using BL.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
