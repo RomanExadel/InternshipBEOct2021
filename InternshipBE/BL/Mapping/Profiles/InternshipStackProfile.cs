@@ -11,9 +11,12 @@ namespace BL.Mapping.Profiles
         public InternshipStackProfile()
         {
             CreateMap<InternshipStack, InternshipStackDTO>()
-                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => entity.TechnologyStackType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.TechnologyStackType)));
+                .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
+                .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => dto.TechnologyStackType.ToString()));
+
+            CreateMap<InternshipStackDTO, InternshipStack>()
+                .ForMember(dto => dto.Id, src => src.MapFrom(entity => entity.Id))
+                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => Enum.Parse<StackType>(entity.TechnologyStackType)));
         }
     }
 }
