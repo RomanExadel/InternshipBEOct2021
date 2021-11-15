@@ -10,6 +10,8 @@
 
         public int Value { get; set; }
 
+        public FeedbackDTO Feedback { get; set; }
+
         public SkillDTO Skill { get; set; }
     }
 }
