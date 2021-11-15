@@ -10,5 +10,7 @@ namespace DAL.Interfaces
 		Task<List<BestContactTime>> GetAllByUserIdAsync(string userId);
 
 		Task<BestContactTime> GetByTimeIntervalAsync(BestContactTime contactTime);
+
+		Task DeleteByIdAsync(int bestContactTimeId);
 	}
 }

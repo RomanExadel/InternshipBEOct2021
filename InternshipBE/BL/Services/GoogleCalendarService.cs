@@ -39,17 +39,11 @@ namespace BL.Services
 
 		public async Task CreateEventInCalendarAsync(EventDTO model)
 		{
-			var user = await _userManager.FindByEmailAsync(model.InterviewerEmail);
-
 			CreateEvent(model);
 
 			var bestContactTime = _mapper.Map<BestContactTime>(model);
 
-			bestContactTime.User = user;
-			bestContactTime.UserId = user.Id;
-			bestContactTime = await _unitOfWork.BestContactTime.GetByTimeIntervalAsync(bestContactTime);
-
-			await _unitOfWork.BestContactTime.DeleteAsync(bestContactTime);
+			await _unitOfWork.BestContactTime.DeleteByIdAsync(bestContactTime.Id);
 		}
 
 		private void CreateEvent(EventDTO model)

@@ -2,25 +2,8 @@
 
 namespace BL.DTOs
 {
-	public class EventDTO
+	public class EventDTO : BestContactTimeDTO
 	{
-		private DateTime _startTime;
-		private DateTime _endTime;
-
 		public string InterviewerEmail { get; set; }
-
-		public DateTime StartTime
-		{
-			get => _startTime;
-
-			set => _startTime = DateTime.Parse(value.ToString("G"));
-		}
-
-		public DateTime EndTime
-		{
-			get => _endTime;
-
-			set => _endTime = DateTime.Parse(value.ToString("G"));
-		}
 	}
 }
