@@ -114,11 +114,6 @@ namespace DAL.Repositories
             _db = db;
         }
 
-        public async Task SaveAsync()
-        {
-            await _db.SaveChangesAsync();
-        }
-
         public virtual void Dispose(bool disposing)
         {
             if (!this._disposed)
