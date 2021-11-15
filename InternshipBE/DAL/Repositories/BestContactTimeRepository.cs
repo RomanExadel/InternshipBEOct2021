@@ -19,12 +19,6 @@ namespace DAL.Repositories
 			return await _context.BestContactTimes.Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
 		}
 
-		public async Task<BestContactTime> GetByTimeIntervalAsync(BestContactTime contactTime)
-		{
-			return await _context.BestContactTimes.Where(x => x.StartTime == contactTime.StartTime && x.EndTime == contactTime.EndTime)
-				.FirstOrDefaultAsync(x => x.UserId == contactTime.UserId);
-		}
-
 		public async Task DeleteByIdAsync(int bestContactTimeId)
 		{
 			var bestTime = await _context.BestContactTimes.FirstOrDefaultAsync(x => x.Id == bestContactTimeId);

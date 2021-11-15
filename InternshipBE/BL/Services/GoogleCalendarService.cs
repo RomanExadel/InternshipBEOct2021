@@ -7,7 +7,6 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
-using Microsoft.AspNetCore.Identity;
 using Shared.Config.Interfaces;
 using System.Threading.Tasks;
 
@@ -21,16 +20,14 @@ namespace BL.Services
 			CalendarService.Scope.CalendarEvents,
 			CalendarService.Scope.CalendarEventsReadonly
 		};
-		private readonly UserManager<User> _userManager;
 		private readonly IGoogleConfig _googleConfig;
 		private CalendarService _calendarService;
 		private readonly ICalendarEventsConfig _calendarEventsConfig;
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IMapper _mapper;
 
-		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, UserManager<User> userManager, ICalendarEventsConfig calendarEventsConfig, IMapper mapper)
+		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, ICalendarEventsConfig calendarEventsConfig, IMapper mapper)
 		{
-			_userManager = userManager;
 			_googleConfig = googleConfig;
 			_calendarEventsConfig = calendarEventsConfig;
 			_unitOfWork = unitOfWork;
