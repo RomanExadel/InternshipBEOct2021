@@ -37,14 +37,13 @@ namespace BL.Services
             return _mapper.Map<List<SkillDTO>>(skills);
         }
 
-        public async Task<SkillDTO> UpdateSkillAsync(SkillDTO SkillDTO)
+        public async Task<SkillDTO> UpdateSkillAsync(SkillDTO skillDTO)
         {
-            var skill = _mapper.Map<Skill>(SkillDTO);
+            var skill = _mapper.Map<Skill>(skillDTO);
 
             skill = await _unitOfWork.Skills.UpdateAsync(skill);
-            fullSkillDto = _mapper.Map<FullSkillDTO>(skill);
 
-            return SkillDTO;
+            return _mapper.Map<SkillDTO>(skill);
         }
     }
 }
