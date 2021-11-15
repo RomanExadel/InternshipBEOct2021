@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.CountryDTOs;
+using BL.DTOs;
 using DAL.Entities;
 
 namespace BL.Mapping.Profiles

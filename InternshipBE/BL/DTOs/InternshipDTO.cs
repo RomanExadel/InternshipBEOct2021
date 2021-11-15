@@ -1,12 +1,24 @@
-﻿using BL.DTOs.CountryDTOs;
-using BL.DTOs.InternshipStackDTOs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace BL.DTOs.InternshipDTOs
+namespace BL.DTOs
 {
     public class InternshipDTO
     {
+        public int Id { get; set; }
+
+        public int CandidatesCount { get; set; }
+
+        public int DeclinedCandidatesCount { get; set; }
+
+        public int AcceptedCandidatesCount { get; set; }
+
+        public int AbandonedCandidatesCount { get; set; }
+
+        public int SuccessfullyFinishedCandidatesCount { get; set; }
+
+        public int TeamsCount { get; set; }
+
         public string Name { get; set; }
 
         public DateTime StartDate { get; set; }
@@ -27,8 +39,8 @@ namespace BL.DTOs.InternshipDTOs
 
         public string ImageLink { get; set; }
 
-        public virtual List<InternshipStackDTO> InternshipStacks { get; set; }
+        public List<InternshipStackDTO> InternshipStacks { get; set; }
 
-        public virtual List<CountryDTO> Locations { get; set; }
+        public List<CountryDTO> Locations { get; set; }
     }
 }
