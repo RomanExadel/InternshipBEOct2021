@@ -9,54 +9,54 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class CandidateController : Controller
-	{
-		private readonly ICandidateService _candidateService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CandidateController : Controller
+    {
+        private readonly ICandidateService _candidateService;
 
-		public CandidateController(ICandidateService candidateService)
-		{
-			_candidateService = candidateService;
-		}
+        public CandidateController(ICandidateService candidateService)
+        {
+            _candidateService = candidateService;
+        }
 
-		[HttpGet("getCandidateById")]
-		public async Task<IActionResult> GetCandidateById([FromQuery] int id)
-		{
-			return Ok(await _candidateService.GetCandidateByIdAsync(id));
-		}
+        [HttpGet("getCandidateById")]
+        public async Task<IActionResult> GetCandidateById([FromQuery] int id)
+        {
+            return Ok(await _candidateService.GetCandidateByIdAsync(id));
+        }
 
         [HttpPost("getCandidateListByInternshipId")]
         public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
-            return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber, request.SortBy, request.Desc,  request.FilterBy));
+            return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber, request.SortBy, request.Desc, request.FilterBy));
         }
 
-		[HttpPost("createCandidate")]
-		public async Task<IActionResult> CreateCandidate([FromBody] CandidateDTO candidate)
-		{
-			return Ok(await _candidateService.CreateCandidateAsync(candidate));
-		}
+        [HttpPost("createCandidate")]
+        public async Task<IActionResult> CreateCandidate([FromBody] CandidateDTO candidate)
+        {
+            return Ok(await _candidateService.CreateCandidateAsync(candidate));
+        }
 
-		[HttpPut("updateCandidate")]
-		public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO candidate)
-		{
-			return Ok(await _candidateService.UpdateCandidateAsync(candidate));
-		}
+        [HttpPut("updateCandidate")]
+        public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDTO candidate)
+        {
+            return Ok(await _candidateService.UpdateCandidateAsync(candidate));
+        }
 
-		[HttpPut("updateCandidateStatus/{id}")]
-		public async Task<IActionResult> UpdateCandidateStatusById(int id, CandidateStatusType status)
-		{
-			return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
-		}
+        [HttpPut("updateCandidateStatus/{id}")]
+        public async Task<IActionResult> UpdateCandidateStatusById(int id, CandidateStatusType status)
+        {
+            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
+        }
 
-		[HttpPost("candidateSearch")]
-		[Authorize]
-		public async Task<IActionResult> SearchCandidate([FromBody] CandidateSearchModel searchModel)
-		{
-			var searchResult = await _candidateService.SearchAsync(searchModel);
+        [Authorize]
+        [HttpPost("candidateSearch")]
+        public async Task<IActionResult> SearchCandidate([FromBody] CandidateSearchModel searchModel)
+        {
+            var searchResult = await _candidateService.SearchAsync(searchModel);
 
-			return Ok(searchResult);
-		}
-	}
+            return Ok(searchResult);
+        }
+    }
 }

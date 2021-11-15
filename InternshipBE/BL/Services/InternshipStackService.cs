@@ -19,30 +19,42 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public async Task<FullInternshipStackDTO> CreateInternshipStackAsync(CreateInternshipStackDTO internshipStackDto)
+        public async Task<InternshipStackDTO> CreateInternshipStackAsync(InternshipStackDTO internshipStackDto)
         {
             var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
 
             internshipStack = await _unitOfWork.InternshipStacks.CreateAsync(internshipStack);
+            
+            await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<FullInternshipStackDTO>(internshipStack);
+            return _mapper.Map<InternshipStackDTO>(internshipStack);
         }
 
-        public async Task<List<GetInternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId)
+        public async Task<List<InternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId)
         {
             var internshipStacks = await _unitOfWork.InternshipStacks.GetAllByInternshipIdAsync(internshipId);
-            var internshipStacksDtos = _mapper.Map<List<GetInternshipStackDTO>>(internshipStacks);
+            var internshipStacksDtos = _mapper.Map<List<InternshipStackDTO>>(internshipStacks);
 
             return internshipStacksDtos;
         }
         
-        public async Task<FullInternshipStackDTO> UpdateInternshipStackAsync(FullInternshipStackDTO internshipStackDto)
+        public async Task<List<InternshipStackDTO>> GetInternshipStacksAsync()
+        {
+            var internshipStacks = await _unitOfWork.InternshipStacks.GetAllAsync();
+            var internshipStacksDtos = _mapper.Map<List<InternshipStackDTO>>(internshipStacks);
+
+            return internshipStacksDtos;
+        }
+        
+        public async Task<InternshipStackDTO> UpdateInternshipStackAsync(InternshipStackDTO internshipStackDto)
         {
             var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
 
             internshipStack = await _unitOfWork.InternshipStacks.UpdateAsync(internshipStack);
+            
+            await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<FullInternshipStackDTO>(internshipStack);
+            return _mapper.Map<InternshipStackDTO>(internshipStack);
         }
     }
 }

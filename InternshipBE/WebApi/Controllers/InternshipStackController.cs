@@ -15,6 +15,12 @@ namespace WebApi.Controllers
             _internshipStackService = internshipStackService;
         }
 
+        [HttpGet("getInternshipStacks")]
+        public async Task<IActionResult> GetInternshipStacksByInternshipId()
+        {
+            return Ok(await _internshipStackService.GetInternshipStacksAsync());
+        }
+
         [HttpGet("getInternshipStacksByInternshipId")]
         public async Task<IActionResult> GetInternshipStacksByInternshipId([FromQuery] int internshipId)
         {
@@ -22,13 +28,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("createInternshipStacksByInternshipId")]
-        public async Task<IActionResult> CreateInternshipStackByInternshipId([FromBody] CreateInternshipStackDTO internshipStackDto)
+        public async Task<IActionResult> CreateInternshipStackByInternshipId([FromBody] InternshipStackDTO internshipStackDto)
         {
             return Ok(await _internshipStackService.CreateInternshipStackAsync(internshipStackDto));
         }
 
         [HttpPut("updateInternshipStackById")]
-        public async Task<IActionResult> UpdateInternshipStackById([FromBody] FullInternshipStackDTO internshipStackDto)
+        public async Task<IActionResult> UpdateInternshipStackById([FromBody] InternshipStackDTO internshipStackDto)
         {
             return Ok(await _internshipStackService.UpdateInternshipStackAsync(internshipStackDto));
         }
