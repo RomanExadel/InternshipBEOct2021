@@ -18,14 +18,14 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<GetCountryDTO>> GetLocationsAsync()
+        public async Task<List<CountryDTO>> GetLocationsAsync()
         {
             var locations = await _unitOfWork.Locations.GetLocationsAsync();
 
-            return _mapper.Map<List<GetCountryDTO>>(locations);
+            return _mapper.Map<List<CountryDTO>>(locations);
         }
 
-        public async Task<GetCountryDTO> CreateLocationAsync(CountryDTO locationName)
+        public async Task<CountryDTO> CreateLocationAsync(CountryDTO locationName)
         {
             var result = await _unitOfWork.Locations.CreateLocationAsync(locationName.Name);
 
