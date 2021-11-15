@@ -42,8 +42,7 @@ namespace DAL.Repositories
         {
             return _context.Candidates
                 .Include(x => x.Users)
-                .Include(x => x.Team)
-                .AsQueryable();
+                .Include(x => x.Team);
         }
 
         private CandidateStatusType? GetStatusType(ReportType reportType)

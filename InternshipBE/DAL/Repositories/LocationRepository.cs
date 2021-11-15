@@ -22,6 +22,7 @@ namespace DAL.Repositories
             var location = new Country { Name = NameLocation };
 
             await CreateAsync(location);
+            await _context.SaveChangesAsync();
 
             return location;
         }

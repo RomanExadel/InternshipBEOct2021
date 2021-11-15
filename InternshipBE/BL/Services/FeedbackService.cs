@@ -23,8 +23,6 @@ namespace BL.Services
         {
             var feedback = await _unitOfWork.Feedbacks.CreateAsync(_mapper.Map<Feedback>(newFeedback));
 
-            await _unitOfWork.SaveAsync();
-
             return _mapper.Map<FullGetFeedbackDTO>(feedback);
         }
 
@@ -45,8 +43,6 @@ namespace BL.Services
         public async Task<UpdateFeedbackDTO> UpdateFeedbackAsync(UpdateFeedbackDTO updatedFeedback)
         {
             var feedback = await _unitOfWork.Feedbacks.UpdateAsync(_mapper.Map<Feedback>(updatedFeedback));
-
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<UpdateFeedbackDTO>(feedback);
         }

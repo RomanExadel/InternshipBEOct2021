@@ -1,4 +1,4 @@
-﻿using BL.DTOs.BestContactTimeDTO;
+﻿using BL.DTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
