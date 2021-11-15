@@ -4,33 +4,23 @@ namespace BL.DTOs
 {
 	public class BestContactTimeDTO
 	{
-		private DateTime startTime;
-		private DateTime endTime;
+		private DateTime _startTime;
+		private DateTime _endTime;
 
 		public int? Id { get; set; }
 
 		public DateTime StartTime
 		{
-			get
-			{
-				return startTime;
-			}
-			set
-			{
-				startTime = DateTime.Parse(value.ToString("G"));
-			}
+			get => _startTime;
+		
+			set => _startTime = DateTime.Parse(value.ToString("G"));
 		}
 
 		public DateTime EndTime
 		{
-			get
-			{
-				return endTime;
-			}
-			set
-			{
-				endTime = DateTime.Parse(value.ToString("G"));
-			}
+			get => _endTime;
+
+			set => _endTime = DateTime.Parse(value.ToString("G"));
 		}
 	}
 }

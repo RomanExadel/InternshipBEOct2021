@@ -19,8 +19,8 @@ namespace DAL.Repositories
 		public async Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType = null)
 		{
 			var internship = await _context.Internships.AsNoTracking()
-													   .Include(x => x.Users.Where(u => u.RoleType == roleType || roleType == null))
-													   .FirstOrDefaultAsync(x => x.Id == id);
+				.Include(x => x.Users.Where(u => u.RoleType == roleType || roleType == null))
+				.FirstOrDefaultAsync(x => x.Id == id);
 
 			return internship?.Users.ToList();
 		}
@@ -28,8 +28,8 @@ namespace DAL.Repositories
 		public async Task<List<User>> GetUsersByCandidateIdAsync(int id)
 		{
 			var candidat = await _context.Candidates.AsNoTracking()
-													.Include(x => x.Users)
-													.FirstOrDefaultAsync(x => x.Id == id);
+				.Include(x => x.Users)
+				.FirstOrDefaultAsync(x => x.Id == id);
 
 			return candidat?.Users.ToList();
 		}
@@ -37,8 +37,8 @@ namespace DAL.Repositories
 		public async Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId)
 		{
 			var users = await _context.Users.Include(x => x.Internships.Where(i => i.Id == id))
-														  .Where(x => usersId.Contains(x.Id))
-														  .ToListAsync();
+				.Where(x => usersId.Contains(x.Id))
+				.ToListAsync();
 
 			users.ForEach(x => x.Internships.Clear());
 

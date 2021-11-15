@@ -20,7 +20,7 @@ namespace WebApi.Controllers
 
 		[HttpPost("setBestContactTime")]
 		[Authorize]
-		public async Task<IActionResult> SetBestContactTimeAsync([FromBody] List<BestContactTimeDTO> models)
+		public async Task<IActionResult> SetBestContactTime([FromBody] List<BestContactTimeDTO> models)
 		{
 			var userName = User.Identity.Name;
 
@@ -31,7 +31,7 @@ namespace WebApi.Controllers
 
 		[HttpGet("{interviewerId}")]
 		[Authorize]
-		public async Task<IActionResult> GetAllBestContactTimeByUserIdAsync(string interviewerId)
+		public async Task<IActionResult> GetAllBestContactTimeByUserId(string interviewerId)
 		{
 			var models = await _bestContactTimeService.GetAllBestTimeByIdAsync(interviewerId);
 

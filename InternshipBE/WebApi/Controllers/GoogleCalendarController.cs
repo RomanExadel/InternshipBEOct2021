@@ -19,7 +19,7 @@ namespace WebApi.Controllers
 
 		[HttpPost("setEventToGoogleCalendar")]
 		[Authorize]
-		public async Task<IActionResult> SetEventToGoogleCalendarAsync([FromBody] EventDTO model)
+		public async Task<IActionResult> SetEventToGoogleCalendar([FromBody] EventDTO model)
 		{
 			await _googleCalendarService.CreateEventInCalendarAsync(model);
 
