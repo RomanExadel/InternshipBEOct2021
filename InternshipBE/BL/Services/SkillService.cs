@@ -32,22 +32,22 @@ namespace BL.Services
             return skillDto;
         }
 
-        public async Task<List<FullSkillDTO>> GetSkillsByStackTypeAsync(StackType stackType)
+        public async Task<List<SkillDTO>> GetSkillsByStackTypeAsync(StackType stackType)
         {
             var skills = await _unitOfWork.Skills.GetSkillsByStackTypeAsync(stackType);
 
-            return _mapper.Map<List<FullSkillDTO>>(skills);
+            return _mapper.Map<List<SkillDTO>>(skills);
         }
 
-        public async Task<FullSkillDTO> UpdateSkillAsync(FullSkillDTO fullSkillDto)
+        public async Task<SkillDTO> UpdateSkillAsync(SkillDTO SkillDTO)
         {
-            var skill = _mapper.Map<Skill>(fullSkillDto);
+            var skill = _mapper.Map<Skill>(SkillDTO);
 
             skill = await _unitOfWork.Skills.UpdateAsync(skill);
             await _unitOfWork.SaveAsync();
-            fullSkillDto = _mapper.Map<FullSkillDTO>(skill);
+            SkillDTO = _mapper.Map<SkillDTO>(skill);
 
-            return fullSkillDto;
+            return SkillDTO;
         }
     }
 }

@@ -9,7 +9,6 @@ namespace BL.Mapping.Profiles
         public CountryProfile()
         {
             CreateMap<Country, CountryDTO>().ReverseMap();
-            CreateMap<Country, GetCountryDTO>().ReverseMap();
         }
     }
 }
