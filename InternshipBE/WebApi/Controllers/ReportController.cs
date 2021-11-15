@@ -14,6 +14,7 @@ namespace WebApi.Controllers
     {
         private readonly IReportService _reportService;
         private readonly IWebHostEnvironment _webHost;
+
         public ReportController(IReportService reportService, IWebHostEnvironment webHost)
         {
             _reportService = reportService;

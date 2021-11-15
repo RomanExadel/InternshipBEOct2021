@@ -1,6 +1,6 @@
 ﻿namespace Shared.Constants
 {
-	public static class ConfiguratioConstants
+	public static class ConfigurationConstants
 	{
 		public const string connectionString = "DefaultConnection";
 	}
