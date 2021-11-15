@@ -24,8 +24,6 @@ namespace BL.Services
             var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
 
             internshipStack = await _unitOfWork.InternshipStacks.CreateAsync(internshipStack);
-            
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<InternshipStackDTO>(internshipStack);
         }
@@ -51,8 +49,6 @@ namespace BL.Services
             var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
 
             internshipStack = await _unitOfWork.InternshipStacks.UpdateAsync(internshipStack);
-            
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<InternshipStackDTO>(internshipStack);
         }

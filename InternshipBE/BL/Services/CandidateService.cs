@@ -34,8 +34,6 @@ namespace BL.Services
         {
             var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
             var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
-            
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -44,8 +42,6 @@ namespace BL.Services
         {
             var mappedCandidate = _mapper.Map<Candidate>(candidate);
             var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
-
-            await _unitOfWork.SaveAsync();
 
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
