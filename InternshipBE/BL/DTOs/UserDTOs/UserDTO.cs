@@ -1,7 +1,4 @@
-﻿using Shared.Enums;
-using System;
-
-namespace BL.DTOs.UserDTOs
+﻿namespace BL.DTOs.UserDTOs
 {
 	public class UserDTO
 	{
