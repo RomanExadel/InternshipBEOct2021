@@ -29,6 +29,6 @@ namespace BL.DTOs.InternshipDTOs
 
         public virtual List<InternshipStackDTO> InternshipStacks { get; set; }
 
-        public virtual List<GetCountryDTO> Locations { get; set; }
+        public virtual List<CountryDTO> Locations { get; set; }
     }
 }

@@ -25,9 +25,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("updateSkill")]
-        public async Task<IActionResult> UpdateSkill([FromBody] FullSkillDTO fullSkillDto)
+        public async Task<IActionResult> UpdateSkill([FromBody] SkillDTO SkillDTO)
         {
-            return Ok(await _skillService.UpdateSkillAsync(fullSkillDto));
+            return Ok(await _skillService.UpdateSkillAsync(SkillDTO));
         }
 
         [HttpGet("getSkillsByStackType")]
