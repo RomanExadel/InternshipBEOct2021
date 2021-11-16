@@ -15,9 +15,20 @@ namespace DAL.Repositories
         {
         }
 
+        public async override Task<Candidate> GetByIdAsync(int id)
+        {
+            var candidate = await _context.Candidates.AsNoTracking()
+                .Include(x => x.Users)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return candidate;
+        }
+
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
         {
-            var internship = await _context.Internships.Include(x => x.Candidates).FirstOrDefaultAsync(x => x.Id == id);
+            var internship = await _context.Internships.Include(x => x.Candidates)
+                                                       .ThenInclude(x => x.Users)
+                                                       .FirstOrDefaultAsync(x => x.Id == id);
 
             return internship?.Candidates.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
         }
@@ -28,6 +39,7 @@ namespace DAL.Repositories
 
             var internship = await _context.Internships.AsNoTracking()
                                                        .Include(x => x.Candidates.Where(r => r.StatusType == statusType || statusType == null))
+                                                       .Include(x => x.Users)
                                                        .FirstOrDefaultAsync(x => x.Id == internshipId);
 
             return internship?.Candidates.ToList();
