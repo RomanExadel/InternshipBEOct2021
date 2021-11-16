@@ -13,8 +13,9 @@ namespace BL.Mapping.Profiles
                 .ForMember(dto => dto.SkillId, src => src.MapFrom(entity => entity.SkillId))
                 .ForMember(dto => dto.FeedbackId, src => src.MapFrom(entity => entity.FeedbackId))
                 .ForMember(dto => dto.Value, src => src.MapFrom(entity => entity.Value))
-                .ForMember(dto => dto.Skill, src => src.MapFrom(entity => entity.Skill))
-                .ReverseMap()
+                .ForMember(dto => dto.Skill, src => src.MapFrom(entity => entity.Skill));
+
+            CreateMap<EvaluationDTO, Evaluation>()
                 .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
                 .ForMember(entity => entity.SkillId, src => src.MapFrom(dto => dto.SkillId))
                 .ForMember(entity => entity.FeedbackId, src => src.MapFrom(dto => dto.FeedbackId))

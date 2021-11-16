@@ -16,7 +16,8 @@ namespace BL.Mapping.Profiles
 
             CreateMap<InternshipStackDTO, InternshipStack>()
                 .ForMember(dto => dto.Id, src => src.MapFrom(entity => entity.Id))
-                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => Enum.Parse<StackType>(entity.TechnologyStackType)));
+                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => Enum.Parse<StackType>(entity.TechnologyStackType)))
+                .ForMember(dto => dto.Internships, o => o.Ignore());
         }
     }
 }

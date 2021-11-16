@@ -65,8 +65,9 @@ namespace BL.Mapping.Profiles
 				.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()))
 				.ForMember(dto => dto.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
 				.ForMember(dto => dto.TeamId, src => src.MapFrom(entity => entity.TeamId))
-				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users))
-				.ReverseMap()
+				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users));
+
+			CreateMap<CandidateDTO, Candidate>()
 				.ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
 				.ForMember(entity => entity.FirstName, src => src.MapFrom(dto => dto.FirstName))
 				.ForMember(entity => entity.LastName, src => src.MapFrom(dto => dto.LastName))
@@ -93,20 +94,6 @@ namespace BL.Mapping.Profiles
 				.ForMember(entity => entity.Users, o => o.Ignore())
 				.ForMember(entity => entity.InternshipId, src => src.MapFrom(dto => dto.InternshipId))
 				.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId));
-
-			//CreateMap<CandidateDTO, Candidate>()
-			//	.ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelType)))
-			//	.ForMember(entity => entity.StackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.StackType)))
-			//	.ForMember(entity => entity.StatusType, src => src.MapFrom(dto => Enum.Parse<CandidateStatusType>(dto.StatusType)))
-			//	.ForMember(x => x.TestTaskEvaluation, o => o.Ignore())
-			//	.ForMember(x => x.TeamId, o => o.Ignore())
-			//	.ForMember(x => x.Team, o => o.Ignore())
-			//	.ForMember(x => x.Users, o => o.Ignore())
-			//	.ForMember(x => x.Internship, o => o.Ignore())
-			//	.ReverseMap()
-			//	.ForMember(dto => dto.EnglishLevelType, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
-			//	.ForMember(dto => dto.StackType, src => src.MapFrom(entity => entity.StackType.ToString()))
-			//	.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()));
 		}
 	}
 }
