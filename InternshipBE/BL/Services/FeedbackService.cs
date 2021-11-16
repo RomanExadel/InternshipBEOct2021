@@ -21,9 +21,10 @@ namespace BL.Services
 
         public async Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback)
         {
+            newFeedback.Id = 0;
+
             var feedback = _mapper.Map<Feedback>(newFeedback);
 
-            feedback.Id = 0;
             feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
             newFeedback = _mapper.Map<FeedbackDTO>(feedback);
 

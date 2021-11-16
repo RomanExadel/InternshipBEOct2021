@@ -22,6 +22,8 @@ namespace BL.Services
 
         public async Task<SkillDTO> CreateSkillAsync(SkillDTO skillDto)
         {
+            skillDto.Id = 0;
+
             var skill = _mapper.Map<Skill>(skillDto);
 
             skill = await _unitOfWork.Skills.CreateAsync(skill);

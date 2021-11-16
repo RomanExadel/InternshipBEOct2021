@@ -21,6 +21,8 @@ namespace BL.Services
 
         public async Task<InternshipStackDTO> CreateInternshipStackAsync(InternshipStackDTO internshipStackDto)
         {
+            internshipStackDto.Id = 0;
+
             var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
 
             internshipStack = await _unitOfWork.InternshipStacks.CreateAsync(internshipStack);

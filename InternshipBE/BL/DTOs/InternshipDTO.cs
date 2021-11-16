@@ -42,5 +42,9 @@ namespace BL.DTOs
         public List<InternshipStackDTO> InternshipStacks { get; set; }
 
         public List<CountryDTO> Locations { get; set; }
+
+        public List<TeamDTO> Teams { get; set; }
+
+        public List<UserDTO> Users { get; set; }
     }
 }
