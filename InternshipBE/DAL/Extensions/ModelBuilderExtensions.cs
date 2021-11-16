@@ -328,11 +328,31 @@ namespace DAL.Extensions
                 new InternshipStack
                 {
                     Id = 1,
-                    TechnologyStackType = StackType.BackEnd
+                    TechnologyStackType = StackType.FrontEnd
                 },
-                    new InternshipStack
+                new InternshipStack
                 {
                     Id = 2,
+                    TechnologyStackType = StackType.BackEnd
+                },
+                new InternshipStack
+                {
+                    Id = 3,
+                    TechnologyStackType = StackType.FullStack
+                },
+                new InternshipStack
+                {
+                    Id = 4,
+                    TechnologyStackType = StackType.BusinessAnalysis
+                },
+                new InternshipStack
+                {
+                    Id = 5,
+                    TechnologyStackType = StackType.DevOps
+                },
+                new InternshipStack
+                {
+                    Id = 6,
                     TechnologyStackType = StackType.Testing
                 }
             };
