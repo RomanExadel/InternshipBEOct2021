@@ -22,13 +22,16 @@ namespace BL.Services
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserValidator _userValidator;
 
-        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork)
+        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork,
+            IUserValidator userValidator)
         {
             _userManager = userManager;
             _configuration = configuration;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _userValidator = userValidator;
         }
 
         public async Task<string> AuthenticateAsync(string email, string password)
@@ -70,6 +73,8 @@ namespace BL.Services
         {
             var user = await GetUserByUserNameAsync(userName);
 
+            _userValidator.ValidateIfUserExist(user);
+
             var userDTO = _mapper.Map<UserDTO>(user);
 
             return userDTO;
@@ -104,10 +109,7 @@ namespace BL.Services
         {
             var user = await _userManager.FindByNameAsync(userName);
 
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user), "user is null");
-            }
+            _userValidator.ValidateIfUserExist(user);
 
             return user;
         }
