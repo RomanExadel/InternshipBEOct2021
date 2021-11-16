@@ -36,8 +36,9 @@ namespace BL.Services
         public async Task<FeedbackDTO> GetFeedbackByIdAsync(int id)
         {
             var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(id);
+            var feedbackDto = _mapper.Map<FeedbackDTO>(feedback);
 
-            return _mapper.Map<FeedbackDTO>(feedback);
+            return feedbackDto;
         }
 
         public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
