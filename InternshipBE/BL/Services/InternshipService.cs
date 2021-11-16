@@ -22,6 +22,7 @@ namespace BL.Services
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
+
             var internship = await _unitOfWork.Internships.CreateAsync(mappedInternship);
 
             return _mapper.Map<InternshipDTO>(internship);
