@@ -17,8 +17,9 @@ namespace BL.Mapping.Profiles
                 .ForMember(dto => dto.EnglishLevelType, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
                 .ForMember(dto => dto.Date, src => src.MapFrom(entity => entity.Date))
                 .ForMember(dto => dto.Description, src => src.MapFrom(entity => entity.Description))
-                .ForMember(dto => dto.Evaluations, src => src.MapFrom(entity => entity.Evaluations))
-                .ReverseMap()
+                .ForMember(dto => dto.Evaluations, src => src.MapFrom(entity => entity.Evaluations));
+            
+                CreateMap<FeedbackDTO, Feedback>()
                 .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
                 .ForMember(entity => entity.CandidateId, src => src.MapFrom(dto => dto.CandidateId))
                 .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelType)))
