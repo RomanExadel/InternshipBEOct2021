@@ -23,9 +23,13 @@ namespace BL.Services
 
         public async Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback)
         {
-            var feedback = await _unitOfWork.Feedbacks.CreateAsync(_mapper.Map<Feedback>(newFeedback));
+            var feedback = _mapper.Map<Feedback>(newFeedback);
 
-            return _mapper.Map<FeedbackDTO>(feedback);
+            feedback.Id = 0;
+            feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
+            newFeedback = _mapper.Map<FeedbackDTO>(feedback);
+
+            return newFeedback;
         }
 
         public async Task<List<FeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId)
@@ -47,9 +51,12 @@ namespace BL.Services
 
         public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
         {
-            var feedback = await _unitOfWork.Feedbacks.UpdateAsync(_mapper.Map<Feedback>(updatedFeedback));
+            var feedback = _mapper.Map<Feedback>(updatedFeedback);
+            
+            feedback = await _unitOfWork.Feedbacks.UpdateAsync(feedback);
+            updatedFeedback = _mapper.Map<FeedbackDTO>(feedback);
 
-            return _mapper.Map<FeedbackDTO>(feedback);
+            return updatedFeedback;
         }
     }
 }

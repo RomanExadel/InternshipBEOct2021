@@ -11,7 +11,7 @@ namespace BL.DTOs
 
         public int CandidateId { get; set; }
 
-        public string EnglishLevelName { get; set; }
+        public string EnglishLevelType { get; set; }
 
         public DateTime Date { get; set; }
 
