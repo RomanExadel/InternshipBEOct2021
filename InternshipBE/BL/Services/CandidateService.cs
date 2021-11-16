@@ -16,20 +16,20 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ICandidateValidator _candidateValidator;
+        private readonly IValidator<Candidate> _validator;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, ICandidateValidator candidateValidator)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Candidate> validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _candidateValidator = candidateValidator;
+            _validator = validator;
         }
 
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _candidateValidator.ValidateIfCandidateExist(candidate);
+            _validator.ValidateIfValueExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -38,7 +38,7 @@ namespace BL.Services
         {
             var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
             var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
-            
+
             await _unitOfWork.SaveAsync();
 
             return _mapper.Map<CandidateDTO>(candidate);
@@ -75,7 +75,7 @@ namespace BL.Services
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _candidateValidator.ValidateIfCandidateExist(candidate);
+            _validator.ValidateIfValueExist(candidate);
 
             candidate.StatusType = type;
 

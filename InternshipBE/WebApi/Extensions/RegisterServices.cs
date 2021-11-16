@@ -1,6 +1,7 @@
 ﻿using BL.Interfaces;
 using BL.Services;
 using BL.Validators;
+using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,10 +25,10 @@ namespace WebApi.Extensions
             services.AddTransient<IInternshipStackService, InternshipStackService>();
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IReportService, ReportService>();
-            services.AddTransient<ICandidateValidator, CandidateValidator>();
-            services.AddTransient<IUserValidator, UserValidator>();
-            services.AddTransient<IFeedbackValidator, FeedbackValidator>();
-            services.AddTransient<IInternshipValidator, InternshipValidator>();
+            services.AddTransient<IValidator<Candidate>, CandidateValidator>();
+            services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddTransient<IValidator<Feedback>, FeedbackValidator>();
+            services.AddTransient<IValidator<Internship>, InternshipValidator>();
 
             return services;
         }

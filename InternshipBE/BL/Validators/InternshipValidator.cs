@@ -1,17 +1,8 @@
-﻿using BL.Interfaces;
-using DAL.Entities;
-using System;
+﻿using DAL.Entities;
 
 namespace BL.Validators
 {
-    public class InternshipValidator : IInternshipValidator
+    public class InternshipValidator : Validator<Internship>
     {
-        public void ValidateIfInternshipExist(Internship internship)
-        {
-            if (internship == null)
-            {
-                throw new ArgumentNullException(nameof(internship), "internship is null");
-            }
-        }
     }
 }
