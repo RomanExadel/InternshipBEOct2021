@@ -12,11 +12,13 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IInternshipValidator _internshipValidator;
 
-        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper)
+        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, IInternshipValidator internshipValidator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _internshipValidator = internshipValidator;
         }
 
         public async Task<UpdateInternshipDTO> CreateInternshipAsync(CreateInternshipDTO newInternship)
@@ -38,6 +40,9 @@ namespace BL.Services
         public async Task<GetInternshipDTO> GetInternshipByIdAsync(int id)
         {
             var internship = await _unitOfWork.Internships.GetByIdAsync(id);
+
+            _internshipValidator.ValidateIfInternshipExist(internship);
+
             var internshipDto = _mapper.Map<GetInternshipDTO>(internship);
 
             return internshipDto;
