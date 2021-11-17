@@ -1,6 +1,5 @@
 ﻿using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
-using BL.SearchModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
@@ -52,7 +51,7 @@ namespace WebApi.Controllers
 
         [Authorize]
         [HttpPost("candidateSearch")]
-        public async Task<IActionResult> SearchCandidate([FromBody] CandidateSearchModel searchModel)
+        public async Task<IActionResult> SearchCandidate([FromBody] CandidateDTO searchModel)
         {
             var searchResult = await _candidateService.SearchAsync(searchModel);
 

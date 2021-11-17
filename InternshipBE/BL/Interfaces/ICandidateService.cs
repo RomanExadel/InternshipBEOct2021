@@ -1,5 +1,4 @@
 ﻿using BL.DTOs.CandidateDTOs;
-using BL.SearchModels;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,6 +17,6 @@ namespace BL.Interfaces
 
         Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type);
 
-        Task<List<CandidateDTO>> SearchAsync(CandidateSearchModel searchModel);
+        Task<List<CandidateDTO>> SearchAsync(CandidateDTO searchModel);
     }
 }
