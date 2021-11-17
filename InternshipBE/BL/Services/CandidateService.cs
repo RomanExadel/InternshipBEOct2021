@@ -36,8 +36,6 @@ namespace BL.Services
 
         public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
         {
-            newCandidate.Id = 0;
-
             var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
             var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
 
