@@ -1,5 +1,5 @@
 ﻿using BL.DTOs;
-using BL.DTOs.SkillDTOs;
+using BL.DTOs;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,8 +10,8 @@ namespace BL.Interfaces
     {
         Task<SkillDTO> CreateSkillAsync(SkillDTO skillDto);
 
-        Task<FullSkillDTO> UpdateSkillAsync(FullSkillDTO fullSkillDto);
+        Task<SkillDTO> UpdateSkillAsync(SkillDTO SkillDTO);
 
-        Task<List<FullSkillDTO>> GetSkillsByStackTypeAsync(StackType stackType);
+        Task<List<SkillDTO>> GetSkillsByStackTypeAsync(StackType stackType);
     }
 }

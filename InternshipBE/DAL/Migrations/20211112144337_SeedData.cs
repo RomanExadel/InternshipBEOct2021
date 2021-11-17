@@ -44,8 +44,12 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "TechnologyStackType" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 2, 5 }
+                    { 1, 0 },
+                    { 2, 1 },
+                    { 3, 2 },
+                    { 4, 3 },
+                    { 5, 4 },
+                    { 6, 5 }
                 });
 
             migrationBuilder.InsertData(

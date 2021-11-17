@@ -1,5 +1,4 @@
 ﻿using BL.DTOs;
-using BL.DTOs.SkillDTOs;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
@@ -25,9 +24,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("updateSkill")]
-        public async Task<IActionResult> UpdateSkill([FromBody] FullSkillDTO fullSkillDto)
+        public async Task<IActionResult> UpdateSkill([FromBody] SkillDTO skillDTO)
         {
-            return Ok(await _skillService.UpdateSkillAsync(fullSkillDto));
+            return Ok(await _skillService.UpdateSkillAsync(skillDTO));
         }
 
         [HttpGet("getSkillsByStackType")]

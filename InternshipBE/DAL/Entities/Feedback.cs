@@ -25,4 +25,3 @@ namespace DAL.Entities
         public string UserId { get; set; }
     }
 }
-

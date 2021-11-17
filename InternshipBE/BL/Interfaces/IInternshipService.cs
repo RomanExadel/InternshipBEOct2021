@@ -1,4 +1,4 @@
-﻿using BL.DTOs.InternshipDTOs;
+﻿using BL.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,12 +6,12 @@ namespace BL.Interfaces
 {
     public interface IInternshipService
     {
-        Task<GetInternshipDTO> GetInternshipByIdAsync(int id);
+        Task<InternshipDTO> GetInternshipByIdAsync(int id);
 
-        Task<UpdateInternshipDTO> CreateInternshipAsync(CreateInternshipDTO newInternship);
+        Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship);
 
-        Task<UpdateInternshipDTO> UpdateInternshipAsync(UpdateInternshipDTO updatedInternship);
+        Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO updatedInternship);
 
-        Task<List<GetInternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber);
+        Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber);
     }
 }

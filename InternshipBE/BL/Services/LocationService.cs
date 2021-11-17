@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.CountryDTOs;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Interfaces;
 using System.Collections.Generic;
@@ -18,11 +18,11 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<GetCountryDTO>> GetLocationsAsync()
+        public async Task<List<CountryDTO>> GetLocationsAsync()
         {
             var locations = await _unitOfWork.Locations.GetLocationsAsync();
 
-            return _mapper.Map<List<GetCountryDTO>>(locations);
+            return _mapper.Map<List<CountryDTO>>(locations);
         }
 
         public async Task<CountryDTO> CreateLocationAsync(CountryDTO locationName)
