@@ -39,8 +39,6 @@ namespace BL.Services
 			var bestContactTime = _mapper.Map<BestContactTime>(model);
 			await _unitOfWork.BestContactTime.DeleteByIdAsync(bestContactTime.Id);
 			CreateEvent(model);
-
-		
 		}
 
 		private void CreateEvent(EventDTO model)

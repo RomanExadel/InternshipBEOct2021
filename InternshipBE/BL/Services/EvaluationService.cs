@@ -21,8 +21,6 @@ namespace BL.Services
 
         public async Task<EvaluationDTO> CreateEvaluationAsync(EvaluationDTO createEvaluationDto)
         {
-            createEvaluationDto.Id = 0;
-
             var evaluation = _mapper.Map<Evaluation>(createEvaluationDto);
 
             evaluation = await _unitOfWork.Evaluations.CreateAsync(evaluation);

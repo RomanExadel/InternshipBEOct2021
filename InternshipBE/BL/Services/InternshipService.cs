@@ -21,8 +21,6 @@ namespace BL.Services
 
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
         {
-            newInternship.Id = 0;
-
             var mappedInternship = _mapper.Map<Internship>(newInternship);
             var internship = await _unitOfWork.Internships.CreateAsync(mappedInternship);
 
@@ -32,17 +30,15 @@ namespace BL.Services
         public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber)
         {
             var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber);
-            var internshipDtos = _mapper.Map<List<InternshipDTO>>(internships);
 
-            return internshipDtos;
+            return _mapper.Map<List<InternshipDTO>>(internships);
         }
 
         public async Task<InternshipDTO> GetInternshipByIdAsync(int id)
         {
             var internship = await _unitOfWork.Internships.GetByIdAsync(id);
-            var internshipDto = _mapper.Map<InternshipDTO>(internship);
 
-            return internshipDto;
+            return _mapper.Map<InternshipDTO>(internship);
         }
 
         public async Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship)

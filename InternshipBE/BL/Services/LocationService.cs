@@ -27,8 +27,6 @@ namespace BL.Services
 
         public async Task<CountryDTO> CreateLocationAsync(CountryDTO locationName)
         {
-            locationName.Id = 0;
-
             var result = await _unitOfWork.Locations.CreateLocationAsync(locationName.Name);
 
             return _mapper.Map<CountryDTO>(result);
