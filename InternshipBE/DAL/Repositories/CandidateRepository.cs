@@ -3,6 +3,7 @@ using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
+using Shared.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,8 +28,8 @@ namespace DAL.Repositories
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
         {
             var internship = await _context.Internships.Include(x => x.Candidates)
-                                                       .ThenInclude(x => x.Users)
-                                                       .FirstOrDefaultAsync(x => x.Id == id);
+				.ThenInclude(x => x.Users)
+				.FirstOrDefaultAsync(x => x.Id == id);
 
             return internship?.Candidates.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
         }
@@ -38,9 +39,9 @@ namespace DAL.Repositories
             CandidateStatusType? statusType = GetStatusType(reportType);
 
             var internship = await _context.Internships.AsNoTracking()
-                                                       .Include(x => x.Candidates.Where(r => r.StatusType == statusType || statusType == null))
-                                                       .Include(x => x.Users)
-                                                       .FirstOrDefaultAsync(x => x.Id == internshipId);
+				.Include(x => x.Candidates.Where(r => r.StatusType == statusType || statusType == null))
+				.Include(x => x.Users)
+				.FirstOrDefaultAsync(x => x.Id == internshipId);
 
             return internship?.Candidates.ToList();
         }
@@ -50,11 +51,13 @@ namespace DAL.Repositories
             return await _context.Candidates.CountAsync();
         }
 
-        public IQueryable<Candidate> GetAllCandidates()
+        public async Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc)
         {
-            return _context.Candidates
-                .Include(x => x.Users)
-                .Include(x => x.Team);
+            return await _context.Candidates.Where(x => x.FirstName.Contains(searchText) | x.LastName.Contains(searchText))
+                .Skip(skip)
+                .Take(take)
+                .OrderByPropertyName(sortBy, isDesc)
+                .ToListAsync();
         }
 
         private CandidateStatusType? GetStatusType(ReportType reportType)

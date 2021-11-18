@@ -3,9 +3,7 @@ using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
-using Shared.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -82,13 +80,8 @@ namespace BL.Services
 
 		public async Task<List<CandidateDTO>> SearchAsync(CandidateDTO searchModel)
 		{
-			var query = await _unitOfWork.Candidates.GetAllCandidates()
-				.Where(x => x.FirstName.Contains(searchModel.SearchText) | x.LastName.Contains(searchModel.SearchText))
-				.Skip(searchModel.Skip)
-				.Take(searchModel.Take)
-				.OrderByPropertyName(searchModel.SortBy, searchModel.IsDesc)
-				.ToListAsync();
-
+			var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc);
+				
 			return _mapper.Map<List<CandidateDTO>>(query);
 		}
 
