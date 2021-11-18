@@ -9,7 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using static Shared.Constants.ExportFileOffsets;
 using static Shared.Constants.ExportFileColumnNames;
-using static Shared.Constants.ExportFileSettings;
+using System;
 
 namespace BL.Services
 {
@@ -71,7 +71,8 @@ namespace BL.Services
 
         private async Task<string> GetPathReport(byte[] report)
         {
-            var path = Path.GetFullPath(FILE_PATH);
+            var path = AppContext.BaseDirectory;
+
             var fullPath = $"{path}Report.xlsx";
 
             await File.WriteAllBytesAsync(fullPath, report);

@@ -73,6 +73,8 @@ namespace BL.Services
 
 			candidate.StatusType = type;
 
+			candidate.Users = null;
+			
 			var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
 
 			return _mapper.Map<CandidateDTO>(updatedCandidate);
