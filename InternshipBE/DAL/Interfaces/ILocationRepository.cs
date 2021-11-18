@@ -1,6 +1,5 @@
 ﻿using DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL.Interfaces
@@ -11,6 +10,6 @@ namespace DAL.Interfaces
 
         Task<Country> CreateLocationAsync(string NameLocation);
 
-        IQueryable<string> GetAllNames();
+        Task<List<string>> GetAllNamesAsync();
     }
 }

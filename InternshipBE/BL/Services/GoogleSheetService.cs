@@ -6,7 +6,6 @@ using DAL.Interfaces;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
-using Microsoft.EntityFrameworkCore;
 using Shared.Config.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +18,17 @@ namespace BL.Services
 	{
 		private readonly string Scope = SheetsService.Scope.Spreadsheets;
 		private readonly IGoogleConfig _googleConfig;
-		private readonly ICandidateRepository _candidateRepository;
-		private readonly ILocationRepository _locationRepository;
+		private readonly IUnitOfWork _unitOfWork;
 		private IMapper _mapper;
 		private SheetsService _sheetService;
 
 		private const int COLUMN_NAMES_ROW = 1;
 
-		public GoogleSheetService(IGoogleConfig googleConfig, IMapper mapper, ICandidateRepository candidateRepository, ILocationRepository locationRepository)
+		public GoogleSheetService(IGoogleConfig googleConfig, IMapper mapper, IUnitOfWork unitOfWork)
 		{
-			_candidateRepository = candidateRepository;
 			_mapper = mapper;
 			_googleConfig = googleConfig;
-			_locationRepository = locationRepository;
+			_unitOfWork = unitOfWork;
 		}
 
 		public async Task SaveNewCandidatesAsync()
@@ -40,19 +37,19 @@ namespace BL.Services
 
 			if (values != null)
 			{
-				await SaveNewCountries(values);
+				await SaveNewCountriesAsync(values);
 
 				var models = _mapper.Map<List<CandidateDTO>>(values);
 				var candidates = _mapper.Map<List<Candidate>>(models);
 
-				await _candidateRepository.RangeSaveAsync(candidates);
+				await _unitOfWork.Candidates.BulkSaveAsync(candidates);
 			}
 		}
 
 		private async Task<IList<IList<object>>> GetNewCandidatesAsync()
 		{
 			var values = GetValuesFromTable().Skip(COLUMN_NAMES_ROW);
-			var candidatesAmount = await _candidateRepository.GetCandidatesCountAsync();
+			var candidatesAmount = await _unitOfWork.Candidates.GetCandidatesCountAsync();
 
 			if (values.Count() > candidatesAmount)
 			{
@@ -81,21 +78,14 @@ namespace BL.Services
 			return response.Values;
 		}
 
-		private async Task SaveNewCountries(IList<IList<object>> values)
+		private async Task SaveNewCountriesAsync(IList<IList<object>> values)
 		{
-			var names = await _locationRepository.GetAllNames().ToListAsync();
-			var newNames = new HashSet<string>();
-			foreach (var value in values)
-			{
-				if (!names.Contains(value[LOCATION_OFFSET].ToString()))
-				{
-					newNames.Add(value[LOCATION_OFFSET].ToString());
-				}
-			}
+			var names = await _unitOfWork.Locations.GetAllNamesAsync();
+			var newNames = values.Select(x => x[LOCATION_OFFSET].ToString()).ToList().Distinct().Except(names);
 
-			var countries = _mapper.Map<List<Country>>(newNames.ToList());
+			var countries = _mapper.Map<List<Country>>(newNames);
 
-			await _locationRepository.RangeSaveAsync(countries);
+			await _unitOfWork.Locations.BulkSaveAsync(countries);
 		}
 	}
 }

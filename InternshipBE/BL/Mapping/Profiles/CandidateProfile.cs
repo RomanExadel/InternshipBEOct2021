@@ -90,7 +90,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(entity => entity.IsPlanningToJoin, src => src.MapFrom(dto => dto.IsPlanningToJoin))
 				.ForMember(entity => entity.RegistrationDate, src => src.MapFrom(dto => dto.RegistrationDate))
 				.ForMember(entity => entity.InternshipId, src => src.MapFrom(dto => dto.InternshipId))
-				//.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId))
+				.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId))
 				.ForAllOtherMembers(x => x.Ignore());
 		}
 	}

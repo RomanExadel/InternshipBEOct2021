@@ -1,6 +1,7 @@
 ﻿using DAL.Database;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,9 +29,9 @@ namespace DAL.Repositories
             return location;
         }
 
-        public IQueryable<string> GetAllNames()
+        public async Task<List<string>> GetAllNamesAsync()
 		{
-            return _context.Countries.Select(x => x.Name);
+            return await _context.Countries.Select(x => x.Name).ToListAsync();
 		}
     }
 }
