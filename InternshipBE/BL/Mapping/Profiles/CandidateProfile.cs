@@ -25,13 +25,13 @@ namespace BL.Mapping.Profiles
 				.ForMember(e => e.FirstName, source => source.MapFrom(s => s[FIRST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.LastName, source => source.MapFrom(s => s[LAST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.RegistrationDate, source => source
-					.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), _googleSheetConfig.DateTimeFormat, CultureInfo.InvariantCulture)))
+				.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), _googleSheetConfig.DateTimeFormat, CultureInfo.InvariantCulture)))
 				.ForMember(e => e.Email, source => source.MapFrom(s => s[EMAIL_OFFSET].ToString()))
 				.ForMember(e => e.Location, source => source.MapFrom(s => s[LOCATION_OFFSET].ToString()))
 				.ForMember(e => e.Phone, source => source.MapFrom(s => s[PHONE_OFFSET].ToString()))
 				.ForMember(e => e.Skype, source => source.MapFrom(s => s[SKYPE_OFFSET].ToString()))
-				.ForMember(e => e.StackType, source => source.MapFrom(s => Enum.Parse<Shared.Enums.StackType>(s[STACK_OFFSET].ToString())))
-				.ForMember(e => e.EnglishLevelType, source => source.MapFrom(s => Enum.Parse<Shared.Enums.EnglishLevelType>(s[ENGLISH_LEVEL_OFFSET].ToString())))
+				.ForMember(e => e.StackType, source => source.MapFrom(s => Enum.Parse<StackType>(s[STACK_OFFSET].ToString())))
+				.ForMember(e => e.EnglishLevelType, source => source.MapFrom(s => Enum.Parse<EnglishLevelType>(s[ENGLISH_LEVEL_OFFSET].ToString())))
 				.ForMember(e => e.Education, source => source.MapFrom(s => s[EDUCATION_OFFSET].ToString()))
 				.ForMember(e => e.Links, source => source.MapFrom(s => s[LINKS_OFFSET].ToString()))
 				.ForMember(e => e.CurrentJob, source => source.MapFrom(s => s[CURRENT_JOB_OFFSET].ToString()))
@@ -65,7 +65,8 @@ namespace BL.Mapping.Profiles
 				.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()))
 				.ForMember(dto => dto.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
 				.ForMember(dto => dto.TeamId, src => src.MapFrom(entity => entity.TeamId))
-				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users));
+				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users))
+				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
 				.ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
@@ -88,12 +89,9 @@ namespace BL.Mapping.Profiles
 				.ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelType)))
 				.ForMember(entity => entity.IsPlanningToJoin, src => src.MapFrom(dto => dto.IsPlanningToJoin))
 				.ForMember(entity => entity.RegistrationDate, src => src.MapFrom(dto => dto.RegistrationDate))
-				.ForMember(entity => entity.Internship, o => o.Ignore())
-				.ForMember(entity => entity.Team, o => o.Ignore())
-				.ForMember(entity => entity.Users, o => o.Ignore())
-				.ForMember(entity => entity.Users, o => o.Ignore())
 				.ForMember(entity => entity.InternshipId, src => src.MapFrom(dto => dto.InternshipId))
-				.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId));
+				//.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId))
+				.ForAllOtherMembers(x => x.Ignore());
 		}
 	}
 }

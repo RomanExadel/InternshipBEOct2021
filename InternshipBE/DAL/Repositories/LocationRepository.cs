@@ -2,6 +2,7 @@
 using DAL.Entities;
 using DAL.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
@@ -26,5 +27,10 @@ namespace DAL.Repositories
 
             return location;
         }
+
+        public IQueryable<string> GetAllNames()
+		{
+            return _context.Countries.Select(x => x.Name);
+		}
     }
 }
