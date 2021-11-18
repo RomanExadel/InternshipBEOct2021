@@ -3,6 +3,7 @@ using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
+using Shared.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,11 +51,13 @@ namespace DAL.Repositories
             return await _context.Candidates.CountAsync();
         }
 
-        public IQueryable<Candidate> GetAllCandidates()
+        public async Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc)
         {
-            return _context.Candidates
-                .Include(x => x.Users)
-                .Include(x => x.Team);
+            return await _context.Candidates.Where(x => x.FirstName.Contains(searchText) | x.LastName.Contains(searchText))
+                .Skip(skip)
+                .Take(take)
+                .OrderByPropertyName(sortBy, isDesc)
+                .ToListAsync();
         }
 
         private CandidateStatusType? GetStatusType(ReportType reportType)

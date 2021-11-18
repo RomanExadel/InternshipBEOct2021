@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Shared.Models;
+using System;
 using System.Collections.Generic;
 
 namespace BL.DTOs.CandidateDTOs
 {
-    public class CandidateDTO
+    public class CandidateDTO : AGGridFilter
     {
         public int Id { get; set; }
 
