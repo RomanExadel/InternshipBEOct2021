@@ -73,7 +73,7 @@ namespace BL.Services
         {
             var user = await GetUserByUserNameAsync(userName);
 
-            _validator.ValidateIfValueExist(user);
+            _validator.ValidateIfEntityExist(user);
 
             var userDTO = _mapper.Map<UserDTO>(user);
 
@@ -109,7 +109,7 @@ namespace BL.Services
         {
             var user = await _userManager.FindByNameAsync(userName);
 
-            _validator.ValidateIfValueExist(user);
+            _validator.ValidateIfEntityExist(user);
 
             return user;
         }
