@@ -1,4 +1,5 @@
-﻿using Shared.Models;
+using Shared.Enums;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 
@@ -51,5 +52,7 @@ namespace BL.DTOs.CandidateDTOs
         public int? TeamId { get; set; }
 
         public List<UserDTO> Users { get; set; }
+
+        public LanguageType? LanguageType { get; set; }
     }
 }

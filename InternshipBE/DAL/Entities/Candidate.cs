@@ -58,5 +58,7 @@ namespace DAL.Entities
 		public int? InternshipId { get; set; }
 
 		public int? TeamId { get; set; }
+
+		public LanguageType? InternshipLanguage { get; set; }
 	}
 }

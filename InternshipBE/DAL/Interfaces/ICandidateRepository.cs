@@ -13,6 +13,8 @@ namespace DAL.Interfaces
 
         Task<int> GetCandidatesCountAsync();
 
+        IQueryable<Candidate> GetCandidatesForFIlter();
+
         Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc);
     }
 }
