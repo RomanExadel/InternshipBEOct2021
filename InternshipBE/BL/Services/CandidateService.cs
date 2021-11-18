@@ -1,11 +1,9 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BL.DTOs;
 using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
-using BL.SearchModels;
 using DAL.Entities;
 using DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +28,7 @@ namespace BL.Services
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfValueExist(candidate);
+            _validator.ValidateIfEntityExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -62,7 +60,7 @@ namespace BL.Services
 
             if (filterBy != null)
             {
-                candidates = await FilterCandidates(filterBy);
+                candidates = FilterCandidates(candidates, filterBy);
             }
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
@@ -72,21 +70,22 @@ namespace BL.Services
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfValueExist(candidate);
+            _validator.ValidateIfEntityExist(candidate);
 
             candidate.StatusType = type;
+
+            candidate.Users = null;
 
             var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
 
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> SearchAsync(CandidateSearchModel searchModel)
+        public async Task<List<CandidateDTO>> SearchAsync(CandidateDTO searchModel)
         {
-            var query = _unitOfWork.Candidates.GetAllCandidates();
-            var searchQuery = searchModel.Find(query);
+            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc);
 
-            return _mapper.Map<List<CandidateDTO>>(await searchQuery.Body.ToListAsync());
+            return _mapper.Map<List<CandidateDTO>>(query);
         }
 
         private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)

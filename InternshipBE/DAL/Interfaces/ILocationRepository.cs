@@ -9,5 +9,7 @@ namespace DAL.Interfaces
         Task<List<Country>> GetLocationsAsync();
 
         Task<Country> CreateLocationAsync(string NameLocation);
+
+        Task<List<string>> GetAllNamesAsync();
     }
 }

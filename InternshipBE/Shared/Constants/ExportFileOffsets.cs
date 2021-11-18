@@ -21,7 +21,6 @@
     public static class ExportFileSettings
     {
         public const string FILE_TYPE = "application/xlsx";
-        public const string FILE_PATH = "../Shared/Reports/";
         public const string FILE_NAME = "Report.xlsx";
     }
 }
