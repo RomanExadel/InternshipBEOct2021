@@ -5,7 +5,7 @@ namespace BL.Validators
 {
     public class Validator<T> : IValidator<T> where T : class
     {
-        public void ValidateIfValueExist(T value) 
+        public void ValidateIfEntityExist(T value) 
         {
             if (value == null)
             {

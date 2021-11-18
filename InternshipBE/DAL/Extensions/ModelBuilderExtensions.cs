@@ -221,7 +221,7 @@ namespace DAL.Extensions
                     RegistrationFinishDate = DateTime.UtcNow,
                     LanguageType = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/file/d/1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9/view?usp=sharing"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9"
                 },
                 new Internship
                 {
@@ -235,7 +235,7 @@ namespace DAL.Extensions
                     RegistrationFinishDate = DateTime.UtcNow,
                     LanguageType = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/file/d/1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R/view?usp=sharing"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R"
                 },
                 new Internship
                 {
@@ -249,7 +249,7 @@ namespace DAL.Extensions
                     RegistrationFinishDate = DateTime.UtcNow,
                     LanguageType = LanguageType.Russian,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/file/d/1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc/view?usp=sharing"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc"
                 },
                new Internship
                 {
@@ -263,7 +263,7 @@ namespace DAL.Extensions
                     RegistrationFinishDate = DateTime.UtcNow,
                     LanguageType = LanguageType.Russian,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/file/d/1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB/view?usp=sharing"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB"
                 }
             };
 
