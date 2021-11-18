@@ -12,6 +12,6 @@
 
 		public string ClientSecrets { get; }
 
-		public string DateTimeFormat{ get; }
+		public string CultureFormat{ get; }
 	}
 }
