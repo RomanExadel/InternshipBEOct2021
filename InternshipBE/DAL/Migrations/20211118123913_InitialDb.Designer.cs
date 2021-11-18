@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211112144301_InitialDb")]
+    [Migration("20211118123913_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +100,9 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("InternshipId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InternshipLanguage")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsPlanningToJoin")

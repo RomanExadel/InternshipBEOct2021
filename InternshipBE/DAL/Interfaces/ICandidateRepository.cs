@@ -15,5 +15,7 @@ namespace DAL.Interfaces
         Task<int> GetCandidatesCountAsync();
 
         IQueryable<Candidate> GetAllCandidates();
+
+        IQueryable<Candidate> GetCandidatesForFIlter();
     }
 }

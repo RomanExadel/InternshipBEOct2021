@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BL.DTOs;
 using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using BL.SearchModels;
@@ -61,7 +62,7 @@ namespace BL.Services
 
             if (filterBy != null)
             {
-                candidates = FilterCandidates(candidates, filterBy);
+                candidates = await FilterCandidates(filterBy);
             }
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
@@ -101,17 +102,20 @@ namespace BL.Services
             return candidates;
         }
 
-        private List<Candidate> FilterCandidates(List<Candidate> candidates, CandidateFilterModelDTO filterBy)
+        private async Task<List<Candidate>> FilterCandidates(CandidateFilterModelDTO filterBy)
         {
-            var _candidates = candidates.AsQueryable();
+            var _candidates = _unitOfWork.Candidates.GetCandidatesForFIlter();
+
             if (!string.IsNullOrEmpty(filterBy.Location))
                 _candidates = _candidates.Where(c => c.Location == filterBy.Location);
             if (filterBy.StackType.HasValue)
                 _candidates = _candidates.Where(c => c.StackType == filterBy.StackType);
             if (filterBy.StatusType.HasValue)
                 _candidates = _candidates.Where(c => c.StatusType == filterBy.StatusType);
+            if (filterBy.LanguageType.HasValue)
+                _candidates = _candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType);
 
-            return _candidates.ToList();
+            return await _candidates.ToListAsync();
         }
     }
 }

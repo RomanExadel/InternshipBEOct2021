@@ -65,5 +65,14 @@ namespace DAL.Repositories
                 return CandidateStatusType.Declined;
             else return null;
         }
+
+        public IQueryable<Candidate> GetCandidatesForFIlter()
+        {
+            var candidates = _context.Candidates
+                .Include(c => c.Internship)
+                .Include(c => c.Users);
+
+            return candidates;
+        }
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
+using Shared.Enums;
 
 namespace BL.DTOs.CandidateDTOs
 {
@@ -50,5 +51,7 @@ namespace BL.DTOs.CandidateDTOs
         public int TeamId { get; set; }
 
         public List<UserDTO> Users { get; set; }
+
+        public LanguageType? LanguageType { get; set; }
     }
 }
