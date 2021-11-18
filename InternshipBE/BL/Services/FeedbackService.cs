@@ -41,7 +41,7 @@ namespace BL.Services
         {
             var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(id);
 
-            _validator.ValidateIfValueExist(feedback);
+            _validator.ValidateIfEntityExist(feedback);
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }

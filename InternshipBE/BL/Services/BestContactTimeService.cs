@@ -36,7 +36,7 @@ namespace BL.Services
 			var bestContactTime = _mapper.Map<List<BestContactTime>>(models);
 			bestContactTime.ForEach(x => x.User = user);
 
-			await _unitOfWork.BestContactTime.RangeSaveAsync(bestContactTime);
+			await _unitOfWork.BestContactTime.BulkSaveAsync(bestContactTime);
 		}
 	}
 }
