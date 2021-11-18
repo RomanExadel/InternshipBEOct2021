@@ -8,7 +8,7 @@ namespace DAL.Entities
 
         public StackType TechnologyStackType { get; set; }
 
-        public int InternshipId { get; set; }
+        public int? InternshipId { get; set; }
 
         public Internship Internship { get; set; }
     }
