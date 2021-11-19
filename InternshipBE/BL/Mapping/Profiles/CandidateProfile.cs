@@ -12,6 +12,7 @@ namespace BL.Mapping.Profiles
 	public class CandidateProfile : Profile
 	{
 		private const string cultureFormat = "dd.MM.yyyy H:mm:ss";
+
 		public CandidateProfile()
 		{
 			CreateMap<IList<object>, CandidateDTO>()
