@@ -4,6 +4,7 @@ using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace BL.Services
 
             if (filterBy != null)
             {
-                candidates = FilterCandidates(candidates, filterBy);
+                candidates = await FilterCandidates(filterBy);
             }
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
@@ -94,7 +95,6 @@ namespace BL.Services
 
             if (desc)
                 candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
-
             else
                 candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
 
