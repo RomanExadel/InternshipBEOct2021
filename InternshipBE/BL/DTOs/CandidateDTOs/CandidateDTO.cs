@@ -2,7 +2,6 @@ using Shared.Enums;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
-using Shared.Enums;
 
 namespace BL.DTOs.CandidateDTOs
 {
