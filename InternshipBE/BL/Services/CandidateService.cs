@@ -4,6 +4,7 @@ using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
