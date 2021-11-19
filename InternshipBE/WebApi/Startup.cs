@@ -117,8 +117,6 @@ namespace WebApi
         {
             app.UseGlobalExceptionMiddleware();
 
-            app.UseCultureMiddleware();
-
             if (env.IsDevelopment())
             {
                 app.UseElmahExceptionPage();
