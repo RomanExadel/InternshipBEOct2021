@@ -2,10 +2,8 @@
 using BL.DTOs;
 using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
-using BL.SearchModels;
 using DAL.Entities;
 using DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,94 +11,95 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public class CandidateService : ICandidateService
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IValidator<Candidate> _validator;
+	public class CandidateService : ICandidateService
+	{
+		private readonly IUnitOfWork _unitOfWork;
+		private readonly IMapper _mapper;
+		private readonly IValidator<Candidate> _validator;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Candidate> validator)
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _validator = validator;
-        }
+		public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Candidate> validator)
+		{
+			_unitOfWork = unitOfWork;
+			_mapper = mapper;
+			_validator = validator;
+		}
 
-        public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
-        {
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+		public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
+		{
+			var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfValueExist(candidate);
+            _validator.ValidateIfEntityExist(candidate);
 
-            return _mapper.Map<CandidateDTO>(candidate);
-        }
+			return _mapper.Map<CandidateDTO>(candidate);
+		}
 
-        public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
-        {
-            var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
-            var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
+		public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
+		{
+			var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
+			var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
 
-            return _mapper.Map<CandidateDTO>(candidate);
-        }
+			return _mapper.Map<CandidateDTO>(candidate);
+		}
 
-        public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
-        {
-            var mappedCandidate = _mapper.Map<Candidate>(candidate);
-            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
+		public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
+		{
+			var mappedCandidate = _mapper.Map<Candidate>(candidate);
+			var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
 
-            return _mapper.Map<CandidateDTO>(updatedCandidate);
-        }
+			return _mapper.Map<CandidateDTO>(updatedCandidate);
+		}
 
-        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy)
-        {
-            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
+		public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy)
+		{
+			var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
 
-            if (sortBy != null)
-            {
-                candidates = SortCandidates(candidates, sortBy, desc);
-            }
+			if (sortBy != null)
+			{
+				candidates = SortCandidates(candidates, sortBy, desc);
+			}
 
             if (filterBy != null)
             {
                 candidates = await FilterCandidates(filterBy);
             }
 
-            return _mapper.Map<List<CandidateDTO>>(candidates);
-        }
+			return _mapper.Map<List<CandidateDTO>>(candidates);
+		}
 
-        public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type)
-        {
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+		public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type)
+		{
+			var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfValueExist(candidate);
+            _validator.ValidateIfEntityExist(candidate);
 
-            candidate.StatusType = type;
+			candidate.StatusType = type;
 
-            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
+			candidate.Users = null;
+			
+			var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
 
-            return _mapper.Map<CandidateDTO>(updatedCandidate);
-        }
+			return _mapper.Map<CandidateDTO>(updatedCandidate);
+		}
 
-        public async Task<List<CandidateDTO>> SearchAsync(CandidateSearchModel searchModel)
-        {
-            var query = _unitOfWork.Candidates.GetAllCandidates();
-            var searchQuery = searchModel.Find(query);
+		public async Task<List<CandidateDTO>> SearchAsync(CandidateDTO searchModel)
+		{
+			var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc);
+				
+			return _mapper.Map<List<CandidateDTO>>(query);
+		}
 
-            return _mapper.Map<List<CandidateDTO>>(await searchQuery.Body.ToListAsync());
-        }
+		private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)
+		{
+			var propertyInfo = typeof(Candidate).GetProperty(sortBy);
 
-        private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)
-        {
-            var propertyInfo = typeof(Candidate).GetProperty(sortBy);
+			if (desc)
+				candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
 
-            if (desc)
-                candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
+			else
+				candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
 
-            else
-                candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
-
-            return candidates;
-        }
+			return candidates;
+		}
 
         private async Task<List<Candidate>> FilterCandidates(CandidateFilterModelDTO filterBy)
         {

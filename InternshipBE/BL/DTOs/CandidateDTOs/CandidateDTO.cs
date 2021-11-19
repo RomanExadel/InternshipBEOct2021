@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Shared.Models;
 using System;
+using System.Collections.Generic;
 using Shared.Enums;
 
 namespace BL.DTOs.CandidateDTOs
 {
-    public class CandidateDTO
+    public class CandidateDTO : AGGridFilter
     {
         public int Id { get; set; }
 
@@ -48,7 +49,7 @@ namespace BL.DTOs.CandidateDTOs
 
         public int InternshipId { get; set; }
 
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
 
         public List<UserDTO> Users { get; set; }
 

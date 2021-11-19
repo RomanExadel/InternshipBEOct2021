@@ -16,6 +16,10 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
                 .ForMember(entity => entity.Name, src => src.MapFrom(dto => dto.Name))
                 .ForMember(entity => entity.Internships, o => o.Ignore());
+
+            CreateMap<string, Country>()
+                .ForMember(entity => entity.Name, src => src.MapFrom(x => x))
+                .ForAllOtherMembers(x => x.Ignore());
         }
     }
 }

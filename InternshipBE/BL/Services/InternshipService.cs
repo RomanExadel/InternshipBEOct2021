@@ -40,9 +40,7 @@ namespace BL.Services
         {
             var internship = await _unitOfWork.Internships.GetByIdAsync(id);
 
-            _validator.ValidateIfValueExist(internship);
-
-            var internshipDto = _mapper.Map<InternshipDTO>(internship);
+            _validator.ValidateIfEntityExist(internship);
 
             return _mapper.Map<InternshipDTO>(internship);
         }
