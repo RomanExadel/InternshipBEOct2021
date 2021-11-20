@@ -460,6 +460,7 @@ namespace DAL.Extensions
                 {
                     Id = 1,
                     CandidateId = 1,
+                    FinalEvaluation = 1,
                     EnglishLevelType = EnglishLevelType.C1,
                     Date = DateTime.UtcNow,
                     Description = "Good knowledge of frameworks, oop, and db",
@@ -469,6 +470,7 @@ namespace DAL.Extensions
                 {
                     Id = 2,
                     CandidateId = 2,
+                    FinalEvaluation = 2,
                     EnglishLevelType = EnglishLevelType.C2,
                     Date = DateTime.UtcNow,
                     Description = "Excellent candidate",

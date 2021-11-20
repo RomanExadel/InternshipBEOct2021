@@ -23,5 +23,7 @@ namespace DAL.Entities
         public ICollection<Evaluation> Evaluations { get; set; }
 
         public string UserId { get; set; }
+
+        public int FinalEvaluation { get; set; }
     }
 }

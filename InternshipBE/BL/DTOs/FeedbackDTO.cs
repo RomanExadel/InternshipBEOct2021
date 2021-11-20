@@ -18,5 +18,7 @@ namespace BL.DTOs
         public string Description { get; set; }
 
         public List<EvaluationDTO> Evaluations { get; set; }
+
+        public int FinalEvaluation { get; set; }
     }
 }
