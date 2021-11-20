@@ -12,9 +12,9 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IValidator<Feedback> _validator;
+        private readonly IFeedbackValidator _validator;
 
-        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Feedback> validator)
+        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, IFeedbackValidator validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -26,6 +26,11 @@ namespace BL.Services
             var feedback = _mapper.Map<Feedback>(newFeedback);
 
             feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
+
+            if (_validator.AreEvaluationsExist(feedback.Evaluations))
+            {
+                //TODO: Attach evaluations to feedback
+            }
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }
