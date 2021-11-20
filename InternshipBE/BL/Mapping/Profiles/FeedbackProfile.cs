@@ -17,7 +17,8 @@ namespace BL.Mapping.Profiles
                 .ForMember(dto => dto.EnglishLevelType, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
                 .ForMember(dto => dto.Date, src => src.MapFrom(entity => entity.Date))
                 .ForMember(dto => dto.Description, src => src.MapFrom(entity => entity.Description))
-                .ForMember(dto => dto.Evaluations, src => src.MapFrom(entity => entity.Evaluations));
+                .ForMember(dto => dto.Evaluations, src => src.MapFrom(entity => entity.Evaluations))
+                .ForMember(dto => dto.FinalEvaluation, src => src.MapFrom(entity => entity.FinalEvaluation));
             
                 CreateMap<FeedbackDTO, Feedback>()
                 .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
@@ -28,7 +29,8 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.User, o => o.Ignore())
                 .ForMember(entity => entity.Candidate, o => o.Ignore())
                 .ForMember(entity => entity.Evaluations, o => o.Ignore())
-                .ForMember(entity => entity.UserId, src => src.MapFrom(dto => dto.UserId));
+                .ForMember(entity => entity.UserId, src => src.MapFrom(dto => dto.UserId))
+                .ForMember(entity => entity.FinalEvaluation, src => src.MapFrom(dto => dto.FinalEvaluation));
         }
     }
 }
