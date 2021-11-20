@@ -8,7 +8,7 @@
 
 		public string SearchText { get; set; }
 
-		public string SortBy { get; set; }
+		public string? SortBy { get; set; }
 
 		public bool IsDesc { get; set; }
 	}

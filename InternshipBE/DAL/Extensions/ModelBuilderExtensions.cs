@@ -9,7 +9,7 @@ namespace DAL.Extensions
 {
     public static class ModelBuilderExtensions
     {
-        private static readonly string _password = "Password";
+        private static readonly string _password = "qwErtY2021";
 
         private static string[] _roleIds;
         private static string[] _userIds;
@@ -63,6 +63,13 @@ namespace DAL.Extensions
                     Name = RoleType.Admin.ToString(),
                     NormalizedName = RoleType.Admin.ToString().ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
+                },
+                 new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Mentor.ToString(),
+                    NormalizedName = RoleType.Mentor.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                 }
             };
 
@@ -80,14 +87,16 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillUsers(this ModelBuilder builder)
         {
-            var userName1 = "Masha";
-            var email1 = "li@gmail.com";
-            var userName2 = "Maxim";
-            var email2 = "max@gmail.com";
-            var userName3 = "Dasha";
-            var email3 = "user@example.com";
-            var userName4 = "Alexandr";
-            var email4 = "admin@gmail.com";
+            var userName1 = "Peter Petrov";
+            var email1 = "admntest.team5@gmail.com";
+            var userName2 = "Lily Ivanova";
+            var email2 = "hrlily.team5@gmail.com";
+            var userName3 = "Ivan Sidorov";
+            var email3 = "interviewer.team5@gmail.com";
+            var userName4 = "Ann Green";
+            var email4 = "managertest.team5@gmail.com";
+            var userName5 = "Boris Bobrov";
+            var email5 = "mentortest.team5@gmail.com";
 
             var passwordHasher = new PasswordHasher<User>();
 
@@ -96,7 +105,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Hr,
+                    RoleType = RoleType.Admin,
                     Position = "BA",
                     UserName = userName1,
                     NormalizedUserName = userName1.ToUpper(),
@@ -116,7 +125,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Interviewer,
+                    RoleType = RoleType.Hr,
                     Position = "Back",
                     UserName = userName2,
                     NormalizedUserName = userName2.ToUpper(),
@@ -136,7 +145,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Manager,
+                    RoleType = RoleType.Interviewer,
                     Position = "Front",
                     UserName = userName3,
                     NormalizedUserName = userName3.ToUpper(),
@@ -156,7 +165,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Admin,
+                    RoleType = RoleType.Manager,
                     Position = "PO",
                     UserName = userName4,
                     NormalizedUserName = userName4.ToUpper(),
@@ -167,6 +176,26 @@ namespace DAL.Extensions
                     SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PhoneNumber = "+325659787",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnd = null,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0
+                },
+                new User
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    RoleType = RoleType.Mentor,
+                    Position = "PO",
+                    UserName = userName5,
+                    NormalizedUserName = userName5.ToUpper(),
+                    Email = email5,
+                    NormalizedEmail = email5.ToUpper(),
+                    EmailConfirmed = false,
+                    PasswordHash = passwordHasher.HashPassword(null, _password),
+                    SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    PhoneNumber = "+7777777777777777",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
                     LockoutEnd = null,
