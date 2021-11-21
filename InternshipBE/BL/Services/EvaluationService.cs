@@ -21,14 +21,23 @@ namespace BL.Services
 
         public async Task<EvaluationDTO> CreateEvaluationAsync(EvaluationDTO createEvaluationDto)
         {
+            var isExistedSkill = createEvaluationDto.SkillId == 0 && createEvaluationDto.Skill.Id == 0 ? false : true;
             var evaluation = _mapper.Map<Evaluation>(createEvaluationDto);
+
+            if (!isExistedSkill)
+            {
+                evaluation.Skill = await _unitOfWork.Skills.CreateAsync(_mapper.Map<Skill>(createEvaluationDto.Skill));
+            }
 
             evaluation = await _unitOfWork.Evaluations.CreateAsync(evaluation);
             createEvaluationDto = _mapper.Map<EvaluationDTO>(evaluation);
 
-            var skill = await _unitOfWork.Skills.GetByIdAsync(evaluation.SkillId);
+            if (isExistedSkill)
+            {
+                var skill = await _unitOfWork.Skills.GetByIdAsync(evaluation.SkillId);
 
-            createEvaluationDto.Skill = _mapper.Map<SkillDTO>(skill);
+                createEvaluationDto.Skill = _mapper.Map<SkillDTO>(skill);
+            }
 
             return createEvaluationDto;
         }
@@ -43,6 +52,7 @@ namespace BL.Services
         {
             var evaluation = _mapper.Map<Evaluation>(fullEvaluationDto);
 
+            evaluation.Skill = _mapper.Map<Skill>(fullEvaluationDto.Skill);
             evaluation = await _unitOfWork.Evaluations.UpdateAsync(evaluation);
 
             return _mapper.Map<EvaluationDTO>(evaluation);
