@@ -84,7 +84,7 @@ namespace BL.Services
 
         public async Task<List<CandidateDTO>> SearchAsync(CandidateDTO searchModel)
         {
-            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc);
+            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc, searchModel.InternshipId);
 
             return _mapper.Map<List<CandidateDTO>>(query);
         }
@@ -115,6 +115,13 @@ namespace BL.Services
                 _candidates = _candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType);
 
             return await _candidates.ToListAsync();
+        }
+
+        public async Task<List<CandidateDTO>> SearchByInternshipAsync(CandidateDTO searchModel)
+        {
+            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc, searchModel.InternshipId);
+
+            return _mapper.Map<List<CandidateDTO>>(query);
         }
     }
 }

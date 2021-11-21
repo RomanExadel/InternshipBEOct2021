@@ -51,9 +51,9 @@ namespace DAL.Repositories
             return await _context.Candidates.CountAsync();
         }
 
-        public async Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc)
+        public async Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc, int InternshipId)
         {
-            return await _context.Candidates.Where(x => x.FirstName.Contains(searchText) | x.LastName.Contains(searchText))
+            return await _context.Candidates.Where(x => x.FirstName.Contains(searchText) | x.LastName.Contains(searchText) & x.InternshipId == InternshipId)
                 .Skip(skip)
                 .Take(take)
                 .OrderByPropertyName(sortBy, isDesc)
