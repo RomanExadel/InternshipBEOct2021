@@ -12,9 +12,9 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IFeedbackValidator _validator;
+        private readonly IValidator<Feedback> _validator;
 
-        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, IFeedbackValidator validator)
+        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Feedback> validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -27,10 +27,11 @@ namespace BL.Services
 
             feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
 
-            if (_validator.AreEvaluationsExist(feedback.Evaluations))
-            {
-                //TODO: Attach evaluations to feedback
-            }
+            var evaluations = new List<Evaluation>();
+            evaluations.AddRange(_mapper.Map<List<Evaluation>>(newFeedback.Evaluations));
+
+            feedback.Evaluations = evaluations;
+            feedback = await _unitOfWork.Feedbacks.UpdateAsync(feedback);
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }
@@ -46,7 +47,7 @@ namespace BL.Services
         {
             var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(id);
 
-            _validator.ValidateIfEntityExist(feedback);
+            _validator.ValidateIfEntityExists(feedback);
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }

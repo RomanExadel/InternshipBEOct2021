@@ -27,7 +27,7 @@ namespace WebApi.Extensions
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IValidator<Candidate>, CandidateValidator>();
             services.AddTransient<IValidator<User>, UserValidator>();
-            services.AddTransient<IFeedbackValidator, FeedbackValidator>();
+            services.AddTransient<IValidator<Feedback>, FeedbackValidator>();
             services.AddTransient<IValidator<Internship>, InternshipValidator>();
 
             return services;

@@ -1,11 +1,12 @@
 ﻿using BL.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BL.Validators
 {
     public class Validator<T> : IValidator<T> where T : class
     {
-        public void ValidateIfEntityExist(T value) 
+        public void ValidateIfEntityExists(T value) 
         {
             if (value == null)
             {
