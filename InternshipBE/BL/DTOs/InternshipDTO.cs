@@ -7,6 +7,8 @@ namespace BL.DTOs
     {
         public int Id { get; set; }
 
+        public string SpreadSheetId { get; set; }
+
         public int CandidatesCount { get; set; }
 
         public int DeclinedCandidatesCount { get; set; }
