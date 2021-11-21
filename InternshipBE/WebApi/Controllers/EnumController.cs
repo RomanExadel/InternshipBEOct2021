@@ -8,16 +8,10 @@ namespace WebApi.Controllers
     [ApiController]
     public class EnumController : ControllerBase
     {
-        [HttpGet("getLaguageTypes")]
+        [HttpGet("getLanguageTypes")]
         public IActionResult GetLanguageTypes()
         {                       
             return Ok(Enum.GetNames(typeof(LanguageType)));
-        }
-
-        [HttpGet("getStackTypes")]
-        public IActionResult GetStackTypes()
-        {
-            return Ok(Enum.GetNames(typeof(StackType)));
         }
 
         [HttpGet("getCandidateStatusTypes")]
