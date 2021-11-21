@@ -59,6 +59,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(dto => dto.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
 				.ForMember(dto => dto.TeamId, src => src.MapFrom(entity => entity.TeamId))
 				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users))
+				.ForMember(dto => dto.LanguageType, src => src.MapFrom(entity => entity.InternshipLanguage.ToString()))
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
@@ -84,6 +85,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(entity => entity.RegistrationDate, src => src.MapFrom(dto => dto.RegistrationDate))
 				.ForMember(entity => entity.InternshipId, src => src.MapFrom(dto => dto.InternshipId))
 				.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId))
+				.ForMember(entity => entity.InternshipLanguage, src => src.MapFrom(dto => Enum.Parse<LanguageType>(dto.LanguageType)))
 				.ForAllOtherMembers(x => x.Ignore());
 		}
 	}

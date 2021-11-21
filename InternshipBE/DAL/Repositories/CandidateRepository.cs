@@ -27,11 +27,12 @@ namespace DAL.Repositories
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
         {
-            var internship = await _context.Internships.Include(x => x.Candidates)
-				.ThenInclude(x => x.Users)
-				.FirstOrDefaultAsync(x => x.Id == id);
-
-            return internship?.Candidates.Skip(pageSize * --pageNumber).Take(pageSize).ToList();
+            return await _context.Candidates.Include(x => x.Internship)
+                .Include(x => x.Users)
+                .Where(x => x.InternshipId == id)
+                .Skip(pageSize * --pageNumber)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType)
@@ -39,9 +40,9 @@ namespace DAL.Repositories
             CandidateStatusType? statusType = GetStatusType(reportType);
 
             var internship = await _context.Internships.AsNoTracking()
-				.Include(x => x.Candidates.Where(r => r.StatusType == statusType || statusType == null))
-				.Include(x => x.Users)
-				.FirstOrDefaultAsync(x => x.Id == internshipId);
+                .Include(x => x.Candidates.Where(r => r.StatusType == statusType || statusType == null))
+                .Include(x => x.Users)
+                .FirstOrDefaultAsync(x => x.Id == internshipId);
 
             return internship?.Candidates.ToList();
         }
