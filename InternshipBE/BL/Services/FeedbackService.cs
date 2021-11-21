@@ -25,6 +25,7 @@ namespace BL.Services
         {
             var feedback = _mapper.Map<Feedback>(newFeedback);
 
+            feedback.Evaluations = null;
             feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
 
             var evaluations = new List<Evaluation>();
@@ -55,7 +56,7 @@ namespace BL.Services
         public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
         {
             var feedback = _mapper.Map<Feedback>(updatedFeedback);
-            
+
             feedback = await _unitOfWork.Feedbacks.UpdateAsync(feedback);
 
             return _mapper.Map<FeedbackDTO>(feedback);

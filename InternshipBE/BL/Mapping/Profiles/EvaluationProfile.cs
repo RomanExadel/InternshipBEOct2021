@@ -20,7 +20,7 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.SkillId, src => src.MapFrom(dto => dto.SkillId))
                 .ForMember(entity => entity.FeedbackId, src => src.MapFrom(dto => dto.FeedbackId))
                 .ForMember(entity => entity.Value, src => src.MapFrom(dto => dto.Value))
-                .ForMember(entity => entity.Skill, o => o.Ignore())
+                .ForMember(entity => entity.Skill, src => src.MapFrom(dto => dto.Skill))
                 .ForMember(entity => entity.Feedback, o => o.Ignore());
         }
     }
