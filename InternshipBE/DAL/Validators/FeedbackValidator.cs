@@ -1,14 +1,9 @@
-﻿using BL.Interfaces;
-using DAL.Entities;
-using System.Collections.Generic;
+﻿using DAL.Entities;
 
 namespace DAL.Validators
 {
-    public class FeedbackValidator : Validator<Feedback>, IFeedbackValidator
+    public class FeedbackValidator : Validator<Feedback>
     {
-        public bool AreEvaluationsExist(ICollection<Evaluation> evaluations)
-        {
-            return  evaluations == null || evaluations.Count == 0 ? false : true;
-        }
+        
     }
 }
