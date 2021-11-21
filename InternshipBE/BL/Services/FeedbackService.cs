@@ -24,6 +24,7 @@ namespace BL.Services
         {
             var feedback = _mapper.Map<Feedback>(newFeedback);
 
+            feedback.Evaluations = null;
             feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
 
             var evaluations = new List<Evaluation>();
