@@ -53,6 +53,6 @@ namespace BL.DTOs.CandidateDTOs
 
         public List<UserDTO> Users { get; set; }
 
-        public LanguageType? LanguageType { get; set; }
+        public string LanguageType { get; set; }
     }
 }
