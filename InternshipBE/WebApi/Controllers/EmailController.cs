@@ -16,9 +16,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("sendEmail")]
-        public async Task<IActionResult> SendEmailAsync ([FromQuery] int toId, [FromQuery] string subject, [FromQuery] string text)
+        public async Task<IActionResult> SendEmailAsync ([FromQuery] string email, [FromQuery] string subject, [FromQuery] string text)
         {
-            await _emailService.SendEmailAsync(toId, subject, text);
+            await _emailService.SendEmailAsync(email, subject, text);
             return Ok();
         }
 

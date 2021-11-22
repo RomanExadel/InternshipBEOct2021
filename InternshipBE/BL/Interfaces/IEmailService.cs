@@ -4,6 +4,6 @@ namespace BL.Interfaces
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(int toId, string subject, string text);
+        Task SendEmailAsync(string email, string subject, string text);
     }
 }
