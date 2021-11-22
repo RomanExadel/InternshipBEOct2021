@@ -16,6 +16,6 @@ namespace DAL.Interfaces
 
         IQueryable<Candidate> GetCandidatesForFIlter();
 
-        Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc, int InternshipId);
+        Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc, int internshipId);
     }
 }
