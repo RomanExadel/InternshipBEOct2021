@@ -81,9 +81,9 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> SearchAsync(CandidateDTO searchModel)
+        public async Task<List<CandidateDTO>> SearchByInternshipIdAsync(CandidateDTO searchModel)
         {
-            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc);
+            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc, searchModel.InternshipId);
 
             return _mapper.Map<List<CandidateDTO>>(query);
         }

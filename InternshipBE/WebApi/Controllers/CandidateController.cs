@@ -51,9 +51,9 @@ namespace WebApi.Controllers
 
         [Authorize]
         [HttpPost("candidateSearch")]
-        public async Task<IActionResult> SearchCandidate([FromBody] CandidateDTO searchModel)
+        public async Task<IActionResult> SearchCandidates([FromBody] CandidateDTO searchModel)
         {
-            var searchResult = await _candidateService.SearchAsync(searchModel);
+            var searchResult = await _candidateService.SearchByInternshipIdAsync(searchModel);
 
             return Ok(searchResult);
         }

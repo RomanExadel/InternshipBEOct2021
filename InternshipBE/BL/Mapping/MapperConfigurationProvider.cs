@@ -20,8 +20,6 @@ namespace BL.Mapping
         {
             var configuration = new MapperConfiguration(MapperConfigurationExpression);
 
-            //configuration.AssertConfigurationIsValid();
-
             return configuration;
         }
 

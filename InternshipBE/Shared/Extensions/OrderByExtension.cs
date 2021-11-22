@@ -5,10 +5,14 @@ namespace Shared.Extensions
 {
 	public static class OrderByExtension
 	{
+		private const string DefaultSortParametr = "Id";
+
 		public static IQueryable<T> OrderByPropertyName<T>(this IQueryable<T> query, string SortBy, bool IsDesc)
 		{
+			var propertyInfos = typeof(T).GetProperties().Select(x => x.Name.ToUpper()).ToList();
+
 			var parameter = Expression.Parameter(typeof(T), "p");
-			var property = Expression.Property(parameter, SortBy);
+			var property = propertyInfos.Contains(SortBy.ToUpper()) ? Expression.Property(parameter, SortBy) : Expression.Property(parameter, DefaultSortParametr);
 			var expression = Expression.Lambda(property, parameter);
 			string method = IsDesc ? "OrderBy" : "OrderByDescending";
 			Type[] types = new Type[] { query.ElementType, expression.Body.Type };

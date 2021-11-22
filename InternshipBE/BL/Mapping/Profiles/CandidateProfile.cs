@@ -13,7 +13,7 @@ namespace BL.Mapping.Profiles
 	{
 		private const string cultureFormat = "dd.MM.yyyy H:mm:ss";
 
-		public CandidateProfile()
+		public CandidateProfile()	
 		{
 			CreateMap<IList<object>, CandidateDTO>()
 				.ForMember(e => e.FirstName, source => source.MapFrom(s => s[FIRST_NAME_OFFSET].ToString()))
