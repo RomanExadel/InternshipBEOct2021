@@ -12,7 +12,7 @@ namespace DAL.Interfaces
 
         Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType);
 
-        Task<int> GetCandidatesCountAsync();
+        Task<int> GetCandidatesCountByTabelIdAsync(string tableId);
 
         IQueryable<Candidate> GetCandidatesForFIlter();
 

@@ -45,7 +45,7 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.LanguageType, src => src.MapFrom(dto => Enum.Parse<LanguageType>(dto.LanguageType)))
                 .ForMember(entity => entity.Candidates, o => o.Ignore())
                 .ForMember(entity => entity.InternshipStacks, src => src.MapFrom(dto => dto.InternshipStacks))
-                .ForMember(entity => entity.Users, o => o.Ignore())
+                .ForMember(entity => entity.Users, src => src.MapFrom(dto => dto.Users))
                 .ForMember(entity => entity.Teams, o => o.Ignore())
                 .ForMember(entity => entity.Countries, o => o.Ignore())
                 .ForMember(entity => entity.Users, o => o.Ignore())
