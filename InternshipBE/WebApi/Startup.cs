@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shared.Config;
+using Shared.Constants;
 using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
@@ -23,125 +24,127 @@ using static Shared.Constants.ConfigurationConstants;
 
 namespace WebApi
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
 
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString)));
+			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString)));
 
-            services.AddHangfireServer();
+			services.AddHangfireServer();
 
-            services.AddElmah(options =>
-            {
-                options.SourcePaths = new[]
-                {
-                    @"..\WebApi\",
-                    @"..\BL\",
-                    @"..\DAL\",
-                    @"..\Shared\"
-                };
-            });
+			services.AddElmah(options =>
+			{
+				options.SourcePaths = new[]
+				{
+					@"..\WebApi\",
+					@"..\BL\",
+					@"..\DAL\",
+					@"..\Shared\"
+				};
+			});
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+			services.AddIdentity<User, IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
 
-            services.AddControllers()
-                    .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+			services.AddControllers()
+					.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    In = ParameterLocation.Header,
-                    Description = "Please insert token",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                    Scheme = "bearer"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
-            });
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo
+				{
+					Title = "WebApi",
+					Version = "v1",
+					Description = SwaggerDescriptionConstatnt.SwaggerDescription
+				});
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					In = ParameterLocation.Header,
+					Description = "Please insert token",
+					Name = "Authorization",
+					Type = SecuritySchemeType.Http,
+					BearerFormat = "JWT",
+					Scheme = "bearer"
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference
+							{
+								Type = ReferenceType.SecurityScheme,
+								Id = "Bearer"
+							}
+						},
+						new string[] {}
+					}
+				});
+			});
 
-            services.AddRepositories().AddServices();
+			services.AddRepositories().AddServices();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-               .AddJwtBearer(options =>
-               {
-                   options.TokenValidationParameters = new TokenValidationParameters
-                   {
-                       ValidateIssuer = true,
-                       ValidIssuer = Configuration["Jwt:Issuer"],
-                       ValidateAudience = true,
-                       ValidAudience = Configuration["Jwt:Audience"],
-                       ValidateLifetime = true,
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                       ValidateIssuerSigningKey = true,
-                   };
-               });
+			services.AddAuthentication(options =>
+			{
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
+			   .AddJwtBearer(options =>
+			   {
+				   options.TokenValidationParameters = new TokenValidationParameters
+				   {
+					   ValidateIssuer = true,
+					   ValidIssuer = Configuration["Jwt:Issuer"],
+					   ValidateAudience = true,
+					   ValidAudience = Configuration["Jwt:Audience"],
+					   ValidateLifetime = true,
+					   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+					   ValidateIssuerSigningKey = true,
+				   };
+			   });
 
-            services.AddAutoMapper();
-        }
+			services.AddAutoMapper();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseGlobalExceptionMiddleware();
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		{
+			app.UseGlobalExceptionMiddleware();
 
-            if (env.IsDevelopment())
-            {
-                app.UseElmahExceptionPage();
-                
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+			app.UseElmahExceptionPage();
 
-                app.UseElmah();
+			app.UseSwagger();
+			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
-                app.UseHangfireDashboard();
-                RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
-            }
+			app.UseElmah();
 
-            app.UseRouting();
+			app.UseHangfireDashboard();
+			RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
 
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+			app.UseRouting();
 
-            app.UseAuthentication();
+			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseAuthorization();
+			app.UseAuthentication();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
-    }
+			app.UseAuthorization();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
+		}
+	}
 }
