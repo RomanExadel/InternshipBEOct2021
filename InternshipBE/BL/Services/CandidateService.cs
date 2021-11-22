@@ -3,6 +3,7 @@ using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
@@ -15,20 +16,18 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IValidator<Candidate> _validator;
+        private readonly AbstractValidator<CandidateDTO> _validations;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Candidate> validator)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, AbstractValidator<CandidateDTO> validations)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _validator = validator;
+            _validations = validations;
         }
 
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
-
-            _validator.ValidateIfEntityExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -36,6 +35,7 @@ namespace BL.Services
         public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
         {
             var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
+
             var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
@@ -43,7 +43,10 @@ namespace BL.Services
 
         public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
         {
+            await _validations.ValidateAndThrowAsync(candidate);
+
             var mappedCandidate = _mapper.Map<Candidate>(candidate);
+
             var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
 
             return _mapper.Map<CandidateDTO>(updatedCandidate);
@@ -70,8 +73,6 @@ namespace BL.Services
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfEntityExist(candidate);
-
             candidate.StatusType = type;
 
             candidate.Users = null;
@@ -93,9 +94,9 @@ namespace BL.Services
             var propertyInfo = typeof(Candidate).GetProperty(sortBy);
 
             if (desc)
-                candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
+                candidates = candidates.AsEnumerable().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
             else
-                candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
+                candidates = candidates.AsEnumerable().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
 
             return candidates;
         }

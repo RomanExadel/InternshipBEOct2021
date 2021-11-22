@@ -3,6 +3,7 @@ using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,13 +13,13 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IValidator<Internship> _validator;
+        private readonly AbstractValidator<InternshipDTO> _validations;
 
-        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Internship> validator)
+        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, AbstractValidator<InternshipDTO> validations)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _validator = validator;
+            _validations = validations;
         }
 
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
@@ -40,14 +41,15 @@ namespace BL.Services
         {
             var internship = await _unitOfWork.Internships.GetByIdAsync(id);
 
-            _validator.ValidateIfEntityExist(internship);
-
             return _mapper.Map<InternshipDTO>(internship);
         }
 
         public async Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship)
         {
+            await _validations.ValidateAndThrowAsync(newInternship);
+
             var mappedInternship = _mapper.Map<Internship>(newInternship);
+
             var updatedInternship = await _unitOfWork.Internships.UpdateAsync(mappedInternship);
 
             return _mapper.Map<InternshipDTO>(updatedInternship);

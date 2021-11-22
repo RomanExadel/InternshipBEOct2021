@@ -3,6 +3,7 @@ using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
 using ElmahCore.Mvc;
+using FluentValidation.AspNetCore;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -52,6 +53,8 @@ namespace WebApi
                 };
             });
 
+            services.AddFluentValidation();
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -87,7 +90,7 @@ namespace WebApi
                 });
             });
 
-            services.AddRepositories().AddServices();
+            services.AddRepositories().AddServices().AddValidators();
 
             services.AddAuthentication(options =>
             {

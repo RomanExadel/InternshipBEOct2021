@@ -3,6 +3,7 @@ using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,11 +13,13 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly AbstractValidator<EvaluationDTO> _validations;
 
-        public EvaluationService(IUnitOfWork unitOfWork, IMapper mapper)
+        public EvaluationService(IUnitOfWork unitOfWork, IMapper mapper, AbstractValidator<EvaluationDTO> validations)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validations = validations;
         }
 
         public async Task<EvaluationDTO> CreateEvaluationAsync(EvaluationDTO createEvaluationDto)
@@ -41,6 +44,8 @@ namespace BL.Services
 
         public async Task<EvaluationDTO> UpdateEvaluationAsync(EvaluationDTO fullEvaluationDto)
         {
+            await _validations.ValidateAndThrowAsync(fullEvaluationDto);
+
             var evaluation = _mapper.Map<Evaluation>(fullEvaluationDto);
 
             evaluation = await _unitOfWork.Evaluations.UpdateAsync(evaluation);

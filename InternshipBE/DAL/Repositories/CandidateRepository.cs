@@ -12,8 +12,11 @@ namespace DAL.Repositories
 {
     public class CandidateRepository : GenericRepository<Candidate>, ICandidateRepository
     {
-        public CandidateRepository(ApplicationDbContext context) : base(context)
+        private readonly IValidator<Candidate> _validator;
+
+        public CandidateRepository(ApplicationDbContext context, IValidator<Candidate> validator) : base(context)
         {
+            _validator = validator;
         }
 
         public async override Task<Candidate> GetByIdAsync(int id)
@@ -21,6 +24,8 @@ namespace DAL.Repositories
             var candidate = await _context.Candidates.AsNoTracking()
                 .Include(x => x.Users)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            _validator.ValidateIfEntityExist(candidate);
 
             return candidate;
         }
