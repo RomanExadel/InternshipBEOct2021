@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.BestContactTimeDTO;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -29,15 +29,14 @@ namespace BL.Services
 			return _mapper.Map<List<BestContactTimeDTO>>(timeList);
 		}
 
-		public async Task SaveBestContactTimeAsync(string userName, List<CreateBestContactTimeDTO> models)
+		public async Task SaveBestContactTimeAsync(string userName, List<BestContactTimeDTO> models)
 		{
 			var user = await _userManager.FindByNameAsync(userName);
 
 			var bestContactTime = _mapper.Map<List<BestContactTime>>(models);
 			bestContactTime.ForEach(x => x.User = user);
 
-			await _unitOfWork.BestContactTime.RangeSaveAsync(bestContactTime);
-			await _unitOfWork.SaveAsync();
+			await _unitOfWork.BestContactTime.BulkSaveAsync(bestContactTime);
 		}
 	}
 }

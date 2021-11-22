@@ -1,7 +1,5 @@
 ﻿using DAL.Database;
-using DAL.Entities;
 using DAL.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -15,21 +13,32 @@ namespace DAL.Repositories
         private ICandidateRepository _canidateRepository;
         private IInternshipRepository _internshipRepository;
         private IUserRepository _userRepository;
-		private IFeedbackRepository _feedbackRepository;
-		private IEvaluationRepository _evaluationRepository;
-		private ISkillRepository _skillRepository;
-		private IInternshipStackRepository _internshipStackRepository;
-		private IBestContactTimeRepository _bestContactTimeRepository;
+        private IFeedbackRepository _feedbackRepository;
+        private IEvaluationRepository _evaluationRepository;
+        private ISkillRepository _skillRepository;
+        private IBestContactTimeRepository _bestContactTimeRepository;
+        private IInternshipStackRepository _internshipStackRepository;
+        private ILocationRepository _locationRepository;
 
-		public IBestContactTimeRepository BestContactTime
-		{
-			get
-			{
-				if (_bestContactTimeRepository == null)
-					_bestContactTimeRepository = new BestContactTimeRepository(_db);
-				return _bestContactTimeRepository;
-			}
-		}
+        public ILocationRepository Locations
+        {
+            get
+            {
+                if (_locationRepository == null)
+                    _locationRepository = new LocationRepository(_db);
+                return _locationRepository;
+            }
+        }
+
+        public IBestContactTimeRepository BestContactTime
+        {
+            get
+            {
+                if (_bestContactTimeRepository == null)
+                    _bestContactTimeRepository = new BestContactTimeRepository(_db);
+                return _bestContactTimeRepository;
+            }
+        }
 
         public ICandidateRepository Candidates
         {
@@ -89,7 +98,7 @@ namespace DAL.Repositories
                 return _skillRepository;
             }
         }
-        
+
         public IInternshipStackRepository InternshipStacks
         {
             get
@@ -100,19 +109,9 @@ namespace DAL.Repositories
             }
         }
 
-        public EFUnitOfWork(ApplicationDbContext db, UserManager<User> userManager)
+        public EFUnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-        }
-
-		public EFUnitOfWork(ApplicationDbContext db)
-		{
-			_db = db;
-		}
-
-        public async Task SaveAsync()
-        {
-            await _db.SaveChangesAsync();
         }
 
         public virtual void Dispose(bool disposing)

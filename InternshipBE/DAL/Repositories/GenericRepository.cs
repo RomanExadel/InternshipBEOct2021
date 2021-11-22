@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+	public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 	{
 		protected readonly ApplicationDbContext _context;
 		private readonly DbSet<TEntity> _dbSet;
@@ -20,6 +20,7 @@ namespace DAL.Repositories
 		public virtual async Task<TEntity> CreateAsync(TEntity entity)
 		{
 			await _dbSet.AddAsync(entity);
+			await _context.SaveChangesAsync();
 
 			return entity;
 		}
@@ -27,6 +28,7 @@ namespace DAL.Repositories
 		public virtual async Task<TEntity> DeleteAsync(TEntity entity)
 		{
 			await Task.Run(() => _dbSet.Remove(entity));
+			await _context.SaveChangesAsync();
 
 			return entity;
 		}
@@ -41,7 +43,7 @@ namespace DAL.Repositories
 			return await _dbSet.FindAsync(id);
 		}
 
-		public virtual async Task RangeSaveAsync(List<TEntity> entities)
+		public virtual async Task BulkSaveAsync(List<TEntity> entities)
 		{
 			await _dbSet.AddRangeAsync(entities);
 			await _context.SaveChangesAsync();
@@ -50,8 +52,17 @@ namespace DAL.Repositories
 		public virtual async Task<TEntity> UpdateAsync(TEntity entity)
 		{
 			await Task.Run(() => _dbSet.Update(entity));
+			await _context.SaveChangesAsync();
 
 			return entity;
+		}
+
+		public async Task DeleteByIdAsync(int Id)
+		{
+			var entity = await _dbSet.FindAsync(Id);
+			_dbSet.Remove(entity);
+
+			await _context.SaveChangesAsync();
 		}
 	}
 }

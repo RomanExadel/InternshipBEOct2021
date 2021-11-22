@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.BestContactTimeDTO;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -7,7 +7,6 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
-using Microsoft.AspNetCore.Identity;
 using Shared.Config.Interfaces;
 using System.Threading.Tasks;
 
@@ -21,16 +20,14 @@ namespace BL.Services
 			CalendarService.Scope.CalendarEvents,
 			CalendarService.Scope.CalendarEventsReadonly
 		};
-		private readonly UserManager<User> _userManager;
 		private readonly IGoogleConfig _googleConfig;
 		private CalendarService _calendarService;
 		private readonly ICalendarEventsConfig _calendarEventsConfig;
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IMapper _mapper;
 
-		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, UserManager<User> userManager, ICalendarEventsConfig calendarEventsConfig, IMapper mapper)
+		public GoogleCalendarService(IGoogleConfig googleConfig, IUnitOfWork unitOfWork, ICalendarEventsConfig calendarEventsConfig, IMapper mapper)
 		{
-			_userManager = userManager;
 			_googleConfig = googleConfig;
 			_calendarEventsConfig = calendarEventsConfig;
 			_unitOfWork = unitOfWork;
@@ -39,18 +36,10 @@ namespace BL.Services
 
 		public async Task CreateEventInCalendarAsync(EventDTO model)
 		{
-			var user = await _userManager.FindByEmailAsync(model.InterviewerEmail);
-
 			CreateEvent(model);
 
 			var bestContactTime = _mapper.Map<BestContactTime>(model);
-
-			bestContactTime.User = user;
-			bestContactTime.UserId = user.Id;
-			bestContactTime = await _unitOfWork.BestContactTime.GetByTimeIntervalAsync(bestContactTime);
-
-			await _unitOfWork.BestContactTime.DeleteAsync(bestContactTime);
-			await _unitOfWork.SaveAsync();
+			await _unitOfWork.BestContactTime.DeleteByIdAsync(bestContactTime.Id);
 		}
 
 		private void CreateEvent(EventDTO model)

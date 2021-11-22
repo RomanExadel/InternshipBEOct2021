@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.FeedbackDTOs;
+using BL.DTOs;
 using DAL.Entities;
 using Shared.Enums;
 using System;
@@ -11,32 +11,26 @@ namespace BL.Mapping.Profiles
         public FeedbackProfile()
         {
             CreateMap<Feedback, FeedbackDTO>()
-                .ForMember(dto => dto.EnglishLevelName, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelName)))
-                .ForMember(entity => entity.Id, o => o.Ignore());
-
-            CreateMap<Feedback, GetFeedbackDTO>()
-                .ForMember(dto => dto.EnglishLevelName, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelName)))
-                .ForMember(entity => entity.Id, o => o.Ignore());
-
-            CreateMap<Feedback, CreateFeedbackDTO>()
-                .ForMember(dto => dto.EnglishLevelName, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelName)))
-                .ForMember(entity => entity.Id, o => o.Ignore());
-
-            CreateMap<Feedback, UpdateFeedbackDTO>()
-                .ForMember(dto => dto.EnglishLevelName, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelName)));
-
-            CreateMap<Feedback, FullGetFeedbackDTO>()
-                .ForMember(dto => dto.EnglishLevelName, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
-                .ReverseMap()
-                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelName)));
+                .ForMember(dto => dto.Id, src => src.MapFrom(entity => entity.Id))
+                .ForMember(dto => dto.UserId, src => src.MapFrom(entity => entity.UserId))
+                .ForMember(dto => dto.CandidateId, src => src.MapFrom(entity => entity.CandidateId))
+                .ForMember(dto => dto.EnglishLevelType, src => src.MapFrom(entity => entity.EnglishLevelType.ToString()))
+                .ForMember(dto => dto.Date, src => src.MapFrom(entity => entity.Date))
+                .ForMember(dto => dto.Description, src => src.MapFrom(entity => entity.Description))
+                .ForMember(dto => dto.Evaluations, src => src.MapFrom(entity => entity.Evaluations))
+                .ForMember(dto => dto.FinalEvaluation, src => src.MapFrom(entity => entity.FinalEvaluation));
+            
+                CreateMap<FeedbackDTO, Feedback>()
+                .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
+                .ForMember(entity => entity.CandidateId, src => src.MapFrom(dto => dto.CandidateId))
+                .ForMember(entity => entity.EnglishLevelType, src => src.MapFrom(dto => Enum.Parse<EnglishLevelType>(dto.EnglishLevelType)))
+                .ForMember(entity => entity.Date, src => src.MapFrom(dto => dto.Date))
+                .ForMember(entity => entity.Description, src => src.MapFrom(dto => dto.Description))
+                .ForMember(entity => entity.User, o => o.Ignore())
+                .ForMember(entity => entity.Candidate, o => o.Ignore())
+                .ForMember(entity => entity.Evaluations, o => o.Ignore())
+                .ForMember(entity => entity.UserId, src => src.MapFrom(dto => dto.UserId))
+                .ForMember(entity => entity.FinalEvaluation, src => src.MapFrom(dto => dto.FinalEvaluation));
         }
     }
 }

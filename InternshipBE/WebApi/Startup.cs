@@ -2,6 +2,7 @@ using BL.Interfaces;
 using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
+using ElmahCore.Mvc;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +19,7 @@ using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
 using WebApi.Extensions;
-using static Shared.Constants.ConfiguratioConstants;
+using static Shared.Constants.ConfigurationConstants;
 
 namespace WebApi
 {
@@ -31,14 +32,25 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
 
-			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString)));
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(connectionString)));
 
-			services.AddHangfireServer();
+            services.AddHangfireServer();
+
+            services.AddElmah(options =>
+            {
+                options.SourcePaths = new[]
+                {
+                    @"..\WebApi\",
+                    @"..\BL\",
+                    @"..\DAL\",
+                    @"..\Shared\"
+                };
+            });
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -100,20 +112,23 @@ namespace WebApi
             services.AddAutoMapper();
         }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-
-				app.UseHangfireDashboard();
-				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
-			}
-
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
             app.UseGlobalExceptionMiddleware();
+
+            if (env.IsDevelopment())
+            {
+                app.UseElmahExceptionPage();
+                
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+
+                app.UseElmah();
+
+                app.UseHangfireDashboard();
+                RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
+            }
 
             app.UseRouting();
 

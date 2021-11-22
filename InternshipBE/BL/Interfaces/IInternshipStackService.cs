@@ -1,4 +1,4 @@
-﻿using BL.DTOs.InternshipStackDTOs;
+﻿using BL.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,12 @@ namespace BL.Interfaces
 {
     public interface IInternshipStackService
     {
-        Task<List<GetInternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId);
+        Task<List<InternshipStackDTO>> GetInternshipStacksAsync();
 
-        Task<FullInternshipStackDTO> CreateInternshipStackAsync(CreateInternshipStackDTO internshipStackDto);
+        Task<List<InternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId);
 
-        Task<FullInternshipStackDTO> UpdateInternshipStackAsync(FullInternshipStackDTO internshipStackDto);
+        Task<InternshipStackDTO> CreateInternshipStackAsync(InternshipStackDTO internshipStackDto);
+
+        Task<InternshipStackDTO> UpdateInternshipStackAsync(InternshipStackDTO internshipStackDto);
     }
 }

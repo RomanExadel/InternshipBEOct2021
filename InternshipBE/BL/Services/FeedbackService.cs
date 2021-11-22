@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.FeedbackDTOs;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -12,43 +12,47 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IValidator<Feedback> _validator;
 
-        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper)
+        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Feedback> validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validator = validator;
         }
 
-        public async Task<FullGetFeedbackDTO> CreateFeedbackAsync(CreateFeedbackDTO newFeedback)
+        public async Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback)
         {
-            var feedback = await _unitOfWork.Feedbacks.CreateAsync(_mapper.Map<Feedback>(newFeedback));
+            var feedback = _mapper.Map<Feedback>(newFeedback);
 
-            await _unitOfWork.SaveAsync();
+            feedback = await _unitOfWork.Feedbacks.CreateAsync(feedback);
 
-            return _mapper.Map<FullGetFeedbackDTO>(feedback);
+            return _mapper.Map<FeedbackDTO>(feedback);
         }
 
-        public async Task<List<FullGetFeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId)
+        public async Task<List<FeedbackDTO>> GetFeedbacksByCandidateIdAsync(int candidateId)
         {
             var feedbacks = await _unitOfWork.Feedbacks.GetFeedbacksByCandidateIdAsync(candidateId);
             
-            return _mapper.Map<List<FullGetFeedbackDTO>>(feedbacks);
+            return _mapper.Map<List<FeedbackDTO>>(feedbacks);
         }
 
-        public async Task<GetFeedbackDTO> GetFeedbackByIdAsync(int id)
+        public async Task<FeedbackDTO> GetFeedbackByIdAsync(int id)
         {
             var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(id);
 
-            return _mapper.Map<GetFeedbackDTO>(feedback);
+            _validator.ValidateIfEntityExist(feedback);
+
+            return _mapper.Map<FeedbackDTO>(feedback);
         }
 
-        public async Task<UpdateFeedbackDTO> UpdateFeedbackAsync(UpdateFeedbackDTO updatedFeedback)
+        public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
         {
-            var feedback = await _unitOfWork.Feedbacks.UpdateAsync(_mapper.Map<Feedback>(updatedFeedback));
+            var feedback = _mapper.Map<Feedback>(updatedFeedback);
+            
+            feedback = await _unitOfWork.Feedbacks.UpdateAsync(feedback);
 
-            await _unitOfWork.SaveAsync();
-
-            return _mapper.Map<UpdateFeedbackDTO>(feedback);
+            return _mapper.Map<FeedbackDTO>(feedback);
         }
     }
 }

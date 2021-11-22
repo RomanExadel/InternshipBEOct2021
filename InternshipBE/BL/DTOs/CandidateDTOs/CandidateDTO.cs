@@ -1,8 +1,11 @@
-﻿using System;
+using Shared.Enums;
+using Shared.Models;
+using System;
+using System.Collections.Generic;
 
 namespace BL.DTOs.CandidateDTOs
 {
-    public class CandidateDTO
+    public class CandidateDTO : AGGridFilter
     {
         public int Id { get; set; }
 
@@ -22,14 +25,14 @@ namespace BL.DTOs.CandidateDTOs
 
         public string StackType { get; set; }
 
-        public string EnglishLevelName { get; set; }
+        public string EnglishLevelType { get; set; }
 
         public string Education { get; set; }
 
         public string Links { get; set; }
 
         public string OtherInfo { get; set; }
-
+        
         public string PrimarySkill { get; set; }
 
         public string CurrentJob { get; set; }
@@ -46,6 +49,10 @@ namespace BL.DTOs.CandidateDTOs
 
         public int InternshipId { get; set; }
 
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
+
+        public List<UserDTO> Users { get; set; }
+
+        public string LanguageType { get; set; }
     }
 }

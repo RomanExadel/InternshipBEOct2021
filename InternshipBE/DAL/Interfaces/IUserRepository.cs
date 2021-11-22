@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IUserRepository : IGenericRepository<User>
-    {
-        Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType);
+	public interface IUserRepository : IGenericRepository<User>
+	{
+		Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType);
 
-        Task<List<User>> GetUsersByCandidateIdAsync(int id);
+		Task<List<User>> GetUsersByCandidateIdAsync(int id);
 
-        Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId);
-    }
+		Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId);
+	}
 }

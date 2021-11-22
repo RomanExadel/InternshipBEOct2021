@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.UserDTOs;
+using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -22,13 +22,16 @@ namespace BL.Services
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<User> _validator;
 
-        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork)
+        public UserService(UserManager<User> userManager, IConfiguration configuration, IMapper mapper, IUnitOfWork unitOfWork,
+            IValidator<User> validator)
         {
             _userManager = userManager;
             _configuration = configuration;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _validator = validator;
         }
 
         public async Task<string> AuthenticateAsync(string email, string password)
@@ -70,6 +73,8 @@ namespace BL.Services
         {
             var user = await GetUserByUserNameAsync(userName);
 
+            _validator.ValidateIfEntityExist(user);
+
             var userDTO = _mapper.Map<UserDTO>(user);
 
             return userDTO;
@@ -104,10 +109,7 @@ namespace BL.Services
         {
             var user = await _userManager.FindByNameAsync(userName);
 
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user), "user is null");
-            }
+            _validator.ValidateIfEntityExist(user);
 
             return user;
         }

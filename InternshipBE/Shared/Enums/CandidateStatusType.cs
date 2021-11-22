@@ -11,6 +11,7 @@
         Questionable,
         Declined,
         Abandoned,
-        SuccessfullyСompleted
+        SuccessfullyСompleted,
+        Review
     }
 }

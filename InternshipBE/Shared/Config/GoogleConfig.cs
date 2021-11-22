@@ -25,6 +25,6 @@ namespace Shared.Config
 
 		public string ClientSecrets => clientSecrets;
 
-		public string DateTimeFormat => _configuration["DateTimeFormat"];
+		public string CultureFormat => _configuration["CultureFormat"];
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace WebApi.Controllers
         {
             _candidateService = candidateService;
         }
-        
+
         [HttpGet("getCandidateById")]
         public async Task<IActionResult> GetCandidateById([FromQuery] int id)
         {
@@ -27,7 +28,7 @@ namespace WebApi.Controllers
         [HttpPost("getCandidateListByInternshipId")]
         public async Task<IActionResult> GetCandidateListByInternshipId([FromBody] GetCandidatesByInternshipIdRequest request)
         {
-            return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber));
+            return Ok(await _candidateService.GetCandidatesByInternshipIdAsync(request.InternshipId, request.PageSize, request.PageNumber, request.SortBy, request.Desc, request.FilterBy));
         }
 
         [HttpPost("createCandidate")]
@@ -46,6 +47,15 @@ namespace WebApi.Controllers
         public async Task<IActionResult> UpdateCandidateStatusById(int id, CandidateStatusType status)
         {
             return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
+        }
+
+        [Authorize]
+        [HttpPost("candidateSearch")]
+        public async Task<IActionResult> SearchCandidates([FromBody] CandidateDTO searchModel)
+        {
+            var searchResult = await _candidateService.SearchByInternshipIdAsync(searchModel);
+
+            return Ok(searchResult);
         }
     }
 }

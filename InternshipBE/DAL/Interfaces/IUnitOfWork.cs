@@ -21,6 +21,6 @@ namespace DAL.Interfaces
 
         IUserRepository Users { get; }
 
-        Task SaveAsync();
+        ILocationRepository Locations { get; }
     }
 }
