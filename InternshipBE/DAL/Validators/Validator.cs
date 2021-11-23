@@ -1,7 +1,7 @@
-﻿using BL.Interfaces;
+﻿using DAL.Interfaces;
 using System;
 
-namespace BL.Validators
+namespace DAL.Validators
 {
     public class Validator<T> : IValidator<T> where T : class
     {
@@ -9,7 +9,7 @@ namespace BL.Validators
         {
             if (value == null)
             {
-                throw new ArgumentNullException(nameof(value), $"{value} is null");
+                throw new ArgumentNullException(nameof(value), "value is null");
             }
         }
     }

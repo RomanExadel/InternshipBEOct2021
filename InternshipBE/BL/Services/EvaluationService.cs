@@ -24,6 +24,7 @@ namespace BL.Services
             var evaluation = _mapper.Map<Evaluation>(createEvaluationDto);
 
             evaluation = await _unitOfWork.Evaluations.CreateAsync(evaluation);
+
             createEvaluationDto = _mapper.Map<EvaluationDTO>(evaluation);
 
             var skill = await _unitOfWork.Skills.GetByIdAsync(evaluation.SkillId);
@@ -36,6 +37,7 @@ namespace BL.Services
         public async Task<List<EvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId)
         {
             var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedbackId);
+
             return _mapper.Map<List<EvaluationDTO>>(evaluations);
         }
 

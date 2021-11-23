@@ -1,4 +1,4 @@
-﻿namespace BL.Interfaces
+﻿namespace DAL.Interfaces
 {
     public interface IValidator<T> where T : class
     {

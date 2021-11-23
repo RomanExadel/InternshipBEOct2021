@@ -3,6 +3,7 @@ using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
 using ElmahCore.Mvc;
+using FluentValidation.AspNetCore;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +21,7 @@ using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
 using WebApi.Extensions;
+using WebApi.Filters;
 using static Shared.Constants.ConfigurationConstants;
 
 namespace WebApi
@@ -53,9 +55,16 @@ namespace WebApi
 				};
 			});
 
-			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationDbContext>()
-				.AddDefaultTokenProviders();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddScoped<ValidatorActionFilter>();
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
 			services.AddControllers()
 					.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
@@ -93,7 +102,7 @@ namespace WebApi
 				});
 			});
 
-			services.AddRepositories().AddServices();
+            services.AddRepositories().AddServices().AddValidators();
 
 			services.AddAuthentication(options =>
 			{
@@ -123,10 +132,12 @@ namespace WebApi
 		{
 			app.UseGlobalExceptionMiddleware();
 
-			app.UseElmahExceptionPage();
-
-			app.UseSwagger();
-			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+            if (env.IsDevelopment())
+            {
+                app.UseElmahExceptionPage();
+                
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
 			app.UseElmah();
 
