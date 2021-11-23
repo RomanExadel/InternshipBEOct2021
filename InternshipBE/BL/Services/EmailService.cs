@@ -25,15 +25,15 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task SendEmailAsync(string email, string subject, string text)
+        public async Task SendEmailAsync(int recipientId)
         {
             var message = new MimeMessage();
-            //var candidate = await _unitOfWork.Candidates.GetByIdAsync(toId);
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(recipientId);
             
             message.From.Add(new MailboxAddress("Exadel Team5 automatic email sender", "admntest.team5@gmail.com"));
-            message.To.Add(new MailboxAddress("Dmitry", email));
-            message.Subject = subject;
-            message.Body = new TextPart(TextFormat.Plain) {Text = text };
+            message.To.Add(new MailboxAddress(candidate.FirstName + " " + candidate.LastName, candidate.Email));
+            message.Subject = "Automatic Email Sending Function";
+            message.Body = new TextPart(TextFormat.Plain) {Text = "this is test message" };
 
             const string GMailAccount = "admntest.team5@gmail.com";
 

@@ -6,7 +6,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmailController: Controller
+    public class EmailController : Controller
     {
         private readonly IEmailService _emailService;
 
@@ -16,9 +16,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("sendEmail")]
-        public async Task<IActionResult> SendEmailAsync ([FromQuery] string email, [FromQuery] string subject, [FromQuery] string text)
+        public async Task<IActionResult> SendEmailAsync([FromQuery] int id)
         {
-            await _emailService.SendEmailAsync(email, subject, text);
+            await _emailService.SendEmailAsync(id);
             return Ok();
         }
 
