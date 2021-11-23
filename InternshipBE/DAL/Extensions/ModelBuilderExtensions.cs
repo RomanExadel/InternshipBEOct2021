@@ -219,7 +219,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 50,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageTypes = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9"
                 },
@@ -233,7 +232,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R"
                 },
@@ -247,7 +245,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.Russian,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc"
                 },
@@ -261,7 +258,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.Russian,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB"
                 }

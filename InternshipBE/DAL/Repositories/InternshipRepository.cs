@@ -39,7 +39,7 @@ namespace DAL.Repositories
                                              .ToListAsync();
         }
 
-        public async Task<List<Internship>> GetIntershipForFIlter(IntershipFilterModel filterBy)
+        public async Task<List<Internship>> GetFilteredInternships(IntershipFilterModel filterBy, int pageSize, int pageNumber)
         {
             var interships = await _context.Internships.ToListAsync();
 
@@ -48,7 +48,7 @@ namespace DAL.Repositories
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
-                    interships = interships.Where(i => i.LanguageTypes.Any(l => l == language)).ToList();
+                    interships = interships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == language)).ToList();
                 }
             ///interships = interships.Where(i => i.LanguageType == filterBy.LanguageType).ToList();
             if (filterBy.InternshipStacks != null)
@@ -64,7 +64,8 @@ namespace DAL.Repositories
             if(filterBy.IntershipYear.HasValue)
                 interships = interships.Where(i => i.StartDate.Year == filterBy.IntershipYear).ToList();
 
-            return interships;
+            return interships.Skip(pageSize * --pageNumber)
+                                             .Take(pageSize).ToList();
         }
     }
 }

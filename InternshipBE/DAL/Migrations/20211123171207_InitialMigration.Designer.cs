@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211119102245_InitialMigration")]
+    [Migration("20211123171207_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,9 +243,6 @@ namespace DAL.Migrations
                     b.Property<int>("InternshipStatusType")
                         .HasColumnType("int");
 
-                    b.Property<int>("LanguageType")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaxCandidateCount")
                         .HasColumnType("int");
 
@@ -267,6 +264,26 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Internships");
+                });
+
+            modelBuilder.Entity("DAL.Entities.InternshipLanguage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("InternshipId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InternshipId");
+
+                    b.ToTable("InternshipLanguage");
                 });
 
             modelBuilder.Entity("DAL.Entities.InternshipStack", b =>
@@ -677,6 +694,15 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DAL.Entities.InternshipLanguage", b =>
+                {
+                    b.HasOne("DAL.Entities.Internship", "Internship")
+                        .WithMany("LanguageTypes")
+                        .HasForeignKey("InternshipId");
+
+                    b.Navigation("Internship");
+                });
+
             modelBuilder.Entity("DAL.Entities.InternshipStack", b =>
                 {
                     b.HasOne("DAL.Entities.Internship", "Internship")
@@ -805,6 +831,8 @@ namespace DAL.Migrations
                     b.Navigation("Candidates");
 
                     b.Navigation("InternshipStacks");
+
+                    b.Navigation("LanguageTypes");
 
                     b.Navigation("Teams");
                 });

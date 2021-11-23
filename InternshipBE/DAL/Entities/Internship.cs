@@ -1,6 +1,7 @@
 ﻿using Shared.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Entities
 {
@@ -24,7 +25,7 @@ namespace DAL.Entities
 
         ///public LanguageType LanguageType { get; set; }
         ///
-        public List<LanguageType> LanguageTypes { get; set; }
+        public ICollection<InternshipLanguage> LanguageTypes { get; set; }
 
         public ICollection<Candidate> Candidates { get; set; }
 

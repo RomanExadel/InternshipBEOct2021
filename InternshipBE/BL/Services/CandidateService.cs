@@ -54,10 +54,10 @@ namespace BL.Services
         {
             var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
 
-            if (sortBy != null)
-            {
-                candidates = SortCandidates(candidates, sortBy, desc);
-            }
+            //if (sortBy != null)
+            //{
+            //    candidates = SortCandidates(candidates, sortBy, desc);
+            //}
 
             if (filterBy != null)
             {
@@ -89,16 +89,16 @@ namespace BL.Services
             return _mapper.Map<List<CandidateDTO>>(query);
         }
 
-        private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)
-        {
-            var propertyInfo = typeof(Candidate).GetProperty(sortBy);
+        //private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)
+        //{
+        //    var propertyInfo = typeof(Candidate).GetProperty(sortBy);
 
-            if (desc)
-                candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
-            else
-                candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
+        //    if (desc)
+        //        candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
+        //    else
+        //        candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
 
-            return candidates;
-        }
+        //    return candidates;
+        //}
     }
 }
