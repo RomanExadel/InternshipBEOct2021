@@ -55,16 +55,16 @@ namespace WebApi
 				};
 			});
 
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(ValidatorActionFilter));
-            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+			services.AddMvc(options =>
+			{
+				options.Filters.Add(typeof(ValidatorActionFilter));
+			}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddScoped<ValidatorActionFilter>();
+			services.AddScoped<ValidatorActionFilter>();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+			services.AddIdentity<User, IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
 
 			services.AddControllers()
 					.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
@@ -102,7 +102,7 @@ namespace WebApi
 				});
 			});
 
-            services.AddRepositories().AddServices().AddValidators();
+			services.AddRepositories().AddServices().AddValidators();
 
 			services.AddAuthentication(options =>
 			{
@@ -132,30 +132,31 @@ namespace WebApi
 		{
 			app.UseGlobalExceptionMiddleware();
 
-            if (env.IsDevelopment())
-            {
-                app.UseElmahExceptionPage();
-                
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-
-			app.UseElmah();
-
-			app.UseHangfireDashboard();
-			RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
-
-			app.UseRouting();
-
-			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-			app.UseAuthentication();
-
-			app.UseAuthorization();
-
-			app.UseEndpoints(endpoints =>
+			if (env.IsDevelopment())
 			{
-				endpoints.MapControllers();
-			});
+				app.UseElmahExceptionPage();
+
+				app.UseSwagger();
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+
+				app.UseElmah();
+
+				app.UseHangfireDashboard();
+				RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
+
+				app.UseRouting();
+
+				app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+				app.UseAuthentication();
+
+				app.UseAuthorization();
+
+				app.UseEndpoints(endpoints =>
+				{
+					endpoints.MapControllers();
+				});
+			}
 		}
 	}
 }
