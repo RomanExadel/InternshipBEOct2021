@@ -1,4 +1,5 @@
 ﻿using BL.DTOs;
+using DAL.Entities.Filtering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +13,6 @@ namespace BL.Interfaces
 
         Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO updatedInternship);
 
-        Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber);
+        Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy);
     }
 }

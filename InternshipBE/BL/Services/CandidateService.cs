@@ -1,8 +1,8 @@
 using AutoMapper;
-using BL.DTOs;
 using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
@@ -50,7 +50,7 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy)
+        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModel filterBy)
         {
             var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
 
@@ -61,7 +61,7 @@ namespace BL.Services
 
             if (filterBy != null)
             {
-                candidates = await FilterCandidates(filterBy);
+                candidates = await _unitOfWork.Candidates.GetCandidatesForFIlter(filterBy);
             }
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
@@ -99,22 +99,6 @@ namespace BL.Services
                 candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
 
             return candidates;
-        }
-
-        private async Task<List<Candidate>> FilterCandidates(CandidateFilterModelDTO filterBy)
-        {
-            var _candidates = _unitOfWork.Candidates.GetCandidatesForFIlter();
-
-            if (!string.IsNullOrEmpty(filterBy.Location))
-                _candidates = _candidates.Where(c => c.Location == filterBy.Location);
-            if (filterBy.StackType.HasValue)
-                _candidates = _candidates.Where(c => c.StackType == filterBy.StackType);
-            if (filterBy.StatusType.HasValue)
-                _candidates = _candidates.Where(c => c.StatusType == filterBy.StatusType);
-            if (filterBy.LanguageType.HasValue)
-                _candidates = _candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType);
-
-            return await _candidates.ToListAsync();
         }
     }
 }

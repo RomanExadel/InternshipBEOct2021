@@ -1,4 +1,4 @@
-﻿using BL.DTOs.CandidateDTOs;
+﻿using DAL.Entities.Filtering;
 
 namespace WebApi.Models
 {
@@ -12,7 +12,7 @@ namespace WebApi.Models
 
         public bool Desc { get; set; }
 
-        public CandidateFilterModelDTO FilterBy { get; set; }
+        public CandidateFilterModel CandidatesFilterBy { get; set; }
 
     }
 }

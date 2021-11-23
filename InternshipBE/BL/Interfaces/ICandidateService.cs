@@ -1,4 +1,5 @@
 ﻿using BL.DTOs.CandidateDTOs;
+using DAL.Entities.Filtering;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BL.Interfaces
 
         Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO updatedCandidate);
 
-        Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy);
+        Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModel filterBy);
 
         Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type);
 

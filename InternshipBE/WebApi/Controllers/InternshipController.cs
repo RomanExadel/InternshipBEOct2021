@@ -3,6 +3,7 @@ using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
+using DAL.Entities.Filtering;
 
 namespace WebApi.Controllers
 {
@@ -24,9 +25,9 @@ namespace WebApi.Controllers
         } 
 
         [HttpPost("getInternships")]
-        public async Task<IActionResult> GetInternships([FromBody] AGGridBaseRequest request)
+        public async Task<IActionResult> GetInternships([FromBody] AGGridFilterRequest request)
         {
-            return Ok(await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber));
+            return Ok(await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber, request.IntershipsFilterBy));
         }
 
         [HttpPost("createInternship")]

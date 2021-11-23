@@ -219,7 +219,7 @@ namespace DAL.Extensions
                     MaxCandidateCount = 50,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.English,
+                    LanguageTypes = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9"
                 },

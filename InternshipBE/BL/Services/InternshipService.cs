@@ -2,6 +2,7 @@
 using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,9 +30,12 @@ namespace BL.Services
             return _mapper.Map<InternshipDTO>(internship);
         }
 
-        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber)
+        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy)
         {
             var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber);
+
+            if (filterBy != null)
+                internships = await _unitOfWork.Internships.GetIntershipForFIlter(filterBy);
 
             return _mapper.Map<List<InternshipDTO>>(internships);
         }

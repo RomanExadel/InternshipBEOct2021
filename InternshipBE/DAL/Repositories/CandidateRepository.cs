@@ -1,5 +1,6 @@
 ﻿using DAL.Database;
 using DAL.Entities;
+using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
@@ -69,11 +70,24 @@ namespace DAL.Repositories
             else return null;
         }
 
-        public IQueryable<Candidate> GetCandidatesForFIlter()
+        public async Task<List<Candidate>> GetCandidatesForFIlter(CandidateFilterModel filterBy)
         {
-            var candidates = _context.Candidates
-                .Include(c => c.Internship)
-                .Include(c => c.Users);
+            var candidates = await _context.Candidates
+                .Include(c => c.Users)
+                .Include(c => c.Internship).ToListAsync();
+
+            if (filterBy.Location != null)
+                candidates = candidates.Where(c => c.Location == filterBy.Location).ToList();
+            if (filterBy.LanguageType.HasValue)
+                candidates = candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType).ToList();
+            if (filterBy.StatusType.HasValue)
+                candidates = candidates.Where(c => c.StatusType == filterBy.StatusType).ToList();
+            if(filterBy.HardSkills != null)
+                candidates = candidates.Where(c => c.PrimarySkill == filterBy.HardSkills).ToList();
+            if(filterBy.EnglishLevel.HasValue)
+                candidates = candidates.Where(c => c.EnglishLevelType == filterBy.EnglishLevel).ToList();
+            if (filterBy.UserId != null)
+                candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId)).ToList();
 
             return candidates;
         }

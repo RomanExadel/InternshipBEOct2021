@@ -3,6 +3,7 @@ using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.Entities.Filtering;
 
 namespace DAL.Interfaces
 {
@@ -14,7 +15,7 @@ namespace DAL.Interfaces
 
         Task<int> GetCandidatesCountAsync();
 
-        IQueryable<Candidate> GetCandidatesForFIlter();
+        Task <List<Candidate>> GetCandidatesForFIlter(CandidateFilterModel filterBy);
 
         Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc);
     }
