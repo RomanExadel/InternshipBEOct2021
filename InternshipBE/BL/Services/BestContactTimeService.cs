@@ -5,6 +5,7 @@ using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -32,8 +33,11 @@ namespace BL.Services
 		public async Task SaveBestContactTimeAsync(string userName, List<BestContactTimeDTO> models)
 		{
 			var user = await _userManager.FindByNameAsync(userName);
+			var existBestContactTime = await _unitOfWork.BestContactTime.GetAllByUserIdAsync(user.Id);
 
 			var bestContactTime = _mapper.Map<List<BestContactTime>>(models);
+
+			bestContactTime.RemoveAll(x => existBestContactTime.Select(x => x.StartTime).Contains(x.StartTime) & existBestContactTime.Select(x => x.EndTime).Contains(x.EndTime));
 			bestContactTime.ForEach(x => x.User = user);
 
 			await _unitOfWork.BestContactTime.BulkSaveAsync(bestContactTime);
