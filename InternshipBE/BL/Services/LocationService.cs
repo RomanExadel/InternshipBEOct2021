@@ -2,7 +2,6 @@
 using BL.DTOs;
 using BL.Interfaces;
 using DAL.Interfaces;
-using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,13 +11,11 @@ namespace BL.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly AbstractValidator<CountryDTO> _validations;
 
-        public LocationService(IMapper mapper, IUnitOfWork unitOfWork, AbstractValidator<CountryDTO> validations)
+        public LocationService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _validations = validations;
         }
 
         public async Task<List<CountryDTO>> GetLocationsAsync()
@@ -30,8 +27,6 @@ namespace BL.Services
 
         public async Task<CountryDTO> CreateLocationAsync(CountryDTO locationName)
         {
-            await _validations.ValidateAndThrowAsync(locationName);
-
             var result = await _unitOfWork.Locations.CreateLocationAsync(locationName.Name);
 
             return _mapper.Map<CountryDTO>(result);

@@ -1,3 +1,4 @@
+using BL.DTOs;
 using BL.Interfaces;
 using BL.Mapping;
 using DAL.Database;
@@ -20,6 +21,7 @@ using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
 using WebApi.Extensions;
+using WebApi.Filters;
 using static Shared.Constants.ConfigurationConstants;
 
 namespace WebApi
@@ -53,7 +55,12 @@ namespace WebApi
                 };
             });
 
-            services.AddFluentValidation();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddScoped<ValidatorActionFilter>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -123,7 +130,7 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseElmahExceptionPage();
-                
+
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 

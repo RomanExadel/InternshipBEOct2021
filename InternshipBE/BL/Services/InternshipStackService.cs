@@ -3,7 +3,6 @@ using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
-using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,13 +12,11 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly AbstractValidator<InternshipStackDTO> _validations;
 
-        public InternshipStackService(IUnitOfWork unitOfWork, IMapper mapper, AbstractValidator<InternshipStackDTO> validations)
+        public InternshipStackService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _validations = validations;
         }
 
         public async Task<InternshipStackDTO> CreateInternshipStackAsync(InternshipStackDTO internshipStackDto)
@@ -34,6 +31,7 @@ namespace BL.Services
         public async Task<List<InternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId)
         {
             var internshipStacks = await _unitOfWork.InternshipStacks.GetAllByInternshipIdAsync(internshipId);
+
             var internshipStacksDtos = _mapper.Map<List<InternshipStackDTO>>(internshipStacks);
 
             return internshipStacksDtos;
@@ -42,6 +40,7 @@ namespace BL.Services
         public async Task<List<InternshipStackDTO>> GetInternshipStacksAsync()
         {
             var internshipStacks = await _unitOfWork.InternshipStacks.GetAllAsync();
+
             var internshipStacksDtos = _mapper.Map<List<InternshipStackDTO>>(internshipStacks);
 
             return internshipStacksDtos;
@@ -49,8 +48,6 @@ namespace BL.Services
 
         public async Task<InternshipStackDTO> UpdateInternshipStackAsync(InternshipStackDTO internshipStackDTO)
         {
-            await _validations.ValidateAndThrowAsync(internshipStackDTO);
-
             var internshipStack = _mapper.Map<InternshipStack>(internshipStackDTO);
 
             internshipStack = await _unitOfWork.InternshipStacks.UpdateAsync(internshipStack);

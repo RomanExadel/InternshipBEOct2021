@@ -3,7 +3,6 @@ using BL.DTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
-using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,13 +12,11 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly AbstractValidator<FeedbackDTO> _validations;
 
-        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, AbstractValidator<FeedbackDTO> validations)
+        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _validations = validations;
         }
 
         public async Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback)
@@ -47,8 +44,6 @@ namespace BL.Services
 
         public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
         {
-            await _validations.ValidateAndThrowAsync(updatedFeedback);
-
             var feedback = _mapper.Map<Feedback>(updatedFeedback);
 
             feedback = await _unitOfWork.Feedbacks.UpdateAsync(feedback);

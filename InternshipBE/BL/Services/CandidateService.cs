@@ -3,7 +3,6 @@ using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
@@ -16,13 +15,11 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly AbstractValidator<CandidateDTO> _validations;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, AbstractValidator<CandidateDTO> validations)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _validations = validations;
         }
 
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
@@ -43,7 +40,6 @@ namespace BL.Services
 
         public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
         {
-            await _validations.ValidateAndThrowAsync(candidate);
 
             var mappedCandidate = _mapper.Map<Candidate>(candidate);
 
