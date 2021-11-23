@@ -78,7 +78,7 @@ namespace BL.Services
 			var range = $"{_googleConfig.RangeSettings}";
 			var request = _sheetService.Spreadsheets.Values.Get(spreadSheetId, range);
 
-				var response = request.Execute();
+			var response = request.Execute();
 
 			return response.Values;
 		}
