@@ -7,7 +7,6 @@ namespace WebApi.Validators
     {
         public InternshipDTOValidator()
         {
-            RuleFor(internship => internship.Id).NotEqual(0);
             RuleFor(internship => internship.SpreadSheetId).NotEmpty();
             RuleFor(internship => internship.CandidatesCount).NotEqual(0);
             RuleFor(internship => internship.DeclinedCandidatesCount).NotEqual(0);

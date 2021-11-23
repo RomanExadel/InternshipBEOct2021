@@ -7,7 +7,6 @@ namespace WebApi.Validators
     {
         public EvaluationDTOValidator()
         {
-            RuleFor(evaluation => evaluation.Id).NotEqual(0);
             RuleFor(evaluation => evaluation.SkillId).NotEqual(0);
             RuleFor(evaluation => evaluation.FeedbackId).NotEqual(0);
             RuleFor(evaluation => evaluation.Value).NotEqual(0);

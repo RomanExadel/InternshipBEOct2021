@@ -7,7 +7,6 @@ namespace WebApi.Validators
     {
         public InternshipStackDTOValidator()
         {
-            RuleFor(internshipStack => internshipStack.Id).NotEqual(0);
             RuleFor(internshipStack => internshipStack.InternshipId).NotEqual(0);
             RuleFor(internshipStack => internshipStack.TechnologyStackType).NotEmpty();
         }

@@ -7,7 +7,9 @@ namespace WebApi.Validators
     {
         public SkillDTOValidator()
         {
-            RuleFor(skill => skill.Id).NotEqual(0);
+            RuleFor(skill => skill.IsHardSkill).NotNull();
+            RuleFor(skill => skill.Name).NotEmpty();
+            RuleFor(skill => skill.StackType).NotEmpty();
         }       
     }
 }

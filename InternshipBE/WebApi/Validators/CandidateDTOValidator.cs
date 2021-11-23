@@ -7,7 +7,6 @@ namespace WebApi.Validators
     {
         public CandidateDTOValidator()
         {
-            RuleFor(candidate => candidate.Id).NotEqual(0);
             RuleFor(candidate => candidate.RegistrationDate).NotEmpty();
             RuleFor(candidate => candidate.Email).NotEmpty();
             RuleFor(candidate => candidate.FirstName).NotEmpty();
