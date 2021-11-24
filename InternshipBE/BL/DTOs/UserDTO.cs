@@ -1,4 +1,6 @@
-﻿namespace BL.DTOs
+﻿using System.Collections.Generic;
+
+namespace BL.DTOs
 {
     public class UserDTO
 	{
@@ -13,5 +15,7 @@
 		public string UserName { get; set; }
 
         public string RoleType { get; set; }
+
+		public List<FeedbackDTO> Feedbacks { get; set; }
     }
 }

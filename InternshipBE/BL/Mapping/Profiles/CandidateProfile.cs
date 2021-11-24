@@ -56,6 +56,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(dto => dto.TestTaskEvaluation, src => src.MapFrom(entity => entity.TestTaskEvaluation))
 				.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()))
 				.ForMember(dto => dto.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
+				.ForMember(dto => dto.InternshipName, src => src.MapFrom(entity => entity.Internship.Name))
 				.ForMember(dto => dto.TeamId, src => src.MapFrom(entity => entity.TeamId))
 				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users))
 				.ForMember(dto => dto.LanguageType, src => src.MapFrom(entity => entity.InternshipLanguage.ToString()))

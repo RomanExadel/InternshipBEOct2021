@@ -16,7 +16,7 @@ namespace DAL.Repositories
 
 		public async Task<List<BestContactTime>> GetAllByUserIdAsync(string userId)
 		{
-			return await _context.BestContactTimes.Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
+			return await _context.BestContactTimes.AsNoTracking().Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
 		}
 	}
 }
