@@ -48,6 +48,8 @@ namespace BL.DTOs.CandidateDTOs
 
         public int InternshipId { get; set; }
 
+        public string InternshipName { get; set; }
+
         public int? TeamId { get; set; }
 
         public List<UserDTO> Users { get; set; }

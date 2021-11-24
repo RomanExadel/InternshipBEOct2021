@@ -65,17 +65,19 @@ namespace BL.Services
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
 
-        public async Task<CandidateDTO> UpdateCandidateStatusByIdAsync(int id, CandidateStatusType type)
+        public async Task<List<CandidateDTO>> UpdateCandidateStatusByIdAsync(List<int> candidatesId, CandidateStatusType type)
         {
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+            var candidates = await _unitOfWork.Candidates.GetCandidatesListById(candidatesId);
 
-            candidate.StatusType = type;
+            _validator.ValidateIfEntitesExist(candidates);
 
-            candidate.Users = null;
+            candidates.ForEach(x => x.StatusType = type);
 
-            var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(candidate);
+            candidates.ForEach(x => x.Users = null);
 
-            return _mapper.Map<CandidateDTO>(updatedCandidate);
+            var updatedCandidates = await _unitOfWork.Candidates.BulkUpdateAsync(candidates);
+
+            return _mapper.Map<List<CandidateDTO>>(updatedCandidates);
         }
 
         public async Task<List<CandidateDTO>> SearchByInternshipIdAsync(CandidateDTO searchModel)
