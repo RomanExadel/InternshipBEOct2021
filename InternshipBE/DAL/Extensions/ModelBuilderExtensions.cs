@@ -39,6 +39,13 @@ namespace DAL.Extensions
                 new IdentityRole
                 {
                     Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Admin.ToString(),
+                    NormalizedName = RoleType.Admin.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                },
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
                     Name = RoleType.Hr.ToString(),
                     NormalizedName = RoleType.Hr.ToString().ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
@@ -55,13 +62,6 @@ namespace DAL.Extensions
                     Id = Guid.NewGuid().ToString(),
                     Name = RoleType.Manager.ToString(),
                     NormalizedName = RoleType.Manager.ToString().ToUpper(),
-                    ConcurrencyStamp = Guid.NewGuid().ToString(),
-                },
-                new IdentityRole
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = RoleType.Admin.ToString(),
-                    NormalizedName = RoleType.Admin.ToString().ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                 },
                  new IdentityRole

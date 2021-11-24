@@ -44,10 +44,13 @@ namespace WebApi.Controllers
             return Ok(await _candidateService.UpdateCandidateAsync(candidate));
         }
 
+        [Authorize(Roles = "Hr")]
         [HttpPut("updateCandidatesStatus")]
         public async Task<IActionResult> UpdateCandidateStatusById([FromBody] List<int> candidatesId, CandidateStatusType status)
         {
-            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(candidatesId, status));
+            var userName = User.Identity.Name;
+
+            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(candidatesId, status, userName));
         }
 
         [Authorize]
