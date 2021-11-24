@@ -63,8 +63,15 @@ namespace DAL.Repositories
             if(filterBy.IntershipYear.HasValue)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
 
-            return await internships.Skip(pageSize * --pageNumber)
-                                                .Take(pageSize).ToListAsync();
+            return await _context.Internships.AsNoTracking()
+                                             .Include(x => x.InternshipStacks)
+                                             .Include(x => x.Countries)
+                                             .Include(x => x.Candidates)
+                                             .Include(x => x.Teams)
+                                             .Include(x => x.Users)
+                                             .Skip(pageSize * --pageNumber)
+                                             .Take(pageSize)
+                                             .ToListAsync();
         }
     }
 }

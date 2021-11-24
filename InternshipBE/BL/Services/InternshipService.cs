@@ -35,7 +35,7 @@ namespace BL.Services
             var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber);
 
             if (filterBy != null)
-                internships = await _unitOfWork.Internships.GetFilteredInternships(filterBy, pageSize, pageNumber);
+                internships = await _unitOfWork.Internships.GetFilteredInternshipsAsync(filterBy, pageSize, pageNumber);
 
             return _mapper.Map<List<InternshipDTO>>(internships);
         }
