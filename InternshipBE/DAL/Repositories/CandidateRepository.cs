@@ -105,5 +105,10 @@ namespace DAL.Repositories
 
             return await candidates.ToListAsync();
         }
+
+        public Task<List<Candidate>> GetCandidatesListById(List<int> candidatesId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
