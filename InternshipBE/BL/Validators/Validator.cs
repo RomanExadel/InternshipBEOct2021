@@ -17,7 +17,7 @@ namespace BL.Validators
 
 		public void ValidateIfEntitesExist(List<T> values)
 		{
-			if (!values.Any())
+			if (values == null && !values.Any())
 			{
 				throw new ArgumentNullException(nameof(values), $"{values} is empty");
 			}
