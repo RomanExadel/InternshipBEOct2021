@@ -28,7 +28,7 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.Description, src => src.MapFrom(dto => dto.Description))
                 .ForMember(entity => entity.User, o => o.Ignore())
                 .ForMember(entity => entity.Candidate, o => o.Ignore())
-                .ForMember(entity => entity.Evaluations, o => o.Ignore())
+                .ForMember(entity => entity.Evaluations, src => src.MapFrom(dto => dto.Evaluations))
                 .ForMember(entity => entity.UserId, src => src.MapFrom(dto => dto.UserId))
                 .ForMember(entity => entity.FinalEvaluation, src => src.MapFrom(dto => dto.FinalEvaluation));
         }
