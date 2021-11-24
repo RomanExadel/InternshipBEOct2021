@@ -60,7 +60,7 @@ namespace DAL.Repositories
             var internships =  _context.Internships.AsQueryable();
 
             if (filterBy.Location != null)
-                internships = internships.Where(i => i.Countries.Any(c => c.Name.Contains(filterBy.Location, StringComparison.CurrentCultureIgnoreCase))); 
+                internships = internships.Where(i => i.Countries.Any(c => c.Name.Contains(filterBy.Location))); 
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
@@ -74,7 +74,7 @@ namespace DAL.Repositories
             if (filterBy.AttachedUsers != null)
                 foreach (var userName in filterBy.AttachedUsers)
                 {
-                    internships = internships.Where(i => i.Users.Any(u => u.UserName.Contains(userName, StringComparison.CurrentCultureIgnoreCase)));
+                    internships = internships.Where(i => i.Users.Any(u => u.UserName.Contains(userName)));
                 }
             if(filterBy.IntershipYear.HasValue)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
