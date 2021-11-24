@@ -1,8 +1,8 @@
 ﻿using DAL.Entities;
 
-namespace DAL.Validators
+namespace BL.Validators
 {
     public class CandidateValidator : Validator<Candidate>
-    {
+    {        
     }
 }

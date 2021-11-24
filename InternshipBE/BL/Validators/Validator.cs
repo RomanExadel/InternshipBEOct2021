@@ -1,9 +1,9 @@
-﻿using DAL.Interfaces;
+﻿using BL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DAL.Validators
+namespace BL.Validators
 {
 	public class Validator<T> : IValidator<T> where T : class
 	{

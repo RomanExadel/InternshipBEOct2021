@@ -10,25 +10,20 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class CandidateRepository : GenericRepository<Candidate>, ICandidateRepository
-    {
-        private readonly IValidator<Candidate> _validator;
+	public class CandidateRepository : GenericRepository<Candidate>, ICandidateRepository
+	{
+		public CandidateRepository(ApplicationDbContext context) : base(context)
+		{
+		}
 
-        public CandidateRepository(ApplicationDbContext context, IValidator<Candidate> validator) : base(context)
-        {
-            _validator = validator;
-        }
+		public async override Task<Candidate> GetByIdAsync(int id)
+		{
+			var candidate = await _context.Candidates.AsNoTracking()
+				.Include(x => x.Users)
+				.FirstOrDefaultAsync(x => x.Id == id);
 
-        public async override Task<Candidate> GetByIdAsync(int id)
-        {
-            var candidate = await _context.Candidates.AsNoTracking()
-                .Include(x => x.Users)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            _validator.ValidateIfEntityExist(candidate);
-
-            return candidate;
-        }
+			return candidate;
+		}
 
 		public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
 		{

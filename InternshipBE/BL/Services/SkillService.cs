@@ -25,7 +25,6 @@ namespace BL.Services
             var skill = _mapper.Map<Skill>(skillDto);
 
             skill = await _unitOfWork.Skills.CreateAsync(skill);
-
             skillDto = _mapper.Map<SkillDTO>(skill);
 
             return skillDto;

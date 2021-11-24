@@ -1,7 +1,7 @@
 ﻿using DAL.Database;
-using DAL.Entities;
 using DAL.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
@@ -19,9 +19,6 @@ namespace DAL.Repositories
         private IBestContactTimeRepository _bestContactTimeRepository;
         private IInternshipStackRepository _internshipStackRepository;
         private ILocationRepository _locationRepository;
-        private IValidator<Candidate> _candidateValidator;
-        private IValidator<Feedback> _feedbackValidator;
-        private IValidator<Internship> _internshipValidator;
 
         public ILocationRepository Locations
         {
@@ -48,7 +45,7 @@ namespace DAL.Repositories
             get
             {
                 if (_canidateRepository == null)
-                    _canidateRepository = new CandidateRepository(_db, _candidateValidator);
+                    _canidateRepository = new CandidateRepository(_db);
                 return _canidateRepository;
             }
         }
@@ -58,7 +55,7 @@ namespace DAL.Repositories
             get
             {
                 if (_internshipRepository == null)
-                    _internshipRepository = new InternshipRepository(_db, _internshipValidator);
+                    _internshipRepository = new InternshipRepository(_db);
                 return _internshipRepository;
             }
         }
@@ -77,7 +74,7 @@ namespace DAL.Repositories
             get
             {
                 if (_feedbackRepository == null)
-                    _feedbackRepository = new FeedbackRepository(_db, _feedbackValidator);
+                    _feedbackRepository = new FeedbackRepository(_db);
                 return _feedbackRepository;
             }
         }
@@ -112,13 +109,9 @@ namespace DAL.Repositories
             }
         }
 
-        public EFUnitOfWork(ApplicationDbContext db, IValidator<Candidate> candidateValidator,
-            IValidator<Feedback> feedbackValidator,IValidator<Internship> internshipValidator)
+        public EFUnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            _candidateValidator = candidateValidator;
-            _feedbackValidator = feedbackValidator;
-            _internshipValidator = internshipValidator;
         }
 
         public virtual void Dispose(bool disposing)

@@ -15,16 +15,20 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IValidator<Candidate> _validator;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Candidate> validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+
+            _validator.ValidateIfEntityExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -32,7 +36,6 @@ namespace BL.Services
         public async Task<CandidateDTO> CreateCandidateAsync(CandidateDTO newCandidate)
         {
             var mappedCandidate = _mapper.Map<Candidate>(newCandidate);
-
             var candidate = await _unitOfWork.Candidates.CreateAsync(mappedCandidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
@@ -40,9 +43,7 @@ namespace BL.Services
 
         public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
         {
-
             var mappedCandidate = _mapper.Map<Candidate>(candidate);
-
             var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
 
             return _mapper.Map<CandidateDTO>(updatedCandidate);
@@ -92,9 +93,9 @@ namespace BL.Services
             var propertyInfo = typeof(Candidate).GetProperty(sortBy);
 
             if (desc)
-                candidates = candidates.AsEnumerable().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
+                candidates = candidates.AsEnumerable<Candidate>().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
             else
-                candidates = candidates.AsEnumerable().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
+                candidates = candidates.AsEnumerable<Candidate>().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
 
             return candidates;
         }
