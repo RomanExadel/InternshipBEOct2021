@@ -9,10 +9,10 @@ namespace WebApi.Extensions
     {
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<Candidate>, CandidateValidator>();
-            services.AddTransient<IValidator<User>, UserValidator>();
-            services.AddTransient<IValidator<Feedback>, FeedbackValidator>();
-            services.AddTransient<IValidator<Internship>, InternshipValidator>();
+            services.AddScoped<IValidator<Candidate>, CandidateValidator>();
+            services.AddScoped<IValidator<User>, UserValidator>();
+            services.AddScoped<IValidator<Feedback>, FeedbackValidator>();
+            services.AddScoped<IValidator<Internship>, InternshipValidator>();
 
             return services;
         }
