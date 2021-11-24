@@ -28,7 +28,7 @@ namespace BL.Services
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfEntityExists(candidate);
+            _validator.ValidateIfEntityExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
