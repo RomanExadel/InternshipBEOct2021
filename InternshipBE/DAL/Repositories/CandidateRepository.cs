@@ -27,7 +27,7 @@ namespace DAL.Repositories
 
 		public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
 		{
-			return await _context.Candidates.Include(x => x.Internship)
+			return await _context.Candidates.AsNoTracking().Include(x => x.Internship)
 				.Include(x => x.Users)
 					.ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
 						.ThenInclude(x => x.Evaluations)
