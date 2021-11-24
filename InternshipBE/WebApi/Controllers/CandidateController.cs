@@ -3,6 +3,7 @@ using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Models;
 
@@ -43,10 +44,10 @@ namespace WebApi.Controllers
             return Ok(await _candidateService.UpdateCandidateAsync(candidate));
         }
 
-        [HttpPut("updateCandidateStatus/{id}")]
-        public async Task<IActionResult> UpdateCandidateStatusById(int id, CandidateStatusType status)
+        [HttpPut("updateCandidatesStatus")]
+        public async Task<IActionResult> UpdateCandidateStatusById([FromBody] List<int> candidatesId, CandidateStatusType status)
         {
-            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
+            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(candidatesId, status));
         }
 
         [Authorize]

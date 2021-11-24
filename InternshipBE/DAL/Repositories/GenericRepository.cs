@@ -64,5 +64,14 @@ namespace DAL.Repositories
 
 			await _context.SaveChangesAsync();
 		}
+
+		public async Task<List<TEntity>> BulkUpdateAsync(List<TEntity> entities)
+		{
+			_dbSet.UpdateRange(entities);
+
+			await _context.SaveChangesAsync();
+
+			return entities;
+		}
 	}
 }
