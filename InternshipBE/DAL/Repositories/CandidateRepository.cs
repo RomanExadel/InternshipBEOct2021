@@ -27,8 +27,10 @@ namespace DAL.Repositories
 
 		public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber)
 		{
-			return await _context.Candidates.Include(x => x.Internship)
+			return await _context.Candidates.AsNoTracking().Include(x => x.Internship)
 				.Include(x => x.Users)
+					.ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
+						.ThenInclude(x => x.Evaluations)
 				.Where(x => x.InternshipId == id)
 				.Skip(pageSize * --pageNumber)
 				.Take(pageSize)
@@ -54,7 +56,9 @@ namespace DAL.Repositories
 
 		public async Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc, int internshipId)
 		{
-			return await _context.Candidates.Where(x => x.FirstName.Contains(searchText) | x.LastName.Contains(searchText))
+			return await _context.Candidates
+				.Include(x => x.Internship)
+				.Where(x => x.FirstName.Contains(searchText) | x.LastName.Contains(searchText))
 				.Where(x => x.InternshipId == internshipId)
 				.Skip(skip)
 				.Take(take)
