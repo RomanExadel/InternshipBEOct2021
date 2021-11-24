@@ -70,7 +70,7 @@ namespace DAL.Repositories
             else return null;
         }
 
-        public async Task<List<Candidate>> GetCandidatesForFIlter(CandidateFilterModel filterBy)
+        public async Task<List<Candidate>> GetCandidatesForFilterAsync(CandidateFilterModel filterBy)
         {
             var candidates = await _context.Candidates
                 .Include(c => c.Users)

@@ -13,7 +13,7 @@ namespace DAL.Entities.Filtering
 
         public string? HardSkills { get; set; }
 
-        ///public int? IntershipYear { get; set; }
+        public int? IntershipYear { get; set; }
 
         public EnglishLevelType? EnglishLevel { get; set; }
 

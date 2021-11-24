@@ -15,7 +15,7 @@ namespace DAL.Interfaces
 
         Task<int> GetCandidatesCountAsync();
 
-        Task <List<Candidate>> GetCandidatesForFIlter(CandidateFilterModel filterBy);
+        Task <List<Candidate>> GetCandidatesForFilterAsync(CandidateFilterModel filterBy);
 
         Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc);
     }

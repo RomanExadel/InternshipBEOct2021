@@ -9,6 +9,6 @@ namespace DAL.Interfaces
     {
         Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber);
 
-        Task<List<Internship>> GetFilteredInternships(IntershipFilterModel filterBy, int pageSize, int pageNumber);
+        Task<List<Internship>> GetFilteredInternshipsAsync(IntershipFilterModel filterBy, int pageSize, int pageNumber);
     }
 }

@@ -23,8 +23,6 @@ namespace DAL.Entities
 
         public DateTime RegistrationFinishDate { get; set; }
 
-        ///public LanguageType LanguageType { get; set; }
-        ///
         public ICollection<InternshipLanguage> LanguageTypes { get; set; }
 
         public ICollection<Candidate> Candidates { get; set; }

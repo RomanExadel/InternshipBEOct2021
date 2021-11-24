@@ -10,8 +10,6 @@ namespace DAL.Entities.Filtering
 
         public List<LanguageType>? LanguageTypes { get; set; }
 
-        ///public LanguageType? LanguageType { get; set; }
-
         public InternshipStatusType? InternshipStatusType { get; set; }
 
         public List<StackType>? InternshipStacks { get; set; }

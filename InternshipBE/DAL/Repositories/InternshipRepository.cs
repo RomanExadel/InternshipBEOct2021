@@ -39,33 +39,32 @@ namespace DAL.Repositories
                                              .ToListAsync();
         }
 
-        public async Task<List<Internship>> GetFilteredInternships(IntershipFilterModel filterBy, int pageSize, int pageNumber)
+        public async Task<List<Internship>> GetFilteredInternshipsAsync(IntershipFilterModel filterBy, int pageSize, int pageNumber)
         {
-            var interships = await _context.Internships.ToListAsync();
+            var internships = await _context.Internships.ToListAsync();
 
             if (filterBy.Location != null)
-                interships = interships.Where(i => i.Countries.Any(c => c.Name == filterBy.Location)).ToList();
+                internships = internships.Where(i => i.Countries.Any(c => c.Name == filterBy.Location)).ToList(); 
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
-                    interships = interships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == language)).ToList();
+                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == language)).ToList();
                 }
-            ///interships = interships.Where(i => i.LanguageType == filterBy.LanguageType).ToList();
             if (filterBy.InternshipStacks != null)
                 foreach(var stack in filterBy.InternshipStacks)
                 {
-                    interships = interships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == stack)).ToList();
+                    internships = internships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == stack)).ToList();
                 }
             if (filterBy.AttachedUsers != null)
                 foreach (var userName in filterBy.AttachedUsers)
                 {
-                    interships = interships.Where(i => i.Users.Any(u => u.UserName == userName)).ToList();
+                    internships = internships.Where(i => i.Users.Any(u => u.UserName == userName)).ToList();
                 }
             if(filterBy.IntershipYear.HasValue)
-                interships = interships.Where(i => i.StartDate.Year == filterBy.IntershipYear).ToList();
+                internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear).ToList();
 
-            return interships.Skip(pageSize * --pageNumber)
-                                             .Take(pageSize).ToList();
+            return internships.Skip(pageSize * --pageNumber)
+                                                .Take(pageSize).ToList();
         }
     }
 }
