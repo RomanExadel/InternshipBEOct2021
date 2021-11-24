@@ -91,7 +91,11 @@ namespace DAL.Repositories
 
 		public async Task<List<Candidate>> GetCandidatesListById(List<int> candidatesId)
 		{
-			return await _context.Candidates.Where(x => candidatesId.Contains(x.Id)).ToListAsync();
+			var candidates = await _context.Candidates.Where(x => candidatesId.Contains(x.Id)).ToListAsync();
+
+			_validator.ValidateIfEntitesExist(candidates);
+
+			return candidates;
 		}
 	}
 }
