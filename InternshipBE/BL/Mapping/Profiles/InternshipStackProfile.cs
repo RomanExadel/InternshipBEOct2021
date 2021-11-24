@@ -11,13 +11,15 @@ namespace BL.Mapping.Profiles
         public InternshipStackProfile()
         {
             CreateMap<InternshipStack, InternshipStackDTO>()
-                .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
-                .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => dto.TechnologyStackType.ToString()));
+                .ForMember(dto => dto.Id, src => src.MapFrom(entity => entity.Id))
+                .ForMember(dto => dto.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
+                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => entity.TechnologyStackType.ToString()));
 
             CreateMap<InternshipStackDTO, InternshipStack>()
-                .ForMember(dto => dto.Id, src => src.MapFrom(entity => entity.Id))
-                .ForMember(dto => dto.TechnologyStackType, src => src.MapFrom(entity => Enum.Parse<StackType>(entity.TechnologyStackType)))
-                .ForMember(dto => dto.InternshipId, o => o.Ignore());
+                .ForMember(entity => entity.Id, src => src.MapFrom(dto => dto.Id))
+                .ForMember(entity => entity.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
+                .ForMember(entity => entity.Internship, o => o.Ignore())
+                .ForMember(entity => entity.TechnologyStackType, src => src.MapFrom(dto => Enum.Parse<StackType>(dto.TechnologyStackType)));
         }
     }
 }
