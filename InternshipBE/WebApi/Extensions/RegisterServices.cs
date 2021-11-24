@@ -1,7 +1,9 @@
 ﻿using BL.Interfaces;
 using BL.Services;
+using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
+using DAL.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApi.Extensions

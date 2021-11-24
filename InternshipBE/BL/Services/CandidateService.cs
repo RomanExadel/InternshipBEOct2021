@@ -15,18 +15,20 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IValidator<Candidate> _validator;
 
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Candidate> validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
 
-            _validator.ValidateIfEntityExists(candidate);
+            _validator.ValidateIfEntityExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
