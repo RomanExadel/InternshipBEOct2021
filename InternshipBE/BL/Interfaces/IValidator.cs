@@ -6,6 +6,6 @@ namespace BL.Interfaces
     {
         public void ValidateIfEntityExist(T value);
 
-        public void ValidateIfEntityExist(List<T> values);
+        public void ValidateIfEntitesExist(List<T> values);
     }
 }

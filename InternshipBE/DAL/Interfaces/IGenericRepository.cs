@@ -19,6 +19,6 @@ namespace DAL.Interfaces
 
 		Task DeleteByIdAsync(int Id);
 
-		public Task<List<TEntity>> BulkUpdateAsync (List<TEntity> entities);
+		public Task<List<TEntity>> BulkUpdateAsync(List<TEntity> entities);
 	}
 }

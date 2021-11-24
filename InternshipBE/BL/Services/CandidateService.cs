@@ -70,7 +70,7 @@ namespace BL.Services
         {
             var candidates = await _unitOfWork.Candidates.GetCandidatesListById(candidatesId);
 
-            _validator.ValidateIfEntityExist(candidates);
+            _validator.ValidateIfEntitesExist(candidates);
 
             candidates.ForEach(x => x.StatusType = type);
 
