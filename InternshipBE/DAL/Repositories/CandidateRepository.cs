@@ -22,8 +22,11 @@ namespace DAL.Repositories
         public async override Task<Candidate> GetByIdAsync(int id)
         {
             var candidate = await _context.Candidates.AsNoTracking()
+				.Include(x => x.Internship)
                 .Include(x => x.Users)
-                .FirstOrDefaultAsync(x => x.Id == id);
+				.ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.Id == id))
+						.ThenInclude(x => x.Evaluations)
+				.FirstOrDefaultAsync(x => x.Id == id);
 
             _validator.ValidateIfEntityExist(candidate);
 
