@@ -1,13 +1,10 @@
 ﻿using DAL.Entities.Filtering;
+using Shared.Models;
 
 namespace WebApi.Models
 {
-    public class AGGridFilterRequest
+    public class AGGridInternshipsFilter : AGGridBaseRequest
     {
-        public int PageNumber { get; set; }
-
-        public int PageSize { get; set; }
-
         public IntershipFilterModel IntershipsFilterBy { get; set; }
     }
 }

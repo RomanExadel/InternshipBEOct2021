@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BL.DTOs.CandidateDTOs
 {
-    public class CandidateDTO : AGGridFilter
+    public class CandidateDTO : AGGridSearch
     {
         public int Id { get; set; }
 

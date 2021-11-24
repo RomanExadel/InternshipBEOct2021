@@ -1,9 +1,10 @@
 ﻿using Shared.Enums;
+using Shared.Models;
 #nullable enable
 
 namespace DAL.Entities.Filtering
 {
-    public class CandidateFilterModel
+    public class CandidateFilterModel 
     {
         public string? Location { get; set; }
 

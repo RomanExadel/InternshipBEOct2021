@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         } 
 
         [HttpPost("getInternships")]
-        public async Task<IActionResult> GetInternships([FromBody] AGGridFilterRequest request)
+        public async Task<IActionResult> GetInternships([FromBody] AGGridInternshipsFilter request)
         {
             return Ok(await _internshipService.GetInternshipsAsync(request.PageSize, request.PageNumber, request.IntershipsFilterBy));
         }
