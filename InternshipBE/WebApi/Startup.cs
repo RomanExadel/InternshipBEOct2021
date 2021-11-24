@@ -54,16 +54,16 @@ namespace WebApi
                 };
             });
 
-			services.AddMvc(options =>
-			{
-				options.Filters.Add(typeof(ValidatorActionFilter));
-			}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-			services.AddScoped<ValidatorActionFilter>();
+            services.AddScoped<ValidatorActionFilter>();
 
-			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationDbContext>()
-				.AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllers()
                     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
@@ -101,7 +101,7 @@ namespace WebApi
                 });
             });
 
-			services.AddRepositories().AddServices().AddValidators();
+            services.AddRepositories().AddServices().AddValidators();
 
             services.AddAuthentication(options =>
             {
