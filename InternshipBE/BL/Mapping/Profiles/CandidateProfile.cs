@@ -60,6 +60,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(dto => dto.TeamId, src => src.MapFrom(entity => entity.TeamId))
 				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users))
 				.ForMember(dto => dto.LanguageType, src => src.MapFrom(entity => entity.InternshipLanguage.ToString()))
+				.ForMember(dto => dto.BestContactTime, src => src.MapFrom(entity => entity.BestContactTime))
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
