@@ -16,7 +16,7 @@ namespace BL.Interfaces
 
         Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber,  CandidateFilterModel filterBy);
 
-        Task<List<CandidateDTO>> UpdateCandidateStatusByIdAsync(List<int> candidatesId, CandidateStatusType type);
+        Task<List<CandidateDTO>> UpdateCandidateStatusByIdAsync(List<int> candidatesId, CandidateStatusType type, string userName);
 
         Task<List<CandidateDTO>> SearchByInternshipIdAsync(CandidateDTO searchModel);
     }
