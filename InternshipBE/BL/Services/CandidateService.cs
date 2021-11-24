@@ -18,7 +18,6 @@ namespace BL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-
         public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;
@@ -80,7 +79,7 @@ namespace BL.Services
             candidates.ForEach(x => x.Users.Add(users[0]));
 
             candidates.ForEach(x => x.StatusType = type);
-            
+
             var updatedCandidates = await _unitOfWork.Candidates.BulkUpdateAsync(candidates);
 
             return _mapper.Map<List<CandidateDTO>>(updatedCandidates);
