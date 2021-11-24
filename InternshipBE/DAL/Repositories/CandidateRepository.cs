@@ -82,7 +82,7 @@ namespace DAL.Repositories
 
 		public async Task<List<Candidate>> GetCandidatesListById(List<int> candidatesId)
 		{
-			return await _context.Candidates.Where(x => candidatesId.Contains(x.Id)).ToListAsync();
+			return await _context.Candidates.AsNoTracking().Where(x => candidatesId.Contains(x.Id)).ToListAsync();
 		}
 	}
 }
