@@ -33,6 +33,9 @@ namespace BL.Services
 
         private async Task<byte[]> GetReportByAllCandidatesAsync(List<Candidate> report)
         {
+            if (report == null && report.Count == 0)
+                throw new ArgumentNullException(nameof(report), "report is null");
+
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var package = new ExcelPackage();
 

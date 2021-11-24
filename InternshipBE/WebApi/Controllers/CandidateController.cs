@@ -3,6 +3,7 @@ using BL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Models;
 
@@ -43,17 +44,17 @@ namespace WebApi.Controllers
             return Ok(await _candidateService.UpdateCandidateAsync(candidate));
         }
 
-        [HttpPut("updateCandidateStatus/{id}")]
-        public async Task<IActionResult> UpdateCandidateStatusById(int id, CandidateStatusType status)
+        [HttpPut("updateCandidatesStatus")]
+        public async Task<IActionResult> UpdateCandidateStatusById([FromBody] List<int> candidatesId, CandidateStatusType status)
         {
-            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(id, status));
+            return Ok(await _candidateService.UpdateCandidateStatusByIdAsync(candidatesId, status));
         }
 
         [Authorize]
         [HttpPost("candidateSearch")]
-        public async Task<IActionResult> SearchCandidate([FromBody] CandidateDTO searchModel)
+        public async Task<IActionResult> SearchCandidates([FromBody] CandidateDTO searchModel)
         {
-            var searchResult = await _candidateService.SearchAsync(searchModel);
+            var searchResult = await _candidateService.SearchByInternshipIdAsync(searchModel);
 
             return Ok(searchResult);
         }

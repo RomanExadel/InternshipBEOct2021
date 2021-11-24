@@ -43,16 +43,13 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.MaxCandidateCount, src => src.MapFrom(dto => dto.MaxCandidateCount))
                 .ForMember(entity => entity.RegistrationStartDate, src => src.MapFrom(dto => dto.RegistrationStartDate))
                 .ForMember(entity => entity.RegistrationFinishDate, src => src.MapFrom(dto => dto.RegistrationFinishDate))
-                ///.ForMember(entity => entity.LanguageTypes, src => src.MapFrom(dto => Enum.Parse<LanguageType>(dto.LanguageTypes)))
-                .ForMember(entity => entity.LanguageTypes, o => o.Ignore())
                 .ForMember(entity => entity.Candidates, o => o.Ignore())
+                .ForMember(entity => entity.LanguageType, src => src.MapFrom(dto => Enum.Parse<LanguageType>(dto.LanguageType)))
                 .ForMember(entity => entity.InternshipStacks, src => src.MapFrom(dto => dto.InternshipStacks))
-                .ForMember(entity => entity.Users, o => o.Ignore())
-                .ForMember(entity => entity.Teams, o => o.Ignore())
-                .ForMember(entity => entity.Countries, o => o.Ignore())
-                .ForMember(entity => entity.Users, o => o.Ignore())
+                .ForMember(entity => entity.Users, src => src.MapFrom(dto => dto.Users))
                 .ForMember(entity => entity.InternshipStatusType, src => src.MapFrom(dto => Enum.Parse<InternshipStatusType>(dto.InternshipStatusType)))
-                .ForMember(entity => entity.ImageLink, src => src.MapFrom(dto => dto.ImageLink));
+                .ForMember(entity => entity.ImageLink, src => src.MapFrom(dto => dto.ImageLink))
+                .ForAllOtherMembers(x => x.Ignore());
         }
     }
 }

@@ -9,7 +9,7 @@ namespace DAL.Extensions
 {
     public static class ModelBuilderExtensions
     {
-        private static readonly string _password = "Password";
+        private static readonly string _password = "qwErtY2021";
 
         private static string[] _roleIds;
         private static string[] _userIds;
@@ -63,6 +63,13 @@ namespace DAL.Extensions
                     Name = RoleType.Admin.ToString(),
                     NormalizedName = RoleType.Admin.ToString().ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
+                },
+                 new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleType.Mentor.ToString(),
+                    NormalizedName = RoleType.Mentor.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                 }
             };
 
@@ -80,14 +87,16 @@ namespace DAL.Extensions
 
         public static ModelBuilder FillUsers(this ModelBuilder builder)
         {
-            var userName1 = "Masha";
-            var email1 = "li@gmail.com";
-            var userName2 = "Maxim";
-            var email2 = "max@gmail.com";
-            var userName3 = "Dasha";
-            var email3 = "user@example.com";
-            var userName4 = "Alexandr";
-            var email4 = "admin@gmail.com";
+            var userName1 = "Peter Petrov";
+            var email1 = "admntest.team5@gmail.com";
+            var userName2 = "Lily Ivanova";
+            var email2 = "hrlily.team5@gmail.com";
+            var userName3 = "Ivan Sidorov";
+            var email3 = "interviewer.team5@gmail.com";
+            var userName4 = "Ann Green";
+            var email4 = "managertest.team5@gmail.com";
+            var userName5 = "Boris Bobrov";
+            var email5 = "mentortest.team5@gmail.com";
 
             var passwordHasher = new PasswordHasher<User>();
 
@@ -96,7 +105,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Hr,
+                    RoleType = RoleType.Admin,
                     Position = "BA",
                     UserName = userName1,
                     NormalizedUserName = userName1.ToUpper(),
@@ -116,7 +125,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Interviewer,
+                    RoleType = RoleType.Hr,
                     Position = "Back",
                     UserName = userName2,
                     NormalizedUserName = userName2.ToUpper(),
@@ -136,7 +145,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Manager,
+                    RoleType = RoleType.Interviewer,
                     Position = "Front",
                     UserName = userName3,
                     NormalizedUserName = userName3.ToUpper(),
@@ -156,7 +165,7 @@ namespace DAL.Extensions
                 new User
                 {
                     Id = Guid.NewGuid().ToString(),
-                    RoleType = RoleType.Admin,
+                    RoleType = RoleType.Manager,
                     Position = "PO",
                     UserName = userName4,
                     NormalizedUserName = userName4.ToUpper(),
@@ -167,6 +176,26 @@ namespace DAL.Extensions
                     SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PhoneNumber = "+325659787",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnd = null,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0
+                },
+                new User
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    RoleType = RoleType.Mentor,
+                    Position = "PO",
+                    UserName = userName5,
+                    NormalizedUserName = userName5.ToUpper(),
+                    Email = email5,
+                    NormalizedEmail = email5.ToUpper(),
+                    EmailConfirmed = false,
+                    PasswordHash = passwordHasher.HashPassword(null, _password),
+                    SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    PhoneNumber = "+7777777777777777",
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = false,
                     LockoutEnd = null,
@@ -212,7 +241,7 @@ namespace DAL.Extensions
                 new Internship
                 {
                     Id = 1,
-                    Name = "JS/>NET",
+                    Name = "JS/.NET",
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow,
                     Requirements = "OOP, JS, C#, .Net, Angular/React",
@@ -220,7 +249,8 @@ namespace DAL.Extensions
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/uc?export=view&id=1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9",
+                    SpreadSheetId = "1nhQ98ChhQRfYQWQ2Rf6oyVpjyLetHq34V8muxMvwzSA"
                 },
                 new Internship
                 {
@@ -233,7 +263,8 @@ namespace DAL.Extensions
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/uc?export=view&id=1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R",
+                    SpreadSheetId = "1wdTLLMb8cWVQWpEfJafJCRL1eEF17kE1QQ1jYZGjw6A"
                 },
                 new Internship
                 {
@@ -246,12 +277,13 @@ namespace DAL.Extensions
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/uc?export=view&id=1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc",
+                    SpreadSheetId = "1XSY0mwxSWPA1pXT4VteUoM4UTbuhn2LaqofeK6_7zuo"
                 },
                new Internship
                 {
                     Id = 4,
-                    Name = "Angular/>NET",
+                    Name = "Angular/.NET",
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow,
                     Requirements = "OOP, JS, C#, .Net, Angular/React",
@@ -259,7 +291,8 @@ namespace DAL.Extensions
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
                     InternshipStatusType = InternshipStatusType.Open,
-                    ImageLink = "https://drive.google.com/uc?export=view&id=1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB"
+                    ImageLink = "https://drive.google.com/uc?export=view&id=1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB",
+                    SpreadSheetId = "1RW1QxFSlyfGUnm0c-rGGr2_suo_MXrn1e_pUuLSV2tc"
                 }
             };
 
@@ -427,6 +460,7 @@ namespace DAL.Extensions
                 {
                     Id = 1,
                     CandidateId = 1,
+                    FinalEvaluation = 1,
                     EnglishLevelType = EnglishLevelType.C1,
                     Date = DateTime.UtcNow,
                     Description = "Good knowledge of frameworks, oop, and db",
@@ -436,6 +470,7 @@ namespace DAL.Extensions
                 {
                     Id = 2,
                     CandidateId = 2,
+                    FinalEvaluation = 2,
                     EnglishLevelType = EnglishLevelType.C2,
                     Date = DateTime.UtcNow,
                     Description = "Excellent candidate",

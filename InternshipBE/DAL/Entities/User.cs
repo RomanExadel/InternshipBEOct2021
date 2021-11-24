@@ -18,5 +18,7 @@ namespace DAL.Entities
 		public ICollection<Team> Teams { get; set; }
 
 		public ICollection<BestContactTime> BestContactTimes { get; set; }
+
+		public ICollection<Feedback> Feedbacks { get; set; }
 	}
 }

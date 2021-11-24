@@ -3,6 +3,7 @@ using BL.Mapping;
 using DAL.Database;
 using DAL.Entities;
 using ElmahCore.Mvc;
+using FluentValidation.AspNetCore;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -11,14 +12,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shared.Config;
+using Shared.Constants;
 using Shared.Extensions;
 using System.Text;
 using System.Text.Json;
 using WebApi.Extensions;
+using WebApi.Filters;
 using static Shared.Constants.ConfigurationConstants;
 
 namespace WebApi
@@ -52,6 +54,13 @@ namespace WebApi
                 };
             });
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddScoped<ValidatorActionFilter>();
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -61,7 +70,12 @@ namespace WebApi
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "WebApi",
+                    Version = "v1",
+                    Description = SwaggerDescriptionConstatnt.SwaggerDescription
+                });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -87,7 +101,7 @@ namespace WebApi
                 });
             });
 
-            services.AddRepositories().AddServices();
+            services.AddRepositories().AddServices().AddValidators();
 
             services.AddAuthentication(options =>
             {
@@ -117,18 +131,15 @@ namespace WebApi
         {
             app.UseGlobalExceptionMiddleware();
 
-            if (env.IsDevelopment())
-            {
-                app.UseElmahExceptionPage();
-                
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+            app.UseElmahExceptionPage();
 
-                app.UseElmah();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
-                app.UseHangfireDashboard();
-                RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
-            }
+            app.UseElmah();
+
+            app.UseHangfireDashboard();
+            RecurringJob.AddOrUpdate<IGoogleSheetService>("getnewcandidates", x => x.SaveNewCandidatesAsync(), CronConfiguration.SetCron(Configuration));
 
             app.UseRouting();
 
@@ -142,6 +153,7 @@ namespace WebApi
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

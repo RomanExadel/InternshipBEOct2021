@@ -298,6 +298,9 @@ namespace DAL.Migrations
                     b.Property<int>("EnglishLevelType")
                         .HasColumnType("int");
 
+                    b.Property<int>("FinalEvaluation")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -359,6 +362,9 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Requirements")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpreadSheetId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
@@ -692,10 +698,10 @@ namespace DAL.Migrations
                             PhoneNumber = "+123656787",
                             PhoneNumberConfirmed = false,
                             Position = "BA",
-                            RoleType = 1,
+                            RoleType = 4,
                             SecurityStamp = "E5BBMDK3I3PX6MZCUDSP2TGQMJNHIOU7",
                             TwoFactorEnabled = false,
-                            UserName = "Masha"
+                            UserName = "Peter Petrov"
                         },
                         new
                         {
@@ -711,10 +717,10 @@ namespace DAL.Migrations
                             PhoneNumber = "+125656787",
                             PhoneNumberConfirmed = false,
                             Position = "Back",
-                            RoleType = 2,
+                            RoleType = 1,
                             SecurityStamp = "M3ZDA3WQP6J2ZVGKBIZHOE7GKC4BR2ZF",
                             TwoFactorEnabled = false,
-                            UserName = "Maxim"
+                            UserName = "Lily Ivanova"
                         },
                         new
                         {
@@ -730,10 +736,10 @@ namespace DAL.Migrations
                             PhoneNumber = "+325656787",
                             PhoneNumberConfirmed = false,
                             Position = "Front",
-                            RoleType = 3,
+                            RoleType = 2,
                             SecurityStamp = "YZYNYT3QR6FM5GVYL4VRT3EX3RIOZIFC",
                             TwoFactorEnabled = false,
-                            UserName = "Dasha"
+                            UserName = "Ivan Sidorov"
                         },
                         new
                         {
@@ -749,10 +755,29 @@ namespace DAL.Migrations
                             PhoneNumber = "+325659787",
                             PhoneNumberConfirmed = false,
                             Position = "PO",
-                            RoleType = 4,
+                            RoleType = 3,
                             SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
                             TwoFactorEnabled = false,
-                            UserName = "Alexandr"
+                            UserName = "Ann Green"
+                        },
+                        new
+                        {
+                            Id = "75e2119e-8010-4af3-9be5-0748970b575a",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ab3370fc-1574-4505-8b12-6ded9743f345",
+                            Email = "mentortest.team5@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "MENTORTEST.TEAM5@GMAIL.COM",
+                            NormalizedUserName = "BORIS BOBROV",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG5V+ED64yq5s1rMYzymEAdHjJZSFLtTZ/SWN1MHBDNh74M2VfRw+lLekq3JN5eMeA==",
+                            PhoneNumber = "+7777777777777777",
+                            PhoneNumberConfirmed = false,
+                            Position = "PO",
+                            RoleType = 0,
+                            SecurityStamp = "UINKYYTOYHJBL2UH6XWJROSF5RXQPAGS",
+                            TwoFactorEnabled = false,
+                            UserName = "Boris Bobrov"
                         });
                 });
 
@@ -825,6 +850,13 @@ namespace DAL.Migrations
                             ConcurrencyStamp = "1bd07d94-d2b6-4886-acba-040c9cd9ef7c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "7e193025-2d7a-4d50-9b76-60f599cdcc0d",
+                            ConcurrencyStamp = "c995a6b1-939b-4776-8239-aa0373d913bf",
+                            Name = "Mentor",
+                            NormalizedName = "MENTOR"
                         });
                 });
 

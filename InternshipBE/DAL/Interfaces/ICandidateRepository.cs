@@ -13,10 +13,12 @@ namespace DAL.Interfaces
 
         Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType);
 
-        Task<int> GetCandidatesCountAsync();
+        Task<int> GetCandidatesCountByTabelIdAsync(string tableId);
 
         Task <List<Candidate>> GetCandidatesForFilterAsync(CandidateFilterModel filterBy);
 
-        Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc);
+        Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc, int internshipId);
+
+        Task<List<Candidate>> GetCandidatesListById(List<int> candidatesId);
     }
 }

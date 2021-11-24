@@ -31,22 +31,24 @@ namespace BL.Services
         public async Task<List<InternshipStackDTO>> GetInternshipStacksByInternshipIdAsync(int internshipId)
         {
             var internshipStacks = await _unitOfWork.InternshipStacks.GetAllByInternshipIdAsync(internshipId);
+
             var internshipStacksDtos = _mapper.Map<List<InternshipStackDTO>>(internshipStacks);
 
             return internshipStacksDtos;
         }
-        
+
         public async Task<List<InternshipStackDTO>> GetInternshipStacksAsync()
         {
             var internshipStacks = await _unitOfWork.InternshipStacks.GetAllAsync();
+
             var internshipStacksDtos = _mapper.Map<List<InternshipStackDTO>>(internshipStacks);
 
             return internshipStacksDtos;
         }
-        
-        public async Task<InternshipStackDTO> UpdateInternshipStackAsync(InternshipStackDTO internshipStackDto)
+
+        public async Task<InternshipStackDTO> UpdateInternshipStackAsync(InternshipStackDTO internshipStackDTO)
         {
-            var internshipStack = _mapper.Map<InternshipStack>(internshipStackDto);
+            var internshipStack = _mapper.Map<InternshipStack>(internshipStackDTO);
 
             internshipStack = await _unitOfWork.InternshipStacks.UpdateAsync(internshipStack);
 

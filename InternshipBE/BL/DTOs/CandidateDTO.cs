@@ -1,4 +1,3 @@
-using Shared.Enums;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -49,10 +48,12 @@ namespace BL.DTOs.CandidateDTOs
 
         public int InternshipId { get; set; }
 
+        public string InternshipName { get; set; }
+
         public int? TeamId { get; set; }
 
         public List<UserDTO> Users { get; set; }
 
-        public LanguageType? LanguageType { get; set; }
+        public string LanguageType { get; set; }
     }
 }

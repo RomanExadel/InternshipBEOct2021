@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BL.DTOs.CandidateDTOs;
 using DAL.Entities;
-using Shared.Config.Interfaces;
 using Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -10,22 +9,16 @@ using static Shared.Constants.ImportFileOffsets;
 
 namespace BL.Mapping.Profiles
 {
-    public class CandidateProfile : Profile
+	public class CandidateProfile : Profile
 	{
-		private readonly IGoogleConfig _googleSheetConfig;
+		private const string cultureFormat = "dd.MM.yyyy H:mm:ss";
 
-		public CandidateProfile(IGoogleConfig googleSheetConfig)
-		{
-			_googleSheetConfig = googleSheetConfig;
-		}
-
-		public CandidateProfile()
+		public CandidateProfile()	
 		{
 			CreateMap<IList<object>, CandidateDTO>()
 				.ForMember(e => e.FirstName, source => source.MapFrom(s => s[FIRST_NAME_OFFSET].ToString()))
 				.ForMember(e => e.LastName, source => source.MapFrom(s => s[LAST_NAME_OFFSET].ToString()))
-				.ForMember(e => e.RegistrationDate, source => source
-				.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), _googleSheetConfig.DateTimeFormat, CultureInfo.InvariantCulture)))
+				.ForMember(e => e.RegistrationDate, source => source.MapFrom(s => DateTime.ParseExact(s[REGISTRATION_DATE_OFFSET].ToString(), cultureFormat, CultureInfo.InvariantCulture)))
 				.ForMember(e => e.Email, source => source.MapFrom(s => s[EMAIL_OFFSET].ToString()))
 				.ForMember(e => e.Location, source => source.MapFrom(s => s[LOCATION_OFFSET].ToString()))
 				.ForMember(e => e.Phone, source => source.MapFrom(s => s[PHONE_OFFSET].ToString()))
@@ -40,7 +33,6 @@ namespace BL.Mapping.Profiles
 				.ForMember(e => e.IsPlanningToJoin, source => source.MapFrom(s => s[IS_PLANNING_TO_JOIN_OFFSET].ToString().ToLower() == "yes" ? true : false))
 				.ForMember(e => e.PrimarySkill, source => source.MapFrom(s => s[PRIMARY_SKILL_OFFSET].ToString()))
 				.ForMember(e => e.BestContactTime, source => source.MapFrom(s => DateTime.Parse(s[BEST_CONTACT_TIME_OFFSET].ToString())))
-				.ForMember(e => e.InternshipId, source => source.MapFrom(s => Convert.ToInt32(s[INTERNSHIP_OFFSET].ToString().Substring(0, 1))))
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<Candidate, CandidateDTO>()
@@ -64,8 +56,10 @@ namespace BL.Mapping.Profiles
 				.ForMember(dto => dto.TestTaskEvaluation, src => src.MapFrom(entity => entity.TestTaskEvaluation))
 				.ForMember(dto => dto.StatusType, src => src.MapFrom(entity => entity.StatusType.ToString()))
 				.ForMember(dto => dto.InternshipId, src => src.MapFrom(entity => entity.InternshipId))
+				.ForMember(dto => dto.InternshipName, src => src.MapFrom(entity => entity.Internship.Name))
 				.ForMember(dto => dto.TeamId, src => src.MapFrom(entity => entity.TeamId))
 				.ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users))
+				.ForMember(dto => dto.LanguageType, src => src.MapFrom(entity => entity.InternshipLanguage.ToString()))
 				.ForAllOtherMembers(x => x.Ignore());
 
 			CreateMap<CandidateDTO, Candidate>()
@@ -91,6 +85,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(entity => entity.RegistrationDate, src => src.MapFrom(dto => dto.RegistrationDate))
 				.ForMember(entity => entity.InternshipId, src => src.MapFrom(dto => dto.InternshipId))
 				.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId))
+				.ForMember(entity => entity.InternshipLanguage, src => src.MapFrom(dto => Enum.Parse<LanguageType>(dto.LanguageType)))
 				.ForAllOtherMembers(x => x.Ignore());
 		}
 	}

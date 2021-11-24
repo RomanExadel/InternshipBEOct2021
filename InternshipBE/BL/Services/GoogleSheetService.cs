@@ -10,7 +10,6 @@ using Shared.Config.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Shared.Constants.ImportFileOffsets;
 
 namespace BL.Services
 {
@@ -38,50 +37,56 @@ namespace BL.Services
 			if (values != null)
 			{
 				await SaveNewCountriesAsync(values);
-
-				var models = _mapper.Map<List<CandidateDTO>>(values);
-				var candidates = _mapper.Map<List<Candidate>>(models);
+				
+				var candidates = _mapper.Map<List<Candidate>>(values);
 
 				await _unitOfWork.Candidates.BulkSaveAsync(candidates);
 			}
 		}
 
-		private async Task<IList<IList<object>>> GetNewCandidatesAsync()
+		private async Task<List<CandidateDTO>> GetNewCandidatesAsync()
 		{
-			var values = GetValuesFromTable().Skip(COLUMN_NAMES_ROW);
-			var candidatesAmount = await _unitOfWork.Candidates.GetCandidatesCountAsync();
+			var newCandidates = new List<CandidateDTO>();
 
-			if (values.Count() > candidatesAmount)
+			var internships = await _unitOfWork.Internships.GetAllAsync();
+
+			foreach (var internship in internships)
 			{
+				var values = GetValuesFromTable(internship.SpreadSheetId).Skip(COLUMN_NAMES_ROW);
+				var candidatesAmount = await _unitOfWork.Candidates.GetCandidatesCountByTabelIdAsync(internship.SpreadSheetId);
 
-				var newCandidates = values.Skip(candidatesAmount).ToList();
-				return newCandidates;
+				if (values.Count() > candidatesAmount)
+				{
+					var newCandidatesFromOneTable = _mapper.Map<List<CandidateDTO>>(values.Skip(candidatesAmount));
+					newCandidatesFromOneTable.ForEach(x => x.InternshipId = internship.Id);
+					newCandidates.AddRange(newCandidatesFromOneTable);
+				}
 			}
-			return null;
+
+			return  newCandidates;
 		}
 
-		private IList<IList<object>> GetValuesFromTable()
+		private IList<IList<object>> GetValuesFromTable(string spreadSheetId)
 		{
 			var credential = GoogleCredential.FromFile(_googleConfig.ClientSecrets).CreateScoped(Scope);
 
 			_sheetService = new SheetsService(new BaseClientService.Initializer()
 			{
 				HttpClientInitializer = credential,
-				ApplicationName = _googleConfig.ApplicationName
 			});
 
-			var range = $"{_googleConfig.Sheet}{_googleConfig.RangeSettings}";
-			var request = _sheetService.Spreadsheets.Values.Get(_googleConfig.SpreadsheetId, range);
+			var range = $"{_googleConfig.RangeSettings}";
+			var request = _sheetService.Spreadsheets.Values.Get(spreadSheetId, range);
 
 			var response = request.Execute();
 
 			return response.Values;
 		}
 
-		private async Task SaveNewCountriesAsync(IList<IList<object>> values)
+		private async Task SaveNewCountriesAsync(List<CandidateDTO> values)
 		{
 			var names = await _unitOfWork.Locations.GetAllNamesAsync();
-			var newNames = values.Select(x => x[LOCATION_OFFSET].ToString()).ToList().Distinct().Except(names);
+			var newNames = values.Select(x => x.Location).Distinct().Except(names);
 
 			var countries = _mapper.Map<List<Country>>(newNames);
 
