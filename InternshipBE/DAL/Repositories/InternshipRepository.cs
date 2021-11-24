@@ -41,30 +41,30 @@ namespace DAL.Repositories
 
         public async Task<List<Internship>> GetFilteredInternshipsAsync(IntershipFilterModel filterBy, int pageSize, int pageNumber)
         {
-            var internships = await _context.Internships.ToListAsync();
+            var internships =  _context.Internships.AsQueryable();
 
             if (filterBy.Location != null)
-                internships = internships.Where(i => i.Countries.Any(c => c.Name == filterBy.Location)).ToList(); 
+                internships = internships.Where(i => i.Countries.Any(c => c.Name == filterBy.Location)); 
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
-                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == language)).ToList();
+                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == language));
                 }
             if (filterBy.InternshipStacks != null)
                 foreach(var stack in filterBy.InternshipStacks)
                 {
-                    internships = internships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == stack)).ToList();
+                    internships = internships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == stack));
                 }
             if (filterBy.AttachedUsers != null)
                 foreach (var userName in filterBy.AttachedUsers)
                 {
-                    internships = internships.Where(i => i.Users.Any(u => u.UserName == userName)).ToList();
+                    internships = internships.Where(i => i.Users.Any(u => u.UserName == userName));
                 }
             if(filterBy.IntershipYear.HasValue)
-                internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear).ToList();
+                internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
 
-            return internships.Skip(pageSize * --pageNumber)
-                                                .Take(pageSize).ToList();
+            return await internships.Skip(pageSize * --pageNumber)
+                                                .Take(pageSize).ToListAsync();
         }
     }
 }

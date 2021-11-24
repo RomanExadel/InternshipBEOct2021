@@ -72,24 +72,24 @@ namespace DAL.Repositories
 
         public async Task<List<Candidate>> GetCandidatesForFilterAsync(CandidateFilterModel filterBy)
         {
-            var candidates = await _context.Candidates
+            var candidates =  _context.Candidates
                 .Include(c => c.Users)
-                .Include(c => c.Internship).ToListAsync();
+                .Include(c => c.Internship).AsQueryable();
 
             if (filterBy.Location != null)
-                candidates = candidates.Where(c => c.Location == filterBy.Location).ToList();
+                candidates = candidates.Where(c => c.Location == filterBy.Location);
             if (filterBy.LanguageType.HasValue)
-                candidates = candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType).ToList();
+                candidates = candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType);
             if (filterBy.StatusType.HasValue)
-                candidates = candidates.Where(c => c.StatusType == filterBy.StatusType).ToList();
+                candidates = candidates.Where(c => c.StatusType == filterBy.StatusType);
             if(filterBy.HardSkills != null)
-                candidates = candidates.Where(c => c.PrimarySkill == filterBy.HardSkills).ToList();
+                candidates = candidates.Where(c => c.PrimarySkill == filterBy.HardSkills);
             if(filterBy.EnglishLevel.HasValue)
-                candidates = candidates.Where(c => c.EnglishLevelType == filterBy.EnglishLevel).ToList();
+                candidates = candidates.Where(c => c.EnglishLevelType == filterBy.EnglishLevel);
             if (filterBy.UserId != null)
-                candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId)).ToList();
+                candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
 
-            return candidates;
+            return await candidates.ToListAsync();
         }
     }
 }
