@@ -17,6 +17,7 @@ namespace BL.Services
         private readonly UserManager<User> _userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IValidator<Candidate> _validator;
 
         public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager)
         {
@@ -28,6 +29,8 @@ namespace BL.Services
         public async Task<CandidateDTO> GetCandidateByIdAsync(int id)
         {
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(id);
+
+            _validator.ValidateIfEntityExist(candidate);
 
             return _mapper.Map<CandidateDTO>(candidate);
         }
