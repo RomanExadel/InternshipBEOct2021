@@ -3,6 +3,7 @@ using DAL.Entities;
 using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,7 +60,7 @@ namespace DAL.Repositories
             var internships =  _context.Internships.AsQueryable();
 
             if (filterBy.Location != null)
-                internships = internships.Where(i => i.Countries.Any(c => c.Name == filterBy.Location)); 
+                internships = internships.Where(i => i.Countries.Any(c => c.Name.Contains(filterBy.Location, StringComparison.CurrentCultureIgnoreCase))); 
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
@@ -73,7 +74,7 @@ namespace DAL.Repositories
             if (filterBy.AttachedUsers != null)
                 foreach (var userName in filterBy.AttachedUsers)
                 {
-                    internships = internships.Where(i => i.Users.Any(u => u.UserName == userName));
+                    internships = internships.Where(i => i.Users.Any(u => u.UserName.Contains(userName, StringComparison.CurrentCultureIgnoreCase)));
                 }
             if(filterBy.IntershipYear.HasValue)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
