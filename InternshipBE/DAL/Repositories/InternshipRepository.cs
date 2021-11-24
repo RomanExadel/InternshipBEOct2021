@@ -33,20 +33,28 @@ namespace DAL.Repositories
             return internship;
         }
 
-        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber)
+        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy)
         {
-            return await _context.Internships.AsNoTracking()
-                                             .Include(x => x.InternshipStacks)
-                                             .Include(x => x.Countries)
-                                             .Include(x => x.Candidates)
-                                             .Include(x => x.Teams)
-                                             .Include(x => x.Users)
-                                             .Skip(pageSize * --pageNumber)
-                                             .Take(pageSize)
-                                             .ToListAsync();
+            if (filterBy != null)
+            {
+                return GetFilteredInternshipsAsync(pageSize, pageNumber, filterBy);
+            }
+            else
+            {
+                return await _context.Internships.AsNoTracking()
+                 .Include(x => x.InternshipStacks)
+                 .Include(x => x.Countries)
+                 .Include(x => x.Candidates)
+                 .Include(x => x.Teams)
+                 .Include(x => x.Users)
+                 .Skip(pageSize * --pageNumber)
+                 .Take(pageSize)
+                 .ToListAsync();
+            }
+
         }
 
-        public async Task<List<Internship>> GetFilteredInternshipsAsync(IntershipFilterModel filterBy, int pageSize, int pageNumber)
+        private List<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy)
         {
             var internships =  _context.Internships.AsQueryable();
 
@@ -70,7 +78,7 @@ namespace DAL.Repositories
             if(filterBy.IntershipYear.HasValue)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
 
-            return await internships.AsNoTracking()
+            return  internships.AsNoTracking()
                                     .Include(x => x.InternshipStacks)
                                     .Include(x => x.Countries)
                                     .Include(x => x.Candidates)
@@ -78,7 +86,7 @@ namespace DAL.Repositories
                                     .Include(x => x.Users)
                                     .Skip(pageSize * --pageNumber)
                                     .Take(pageSize)
-                                    .ToListAsync();
-}
+                                    .ToList();
+        }
     }
 }

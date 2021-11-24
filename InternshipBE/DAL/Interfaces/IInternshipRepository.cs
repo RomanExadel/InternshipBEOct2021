@@ -7,8 +7,6 @@ namespace DAL.Interfaces
 {
     public interface IInternshipRepository : IGenericRepository<Internship>
     {
-        Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber);
-
-        Task<List<Internship>> GetFilteredInternshipsAsync(IntershipFilterModel filterBy, int pageSize, int pageNumber);
+        Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy);
     }
 }
