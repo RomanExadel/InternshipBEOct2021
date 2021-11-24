@@ -37,7 +37,7 @@ namespace BL.Services
 
 			var bestContactTime = _mapper.Map<List<BestContactTime>>(models);
 
-			bestContactTime.RemoveAll(x => existBestContactTime.Select(x => x.StartTime).Contains(x.StartTime) & existBestContactTime.Select(x => x.EndTime).Contains(x.EndTime));
+			bestContactTime.RemoveAll(x => existBestContactTime.Select(x => x.StartTime).Contains(x.StartTime) && existBestContactTime.Select(x => x.EndTime).Contains(x.EndTime));
 			bestContactTime.ForEach(x => x.User = user);
 
 			await _unitOfWork.BestContactTime.BulkSaveAsync(bestContactTime);
