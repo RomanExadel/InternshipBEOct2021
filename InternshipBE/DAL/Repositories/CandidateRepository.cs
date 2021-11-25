@@ -106,9 +106,15 @@ namespace DAL.Repositories
             return await candidates.ToListAsync();
         }
 
-        public Task<List<Candidate>> GetCandidatesListById(List<int> candidatesId)
+        public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
         {
-            throw new System.NotImplementedException();
+            var candidates = await _context.Candidates
+                .Include(x => x.Users)
+                .Where(x => candidatesId.Contains(x.Id)).ToListAsync();
+
+            _validator.ValidateIfEntitesExist(candidates);
+
+            return candidates;
         }
     }
 }

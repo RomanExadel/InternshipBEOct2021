@@ -66,7 +66,7 @@ namespace BL.Services
 
         public async Task<List<CandidateDTO>> UpdateCandidateStatusByIdAsync(List<int> candidatesId, CandidateStatusType type, string userName)
         {
-            var candidates = await _unitOfWork.Candidates.GetCandidatesListById(candidatesId);
+            var candidates = await _unitOfWork.Candidates.GetCandidatesListByIdAsync(candidatesId);
 
             var users = new List<User> { await _userManager.FindByNameAsync(userName) };
 
