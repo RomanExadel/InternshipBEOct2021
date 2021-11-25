@@ -6,7 +6,7 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
 
-        public LanguageType LanguageType { get; set; }
+        public InternshipLanguageType LanguageType { get; set; }
 
         public int? InternshipId { get; set; }
 

@@ -35,7 +35,7 @@ namespace BL.DTOs
 
         public DateTime RegistrationFinishDate { get; set; }
 
-        public List<LanguageDTO> LanguageTypes { get; set; }
+        public List<InternshipLanguageDTO> LanguageTypes { get; set; }
 
         public string InternshipStatusType { get; set; }
 

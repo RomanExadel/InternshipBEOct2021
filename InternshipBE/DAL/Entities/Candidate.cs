@@ -59,7 +59,7 @@ namespace DAL.Entities
 
 		public int? TeamId { get; set; }
 
-		public LanguageType? InternshipLanguage { get; set; }
+		public InternshipLanguageType? InternshipLanguage { get; set; }
 
 		public ICollection<Feedback> Feedbacks { get; set; }
 	}
