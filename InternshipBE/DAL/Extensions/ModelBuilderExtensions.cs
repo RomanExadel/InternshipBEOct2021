@@ -248,7 +248,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 50,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1tH7hcl7K2kM4HHC6QVXRdq0LPU8yZwd9",
                     SpreadSheetId = "1nhQ98ChhQRfYQWQ2Rf6oyVpjyLetHq34V8muxMvwzSA"
@@ -263,7 +262,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.English,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1bvaKnWq0XEuldc4zry3qnrFtZoNRtW5R",
                     SpreadSheetId = "1wdTLLMb8cWVQWpEfJafJCRL1eEF17kE1QQ1jYZGjw6A"
@@ -278,7 +276,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.Russian,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1kirFfIPPxUbgOFNGNAk4CL6jf_lEOSKc",
                     SpreadSheetId = "1XSY0mwxSWPA1pXT4VteUoM4UTbuhn2LaqofeK6_7zuo"
@@ -293,7 +290,6 @@ namespace DAL.Extensions
                     MaxCandidateCount = 30,
                     RegistrationStartDate = DateTime.UtcNow,
                     RegistrationFinishDate = DateTime.UtcNow,
-                    LanguageType = LanguageType.Russian,
                     InternshipStatusType = InternshipStatusType.Open,
                     ImageLink = "https://drive.google.com/uc?export=view&id=1t-eClTKmOY4asHZkT6y_vvJNR4SMzKbB",
                     SpreadSheetId = "1RW1QxFSlyfGUnm0c-rGGr2_suo_MXrn1e_pUuLSV2tc"

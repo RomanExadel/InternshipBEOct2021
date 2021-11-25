@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,7 +75,6 @@ namespace DAL.Migrations
                     MaxCandidateCount = table.Column<int>(type: "int", nullable: false),
                     RegistrationStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RegistrationFinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LanguageType = table.Column<int>(type: "int", nullable: false),
                     InternshipStatusType = table.Column<int>(type: "int", nullable: false),
                     ImageLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -248,6 +247,26 @@ namespace DAL.Migrations
                         principalTable: "Internships",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InternshipLanguage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LanguageType = table.Column<int>(type: "int", nullable: false),
+                    InternshipId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternshipLanguage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InternshipLanguage_Internships_InternshipId",
+                        column: x => x.InternshipId,
+                        principalTable: "Internships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -577,6 +596,11 @@ namespace DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_InternshipLanguage_InternshipId",
+                table: "InternshipLanguage",
+                column: "InternshipId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InternshipStacks_InternshipId",
                 table: "InternshipStacks",
                 column: "InternshipId");
@@ -635,6 +659,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Evaluations");
+
+            migrationBuilder.DropTable(
+                name: "InternshipLanguage");
 
             migrationBuilder.DropTable(
                 name: "InternshipStacks");

@@ -15,7 +15,7 @@ namespace WebApi.Validators
             RuleFor(internship => internship.MaxCandidateCount).NotEqual(0);
             RuleFor(internship => internship.RegistrationStartDate).NotEmpty();
             RuleFor(internship => internship.RegistrationFinishDate).NotEmpty();
-            RuleFor(internship => internship.LanguageType).NotEmpty();
+            RuleFor(internship => internship.LanguageTypes).NotEmpty();
             RuleFor(internship => internship.InternshipStatusType).NotEmpty();
             RuleFor(internship => internship.ImageLink).NotEmpty();
             RuleFor(internship => internship.InternshipStacks).NotEmpty();

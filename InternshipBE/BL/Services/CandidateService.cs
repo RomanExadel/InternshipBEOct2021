@@ -2,6 +2,7 @@ using AutoMapper;
 using BL.DTOs.CandidateDTOs;
 using BL.Interfaces;
 using DAL.Entities;
+using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -51,18 +52,13 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, string sortBy, bool desc, CandidateFilterModelDTO filterBy)
+        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, CandidateFilterModel filterBy)
         {
             var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
 
-            if (sortBy != null)
-            {
-                candidates = SortCandidates(candidates, sortBy, desc);
-            }
-
             if (filterBy != null)
             {
-                candidates = await FilterCandidates(filterBy);
+                candidates = await _unitOfWork.Candidates.GetCandidatesForFilterAsync(filterBy);
             }
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
@@ -70,7 +66,7 @@ namespace BL.Services
 
         public async Task<List<CandidateDTO>> UpdateCandidateStatusByIdAsync(List<int> candidatesId, CandidateStatusType type, string userName)
         {
-            var candidates = await _unitOfWork.Candidates.GetCandidatesListById(candidatesId);
+            var candidates = await _unitOfWork.Candidates.GetCandidatesListByIdAsync(candidatesId);
 
             var users = new List<User> { await _userManager.FindByNameAsync(userName) };
 
@@ -90,34 +86,6 @@ namespace BL.Services
             var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc, searchModel.InternshipId);
 
             return _mapper.Map<List<CandidateDTO>>(query);
-        }
-
-        private List<Candidate> SortCandidates(List<Candidate> candidates, string sortBy, bool desc)
-        {
-            var propertyInfo = typeof(Candidate).GetProperty(sortBy);
-
-            if (desc)
-                candidates = candidates.AsEnumerable().OrderByDescending(c => propertyInfo.GetValue(c, null)).ToList();
-            else
-                candidates = candidates.AsEnumerable().OrderBy(c => propertyInfo.GetValue(c, null)).ToList();
-
-            return candidates;
-        }
-
-        private async Task<List<Candidate>> FilterCandidates(CandidateFilterModelDTO filterBy)
-        {
-            var _candidates = _unitOfWork.Candidates.GetCandidatesForFIlter();
-
-            if (!string.IsNullOrEmpty(filterBy.Location))
-                _candidates = _candidates.Where(c => c.Location == filterBy.Location);
-            if (filterBy.StackType.HasValue)
-                _candidates = _candidates.Where(c => c.StackType == filterBy.StackType);
-            if (filterBy.StatusType.HasValue)
-                _candidates = _candidates.Where(c => c.StatusType == filterBy.StatusType);
-            if (filterBy.LanguageType.HasValue)
-                _candidates = _candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType);
-
-            return await _candidates.ToListAsync();
         }
     }
 }
