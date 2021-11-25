@@ -3,7 +3,7 @@
     public enum CandidateStatusType
     {
         New,
-        HRReview,
+        HR_Review,
         TestTask,
         InterviewerReview,
         Pending,
