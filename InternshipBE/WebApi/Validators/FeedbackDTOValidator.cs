@@ -12,7 +12,6 @@ namespace WebApi.Validators
             RuleFor(feedback => feedback.EnglishLevelType).NotEmpty();
             RuleFor(feedback => feedback.Date).NotEmpty();
             RuleFor(feedback => feedback.Description).NotEmpty();
-            RuleFor(feedback => feedback.Evaluations).NotNull();
         }
     }
 }
