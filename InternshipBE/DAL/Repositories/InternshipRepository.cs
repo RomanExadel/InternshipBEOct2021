@@ -22,12 +22,13 @@ namespace DAL.Repositories
         public override async Task<Internship> GetByIdAsync(int id)
         {
             var internship = await _context.Internships.AsNoTracking()
-                                             .Include(x => x.InternshipStacks)
-                                             .Include(x => x.Countries)
-                                             .Include(x => x.Candidates)
-                                             .Include(x => x.Teams)
-                                             .Include(x => x.Users)
-                                             .FirstOrDefaultAsync(x => x.Id == id);
+                                            .Include(x => x.InternshipStacks)
+                                            .Include(x => x.Countries)
+                                            .Include(x => x.Candidates)
+                                            .Include(x => x.Teams)
+                                            .Include(x => x.Users)
+                                            .Include(x => x.LanguageTypes)
+                                            .FirstOrDefaultAsync(x => x.Id == id);
 
             _validator.ValidateIfEntityExist(internship);
 

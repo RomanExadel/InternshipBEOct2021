@@ -11,7 +11,7 @@ namespace WebApi.Controllers
         [HttpGet("getLanguageTypes")]
         public IActionResult GetLanguageTypes()
         {                       
-            return Ok(Enum.GetNames(typeof(LanguageType)));
+            return Ok(Enum.GetNames(typeof(InternshipLanguageType)));
         }
 
         [HttpGet("getCandidateStatusTypes")]

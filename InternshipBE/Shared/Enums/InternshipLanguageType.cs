@@ -1,6 +1,6 @@
 ﻿namespace Shared.Enums
 {
-    public enum LanguageType
+    public enum InternshipLanguageType
     {
         English,
         Russian,

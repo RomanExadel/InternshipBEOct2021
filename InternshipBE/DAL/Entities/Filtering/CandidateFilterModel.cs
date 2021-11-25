@@ -8,7 +8,7 @@ namespace DAL.Entities.Filtering
     {
         public string? Location { get; set; }
 
-        public LanguageType? LanguageType { get; set; }
+        public InternshipLanguageType? LanguageType { get; set; }
 
         public CandidateStatusType? StatusType { get; set; }
 
