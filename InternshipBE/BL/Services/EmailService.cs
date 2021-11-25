@@ -11,6 +11,8 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
+using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,15 +27,37 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
         }
 
+        private string EditedEmailText(string candidateName, string internshipName, string status)
+        {
+            string emailText = "Dear " + candidateName + "! Your current status is " + status;
+            if (status == "Accepted")
+            {
+                string ApprovedEmailText = String.Format(@"<html><head></head><body><h1>Congratulations</h1><br><br><div>Dear [candidateName]    </div><br><div>We are happy to see you in our team at Exadel [internshipName] Sandbox</div></body></html>");
+                emailText = ApprovedEmailText.Replace("[candidateName]", candidateName);
+                emailText = emailText.Replace("internshipName", internshipName);
+                return emailText;
+            }
+            if (status == "Declined" || status == "Questionable")
+            {
+                string DeclinedEmailText = String.Format(@"<html><head></head><body><h1>Sorry, not this time</h1><br><br><div>Dear [candidateName]    </div><br><div>Now your skill is too low to participate in [internshipName] Sandbox :(</div><br><div>But don't give up, and try again next year with improved powers!</div></body></html>");
+                emailText = DeclinedEmailText.Replace("[candidateName]", candidateName);
+                emailText = emailText.Replace("internshipName", internshipName);
+                return emailText;
+            }
+            return emailText;
+        }
+
         public async Task SendEmailAsync(int recipientId)
         {
             var message = new MimeMessage();
             var candidate = await _unitOfWork.Candidates.GetByIdAsync(recipientId);
+            var internship = await _unitOfWork.Internships.GetByIdAsync((int)candidate.InternshipId);
             
             message.From.Add(new MailboxAddress("Exadel Team5 automatic email sender", "admntest.team5@gmail.com"));
             message.To.Add(new MailboxAddress(candidate.FirstName + " " + candidate.LastName, candidate.Email));
             message.Subject = "Automatic Email Sending Function";
-            message.Body = new TextPart(TextFormat.Plain) {Text = "this is test message" };
+
+            message.Body = new TextPart("html") { Text = EditedEmailText(candidate.FirstName + " " + candidate.LastName, internship.Name, candidate.StatusType.ToString()) };
 
             const string GMailAccount = "admntest.team5@gmail.com";
 
