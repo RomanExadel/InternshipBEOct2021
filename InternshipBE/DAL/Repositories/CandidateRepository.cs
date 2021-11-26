@@ -5,6 +5,7 @@ using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using Shared.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -95,15 +96,22 @@ namespace DAL.Repositories
                 .Include(c => c.Internship).AsQueryable();
 
             if (filterBy.Location != null)
-                candidates = candidates.Where(c => c.Location == filterBy.Location);
-            if (filterBy.LanguageType.HasValue)
-                candidates = candidates.Where(c => c.InternshipLanguage == filterBy.LanguageType);
-            if (filterBy.StatusType.HasValue)
-                candidates = candidates.Where(c => c.StatusType == filterBy.StatusType);
-            if (filterBy.HardSkills != null)
-                candidates = candidates.Where(c => c.PrimarySkill == filterBy.HardSkills);
-            if (filterBy.EnglishLevel.HasValue)
-                candidates = candidates.Where(c => c.EnglishLevelType == filterBy.EnglishLevel);
+                candidates = candidates.Where(c => c.Location.Contains(filterBy.Location));
+            if (filterBy.LanguageTypes != null)
+                foreach (var language in filterBy.LanguageTypes)
+                {
+                    candidates = candidates.Where(i => i.InternshipLanguage == (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), language));
+                }
+            if (filterBy.StatusTypes != null)
+                foreach (var status in filterBy.StatusTypes)
+                {
+                    candidates = candidates.Where(i => i.StatusType == (CandidateStatusType)Enum.Parse(typeof(CandidateStatusType), status));
+                }
+            if(filterBy.EnglishLevels != null)
+                foreach (var level in filterBy.EnglishLevels)
+                {
+                    candidates = candidates.Where(i => i.EnglishLevelType == (EnglishLevelType)Enum.Parse(typeof(EnglishLevelType), level));
+                }
             if (filterBy.UserId != null)
                 candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
 

@@ -1,5 +1,5 @@
 ﻿using Shared.Enums;
-using Shared.Models;
+using System.Collections.Generic;
 #nullable enable
 
 namespace DAL.Entities.Filtering
@@ -8,15 +8,11 @@ namespace DAL.Entities.Filtering
     {
         public string? Location { get; set; }
 
-        public InternshipLanguageType? LanguageType { get; set; }
+        public List<string>? LanguageTypes { get; set; }
 
-        public CandidateStatusType? StatusType { get; set; }
+        public List<string>? StatusTypes { get; set; }
 
-        public string? HardSkills { get; set; }
-
-        public int? IntershipYear { get; set; }
-
-        public EnglishLevelType? EnglishLevel { get; set; }
+        public List<string>? EnglishLevels { get; set; }
 
         public string? UserId { get; set; }
 
