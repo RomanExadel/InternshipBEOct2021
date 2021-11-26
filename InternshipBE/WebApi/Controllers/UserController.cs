@@ -1,4 +1,5 @@
 ﻿using BL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
@@ -23,6 +24,13 @@ namespace WebApi.Controllers
             var userName = User.Identity.Name;
 
             return Ok(await _userService.GetUserInfoByUserNameAsync(userName));
+        }
+
+        [Authorize(Roles = "Admin, Manager")]
+        [HttpGet("getAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            return Ok(await _userService.GetAllUsersAsync());
         }
 
         [HttpGet("getSpecificUsersByInternshipId")]

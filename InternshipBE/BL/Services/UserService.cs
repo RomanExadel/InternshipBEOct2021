@@ -105,6 +105,13 @@ namespace BL.Services
             return _mapper.Map<List<UserDTO>>(result);
         }
 
+        public async Task<List<UserDTO>> GetAllUsersAsync()
+        {
+            var users = await _unitOfWork.Users.GetAllAsync();
+
+            return _mapper.Map<List<UserDTO>>(users);
+        }
+
         private async Task<User> GetUserByUserNameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
