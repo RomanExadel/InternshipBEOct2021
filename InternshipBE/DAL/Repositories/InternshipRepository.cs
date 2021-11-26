@@ -69,17 +69,18 @@ namespace DAL.Repositories
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
-                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == Enum.Parse<InternshipLanguageType>(language)));
+                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), language)));
                 }
             if (filterBy.InternshipStacks != null)
                 foreach(var stack in filterBy.InternshipStacks)
                 {
-                    internships = internships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == Enum.Parse<StackType>(stack)));
+                    internships = internships.Where(i => i.InternshipStacks.Any(l => l.TechnologyStackType == (StackType)Enum.Parse(typeof(StackType), stack)));
                 }
             if (filterBy.AttachedUsers != null)
                 foreach (var userName in filterBy.AttachedUsers)
                 {
                     internships = internships.Where(i => i.Users.Any(u => u.UserName.Contains(userName)));
+                    ///internships = internships.Where(i => i.Users.Any(l => l.UserName == (StackType)Enum.Parse(typeof(StackType), stack)));
                 }
             if(filterBy.IntershipYear.HasValue)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
