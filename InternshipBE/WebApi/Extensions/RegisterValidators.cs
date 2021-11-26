@@ -13,6 +13,7 @@ namespace WebApi.Extensions
             services.AddScoped<IValidator<User>, UserValidator>();
             services.AddScoped<IValidator<Feedback>, FeedbackValidator>();
             services.AddScoped<IValidator<Internship>, InternshipValidator>();
+            services.AddScoped<IValidator<Evaluation>, EvaluationValidator>();
 
             return services;
         }

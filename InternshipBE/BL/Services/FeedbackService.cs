@@ -4,6 +4,7 @@ using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -52,8 +53,13 @@ namespace BL.Services
         public async Task<FeedbackDTO> UpdateFeedbackAsync(FeedbackDTO updatedFeedback)
         {
             var feedback = _mapper.Map<Feedback>(updatedFeedback);
+            var evaluations = feedback.Evaluations.ToList();
 
-            feedback = await _unitOfWork.Feedbacks.UpdateAsync(feedback);
+            feedback.Evaluations.Clear();
+            await _unitOfWork.Feedbacks.UpdateAsync(feedback);
+            await _unitOfWork.Evaluations.DeleteMissingEvaluationsByFeedbackId(feedback.Id, evaluations);
+            await _unitOfWork.Evaluations.BulkSaveAsync(evaluations.Where(x => x.Id == 0).ToList());
+            feedback.Evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedback.Id);
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }
