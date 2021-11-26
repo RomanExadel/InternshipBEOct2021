@@ -13,6 +13,6 @@ namespace BL.Interfaces
 
         Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO updatedInternship);
 
-        Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy);
+        Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy);
     }
 }

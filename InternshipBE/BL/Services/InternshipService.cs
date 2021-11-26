@@ -28,7 +28,7 @@ namespace BL.Services
             return _mapper.Map<InternshipDTO>(internship);
         }
 
-        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy)
+        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
         {
             var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber, filterBy);
             
