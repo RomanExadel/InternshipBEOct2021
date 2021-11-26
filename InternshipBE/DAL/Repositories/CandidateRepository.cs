@@ -38,19 +38,17 @@ namespace DAL.Repositories
         {
             if (filterBy != null)
                 return GetFilteredCandidates(id, pageSize, pageNumber, filterBy);
-            else
-            {
-                return await _context.Candidates.AsNoTracking()
-                    .Include(x => x.Internship)
-                    .Include(x => x.Users)
-                        .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
-                            .ThenInclude(x => x.Evaluations)
-                    .Where(x => x.InternshipId == id)
-                    .Skip(pageSize * --pageNumber)
-                    .Take(pageSize)
-                    .ToListAsync();
-            }
-        }
+
+            return await _context.Candidates.AsNoTracking()
+                .Include(x => x.Internship)
+                .Include(x => x.Users)
+                    .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
+                        .ThenInclude(x => x.Evaluations)
+                .Where(x => x.InternshipId == id)
+                .Skip(pageSize * --pageNumber)
+                .Take(pageSize)
+                .ToListAsync();
+    }
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType)
         {
