@@ -43,7 +43,6 @@ namespace DAL.Repositories
 
         public async override Task<Feedback> UpdateAsync(Feedback newFeedback)
         {
-            //var feedback = await _context.Feedbacks.FindAsync(newFeedback.Id);
             var feedback = await _context.Feedbacks
                 .Include(x => x.Candidate)
                 .Include(x => x.Evaluations)
@@ -52,7 +51,10 @@ namespace DAL.Repositories
                 .Include(x => x.User)
                 .FirstOrDefaultAsync(x => x.Id == newFeedback.Id);
 
-            var oldEvaluations = new List<Evaluation>(feedback.Evaluations);
+            var oldEvaluations = await _context.Evaluations.Include(x => x.Skill)
+                                                           .AsNoTracking()
+                                                           .Where(x => x.FeedbackId == newFeedback.Id)
+                                                           .ToListAsync();
 
             feedback.CandidateId = newFeedback.CandidateId;
             feedback.Candidate = await _context.Candidates.FindAsync(newFeedback.CandidateId);
@@ -64,15 +66,15 @@ namespace DAL.Repositories
             feedback.User = await _context.Users.FindAsync(newFeedback.UserId);
             feedback.Evaluations.Clear();
 
-            newFeedback.Evaluations.ToList().ForEach(x => x.Skill = null);
-
             if (newFeedback.Evaluations != null)
             {
                 var newEvaluations = newFeedback.Evaluations.Where(x => x.Id == 0);
-                await _context.Evaluations.AddRangeAsync(newEvaluations);
+                _context.Evaluations.AttachRange(newEvaluations);
 
                 var evaluations = await _context.Evaluations
                     .Where(x => newFeedback.Evaluations.Select(x => x.Id).Contains(x.Id))
+                    .Include(x => x.Skill)
+                    .AsNoTracking()
                     .ToListAsync();
                 evaluations.AddRange(newEvaluations);
 
