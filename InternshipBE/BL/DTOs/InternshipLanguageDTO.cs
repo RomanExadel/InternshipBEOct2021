@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL.DTOs
 {
-    public class LanguageDTO
+    public class InternshipLanguageDTO
     {
         public int Id { get; set; }
 
