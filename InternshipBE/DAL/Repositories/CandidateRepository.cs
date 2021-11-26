@@ -41,6 +41,7 @@ namespace DAL.Repositories
 
             return await _context.Candidates.AsNoTracking()
                 .Include(x => x.Internship)
+                .Include(x => x.InternshipLanguage)
                 .Include(x => x.Users)
                     .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
                         .ThenInclude(x => x.Evaluations)
