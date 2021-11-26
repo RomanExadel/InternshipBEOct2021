@@ -34,13 +34,22 @@ namespace DAL.Repositories
 			return candidat?.Users.ToList();
 		}
 
-		public async Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId)
+		public async Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId, UpdateUserType updateType)
 		{
 			var users = await _context.Users.Include(x => x.Internships.Where(i => i.Id == id))
 				.Where(x => usersId.Contains(x.Id))
 				.ToListAsync();
 
-			users.ForEach(x => x.Internships.Clear());
+			if (updateType == UpdateUserType.Delete)
+			{
+				users.ForEach(x => x.Internships.Clear());
+			}
+            else 
+			{
+				var internship = await _context.Internships.FirstAsync(x => x.Id == id);
+
+				users.ForEach(x => x.Internships.Add(internship));
+			}			
 
 			await _context.SaveChangesAsync();
 

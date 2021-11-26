@@ -48,7 +48,7 @@ namespace WebApi.Controllers
         [HttpPut("updateUsersFromInternship")]
         public async Task<IActionResult> UpdateUsersFromInternship([FromBody] UpdateUsersFromInternshipRequest request)
         {
-            return Ok(await _userService.UpdateUsersFromInternshipAsync(request.InternshipId, request.UserIds));
+            return Ok(await _userService.UpdateUsersFromInternshipAsync(request.InternshipId, request.UserIds, request.UpdateType));
         }
     }
 }
