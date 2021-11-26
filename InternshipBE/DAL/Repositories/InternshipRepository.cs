@@ -59,8 +59,11 @@ namespace DAL.Repositories
         {
             var internships =  _context.Internships.AsQueryable();
 
-            if (filterBy.Location != null)
-                internships = internships.Where(i => i.Countries.Any(c => c.Name.Contains(filterBy.Location))); 
+            if (filterBy.Locations != null)
+                foreach (var location in filterBy.Locations)
+                {
+                    internships = internships.Where(i => i.Countries.Any(l => l.Name == location));
+                }
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {

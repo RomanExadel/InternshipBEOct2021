@@ -6,7 +6,7 @@ namespace DAL.Entities.Filtering
 {
     public class IntershipFilterModel 
     {
-        public string? Location { get; set; }
+        public List<string>? Locations { get; set; }
 
         public List<LanguageType>? LanguageTypes { get; set; }
 
