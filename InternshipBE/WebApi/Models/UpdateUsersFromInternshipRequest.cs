@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Shared.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Models
 {
@@ -9,5 +10,8 @@ namespace WebApi.Models
 
         [Required(ErrorMessage = "UserId is required")]
         public string[] UserIds { get; set; }
+
+        [Required(ErrorMessage = "UpdateType is required")]
+        public UpdateUserType UpdateType { get; set; }
     }
 }

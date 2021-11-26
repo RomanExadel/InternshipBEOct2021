@@ -43,7 +43,7 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.RegistrationStartDate, src => src.MapFrom(dto => dto.RegistrationStartDate))
                 .ForMember(entity => entity.RegistrationFinishDate, src => src.MapFrom(dto => dto.RegistrationFinishDate))
                 .ForMember(entity => entity.Candidates, o => o.Ignore())
-                .ForMember(entity => entity.LanguageTypes, src => src.MapFrom(dto => Enum.Parse<InternshipLanguageType>(dto.LanguageTypes.ToString())))
+                .ForMember(entity => entity.LanguageTypes, src => src.MapFrom(dto => dto.LanguageTypes))
                 .ForMember(entity => entity.InternshipStacks, src => src.MapFrom(dto => dto.InternshipStacks))
                 .ForMember(entity => entity.Users, src => src.MapFrom(dto => dto.Users))
                 .ForMember(entity => entity.Teams, src => src.MapFrom(dto => dto.Teams))

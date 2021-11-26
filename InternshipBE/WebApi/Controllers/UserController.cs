@@ -1,4 +1,5 @@
 ﻿using BL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
@@ -25,6 +26,13 @@ namespace WebApi.Controllers
             return Ok(await _userService.GetUserInfoByUserNameAsync(userName));
         }
 
+        [Authorize(Roles = "Admin, Manager")]
+        [HttpGet("getAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            return Ok(await _userService.GetAllUsersAsync());
+        }
+
         [HttpGet("getSpecificUsersByInternshipId")]
         public async Task<IActionResult> GetSpecificUsersByInternshipId([FromQuery] GetSpecificUsersRequest usersRequest)
         {
@@ -40,7 +48,7 @@ namespace WebApi.Controllers
         [HttpPut("updateUsersFromInternship")]
         public async Task<IActionResult> UpdateUsersFromInternship([FromBody] UpdateUsersFromInternshipRequest request)
         {
-            return Ok(await _userService.UpdateUsersFromInternshipAsync(request.InternshipId, request.UserIds));
+            return Ok(await _userService.UpdateUsersFromInternshipAsync(request.InternshipId, request.UserIds, request.UpdateType));
         }
     }
 }

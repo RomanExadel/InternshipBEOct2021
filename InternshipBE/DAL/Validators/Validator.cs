@@ -11,7 +11,7 @@ namespace DAL.Validators
 		{
 			if (value == null)
 			{
-				throw new ArgumentNullException(nameof(value), $"{value} is null");
+				throw new ArgumentNullException(nameof(value), "value is null");
 			}
 		}
 
@@ -19,7 +19,7 @@ namespace DAL.Validators
 		{
 			if (values == null && !values.Any())
 			{
-				throw new ArgumentNullException(nameof(values), $"{values} is empty");
+				throw new ArgumentNullException(nameof(values), "values is empty");
 			}
 		}
 	}
