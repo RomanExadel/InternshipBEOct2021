@@ -53,12 +53,7 @@ namespace BL.Services
 
         public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, CandidateFilterModel filterBy)
         {
-            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber);
-
-            if (filterBy != null)
-            {
-                candidates = await _unitOfWork.Candidates.GetCandidatesForFilterAsync(filterBy);
-            }
+            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber, filterBy);
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
