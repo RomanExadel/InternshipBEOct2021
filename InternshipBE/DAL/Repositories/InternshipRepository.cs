@@ -3,6 +3,7 @@ using DAL.Entities;
 using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,12 +69,12 @@ namespace DAL.Repositories
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {
-                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == language));
+                    internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == Enum.Parse<InternshipLanguageType>(language)));
                 }
             if (filterBy.InternshipStacks != null)
                 foreach(var stack in filterBy.InternshipStacks)
                 {
-                    internships = internships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == stack));
+                    internships = internships.Where(i => i.InternshipStacks.Any(s => s.TechnologyStackType == Enum.Parse<StackType>(stack)));
                 }
             if (filterBy.AttachedUsers != null)
                 foreach (var userName in filterBy.AttachedUsers)

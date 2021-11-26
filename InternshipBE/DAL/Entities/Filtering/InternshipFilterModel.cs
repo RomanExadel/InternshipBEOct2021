@@ -8,11 +8,11 @@ namespace DAL.Entities.Filtering
     {
         public List<string>? Locations { get; set; }
 
-        public List<InternshipLanguageType>? LanguageTypes { get; set; }
+        public List<string>? LanguageTypes { get; set; }
 
-        public InternshipStatusType? InternshipStatusType { get; set; }
+        public string? InternshipStatusType { get; set; }
 
-        public List<StackType>? InternshipStacks { get; set; }
+        public List<string>? InternshipStacks { get; set; }
 
         public List<string>? AttachedUsers { get; set; }
 
