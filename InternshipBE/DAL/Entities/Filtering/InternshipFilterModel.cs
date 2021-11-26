@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DAL.Entities.Filtering
 {
-    public class IntershipFilterModel 
+    public class InternshipFilterModel 
     {
         public List<string>? Locations { get; set; }
 

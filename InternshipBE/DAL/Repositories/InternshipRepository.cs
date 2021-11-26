@@ -34,7 +34,7 @@ namespace DAL.Repositories
             return internship;
         }
 
-        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy)
+        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
         {
             if (filterBy != null)
             {
@@ -55,7 +55,7 @@ namespace DAL.Repositories
 
         }
 
-        private List<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, IntershipFilterModel filterBy)
+        private List<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
         {
             var internships =  _context.Internships.AsQueryable();
 
