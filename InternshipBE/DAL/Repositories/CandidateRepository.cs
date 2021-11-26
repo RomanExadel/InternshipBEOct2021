@@ -1,4 +1,4 @@
-﻿using DAL.Database;
+using DAL.Database;
 using DAL.Entities;
 using DAL.Entities.Filtering;
 using DAL.Interfaces;

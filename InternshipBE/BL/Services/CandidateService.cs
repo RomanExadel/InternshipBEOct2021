@@ -5,7 +5,6 @@ using DAL.Entities;
 using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;

@@ -12,13 +12,11 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IValidator<Feedback> _validator;
 
-        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<Feedback> validator)
+        public FeedbackService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _validator = validator;
         }
 
         public async Task<FeedbackDTO> CreateFeedbackAsync(FeedbackDTO newFeedback)
@@ -47,8 +45,6 @@ namespace BL.Services
         public async Task<FeedbackDTO> GetFeedbackByIdAsync(int id)
         {
             var feedback = await _unitOfWork.Feedbacks.GetByIdAsync(id);
-
-            _validator.ValidateIfEntityExist(feedback);
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }

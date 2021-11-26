@@ -1,9 +1,36 @@
+--AspNetUserRoles
+delete from AspNetUserRoles;
+
+--AspnetRoles
+update AspNetRoles set id = '0121176f-d2e2-4090-abd5-da9ca40121e4' where [Name] = 'Mentor';
+update AspNetRoles set id = '20b6b1c8-b16b-409b-8a2c-26aecc364d41' where [Name] = 'Admin';
+update AspNetRoles set id = 'bda1a2c8-6ad0-4a5f-b392-4dbad403d0a7' where [Name] = 'Interviewer';
+update AspNetRoles set id = 'c0e95d91-ea52-408c-a6b7-dafddeb8905f' where [Name] = 'Manager';
+update AspNetRoles set id = 'ee2ace92-5843-4e97-bc0e-14a8fc9900e5' where [Name] = 'Hr';
+
+--Feadbacks
+update Feedbacks set UserId = '15cef508-4e16-4b6c-9f26-e6418dd55685' where CandidateId = 1;
+update Feedbacks set UserId = '15cef508-4e16-4b6c-9f26-e6418dd55685' where CandidateId = 2;
+
+--InterviewInvites
+update InterviewInvites set UserId = '15cef508-4e16-4b6c-9f26-e6418dd55685' where CandidateId = 1;
+update InterviewInvites set UserId = '15cef508-4e16-4b6c-9f26-e6418dd55685' where CandidateId = 2;
+
+
 --AspNetUsers
-update AspNetUsers set id = 'af412954-70f3-40bb-bcbb-8bea392d4b73' where RoleType = 4;
-update AspNetUsers set id = '37cba5fa-b370-4c92-aca1-6554070b44d2' where RoleType = 2;
-update AspNetUsers set id = 'a607f6bb-88ca-471f-9f44-83606ca03755' where RoleType = 1;
-update AspNetUsers set id = '75e2119e-8010-4af3-9be5-0748970b575a' where RoleType = 0;
-update AspNetUsers set id = 'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715' where RoleType = 3;
+update AspNetUsers set id = '44c3d6f1-34a4-4df2-831a-ec5f045a0537' where RoleType = 4;
+update AspNetUsers set id = 'f4d5ad27-f165-4c95-b2de-5dfe4b189561' where RoleType = 2;
+update AspNetUsers set id = '15cef508-4e16-4b6c-9f26-e6418dd55685' where RoleType = 1;
+update AspNetUsers set id = '81cd0f53-0f04-4079-8846-f490cf677d4a' where RoleType = 0;
+update AspNetUsers set id = '74b9be8b-9eb5-4014-963d-03670de353aa' where RoleType = 3;
+
+--AspNetUserRoles
+insert into AspNetUserRoles values
+('81cd0f53-0f04-4079-8846-f490cf677d4a', '0121176f-d2e2-4090-abd5-da9ca40121e4'),
+('44c3d6f1-34a4-4df2-831a-ec5f045a0537', '20b6b1c8-b16b-409b-8a2c-26aecc364d41'),
+('f4d5ad27-f165-4c95-b2de-5dfe4b189561', 'bda1a2c8-6ad0-4a5f-b392-4dbad403d0a7'),
+('74b9be8b-9eb5-4014-963d-03670de353aa', 'c0e95d91-ea52-408c-a6b7-dafddeb8905f'),
+('15cef508-4e16-4b6c-9f26-e6418dd55685', 'ee2ace92-5843-4e97-bc0e-14a8fc9900e5');
 
 --Candidates
 update Candidates set InternshipLanguage = 0 where InternshipId = 1;
@@ -32,57 +59,47 @@ insert into CountryInternship values
 
 --InternshipUser
 insert into InternshipUser values
-(1,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(2,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(3,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(4,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(1,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715');
+(1,'15cef508-4e16-4b6c-9f26-e6418dd55685'),
+(2,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(3,'44c3d6f1-34a4-4df2-831a-ec5f045a0537'),
+(4,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(1,'74b9be8b-9eb5-4014-963d-03670de353aa');
 
 --TeamUser
 insert into TeamUser values
-(1,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(1,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(1,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(2,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(2,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(2,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(2,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715');
+(1,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(1,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(1,'74b9be8b-9eb5-4014-963d-03670de353aa'),
+(2,'15cef508-4e16-4b6c-9f26-e6418dd55685'),
+(2,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(2,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(2,'74b9be8b-9eb5-4014-963d-03670de353aa');
 
 --CandidateUser
 insert into CandidateUser values
-(1,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(2,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(3,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(4,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(5,'37cba5fa-b370-4c92-aca1-6554070b44d2'),
-(6,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(7,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(8,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(9,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(10,'75e2119e-8010-4af3-9be5-0748970b575a'),
-(11,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(12,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(13,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(14,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(15,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(16,'a607f6bb-88ca-471f-9f44-83606ca03755'),
-(17,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(18,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(19,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(20,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(21,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(22,'af412954-70f3-40bb-bcbb-8bea392d4b73'),
-(23,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(24,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(25,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(26,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(27,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(28,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(29,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(30,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(31,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(32,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715'),
-(33,'ec85bfdd-4994-45b0-8d2d-4bd9b3fff715');
+(1,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(2,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(3,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(4,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(5,'f4d5ad27-f165-4c95-b2de-5dfe4b189561'),
+(6,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(7,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(8,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(9,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(10,'81cd0f53-0f04-4079-8846-f490cf677d4a'),
+(11,'44c3d6f1-34a4-4df2-831a-ec5f045a0537'),
+(12,'44c3d6f1-34a4-4df2-831a-ec5f045a0537'),
+(13,'44c3d6f1-34a4-4df2-831a-ec5f045a0537'),
+(14,'44c3d6f1-34a4-4df2-831a-ec5f045a0537'),
+(15,'15cef508-4e16-4b6c-9f26-e6418dd55685'),
+(16,'15cef508-4e16-4b6c-9f26-e6418dd55685'),
+(17,'74b9be8b-9eb5-4014-963d-03670de353aa'),
+(18,'74b9be8b-9eb5-4014-963d-03670de353aa'),
+(19,'74b9be8b-9eb5-4014-963d-03670de353aa'),
+(20,'74b9be8b-9eb5-4014-963d-03670de353aa'),
+(21,'74b9be8b-9eb5-4014-963d-03670de353aa'),
+(22,'15cef508-4e16-4b6c-9f26-e6418dd55685'),
+(23,'15cef508-4e16-4b6c-9f26-e6418dd55685');
 
 --Teams
 insert into Teams(InternshipId, [Name]) values(3,'Team 1 C');
@@ -120,3 +137,12 @@ insert into Skills(StackType, [Name], IsHardSkill) values
 (4,'CI/CD', 1),
 (5,'BDD/TDD', 1),
 (5,'Multitasking', 1);
+
+--InternshipLanguage
+insert into InternshipLanguage values
+(1, 1),
+(2, 1),
+(2, 2),
+(3, 2),
+(3, 3),
+(4, 4);
