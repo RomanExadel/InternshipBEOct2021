@@ -35,6 +35,41 @@ namespace DAL.Repositories
             return internship;
         }
 
+        public override async Task<Internship> UpdateAsync(Internship newInternship) 
+        {
+            var internship = await _context.Internships
+                .Include(x => x.Teams)
+                .Include(x =>x.Users)
+                .Include(x =>x.Candidates)
+                .Include(x =>x.Countries)
+                .Include(x=>x.InternshipStacks)
+                .FirstOrDefaultAsync(x =>x.Id == newInternship.Id);
+
+            _validator.ValidateIfEntityExist(internship);
+
+            internship.Name = newInternship.Name;
+            internship.StartDate = newInternship.StartDate;
+            internship.EndDate = newInternship.EndDate;
+            internship.Requirements = newInternship.Requirements;
+            internship.MaxCandidateCount = newInternship.MaxCandidateCount;
+            internship.RegistrationFinishDate = newInternship.RegistrationFinishDate;
+            internship.RegistrationStartDate = newInternship.RegistrationStartDate;
+            internship.Candidates = await _context.Candidates.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
+            internship.LanguageTypes = newInternship.LanguageTypes;
+            internship.InternshipStacks = await _context.InternshipStacks.Where(x =>x.InternshipId == newInternship.Id).ToListAsync();
+            internship.Users = await _context.Users.Where(x => newInternship.Users.Contains(x)).ToListAsync();
+            internship.Teams = await _context.Teams.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
+            internship.Countries = await _context.Countries.Where(x => newInternship.Countries.Contains(x)).ToListAsync();
+            internship.InternshipStatusType = newInternship.InternshipStatusType;
+            internship.ImageLink = newInternship.ImageLink;            
+
+            _context.Internships.Update(internship);
+
+            await _context.SaveChangesAsync();
+            
+            return newInternship;
+        }
+
         public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
         {
             if (filterBy != null)
