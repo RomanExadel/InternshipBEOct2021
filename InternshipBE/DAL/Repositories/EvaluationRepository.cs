@@ -30,8 +30,6 @@ namespace DAL.Repositories
         public async Task<int> DeleteMissingEvaluationsByFeedbackId(int feedbackId, List<Evaluation> evaluations)
         {
             var evaluationsToDelete = await _context.Evaluations
-                .Include(x => x.Feedback)
-                .Include(x => x.Skill)
                 .Where(x => x.FeedbackId == feedbackId && !evaluations.Select(x => x.Id).Contains(x.Id))
                 .ToListAsync();
 
