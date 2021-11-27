@@ -87,6 +87,7 @@ namespace BL.Mapping.Profiles
 				.ForMember(entity => entity.InternshipId, src => src.MapFrom(dto => dto.InternshipId))
 				.ForMember(entity => entity.TeamId, src => src.MapFrom(dto => dto.TeamId))
 				.ForMember(entity => entity.InternshipLanguage, src => src.MapFrom(dto => Enum.Parse<InternshipLanguageType>(dto.LanguageType)))
+				.ForMember(entity => entity.Users, src => src.MapFrom(dto => dto.Users))
 				.ForAllOtherMembers(x => x.Ignore());
 		}
 	}
