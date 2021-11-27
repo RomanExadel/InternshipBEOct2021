@@ -15,6 +15,7 @@ namespace DAL.Repositories
 		public UserRepository(ApplicationDbContext context) : base(context)
 		{
 		}
+
         public async Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType = null)
 		{
 			var internship = await _context.Internships.AsNoTracking()
