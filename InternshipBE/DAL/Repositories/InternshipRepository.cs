@@ -71,6 +71,8 @@ namespace DAL.Repositories
                 {
                     internships = internships.Where(i => i.LanguageTypes.Any(l => l.LanguageType == (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), language)));
                 }
+            if (filterBy.InternshipStatusType != null)
+                internships = internships.Where(i => i.InternshipStatusType == (InternshipStatusType)Enum.Parse(typeof(InternshipStatusType), filterBy.InternshipStatusType));
             if (filterBy.InternshipStacks != null)
                 foreach(var stack in filterBy.InternshipStacks)
                 {
@@ -80,7 +82,6 @@ namespace DAL.Repositories
                 foreach (var userName in filterBy.AttachedUsers)
                 {
                     internships = internships.Where(i => i.Users.Any(u => u.UserName.Contains(userName)));
-                    ///internships = internships.Where(i => i.Users.Any(l => l.UserName == (StackType)Enum.Parse(typeof(StackType), stack)));
                 }
             if(filterBy.IntershipYear.HasValue)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
