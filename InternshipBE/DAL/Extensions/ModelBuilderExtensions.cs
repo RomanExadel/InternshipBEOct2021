@@ -106,7 +106,7 @@ namespace DAL.Extensions
                 {
                     Id = Guid.NewGuid().ToString(),
                     RoleType = RoleType.Admin,
-                    Position = "BA",
+                    Position = "Head of Education Centre",
                     UserName = userName1,
                     NormalizedUserName = userName1.ToUpper(),
                     Email = email1,
@@ -126,7 +126,7 @@ namespace DAL.Extensions
                 {
                     Id = Guid.NewGuid().ToString(),
                     RoleType = RoleType.Hr,
-                    Position = "Back",
+                    Position = "Recruiter",
                     UserName = userName2,
                     NormalizedUserName = userName2.ToUpper(),
                     Email = email2,
@@ -146,7 +146,7 @@ namespace DAL.Extensions
                 {
                     Id = Guid.NewGuid().ToString(),
                     RoleType = RoleType.Interviewer,
-                    Position = "Front",
+                    Position = "Senior .NET",
                     UserName = userName3,
                     NormalizedUserName = userName3.ToUpper(),
                     Email = email3,
@@ -166,7 +166,7 @@ namespace DAL.Extensions
                 {
                     Id = Guid.NewGuid().ToString(),
                     RoleType = RoleType.Manager,
-                    Position = "PO",
+                    Position = "Deputy of Head of Education Center",
                     UserName = userName4,
                     NormalizedUserName = userName4.ToUpper(),
                     Email = email4,
@@ -186,7 +186,7 @@ namespace DAL.Extensions
                 {
                     Id = Guid.NewGuid().ToString(),
                     RoleType = RoleType.Mentor,
-                    Position = "PO",
+                    Position = "Senior .NET/JS",
                     UserName = userName5,
                     NormalizedUserName = userName5.ToUpper(),
                     Email = email5,
