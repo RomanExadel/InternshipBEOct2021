@@ -83,7 +83,7 @@ namespace DAL.Repositories
                 {
                     internships = internships.Where(i => i.Users.Any(u => u.UserName.Contains(userName)));
                 }
-            if(filterBy.IntershipYear.HasValue)
+            if(filterBy.IntershipYear != null)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
 
             return  internships.AsNoTracking()
