@@ -98,8 +98,11 @@ namespace DAL.Repositories
 
         private IQueryable<Candidate> GetFilteredCandidates(IQueryable<Candidate> candidates, int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
         {
-            if (filterBy.Location != null)
-                candidates = candidates.Where(c => c.Location.Contains(filterBy.Location));
+            if (filterBy.Locations != null)
+                foreach (var location in filterBy.Locations)
+                {
+                    candidates = candidates.Where(c => c.Location.Contains(location));
+                }
             if (filterBy.LanguageTypes != null)
                 foreach (var language in filterBy.LanguageTypes)
                 {

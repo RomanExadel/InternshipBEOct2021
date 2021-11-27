@@ -6,7 +6,7 @@ namespace DAL.Entities.Filtering
 {
     public class CandidateFilterModel 
     {
-        public string? Location { get; set; }
+        public List<string>? Locations { get; set; }
 
         public List<string>? LanguageTypes { get; set; }
 
