@@ -51,9 +51,9 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, CandidateFilterModel filterBy)
+        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, CandidateFilterModel filterBy, string sortBy, bool desc)
         {
-            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber, filterBy);
+            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber, filterBy, sortBy, desc);
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }

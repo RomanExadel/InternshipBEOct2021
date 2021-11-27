@@ -35,12 +35,18 @@ namespace DAL.Repositories
             return candidate;
         }
 
-        public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
+        public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel filterBy, string sortBy, bool asc)
         {
-            if (filterBy != null)
-                return GetFilteredCandidates(id, pageSize, pageNumber, filterBy);
+            var candidates = _context.Candidates.AsQueryable();
 
-            return await _context.Candidates.AsNoTracking()
+            if (filterBy != null)
+                candidates =  GetFilteredCandidates(candidates, id, pageSize, pageNumber, filterBy);
+
+            if (sortBy != null)
+                return await candidates.OrderByPropertyName(sortBy, asc).ToListAsync();
+
+            
+            return await candidates.AsNoTracking()
                 .Include(x => x.Internship)
                 .Include(x => x.Users)
                     .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
@@ -49,7 +55,8 @@ namespace DAL.Repositories
                 .Skip(pageSize * --pageNumber)
                 .Take(pageSize)
                 .ToListAsync();
-    }
+
+        }
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType)
         {
@@ -89,12 +96,8 @@ namespace DAL.Repositories
             else return null;
         }
 
-        private List<Candidate> GetFilteredCandidates(int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
+        private IQueryable<Candidate> GetFilteredCandidates(IQueryable<Candidate> candidates, int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
         {
-            var candidates = _context.Candidates
-                .Include(c => c.Users)
-                .Include(c => c.Internship).AsQueryable();
-
             if (filterBy.Location != null)
                 candidates = candidates.Where(c => c.Location.Contains(filterBy.Location));
             if (filterBy.LanguageTypes != null)
@@ -121,8 +124,7 @@ namespace DAL.Repositories
                         .ThenInclude(x => x.Evaluations)
                 .Where(x => x.InternshipId == id)
                 .Skip(pageSize * --pageNumber)
-                .Take(pageSize)
-                .ToList();
+                .Take(pageSize);
         }
 
         public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
