@@ -45,17 +45,16 @@ namespace DAL.Repositories
             if (sortBy != null)
                 return await candidates.OrderByPropertyName(sortBy, asc).ToListAsync();
 
-            
+
+
             return await candidates.AsNoTracking()
-                .Include(x => x.Internship)
                 .Include(x => x.Users)
-                    .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
+                    .ThenInclude(x => x.Feedbacks)
                         .ThenInclude(x => x.Evaluations)
                 .Where(x => x.InternshipId == id)
                 .Skip(pageSize * --pageNumber)
                 .Take(pageSize)
                 .ToListAsync();
-
         }
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType)
