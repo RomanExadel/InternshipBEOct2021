@@ -16,7 +16,7 @@ namespace DAL.Repositories
 		{
 		}
 
-		public async Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType = null)
+        public async Task<List<User>> GetSpecificUsersByInternshipIdAsync(int id, RoleType? roleType = null)
 		{
 			var internship = await _context.Internships.AsNoTracking()
 				.Include(x => x.Users.Where(u => u.RoleType == roleType || roleType == null))
