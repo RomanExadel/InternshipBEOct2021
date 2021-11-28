@@ -43,7 +43,6 @@ namespace BL.Services
 
         public async Task<CandidateDTO> UpdateCandidateAsync(CandidateDTO candidate)
         {
-
             var mappedCandidate = _mapper.Map<Candidate>(candidate);
 
             var updatedCandidate = await _unitOfWork.Candidates.UpdateAsync(mappedCandidate);
