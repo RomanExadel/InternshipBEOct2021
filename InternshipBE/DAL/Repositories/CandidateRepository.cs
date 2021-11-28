@@ -28,6 +28,7 @@ namespace DAL.Repositories
                 .Include(x => x.Users)
                 .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.Id == id))
                         .ThenInclude(x => x.Evaluations)
+                            .ThenInclude(x => x.Skill)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             _validator.ValidateIfEntityExist(candidate);
@@ -143,46 +144,58 @@ namespace DAL.Repositories
         public async override Task<Candidate> UpdateAsync(Candidate newCandidate)
         {
             var candidate = await _context.Candidates
-                .Include(x => x.Feedbacks)
                 .Include(x => x.Internship)
                 .Include(x => x.Team)
                 .Include(x => x.Users)
+                    .ThenInclude(x => x.Feedbacks.Where(x => x.CandidateId == newCandidate.Id))
+                        .ThenInclude(x => x.Evaluations)
+                            .ThenInclude(x => x.Skill)
                 .FirstOrDefaultAsync(x => x.Id == newCandidate.Id);
 
             _validator.ValidateIfEntityExist(candidate);
-
-            candidate.BestContactTime = newCandidate.BestContactTime;
-            candidate.CurrentJob = newCandidate.CurrentJob;
-            candidate.Education = newCandidate.Education;
-            candidate.Email = newCandidate.Email;
-            candidate.EnglishLevelType = newCandidate.EnglishLevelType;
-            candidate.Feedbacks = candidate.Feedbacks;
-            candidate.FirstName = newCandidate.FirstName;
-            candidate.Internship = await _context.Internships.FirstOrDefaultAsync(x => x.Id == newCandidate.InternshipId);
-            candidate.InternshipId = newCandidate.InternshipId;
-            candidate.InternshipLanguage = newCandidate.InternshipLanguage;
-            candidate.IsPlanningToJoin = newCandidate.IsPlanningToJoin;
-            candidate.LastName = newCandidate.LastName;
-            candidate.Links = newCandidate.Links;
-            candidate.Location = newCandidate.Location;
-            candidate.OtherInfo = newCandidate.OtherInfo;
-            candidate.Phone = newCandidate.Phone;
-            candidate.PrimarySkill = newCandidate.PrimarySkill;
-            candidate.ProfessionalCertificates = newCandidate.ProfessionalCertificates;
-            candidate.RegistrationDate = newCandidate.RegistrationDate;
-            candidate.Skype = newCandidate.Skype;
-            candidate.StackType = newCandidate.StackType;
-            candidate.StatusType = newCandidate.StatusType;
-            candidate.Team = await _context.Teams.FirstOrDefaultAsync(x => x.Id == newCandidate.TeamId);
-            candidate.TeamId = newCandidate.TeamId;
-            candidate.TestTaskEvaluation = newCandidate.TestTaskEvaluation;
-            candidate.Users = await _context.Users.Where(x => newCandidate.Users.Select(x => x.Id).Contains(x.Id)).ToListAsync();
-
-            _context.Candidates.Update(candidate);
-
-            await _context.SaveChangesAsync();
+            await MapFieldsToDbEntityAsync(newCandidate, candidate);
+            await base.UpdateAsync(candidate);
 
             return candidate;
+        }
+
+        public async override Task<Candidate> CreateAsync(Candidate newCandidate)
+        {
+            var candidate = new Candidate();
+
+            await MapFieldsToDbEntityAsync(newCandidate, candidate);
+
+            return await base.CreateAsync(candidate);
+        }
+
+        private async Task MapFieldsToDbEntityAsync(Candidate fromCandidate, Candidate toCandidate)
+        {
+            toCandidate.BestContactTime = fromCandidate.BestContactTime;
+            toCandidate.CurrentJob = fromCandidate.CurrentJob;
+            toCandidate.Education = fromCandidate.Education;
+            toCandidate.Email = fromCandidate.Email;
+            toCandidate.EnglishLevelType = fromCandidate.EnglishLevelType;
+            toCandidate.Feedbacks = toCandidate.Feedbacks;
+            toCandidate.FirstName = fromCandidate.FirstName;
+            toCandidate.Internship = await _context.Internships.FirstOrDefaultAsync(x => x.Id == fromCandidate.InternshipId);
+            toCandidate.InternshipId = fromCandidate.InternshipId;
+            toCandidate.InternshipLanguage = fromCandidate.InternshipLanguage;
+            toCandidate.IsPlanningToJoin = fromCandidate.IsPlanningToJoin;
+            toCandidate.LastName = fromCandidate.LastName;
+            toCandidate.Links = fromCandidate.Links;
+            toCandidate.Location = fromCandidate.Location;
+            toCandidate.OtherInfo = fromCandidate.OtherInfo;
+            toCandidate.Phone = fromCandidate.Phone;
+            toCandidate.PrimarySkill = fromCandidate.PrimarySkill;
+            toCandidate.ProfessionalCertificates = fromCandidate.ProfessionalCertificates;
+            toCandidate.RegistrationDate = fromCandidate.RegistrationDate;
+            toCandidate.Skype = fromCandidate.Skype;
+            toCandidate.StackType = fromCandidate.StackType;
+            toCandidate.StatusType = fromCandidate.StatusType;
+            toCandidate.Team = await _context.Teams.FirstOrDefaultAsync(x => x.Id == fromCandidate.TeamId);
+            toCandidate.TeamId = fromCandidate.TeamId;
+            toCandidate.TestTaskEvaluation = fromCandidate.TestTaskEvaluation;
+            toCandidate.Users = await _context.Users.Include(x => x.Feedbacks.Where(x => x.CandidateId == fromCandidate.Id)).ThenInclude(x => x.Evaluations).ThenInclude(x => x.Skill).Where(x => fromCandidate.Users.Select(x => x.Id).Contains(x.Id)).ToListAsync();
         }
     }
 }
