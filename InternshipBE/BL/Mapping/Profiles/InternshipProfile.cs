@@ -31,6 +31,7 @@ namespace BL.Mapping.Profiles
                 .ForMember(dto => dto.ImageLink, src => src.MapFrom(entity => entity.ImageLink))
                 .ForMember(dto => dto.InternshipStacks, src => src.MapFrom(entity => entity.InternshipStacks))
                 .ForMember(dto => dto.Locations, src => src.MapFrom(entity => entity.Countries))
+                .ForMember(dto => dto.SpreadSheetId, src => src.MapFrom(entity => entity.SpreadSheetId))
                 .ForMember(dto => dto.Users, src => src.MapFrom(entity => entity.Users));
 
             CreateMap<InternshipDTO, Internship>()
@@ -50,6 +51,7 @@ namespace BL.Mapping.Profiles
                 .ForMember(entity => entity.Countries, src => src.MapFrom(dto => dto.Locations))
                 .ForMember(entity => entity.InternshipStatusType, src => src.MapFrom(dto => Enum.Parse<InternshipStatusType>(dto.InternshipStatusType)))
                 .ForMember(entity => entity.ImageLink, src => src.MapFrom(dto => dto.ImageLink))
+                .ForMember(entity => entity.SpreadSheetId, src => src.MapFrom(dto => dto.SpreadSheetId))
                 .ForAllOtherMembers(x => x.Ignore());
         }
     }

@@ -63,10 +63,9 @@ namespace DAL.Repositories
             internship.Countries = await _context.Countries.Where(x => newInternship.Countries.Contains(x)).ToListAsync();
             internship.InternshipStatusType = newInternship.InternshipStatusType;
             internship.ImageLink = newInternship.ImageLink;
+            internship.SpreadSheetId = newInternship.SpreadSheetId;
 
-            _context.Internships.Update(internship);
-
-            await _context.SaveChangesAsync();
+            await base.UpdateAsync(internship);
 
             return internship;
         }

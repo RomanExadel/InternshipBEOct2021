@@ -85,8 +85,9 @@ namespace BL.Services
 
 		private async Task SaveNewCountriesAsync(List<CandidateDTO> values)
 		{
-			var names = await _unitOfWork.Locations.GetAllNamesAsync();
-			var newNames = values.Select(x => x.Location).Distinct().Except(names);
+			var names = await _unitOfWork.Locations.GetLocationsAsync();
+
+			var newNames = values.Select(x => x.Location).Except(names);
 
 			var countries = _mapper.Map<List<Country>>(newNames);
 
