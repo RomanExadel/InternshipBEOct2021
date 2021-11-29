@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using static Shared.Constants.DefaultSortConstant;
+
 namespace Shared.Extensions
 {
 	public static class OrderByExtension
 	{
-		private const string DefaultSortParametr = "StatusType";
-
 		public static IQueryable<T> OrderByPropertyName<T>(this IQueryable<T> query, string SortBy, bool IsDesc)
 		{
 			var propertyInfos = typeof(T).GetProperties().Select(x => x.Name.ToUpper()).ToList();
