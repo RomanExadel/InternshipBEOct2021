@@ -28,6 +28,11 @@ namespace BL.Services
             return _mapper.Map<InterviewInviteDTO>(invite);
         }
 
+        public async Task DeleteInterviewInviteAsync(int id)
+        {
+            await _unitOfWork.InterviewInvites.DeleteByIdAsync(id);
+        }
+
         public async Task<List<InterviewInviteDTO>> GetAllInterviewInvitesAsync()
         {
             var invites = await _unitOfWork.InterviewInvites.GetAllAsync();

@@ -39,5 +39,13 @@ namespace WebApi.Controllers
         {
             return Ok(await _interviewInviteService.UpdateInterviewInviteAsync(inviteDto));
         }
+
+        [HttpDelete("deleteInterviewInvite")]
+        public async Task<IActionResult> DeleteInterviewInvite([FromQuery] int id)
+        {
+            await _interviewInviteService.DeleteInterviewInviteAsync(id);
+
+            return Ok();
+        }
     }
 }
