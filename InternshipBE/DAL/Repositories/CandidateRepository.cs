@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Shared.Constants.DefaultSortConstant;
 
 namespace DAL.Repositories
 {
@@ -38,7 +39,7 @@ namespace DAL.Repositories
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel filterBy, string sortBy, bool asc)
         {
-            var candidates = _context.Candidates.AsQueryable();
+            var candidates = _context.Candidates.OrderByPropertyName(DefaultSortParametr, DefaultIsDesk).AsQueryable();
 
             if (filterBy != null)
                 candidates =  GetFilteredCandidates(candidates, id, pageSize, pageNumber, filterBy);
