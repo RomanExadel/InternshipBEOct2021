@@ -25,6 +25,7 @@ namespace DAL.Repositories
         private IValidator<Feedback> _feedbackValidator;
         private IValidator<Internship> _internshipValidator;
         private IValidator<Evaluation> _evaluationValidator;
+        private IValidator<InterviewInvite> _interviewInviteValidator;
 
         public ILocationRepository Locations
         {
@@ -120,20 +121,21 @@ namespace DAL.Repositories
             get
             {
                 if (_interviewInviteRepository == null)
-                    _interviewInviteRepository = new InterviewInviteRepository(_db);
+                    _interviewInviteRepository = new InterviewInviteRepository(_db, _interviewInviteValidator);
                 return _interviewInviteRepository;
             }
         }
 
         public EFUnitOfWork(ApplicationDbContext db, IValidator<Candidate> candidateValidator,
             IValidator<Feedback> feedbackValidator, IValidator<Internship> internshipValidator,
-            IValidator<Evaluation> evaluationValidator)
+            IValidator<Evaluation> evaluationValidator, IValidator<InterviewInvite> interviewInviteValidator)
         {
             _db = db;
             _candidateValidator = candidateValidator;
             _feedbackValidator = feedbackValidator;
             _internshipValidator = internshipValidator;
             _evaluationValidator = evaluationValidator;
+            _interviewInviteValidator = interviewInviteValidator;
         }
 
         public virtual void Dispose(bool disposing)
