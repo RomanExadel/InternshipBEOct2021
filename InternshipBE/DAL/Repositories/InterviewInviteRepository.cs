@@ -31,6 +31,14 @@ namespace DAL.Repositories
             return await base.CreateAsync(invite);
         }
 
+        public async override Task<InterviewInvite> UpdateAsync(InterviewInvite invite)
+        {
+            invite.User = await _context.Users.FirstOrDefaultAsync(x => x.Id == invite.UserId);
+            invite.Candidate = await _context.Candidates.FirstOrDefaultAsync(x => x.Id == invite.CandidateId);
+
+            return await base.UpdateAsync(invite);
+        }
+
         public async Task<List<InterviewInvite>> GetAllByUserIdAsync(string userId)
         {
             return await _context.InterviewInvites

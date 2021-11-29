@@ -33,5 +33,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _interviewInviteService.CreateInterviewInviteAsync(inviteDto));
         }
+
+        [HttpPut("updateInterviewInvite")]
+        public async Task<IActionResult> UpdateInterviewInvite([FromBody] InterviewInviteDTO inviteDto)
+        {
+            return Ok(await _interviewInviteService.UpdateInterviewInviteAsync(inviteDto));
+        }
     }
 }

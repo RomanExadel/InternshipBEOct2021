@@ -11,5 +11,7 @@ namespace BL.Interfaces
         Task<List<InterviewInviteDTO>> GetInterviewInvitesByUserIdAsync(string userId);
 
         Task<InterviewInviteDTO> CreateInterviewInviteAsync(InterviewInviteDTO inviteDto);
+
+        Task<InterviewInviteDTO> UpdateInterviewInviteAsync(InterviewInviteDTO inviteDto);
     }
 }

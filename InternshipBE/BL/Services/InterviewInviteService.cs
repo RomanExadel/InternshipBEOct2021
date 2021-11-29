@@ -41,5 +41,14 @@ namespace BL.Services
 
             return _mapper.Map<List<InterviewInviteDTO>>(invites);
         }
+
+        public async Task<InterviewInviteDTO> UpdateInterviewInviteAsync(InterviewInviteDTO inviteDto)
+        {
+            var invite = _mapper.Map<InterviewInvite>(inviteDto);
+
+            invite = await _unitOfWork.InterviewInvites.UpdateAsync(invite);
+
+            return _mapper.Map<InterviewInviteDTO>(invite);
+        }
     }
 }
