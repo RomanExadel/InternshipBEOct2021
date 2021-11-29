@@ -19,6 +19,8 @@ namespace DAL.Repositories
         private IBestContactTimeRepository _bestContactTimeRepository;
         private IInternshipStackRepository _internshipStackRepository;
         private ILocationRepository _locationRepository;
+        private IInterviewInviteRepository _interviewInviteRepository;
+
         private IValidator<Candidate> _candidateValidator;
         private IValidator<Feedback> _feedbackValidator;
         private IValidator<Internship> _internshipValidator;
@@ -110,6 +112,16 @@ namespace DAL.Repositories
                 if (_internshipStackRepository == null)
                     _internshipStackRepository = new InternshipStackRepository(_db);
                 return _internshipStackRepository;
+            }
+        }
+
+        public IInterviewInviteRepository InterviewInvites
+        {
+            get
+            {
+                if (_interviewInviteRepository == null)
+                    _interviewInviteRepository = new InterviewInviteRepository(_db);
+                return _interviewInviteRepository;
             }
         }
 
