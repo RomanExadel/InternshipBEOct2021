@@ -1,4 +1,4 @@
-﻿using BL.DTOs.CandidateDTOs;
+﻿using BL.DTOs;
 using FluentValidation;
 
 namespace WebApi.Validators
