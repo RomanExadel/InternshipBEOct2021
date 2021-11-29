@@ -2,7 +2,7 @@ using Shared.Models;
 using System;
 using System.Collections.Generic;
 
-namespace BL.DTOs.CandidateDTOs
+namespace BL.DTOs
 {
     public class CandidateDTO : AGGridSearch
     {

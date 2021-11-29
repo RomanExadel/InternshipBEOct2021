@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BL.DTOs.CandidateDTOs;
+using BL.DTOs;
 using DAL.Entities;
 using Shared.Enums;
 using System;
