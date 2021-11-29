@@ -5,7 +5,7 @@ namespace Shared.Extensions
 {
 	public static class OrderByExtension
 	{
-		private const string DefaultSortParametr = "Id";
+		private const string DefaultSortParametr = "StatusType";
 
 		public static IQueryable<T> OrderByPropertyName<T>(this IQueryable<T> query, string SortBy, bool IsDesc)
 		{
