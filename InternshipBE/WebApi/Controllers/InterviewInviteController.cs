@@ -1,5 +1,6 @@
 ﻿using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
@@ -12,6 +13,12 @@ namespace WebApi.Controllers
         public InterviewInviteController(IInterviewInviteService interviewInviteService)
         {
             _interviewInviteService = interviewInviteService;
+        }
+
+        [HttpGet("getAllInterviewInvites")]
+        public async Task<IActionResult> GetAllInterviewInvites()
+        {
+            return Ok(await _interviewInviteService.GetAllInterviewInvitesAsync());
         }
     }
 }
