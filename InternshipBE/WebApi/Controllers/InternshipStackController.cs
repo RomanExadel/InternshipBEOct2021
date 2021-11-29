@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class InternshipStackController : Controller
     {

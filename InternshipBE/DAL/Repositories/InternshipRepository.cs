@@ -57,7 +57,7 @@ namespace DAL.Repositories
             internship.RegistrationStartDate = newInternship.RegistrationStartDate;
             internship.Candidates = await _context.Candidates.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
             internship.LanguageTypes = newInternship.LanguageTypes;
-            internship.InternshipStacks = await _context.InternshipStacks.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
+            internship.InternshipStacks = await _context.InternshipStacks.Where(x => newInternship.InternshipStacks.Select(x => x.Id).Contains(x.Id)).ToListAsync();
             internship.Users = await _context.Users.Where(x => newInternship.Users.Contains(x)).ToListAsync();
             internship.Teams = await _context.Teams.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
             internship.Countries = await _context.Countries.Where(x => newInternship.Countries.Contains(x)).ToListAsync();

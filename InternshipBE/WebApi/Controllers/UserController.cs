@@ -26,7 +26,7 @@ namespace WebApi.Controllers
             return Ok(await _userService.GetUserInfoByUserNameAsync(userName));
         }
 
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, Hr")]
         [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
