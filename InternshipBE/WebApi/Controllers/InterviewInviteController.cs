@@ -1,4 +1,5 @@
-﻿using BL.Interfaces;
+﻿using BL.DTOs;
+using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -19,6 +20,18 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetAllInterviewInvites()
         {
             return Ok(await _interviewInviteService.GetAllInterviewInvitesAsync());
+        }
+
+        [HttpGet("getInterviewInvitesByUserId")]
+        public async Task<IActionResult> GetInterviewInvitesByUserId([FromQuery] string userId)
+        {
+            return Ok(await _interviewInviteService.GetInterviewInvitesByUserIdAsync(userId));
+        }
+
+        [HttpPost("createInterviewInvite")]
+        public async Task<IActionResult> CreateInterviewInvite([FromBody] InterviewInviteDTO inviteDto)
+        {
+            return Ok(await _interviewInviteService.CreateInterviewInviteAsync(inviteDto));
         }
     }
 }
