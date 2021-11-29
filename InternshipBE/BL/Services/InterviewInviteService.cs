@@ -1,4 +1,5 @@
-﻿using BL.Interfaces;
+﻿using BL.DTOs;
+using BL.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
