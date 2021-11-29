@@ -76,9 +76,18 @@ namespace BL.Services
 
         public async Task<List<CandidateDTO>> SearchByInternshipIdAsync(CandidateDTO searchModel)
         {
-            var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc, searchModel.InternshipId);
+            if(searchModel.SearchText == "")
+			{
+                var query = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(searchModel.InternshipId, searchModel.Take, ++searchModel.Skip, null, null, searchModel.IsDesc);
 
-            return _mapper.Map<List<CandidateDTO>>(query);
+                return _mapper.Map<List<CandidateDTO>>(query);
+            }
+            else
+            { 
+                var query = await _unitOfWork.Candidates.SearchCandidatesAsync(searchModel.Skip, searchModel.Take, searchModel.SearchText, searchModel.SortBy, searchModel.IsDesc, searchModel.InternshipId);
+
+                return _mapper.Map<List<CandidateDTO>>(query);
+            }
         }
     }
 }
