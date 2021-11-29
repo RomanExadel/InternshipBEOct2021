@@ -8,7 +8,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class EnumController : ControllerBase
     {
-        [HttpGet("getLanguageTypes")]
+        [HttpGet("getInternshipLanguageType")]
         public IActionResult GetLanguageTypes()
         {                       
             return Ok(Enum.GetNames(typeof(InternshipLanguageType)));
@@ -42,6 +42,12 @@ namespace WebApi.Controllers
         public IActionResult GetInternshipStatusTypes()
         {
             return Ok(Enum.GetNames(typeof(InternshipStatusType)));
+        }
+
+        [HttpGet("getInternshipStackTypes")]
+        public IActionResult GetInernshipStackTypes()
+        {
+            return Ok(Enum.GetNames(typeof(StackType)));
         }
     }
 }

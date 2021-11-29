@@ -6,10 +6,8 @@ namespace DAL.Interfaces
 {
     public interface ILocationRepository : IGenericRepository<Country>
     {
-        Task<List<Country>> GetLocationsAsync();
+        Task<List<string>> GetLocationsAsync();
 
         Task<Country> CreateLocationAsync(string NameLocation);
-
-        Task<List<string>> GetAllNamesAsync();
     }
 }

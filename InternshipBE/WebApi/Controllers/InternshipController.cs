@@ -3,7 +3,6 @@ using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Models;
-using DAL.Entities.Filtering;
 
 namespace WebApi.Controllers
 {

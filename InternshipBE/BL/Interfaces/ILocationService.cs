@@ -6,7 +6,7 @@ namespace BL.Interfaces
 {
     public interface ILocationService
     {
-        Task<List<CountryDTO>> GetLocationsAsync();
+        Task<List<string>> GetLocationsAsync();
 
         Task<CountryDTO> CreateLocationAsync(CountryDTO NameLocation);
     }

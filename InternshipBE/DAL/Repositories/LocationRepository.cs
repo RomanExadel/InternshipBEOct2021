@@ -14,24 +14,16 @@ namespace DAL.Repositories
         {
         }
 
-        public async Task<List<Country>> GetLocationsAsync()
+        public async Task<List<string>> GetLocationsAsync()
         {
-            return await GetAllAsync();
+            return await _context.Countries.Select(x => x.Name).Distinct().ToListAsync();
         }
 
         public async Task<Country> CreateLocationAsync(string NameLocation)
         {
             var location = new Country { Name = NameLocation };
 
-            await CreateAsync(location);
-            await _context.SaveChangesAsync();
-
-            return location;
+            return await CreateAsync(location);
         }
-
-        public async Task<List<string>> GetAllNamesAsync()
-		{
-            return await _context.Countries.Select(x => x.Name).ToListAsync();
-		}
     }
 }
