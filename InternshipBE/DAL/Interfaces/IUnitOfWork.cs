@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-	public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
 	{
 		IBestContactTimeRepository BestContactTime { get; }
 
@@ -22,5 +21,7 @@ namespace DAL.Interfaces
         IUserRepository Users { get; }
 
         ILocationRepository Locations { get; }
+
+        IInterviewInviteRepository InterviewInvites { get; }
     }
 }
