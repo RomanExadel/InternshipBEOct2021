@@ -24,6 +24,7 @@ namespace WebApi.Extensions
             services.AddTransient<IInternshipStackService, InternshipStackService>();
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IInterviewInviteService, InterviewInviteService>();
 
             return services;
         }
