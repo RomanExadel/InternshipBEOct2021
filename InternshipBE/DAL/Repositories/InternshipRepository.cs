@@ -74,12 +74,13 @@ namespace DAL.Repositories
         {
             if (filterBy != null)
             {
-                return GetFilteredInternshipsAsync(pageSize, pageNumber, filterBy);
+                return GetFilteredInternshipsAsync(pageSize, pageNumber, filterBy).ToList();
             }
             else
             {
                 return await _context.Internships.AsNoTracking()
                  .Include(x => x.InternshipStacks)
+                 .Include(x => x.LanguageTypes)
                  .Include(x => x.Countries)
                  .Include(x => x.Candidates)
                  .Include(x => x.Teams)
@@ -91,15 +92,15 @@ namespace DAL.Repositories
 
         }
 
-        private List<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
+        private IQueryable<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
         {
             var internships = _context.Internships
-                    .Include(x => x.InternshipStacks)
-                    .Include(x => x.LanguageTypes)
-                    .Include(x => x.Countries)
-                    .Include(x => x.Candidates)
-                    .Include(x => x.Teams)
-                    .Include(x => x.Users).AsEnumerable();
+                 .Include(x => x.InternshipStacks)
+                 .Include(x => x.LanguageTypes)
+                 .Include(x => x.Countries)
+                 .Include(x => x.Candidates)
+                 .Include(x => x.Teams)
+                 .Include(x => x.Users).AsEnumerable();
 
             if (filterBy.Locations != null)
                 foreach(var internship in internships)
@@ -110,7 +111,7 @@ namespace DAL.Repositories
             if (filterBy.InternshipStatusType != null)
                 foreach (var internship in internships)
                     internships = internships.Where(i => filterBy.InternshipStatusType == Enum.GetName(typeof(InternshipLanguageType), i.InternshipStatusType));
-            if (filterBy.LanguageTypes != null)
+            if (filterBy.InternshipStacks != null)
                 foreach (var internship in internships)
                     internships = internships.Where(i => filterBy.InternshipStacks.Any(x => i.InternshipStacks.Any(l => l.TechnologyStackType == (StackType)Enum.Parse(typeof(StackType), x))));
             if(filterBy.IntershipYear != 0)
@@ -119,8 +120,7 @@ namespace DAL.Repositories
 
             return internships.AsQueryable().AsNoTracking()
                     .Skip(pageSize * --pageNumber)
-                    .Take(pageSize)
-                    .ToList();
+                    .Take(pageSize);
         }
     }
 }
