@@ -45,18 +45,11 @@ namespace DAL.Repositories
                 candidates =  GetFilteredCandidates(candidates, id, pageSize, pageNumber, filterBy);
 
             if (sortBy != null)
-                return await candidates.OrderByPropertyName(sortBy, asc).ToListAsync();
+                return candidates.OrderByPropertyName(sortBy, asc).ToList();
 
 
 
-            return await candidates.AsNoTracking()
-                .Include(x => x.Users)
-                    .ThenInclude(x => x.Feedbacks)
-                        .ThenInclude(x => x.Evaluations)
-                .Where(x => x.InternshipId == id)
-                .Skip(pageSize * --pageNumber)
-                .Take(pageSize)
-                .ToListAsync();
+            return await candidates.ToListAsync();
         }
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType)
@@ -100,12 +93,12 @@ namespace DAL.Repositories
             else return null;
         }
 
-        private IQueryable<Candidate> GetFilteredCandidates(IQueryable<Candidate> candidates, int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
+        private IQueryable<Candidate> GetFilteredCandidates(IEnumerable<Candidate> candidates, int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
         {
 
             if (filterBy.Locations != null)
                 candidates = candidates.Where(c => filterBy.Locations.Any(x => x == c.Location));
-            if (filterBy.LanguageTypes != null && candidates != null)
+            if (filterBy.LanguageTypes != null)
                 candidates = candidates.Where(c => filterBy.LanguageTypes.Any(x => (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), x) == c.InternshipLanguage));
             if (filterBy.StatusTypes != null)
                 candidates = candidates.Where(c => filterBy.StatusTypes.Any(x => (CandidateStatusType)Enum.Parse(typeof(CandidateStatusType), x) == c.StatusType));
@@ -114,13 +107,7 @@ namespace DAL.Repositories
             if (filterBy.UserId != null)
                 candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
 
-            return candidates.AsQueryable().Include(x => x.Internship)
-            .Include(x => x.Users)
-                .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
-                    .ThenInclude(x => x.Evaluations)
-            .Where(x => x.InternshipId == id)
-            .Skip(pageSize * --pageNumber)
-            .Take(pageSize);
+            return candidates.AsQueryable();
         }
 
         public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
