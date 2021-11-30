@@ -114,7 +114,6 @@ namespace DAL.Repositories
         {
             var candidates = await _context.Candidates
                 .Include(x => x.Users)
-                .Include(x => x.InternshipLanguage)
                 .Where(x => candidatesId.Contains(x.Id)).ToListAsync();
 
             _validator.ValidateIfEntitesExist(candidates);
