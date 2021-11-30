@@ -80,6 +80,7 @@ namespace DAL.Repositories
         {
             return await _context.Candidates.AsNoTracking()
                 .Include(x => x.Internship)
+                .Include(x => x.InternshipLanguage)
                 .Include(x => x.Users)
                     .ThenInclude(x => x.Feedbacks)
                         .ThenInclude(x => x.Evaluations)
@@ -115,18 +116,20 @@ namespace DAL.Repositories
                 candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
 
             return candidates.AsQueryable().Include(x => x.Internship)
-            .Include(x => x.Users)
-                .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
-                    .ThenInclude(x => x.Evaluations)
-            .Where(x => x.InternshipId == id)
-            .Skip(pageSize * --pageNumber)
-            .Take(pageSize);
+                .Include(x => x.InternshipLanguage)
+                .Include(x => x.Users)
+                    .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
+                        .ThenInclude(x => x.Evaluations)
+                .Where(x => x.InternshipId == id)
+                .Skip(pageSize * --pageNumber)
+                .Take(pageSize);
         }
 
         public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
         {
             var candidates = await _context.Candidates
                 .Include(x => x.Users)
+                .Include(x => x.InternshipLanguage)
                 .Where(x => candidatesId.Contains(x.Id)).ToListAsync();
 
             _validator.ValidateIfEntitesExist(candidates);
