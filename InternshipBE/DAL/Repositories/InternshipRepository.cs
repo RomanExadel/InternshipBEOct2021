@@ -116,11 +116,11 @@ namespace DAL.Repositories
                     internships = internships.Where(i => filterBy.InternshipStacks.Any(x => i.InternshipStacks.Any(l => l.TechnologyStackType == (StackType)Enum.Parse(typeof(StackType), x))));
             if(filterBy.IntershipYear != 0)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
+            if (filterBy.AttachedUsers != null)
+                foreach (var internship in internships)
+                    internships = internships.Where(i => filterBy.AttachedUsers.Any(u => i.Users.Any(x => x.UserName == u)));
 
-
-            return internships.AsQueryable().AsNoTracking()
-                    .Skip(pageSize * --pageNumber)
-                    .Take(pageSize);
+            return internships.AsQueryable().AsNoTracking();
         }
     }
 }
