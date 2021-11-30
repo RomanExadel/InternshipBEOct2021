@@ -102,36 +102,25 @@ namespace DAL.Repositories
 
         private IQueryable<Candidate> GetFilteredCandidates(IQueryable<Candidate> candidates, int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
         {
+
             if (filterBy.Locations != null)
-                foreach (var location in filterBy.Locations)
-                {
-                    candidates = candidates.Where(c => c.Location.Contains(location));
-                }
-            if (filterBy.LanguageTypes != null)
-                foreach (var language in filterBy.LanguageTypes)
-                {
-                    candidates = candidates.Where(i => i.InternshipLanguage == (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), language));
-                }
+                candidates = candidates.Where(c => filterBy.Locations.Any(x => x == c.Location));
+            if (filterBy.LanguageTypes != null && candidates != null)
+                candidates = candidates.Where(c => filterBy.LanguageTypes.Any(x => (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), x) == c.InternshipLanguage));
             if (filterBy.StatusTypes != null)
-                foreach (var status in filterBy.StatusTypes)
-                {
-                    candidates = candidates.Where(i => i.StatusType == (CandidateStatusType)Enum.Parse(typeof(CandidateStatusType), status));
-                }
-            if(filterBy.EnglishLevels != null)
-                foreach (var level in filterBy.EnglishLevels)
-                {
-                    candidates = candidates.Where(i => i.EnglishLevelType == (EnglishLevelType)Enum.Parse(typeof(EnglishLevelType), level));
-                }
+                candidates = candidates.Where(c => filterBy.StatusTypes.Any(x => (CandidateStatusType)Enum.Parse(typeof(CandidateStatusType), x) == c.StatusType));
+            if (filterBy.EnglishLevels != null)
+                candidates = candidates.Where(c => filterBy.EnglishLevels.Any(x => (EnglishLevelType)Enum.Parse(typeof(EnglishLevelType), x) == c.EnglishLevelType));
             if (filterBy.UserId != null)
                 candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
 
-            return candidates.Include(x => x.Internship)
-                .Include(x => x.Users)
-                    .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
-                        .ThenInclude(x => x.Evaluations)
-                .Where(x => x.InternshipId == id)
-                .Skip(pageSize * --pageNumber)
-                .Take(pageSize);
+            return candidates.AsQueryable().Include(x => x.Internship)
+            .Include(x => x.Users)
+                .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
+                    .ThenInclude(x => x.Evaluations)
+            .Where(x => x.InternshipId == id)
+            .Skip(pageSize * --pageNumber)
+            .Take(pageSize);
         }
 
         public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
