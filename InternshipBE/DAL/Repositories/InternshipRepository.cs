@@ -74,7 +74,7 @@ namespace DAL.Repositories
         {
             if (filterBy != null)
             {
-                return GetFilteredInternshipsAsync(pageSize, pageNumber, filterBy).ToList();
+                return GetFilteredInternshipsAsync(filterBy).ToList();
             }
             else
             {
@@ -92,7 +92,7 @@ namespace DAL.Repositories
 
         }
 
-        private IQueryable<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
+        private IQueryable<Internship> GetFilteredInternshipsAsync(InternshipFilterModel filterBy)
         {
             var internships = _context.Internships
                  .Include(x => x.InternshipStacks)

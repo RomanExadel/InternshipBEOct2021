@@ -54,7 +54,7 @@ namespace DAL.Repositories
             if (sortBy != null)
                 return candidates.OrderByPropertyName(sortBy, asc).ToList();
 
-            return await candidates.ToListAsync();
+            return candidates.ToList();
         }
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType)
