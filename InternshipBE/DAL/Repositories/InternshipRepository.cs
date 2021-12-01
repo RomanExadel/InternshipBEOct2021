@@ -70,6 +70,14 @@ namespace DAL.Repositories
             return internship;
         }
 
+        public async override Task<Internship> CreateAsync(Internship internship)
+        {
+            internship.Countries = await _context.Countries.Where(x => internship.Countries.Select(x => x.Id).Contains(x.Id)).ToListAsync();
+            internship.Users = await _context.Users.Where(x => internship.Users.Select(x => x.Id).Contains(x.Id)).ToListAsync();
+
+            return await base.CreateAsync(internship);
+        }
+
         public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
         {
             if (filterBy != null)
