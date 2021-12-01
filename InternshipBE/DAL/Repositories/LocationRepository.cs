@@ -25,25 +25,5 @@ namespace DAL.Repositories
 
             return await CreateAsync(location);
         }
-
-        public async Task<Internship> CreateOrDeleteLocationsAsync(Internship oldInternship, Internship newInternship)
-        {
-            if (newInternship.Countries.Count >= oldInternship.Countries.Count)
-            {
-                _context.Countries.RemoveRange(oldInternship.Countries);
-
-                oldInternship.Countries = newInternship.Countries.Except(await _context.Countries.ToListAsync()).ToList();
-
-                await _context.Countries.AddRangeAsync(oldInternship.Countries);
-            }
-
-            if (newInternship.Countries.Count < oldInternship.Countries.Count)
-            {
-                _context.Countries.RemoveRange(oldInternship.Countries);
-                await _context.Countries.AddRangeAsync(newInternship.Countries);
-            }
-
-            return newInternship;
-        }
     }
 }

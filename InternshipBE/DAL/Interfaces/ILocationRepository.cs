@@ -9,7 +9,5 @@ namespace DAL.Interfaces
         Task<List<string>> GetLocationNamesAsync();
 
         Task<Country> CreateLocationAsync(string NameLocation);
-
-        Task<Internship> CreateOrDeleteLocationsAsync(Internship oldInternship, Internship newInternship);
     }
 }

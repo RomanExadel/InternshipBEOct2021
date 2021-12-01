@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using BL.Interfaces;
-using DAL.Entities;
 using DAL.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,11 +35,6 @@ namespace BL.Services
             var result = await _unitOfWork.Locations.CreateLocationAsync(locationName.Name);
 
             return _mapper.Map<CountryDTO>(result);
-        }
-
-        public async Task<Internship> CreateOrDeleteLocationsAsync(Internship oldInternship, Internship newInternship)
-        {
-            return await _unitOfWork.Locations.CreateOrDeleteLocationsAsync(oldInternship, newInternship);
         }
     }
 }
