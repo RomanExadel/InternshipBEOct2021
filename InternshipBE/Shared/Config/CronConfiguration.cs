@@ -15,7 +15,7 @@ namespace Shared.Config
 				case Hourly:
 					return Cron.Hourly();
 				default:
-					return Cron.Minutely();
+					return configuration["CronSetting"];
 			}
 		}
 	}
