@@ -25,6 +25,7 @@ namespace WebApi.Extensions
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IInterviewInviteService, InterviewInviteService>();
             services.AddTransient<ITeamService, TeamService>();
+            services.AddTransient<IInternshipLanguagesService, InternshipLanguagesService>();
 
             return services;
         }

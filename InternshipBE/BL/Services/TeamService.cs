@@ -19,6 +19,11 @@ namespace BL.Services
             _mapper = mapper;
         }
 
+        public async Task<Internship> CreateOrDeleteTeamsAsync(Internship oldInternship, Internship newInternship)
+        {
+            return await _unitOfWork.Teams.CreateOrDeleteTeamsAsync(oldInternship, newInternship);
+        }
+
         public async Task<TeamDTO> CreateTeamByInternshipIdAsync(TeamDTO teamDTO)
         {
             var mappedTeam = _mapper.Map<Team>(teamDTO);

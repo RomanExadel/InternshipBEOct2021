@@ -21,6 +21,7 @@ namespace DAL.Repositories
         private ILocationRepository _locationRepository;
         private IInterviewInviteRepository _interviewInviteRepository;
         private ITeamRepository _teamRepository;
+        private IInternshipLanguageRepository _internshipLanguageRepository;
 
         private IValidator<Candidate> _candidateValidator;
         private IValidator<Feedback> _feedbackValidator;
@@ -28,6 +29,16 @@ namespace DAL.Repositories
         private IValidator<Evaluation> _evaluationValidator;
         private IValidator<InterviewInvite> _interviewInviteValidator;
         private IValidator<Team> _teamValidator;
+
+        public IInternshipLanguageRepository InternshipLanguages 
+        {
+            get 
+            {
+                if (_internshipLanguageRepository == null)
+                    _internshipLanguageRepository = new InternshipLanguageRepository(_db);
+                return _internshipLanguageRepository;
+            }
+        } 
 
         public ITeamRepository Teams 
         {

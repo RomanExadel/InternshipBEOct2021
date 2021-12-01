@@ -88,6 +88,44 @@ namespace DAL.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
+        {
+            var candidates = await _context.Candidates
+                .Include(x => x.Users)
+                .Where(x => candidatesId.Contains(x.Id)).ToListAsync();
+
+            _validator.ValidateIfEntitesExist(candidates);
+
+            return candidates;
+        }
+
+        public async override Task<Candidate> UpdateAsync(Candidate newCandidate)
+        {
+            var candidate = await _context.Candidates
+                .Include(x => x.Internship)
+                .Include(x => x.Team)
+                .Include(x => x.Users)
+                    .ThenInclude(x => x.Feedbacks.Where(x => x.CandidateId == newCandidate.Id))
+                        .ThenInclude(x => x.Evaluations)
+                            .ThenInclude(x => x.Skill)
+                .FirstOrDefaultAsync(x => x.Id == newCandidate.Id);
+
+            _validator.ValidateIfEntityExist(candidate);
+            await MapFieldsToDbEntityAsync(newCandidate, candidate);
+            await base.UpdateAsync(candidate);
+
+            return candidate;
+        }
+
+        public async override Task<Candidate> CreateAsync(Candidate newCandidate)
+        {
+            var candidate = new Candidate();
+
+            await MapFieldsToDbEntityAsync(newCandidate, candidate);
+
+            return await base.CreateAsync(candidate);
+        }
+
         private CandidateStatusType? GetStatusType(ReportType reportType)
         {
             if (reportType == ReportType.CandidatesAccepted)
@@ -131,44 +169,6 @@ namespace DAL.Repositories
                 .Take(pageSize);
         }
 
-        public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
-        {
-            var candidates = await _context.Candidates
-                .Include(x => x.Users)
-                .Where(x => candidatesId.Contains(x.Id)).ToListAsync();
-
-            _validator.ValidateIfEntitesExist(candidates);
-
-            return candidates;
-        }
-
-        public async override Task<Candidate> UpdateAsync(Candidate newCandidate)
-        {
-            var candidate = await _context.Candidates
-                .Include(x => x.Internship)
-                .Include(x => x.Team)
-                .Include(x => x.Users)
-                    .ThenInclude(x => x.Feedbacks.Where(x => x.CandidateId == newCandidate.Id))
-                        .ThenInclude(x => x.Evaluations)
-                            .ThenInclude(x => x.Skill)
-                .FirstOrDefaultAsync(x => x.Id == newCandidate.Id);
-
-            _validator.ValidateIfEntityExist(candidate);
-            await MapFieldsToDbEntityAsync(newCandidate, candidate);
-            await base.UpdateAsync(candidate);
-
-            return candidate;
-        }
-
-        public async override Task<Candidate> CreateAsync(Candidate newCandidate)
-        {
-            var candidate = new Candidate();
-
-            await MapFieldsToDbEntityAsync(newCandidate, candidate);
-
-            return await base.CreateAsync(candidate);
-        }
-
         private async Task MapFieldsToDbEntityAsync(Candidate fromCandidate, Candidate toCandidate)
         {
             toCandidate.BestContactTime = fromCandidate.BestContactTime;
@@ -197,6 +197,6 @@ namespace DAL.Repositories
             toCandidate.TeamId = fromCandidate.TeamId;
             toCandidate.TestTaskEvaluation = fromCandidate.TestTaskEvaluation;
             toCandidate.Users = await _context.Users.Include(x => x.Feedbacks.Where(x => x.CandidateId == fromCandidate.Id)).ThenInclude(x => x.Evaluations).ThenInclude(x => x.Skill).Where(x => fromCandidate.Users.Select(x => x.Id).Contains(x.Id)).ToListAsync();
-        }
+        }  
     }
 }

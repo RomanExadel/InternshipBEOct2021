@@ -13,11 +13,20 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IInternshipLanguagesService _serviceInternshipLanguages;
+        private readonly IInternshipStackService _serviceInternshipStack;
+        private readonly ITeamService _serviceTeam;
+        private readonly ILocationService _serviceLocation;
 
-        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper)
+        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, IInternshipLanguagesService serviceInternshipLanguages,
+            IInternshipStackService serviceInternshipStack, ITeamService serviceTeam, ILocationService serviceLocation)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _serviceInternshipLanguages = serviceInternshipLanguages;
+            _serviceInternshipStack = serviceInternshipStack;
+            _serviceTeam = serviceTeam;
+            _serviceLocation = serviceLocation;
         }
 
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
@@ -45,6 +54,13 @@ namespace BL.Services
         public async Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
+
+            var oldInternship = await _unitOfWork.Internships.GetByIdAsync(newInternship.Id);
+
+            mappedInternship = await _serviceInternshipLanguages.CreateOrDeleteLanguages(oldInternship, mappedInternship);
+            mappedInternship = await _serviceInternshipStack.CreateOrDeleteStacksAsync(oldInternship, mappedInternship);
+            mappedInternship = await _serviceTeam.CreateOrDeleteTeamsAsync(oldInternship, mappedInternship);
+            mappedInternship = await _serviceLocation.CreateOrDeleteLocationsAsync(oldInternship, mappedInternship);
 
             var updatedInternship = await _unitOfWork.Internships.UpdateAsync(mappedInternship);
 

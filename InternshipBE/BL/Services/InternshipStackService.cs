@@ -54,5 +54,10 @@ namespace BL.Services
 
             return _mapper.Map<InternshipStackDTO>(internshipStack);
         }
+
+        public async Task<Internship> CreateOrDeleteStacksAsync(Internship oldInternship, Internship newInternship)
+        {
+            return await _unitOfWork.InternshipStacks.CreateOrDeleteStacksAsync(oldInternship, newInternship);
+        }
     }
 }

@@ -139,7 +139,7 @@ insert into Skills(StackType, [Name], IsHardSkill) values
 (5,'Multitasking', 1);
 
 --InternshipLanguage
-insert into InternshipLanguage values
+insert into InternshipLanguages values
 (1, 1),
 (2, 1),
 (2, 2),
