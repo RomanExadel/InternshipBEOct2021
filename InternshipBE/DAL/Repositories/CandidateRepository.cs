@@ -39,15 +39,20 @@ namespace DAL.Repositories
 
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel filterBy, string sortBy, bool asc)
         {
-            var candidates = _context.Candidates.OrderByPropertyName(DefaultSortParametr, DefaultIsDesk).AsQueryable();
+            var candidates = _context.Candidates.Include(x => x.Internship)
+                .Include(x => x.Users)
+                    .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
+                        .ThenInclude(x => x.Evaluations)
+                .Where(x => x.InternshipId == id)
+                .OrderByPropertyName(DefaultSortParametr, DefaultIsDesk)
+                .Skip(pageSize * --pageNumber)
+                .Take(pageSize);
 
             if (filterBy != null)
-                candidates =  GetFilteredCandidates(candidates, id, pageSize, pageNumber, filterBy);
+                candidates =  GetFilteredCandidates(candidates, filterBy);
 
             if (sortBy != null)
                 return candidates.OrderByPropertyName(sortBy, asc).ToList();
-
-
 
             return await candidates.ToListAsync();
         }
@@ -93,7 +98,7 @@ namespace DAL.Repositories
             else return null;
         }
 
-        private IQueryable<Candidate> GetFilteredCandidates(IEnumerable<Candidate> candidates, int id, int pageSize, int pageNumber, CandidateFilterModel filterBy)
+        private IQueryable<Candidate> GetFilteredCandidates(IEnumerable<Candidate> candidates,  CandidateFilterModel filterBy)
         {
 
             if (filterBy.Locations != null)
