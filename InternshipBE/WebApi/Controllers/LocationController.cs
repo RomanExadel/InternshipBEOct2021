@@ -23,6 +23,12 @@ namespace WebApi.Controllers
             return Ok(await _locationService.GetLocationsAsync());
         }
 
+        [HttpGet("getLocationNames")]
+        public async Task<IActionResult> GetLocationNames()
+        {
+            return Ok(await _locationService.GetLocationNamesAsync());
+        }
+
         [HttpPost("createLocation")]
         public async Task<IActionResult> CreateLocation(CountryDTO NameLocation)
         {

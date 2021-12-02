@@ -14,6 +14,26 @@ namespace DAL.Repositories
         {
         }
 
+        public async Task<Internship> CreateOrDeleteStacksAsync(Internship oldInternship, Internship newInternship)
+        {
+            if (newInternship.InternshipStacks.Count >= oldInternship.InternshipStacks.Count)
+            {
+                _context.InternshipStacks.RemoveRange(oldInternship.InternshipStacks);
+
+                oldInternship.InternshipStacks = newInternship.InternshipStacks.Except(await _context.InternshipStacks.ToListAsync()).ToList();
+
+                await _context.InternshipStacks.AddRangeAsync(oldInternship.InternshipStacks);
+            }
+
+            if (newInternship.InternshipStacks.Count < oldInternship.InternshipStacks.Count)
+            {
+                _context.InternshipStacks.RemoveRange(oldInternship.InternshipStacks);
+                await _context.InternshipStacks.AddRangeAsync(newInternship.InternshipStacks);
+            }
+
+            return newInternship;
+        }
+
         public async Task<List<InternshipStack>> CreateRangeAsync(ICollection<InternshipStack> internshipStacks)
         {
             var newIntershipStacks = new List<InternshipStack>();

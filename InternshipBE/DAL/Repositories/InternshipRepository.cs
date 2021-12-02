@@ -43,6 +43,7 @@ namespace DAL.Repositories
                 .Include(x => x.Users)
                 .Include(x => x.Candidates)
                 .Include(x => x.Countries)
+                .Include(x => x.LanguageTypes)
                 .Include(x => x.InternshipStacks)
                 .FirstOrDefaultAsync(x => x.Id == newInternship.Id);
 
@@ -56,10 +57,7 @@ namespace DAL.Repositories
             internship.RegistrationFinishDate = newInternship.RegistrationFinishDate;
             internship.RegistrationStartDate = newInternship.RegistrationStartDate;
             internship.Candidates = await _context.Candidates.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
-            internship.LanguageTypes = newInternship.LanguageTypes;
-            internship.InternshipStacks = await _context.InternshipStacks.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
             internship.Users = await _context.Users.Where(x => newInternship.Users.Contains(x)).ToListAsync();
-            internship.Teams = await _context.Teams.Where(x => x.InternshipId == newInternship.Id).ToListAsync();
             internship.Countries = await _context.Countries.Where(x => newInternship.Countries.Contains(x)).ToListAsync();
             internship.InternshipStatusType = newInternship.InternshipStatusType;
             internship.ImageLink = newInternship.ImageLink;

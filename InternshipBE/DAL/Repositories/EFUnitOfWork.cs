@@ -20,12 +20,35 @@ namespace DAL.Repositories
         private IInternshipStackRepository _internshipStackRepository;
         private ILocationRepository _locationRepository;
         private IInterviewInviteRepository _interviewInviteRepository;
+        private ITeamRepository _teamRepository;
+        private IInternshipLanguageRepository _internshipLanguageRepository;
 
         private IValidator<Candidate> _candidateValidator;
         private IValidator<Feedback> _feedbackValidator;
         private IValidator<Internship> _internshipValidator;
         private IValidator<Evaluation> _evaluationValidator;
         private IValidator<InterviewInvite> _interviewInviteValidator;
+        private IValidator<Team> _teamValidator;
+
+        public IInternshipLanguageRepository InternshipLanguages 
+        {
+            get 
+            {
+                if (_internshipLanguageRepository == null)
+                    _internshipLanguageRepository = new InternshipLanguageRepository(_db);
+                return _internshipLanguageRepository;
+            }
+        } 
+
+        public ITeamRepository Teams 
+        {
+            get 
+            {
+                if (_teamRepository == null)
+                    _teamRepository = new TeamRepository(_db, _teamValidator);
+                return _teamRepository;
+            }
+        }
 
         public ILocationRepository Locations
         {
@@ -128,7 +151,8 @@ namespace DAL.Repositories
 
         public EFUnitOfWork(ApplicationDbContext db, IValidator<Candidate> candidateValidator,
             IValidator<Feedback> feedbackValidator, IValidator<Internship> internshipValidator,
-            IValidator<Evaluation> evaluationValidator, IValidator<InterviewInvite> interviewInviteValidator)
+            IValidator<Evaluation> evaluationValidator, IValidator<InterviewInvite> interviewInviteValidator,
+            IValidator<Team> teamValidator)
         {
             _db = db;
             _candidateValidator = candidateValidator;
@@ -136,6 +160,7 @@ namespace DAL.Repositories
             _internshipValidator = internshipValidator;
             _evaluationValidator = evaluationValidator;
             _interviewInviteValidator = interviewInviteValidator;
+            _teamValidator = teamValidator;
         }
 
         public virtual void Dispose(bool disposing)

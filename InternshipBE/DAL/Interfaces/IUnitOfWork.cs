@@ -23,5 +23,9 @@ namespace DAL.Interfaces
         ILocationRepository Locations { get; }
 
         IInterviewInviteRepository InterviewInvites { get; }
+
+        ITeamRepository Teams { get; }
+
+        IInternshipLanguageRepository InternshipLanguages { get; }
     }
 }

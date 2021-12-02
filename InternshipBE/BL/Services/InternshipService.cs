@@ -13,11 +13,18 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IInternshipLanguagesService _internshipLanguagesService;
+        private readonly IInternshipStackService _internshipStackService;
+        private readonly ITeamService _teamService;
 
-        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper)
+        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, IInternshipLanguagesService internshipLanguagesService,
+            IInternshipStackService internshipStackService, ITeamService teamService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _internshipLanguagesService = internshipLanguagesService;
+            _internshipStackService = internshipStackService;
+            _teamService = teamService;
         }
 
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
@@ -45,6 +52,12 @@ namespace BL.Services
         public async Task<InternshipDTO> UpdateInternshipAsync(InternshipDTO newInternship)
         {
             var mappedInternship = _mapper.Map<Internship>(newInternship);
+
+            var oldInternship = await _unitOfWork.Internships.GetByIdAsync(newInternship.Id);
+
+            mappedInternship = await _internshipLanguagesService.CreateOrDeleteLanguagesAsync(oldInternship, mappedInternship);
+            mappedInternship = await _internshipStackService.CreateOrDeleteStacksAsync(oldInternship, mappedInternship);
+            mappedInternship = await _teamService.CreateOrDeleteTeamsAsync(oldInternship, mappedInternship);
 
             var updatedInternship = await _unitOfWork.Internships.UpdateAsync(mappedInternship);
 
