@@ -55,5 +55,7 @@ namespace BL.DTOs
         public List<UserDTO> Users { get; set; }
 
         public string LanguageType { get; set; }
+
+        public List<FeedbackDTO> Feedbacks { get; set; }
     }
 }
