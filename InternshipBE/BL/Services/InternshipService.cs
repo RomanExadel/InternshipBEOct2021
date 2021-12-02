@@ -13,18 +13,18 @@ namespace BL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IInternshipLanguagesService _serviceInternshipLanguages;
-        private readonly IInternshipStackService _serviceInternshipStack;
-        private readonly ITeamService _serviceTeam;
+        private readonly IInternshipLanguagesService _internshipLanguagesService;
+        private readonly IInternshipStackService _internshipStackService;
+        private readonly ITeamService _teamService;
 
-        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, IInternshipLanguagesService serviceInternshipLanguages,
-            IInternshipStackService serviceInternshipStack, ITeamService serviceTeam)
+        public InternshipService(IUnitOfWork unitOfWork, IMapper mapper, IInternshipLanguagesService internshipLanguagesService,
+            IInternshipStackService internshipStackService, ITeamService teamService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _serviceInternshipLanguages = serviceInternshipLanguages;
-            _serviceInternshipStack = serviceInternshipStack;
-            _serviceTeam = serviceTeam;
+            _internshipLanguagesService = internshipLanguagesService;
+            _internshipStackService = internshipStackService;
+            _teamService = teamService;
         }
 
         public async Task<InternshipDTO> CreateInternshipAsync(InternshipDTO newInternship)
@@ -55,9 +55,9 @@ namespace BL.Services
 
             var oldInternship = await _unitOfWork.Internships.GetByIdAsync(newInternship.Id);
 
-            mappedInternship = await _serviceInternshipLanguages.CreateOrDeleteLanguages(oldInternship, mappedInternship);
-            mappedInternship = await _serviceInternshipStack.CreateOrDeleteStacksAsync(oldInternship, mappedInternship);
-            mappedInternship = await _serviceTeam.CreateOrDeleteTeamsAsync(oldInternship, mappedInternship);
+            mappedInternship = await _internshipLanguagesService.CreateOrDeleteLanguagesAsync(oldInternship, mappedInternship);
+            mappedInternship = await _internshipStackService.CreateOrDeleteStacksAsync(oldInternship, mappedInternship);
+            mappedInternship = await _teamService.CreateOrDeleteTeamsAsync(oldInternship, mappedInternship);
 
             var updatedInternship = await _unitOfWork.Internships.UpdateAsync(mappedInternship);
 

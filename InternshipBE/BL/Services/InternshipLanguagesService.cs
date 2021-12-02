@@ -14,7 +14,7 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Internship> CreateOrDeleteLanguages(Internship oldInternship, Internship newInternship)
+        public async Task<Internship> CreateOrDeleteLanguagesAsync(Internship oldInternship, Internship newInternship)
         {
             return await _unitOfWork.InternshipLanguages.CreateOrDeleteLanguagesAsync(oldInternship, newInternship);
         }
