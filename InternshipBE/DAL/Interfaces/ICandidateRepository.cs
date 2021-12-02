@@ -8,7 +8,7 @@ namespace DAL.Interfaces
 {
     public interface ICandidateRepository : IGenericRepository<Candidate>
     {
-        Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel filterBy, string sortBy, bool asc);
+        Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel<int> filterBy, string sortBy, bool asc);
 
         Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int internshipId, ReportType reportType);
 
