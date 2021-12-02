@@ -9,6 +9,10 @@ namespace BL.DTOs
 
         public string UserId { get; set; }
 
+        public string UserName { get; set; }
+
+        public string UserRoleType { get; set; }
+
         public int CandidateId { get; set; }
 
         public string EnglishLevelType { get; set; }

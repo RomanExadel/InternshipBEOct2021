@@ -40,10 +40,12 @@ namespace DAL.Repositories
         public async Task<List<Candidate>> GetCandidatesByInternshipIdAsync(int id, int pageSize, int pageNumber, CandidateFilterModel<int> filterBy, string sortBy, bool asc)
         {
             var candidates = _context.Candidates.Include(x => x.Internship)
-                .Include(x => x.Users)
-                    .ThenInclude(x => x.Feedbacks.Where(x => x.Candidate.InternshipId == id))
-                        .ThenInclude(x => x.Evaluations)
-                .Where(x => x.InternshipId == id);
+                .Include(x => x.Feedbacks)
+                    .ThenInclude(x => x.User)
+                .Where(x => x.InternshipId == id)
+                .OrderByPropertyName(DefaultSortParametr, DefaultIsDesk)
+                .Skip(pageSize * --pageNumber)
+                .Take(pageSize);
 
             if (filterBy != null)
                 candidates = GetFilteredCandidates(candidates, filterBy);
