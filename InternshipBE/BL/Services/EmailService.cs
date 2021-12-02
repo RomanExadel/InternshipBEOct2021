@@ -1,16 +1,12 @@
-﻿using AutoMapper;
-using BL.DTOs.CandidateDTOs;
-using BL.Interfaces;
+﻿using BL.Interfaces;
 using DAL.Interfaces;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Util;
 using Google.Apis.Util.Store;
-using MailKit.Net.Imap;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
-using MimeKit.Text;
 using System;
 using System.IO;
 using System.Threading;
@@ -27,46 +23,17 @@ namespace BL.Services
             _unitOfWork = unitOfWork;
         }
 
-        private string EditedEmailText(string candidateName, string internshipName, string status)
+        private string EditedEmailText(string candidateName, string internshipName, string filepath)
         {
-            string emailText = "Dear " + candidateName + "! Your current status is " + status;
-            if (status == "Accepted")
-            {
-                string ApprovedEmailText = String.Format(@"<html><head></head><body><h1>Congratulations</h1><br><br><div>Dear [candidateName]    </div><br><div>We are happy to see you in our team at Exadel [internshipName] Sandbox</div></body></html>");
-                emailText = ApprovedEmailText.Replace("[candidateName]", candidateName);
-                emailText = emailText.Replace("internshipName", internshipName);
-                return emailText;
-            }
-            if (status == "Declined" || status == "Questionable")
-            {
-                string DeclinedEmailText = String.Format(@"<html><head></head><body><h1>Sorry, not this time</h1><br><br><div>Dear [candidateName]    </div><br><div>Now your skill is too low to participate in [internshipName] Sandbox :(</div><br><div>But don't give up, and try again next year with improved powers!</div></body></html>");
-                emailText = DeclinedEmailText.Replace("[candidateName]", candidateName);
-                emailText = emailText.Replace("internshipName", internshipName);
-                return emailText;
-            }
+            string emailText = new StreamReader(filepath).ReadToEnd();
+            emailText = emailText.Replace("[candidateName]", candidateName);
+            emailText = emailText.Replace("[internshipName]", internshipName);
             return emailText;
         }
 
-        public async Task SendEmailAsync(int recipientId)
+        private async  Task<SaslMechanismOAuth2> GoogleAuthorisation (ClientSecrets clientSecrets)
         {
-            var message = new MimeMessage();
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(recipientId);
-            var internship = await _unitOfWork.Internships.GetByIdAsync((int)candidate.InternshipId);
-            
-            message.From.Add(new MailboxAddress("Exadel Team5 automatic email sender", "admntest.team5@gmail.com"));
-            message.To.Add(new MailboxAddress(candidate.FirstName + " " + candidate.LastName, candidate.Email));
-            message.Subject = "Automatic Email Sending Function";
-
-            message.Body = new TextPart("html") { Text = EditedEmailText(candidate.FirstName + " " + candidate.LastName, internship.Name, candidate.StatusType.ToString()) };
-
             const string GMailAccount = "admntest.team5@gmail.com";
-
-            var clientSecrets = new ClientSecrets
-            {
-                ClientId = "967351711447-7j0ihuv3398vus5rm178r1qdjc4hc76a.apps.googleusercontent.com",
-                ClientSecret = "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"
-            };
-
             var codeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
             {
                 DataStore = new FileDataStore("CredentialCacheFolder", false),
@@ -74,7 +41,6 @@ namespace BL.Services
                 ClientSecrets = clientSecrets
             });
 
-            //// Note: For a web app, you'll want to use AuthorizationCodeWebApp instead.
             var codeReceiver = new LocalServerCodeReceiver();
             var authCode = new AuthorizationCodeInstalledApp(codeFlow, codeReceiver);
 
@@ -84,7 +50,36 @@ namespace BL.Services
                 await credential.RefreshTokenAsync(CancellationToken.None);
 
             var oauth2 = new SaslMechanismOAuth2(credential.UserId, credential.Token.AccessToken);
+            return  oauth2;
+        }
 
+        public async Task SendEmailAsync(int recipientId)
+        {
+            var message = new MimeMessage();
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(recipientId);
+            var internship = await _unitOfWork.Internships.GetByIdAsync((int)candidate.InternshipId);
+            string filepath = @"../Shared/EmailTemplates/DefaultEmail.html";
+            if (candidate.StatusType.ToString() == "Approved")
+            {
+                filepath = @"../Shared/EmailTemplates/ApprovedEmail.html";
+            }
+            else if (candidate.StatusType.ToString() == "Questionable" || candidate.StatusType.ToString() == "Declined")
+            {
+                filepath = @"../Shared/EmailTemplates/DeclinedEmail.html";
+            }
+            
+            message.From.Add(new MailboxAddress("Exadel Team5 automatic email sender", "admntest.team5@gmail.com"));
+            message.To.Add(new MailboxAddress(candidate.FirstName + " " + candidate.LastName, candidate.Email));
+            message.Subject = "Automatic Email Sending Function";
+
+            message.Body = new TextPart("html") { Text = EditedEmailText(candidate.FirstName + " " + candidate.LastName, internship.Name, filepath) };
+
+            var clientSecrets = new ClientSecrets
+            {
+                ClientId = "967351711447-7j0ihuv3398vus5rm178r1qdjc4hc76a.apps.googleusercontent.com",
+                ClientSecret = "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"
+            };
+            var oauth2 =await GoogleAuthorisation(clientSecrets);
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
