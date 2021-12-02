@@ -53,10 +53,10 @@ namespace BL.Services
             return  oauth2;
         }
 
-        public async Task SendEmailAsync(int recipientId)
+        public async Task SendEmailAsync(int candidateId)
         {
             var message = new MimeMessage();
-            var candidate = await _unitOfWork.Candidates.GetByIdAsync(recipientId);
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(candidateId);
             var internship = await _unitOfWork.Internships.GetByIdAsync((int)candidate.InternshipId);
             string filepath = @"../Shared/EmailTemplates/DefaultEmail.html";
             if (candidate.StatusType.ToString() == "Approved")
@@ -80,6 +80,31 @@ namespace BL.Services
                 ClientSecret = "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"
             };
             var oauth2 =await GoogleAuthorisation(clientSecrets);
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
+                await client.AuthenticateAsync(oauth2);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
+        }
+        public async Task SendEmailAsync(int candidateId, string emailText)
+        {
+            var message = new MimeMessage();
+            var candidate = await _unitOfWork.Candidates.GetByIdAsync(candidateId);
+            message.From.Add(new MailboxAddress("Exadel Team5 automatic email sender", "admntest.team5@gmail.com"));
+            message.To.Add(new MailboxAddress(candidate.FirstName + " " + candidate.LastName, candidate.Email));
+            message.Subject = "Automatic Email Sending Function";
+            message.Body = new TextPart("html") { Text = emailText };
+
+            var clientSecrets = new ClientSecrets
+            {
+                ClientId = "967351711447-7j0ihuv3398vus5rm178r1qdjc4hc76a.apps.googleusercontent.com",
+                ClientSecret = "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"
+            };
+            var oauth2 = await GoogleAuthorisation(clientSecrets);
+
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);

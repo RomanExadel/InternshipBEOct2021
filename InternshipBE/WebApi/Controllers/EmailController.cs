@@ -21,6 +21,12 @@ namespace WebApi.Controllers
             await _emailService.SendEmailAsync(id);
             return Ok();
         }
+        [HttpPost("sendCustomEmail")]
+        public async Task<IActionResult> SendEmailAsync([FromQuery] int id, [FromQuery] string emailText)
+        {
+            await _emailService.SendEmailAsync(id, emailText);
+            return Ok();
+        }
 
 
     }
