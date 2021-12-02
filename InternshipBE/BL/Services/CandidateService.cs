@@ -6,6 +6,7 @@ using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,9 +51,21 @@ namespace BL.Services
             return _mapper.Map<CandidateDTO>(updatedCandidate);
         }
 
-        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, CandidateFilterModel filterBy, string sortBy, bool desc)
+        public async Task<List<CandidateDTO>> GetCandidatesByInternshipIdAsync(int internshipId, int pageSize, int pageNumber, CandidateFilterModel<string> filterBy, string sortBy, bool desc)
         {
-            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber, filterBy, sortBy, desc);
+            var _filterBy = new CandidateFilterModel<int>();
+
+            if (filterBy != null)
+                _filterBy = new CandidateFilterModel<int>
+                {
+                    Locations = filterBy.Locations,
+                    LanguageTypes = filterBy.LanguageTypes?.Select(x => (int)Enum.Parse<InternshipLanguageType>(x)).ToList(),
+                    StatusTypes = filterBy.StatusTypes?.Select(x => (int)Enum.Parse<CandidateStatusType>(x)).ToList(),
+                    EnglishLevels = filterBy.EnglishLevels?.Select(x => (int)Enum.Parse<EnglishLevelType>(x)).ToList(),
+                    UserId = filterBy.UserId
+                };
+
+            var candidates = await _unitOfWork.Candidates.GetCandidatesByInternshipIdAsync(internshipId, pageSize, pageNumber, _filterBy, sortBy, desc);
 
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
