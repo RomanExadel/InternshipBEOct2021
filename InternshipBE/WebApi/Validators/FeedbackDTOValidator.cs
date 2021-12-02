@@ -8,7 +8,7 @@ namespace WebApi.Validators
         public FeedbackDTOValidator()
         {
             RuleFor(feedback => feedback.CandidateId).NotEqual(0);
-            //RuleFor(feedback => feedback.User).NotEmpty();
+            RuleFor(feedback => feedback.UserId).NotEmpty();
             RuleFor(feedback => feedback.EnglishLevelType).NotEmpty();
             RuleFor(feedback => feedback.Date).NotEmpty();
             RuleFor(feedback => feedback.Description).NotEmpty();
