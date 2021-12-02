@@ -31,6 +31,8 @@ namespace DAL.Database
 
 		public DbSet<BestContactTime> BestContactTimes { get; set; }
 
+		public DbSet<InternshipLanguage> InternshipLanguages { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);

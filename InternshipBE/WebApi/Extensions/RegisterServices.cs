@@ -1,6 +1,5 @@
 ﻿using BL.Interfaces;
 using BL.Services;
-using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +24,8 @@ namespace WebApi.Extensions
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IInterviewInviteService, InterviewInviteService>();
+            services.AddTransient<ITeamService, TeamService>();
+            services.AddTransient<IInternshipLanguagesService, InternshipLanguagesService>();
 
             return services;
         }

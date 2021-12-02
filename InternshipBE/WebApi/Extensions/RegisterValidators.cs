@@ -15,6 +15,7 @@ namespace WebApi.Extensions
             services.AddScoped<IValidator<Internship>, InternshipValidator>();
             services.AddScoped<IValidator<Evaluation>, EvaluationValidator>();
             services.AddScoped<IValidator<InterviewInvite>, InterviewInviteValidator>();
+            services.AddScoped<IValidator<Team>, TeamValidator>();
 
             return services;
         }

@@ -1,4 +1,5 @@
 ﻿using BL.DTOs;
+using DAL.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace BL.Interfaces
         Task<InternshipStackDTO> CreateInternshipStackAsync(InternshipStackDTO internshipStackDto);
 
         Task<InternshipStackDTO> UpdateInternshipStackAsync(InternshipStackDTO internshipStackDto);
+
+        Task<Internship> CreateOrDeleteStacksAsync(Internship oldInternship, Internship newInternship);
     }
 }

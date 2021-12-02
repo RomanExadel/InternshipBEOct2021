@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -250,7 +250,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternshipLanguage",
+                name: "InternshipLanguages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -260,9 +260,9 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InternshipLanguage", x => x.Id);
+                    table.PrimaryKey("PK_InternshipLanguages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InternshipLanguage_Internships_InternshipId",
+                        name: "FK_InternshipLanguages_Internships_InternshipId",
                         column: x => x.InternshipId,
                         principalTable: "Internships",
                         principalColumn: "Id",
@@ -596,8 +596,8 @@ namespace DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InternshipLanguage_InternshipId",
-                table: "InternshipLanguage",
+                name: "IX_InternshipLanguages_InternshipId",
+                table: "InternshipLanguages",
                 column: "InternshipId");
 
             migrationBuilder.CreateIndex(
@@ -661,7 +661,7 @@ namespace DAL.Migrations
                 name: "Evaluations");
 
             migrationBuilder.DropTable(
-                name: "InternshipLanguage");
+                name: "InternshipLanguages");
 
             migrationBuilder.DropTable(
                 name: "InternshipStacks");

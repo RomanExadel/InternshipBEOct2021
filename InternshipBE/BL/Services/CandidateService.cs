@@ -64,9 +64,7 @@ namespace BL.Services
             var users = new List<User> { await _userManager.FindByNameAsync(userName) };
 
             candidates.ForEach(x => x.Users.ToList().Remove(users[0]));
-
             candidates.ForEach(x => x.Users.Add(users[0]));
-
             candidates.ForEach(x => x.StatusType = type);
 
             var updatedCandidates = await _unitOfWork.Candidates.BulkUpdateAsync(candidates);

@@ -14,7 +14,7 @@ namespace DAL.Repositories
         {
         }
 
-        public async Task<List<string>> GetLocationsAsync()
+        public async Task<List<string>> GetLocationNamesAsync()
         {
             return await _context.Countries.Select(x => x.Name).Distinct().ToListAsync();
         }

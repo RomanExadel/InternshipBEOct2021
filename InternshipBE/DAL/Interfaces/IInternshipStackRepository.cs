@@ -9,5 +9,7 @@ namespace DAL.Interfaces
         Task<List<InternshipStack>> GetAllByInternshipIdAsync(int internshipId);
         
         Task<List<InternshipStack>> CreateRangeAsync(ICollection<InternshipStack> internshipStacks);
+
+        Task<Internship> CreateOrDeleteStacksAsync(Internship oldInternship, Internship newInternship);
     }
 }

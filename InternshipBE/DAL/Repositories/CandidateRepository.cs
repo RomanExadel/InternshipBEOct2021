@@ -89,32 +89,6 @@ namespace DAL.Repositories
                 .ToListAsync();
         }
 
-        private CandidateStatusType? GetStatusType(ReportType reportType)
-        {
-            if (reportType == ReportType.CandidatesAccepted)
-                return CandidateStatusType.Accepted;
-            else if (reportType == ReportType.CandidatesRejection)
-                return CandidateStatusType.Declined;
-            else return null;
-        }
-
-        private IQueryable<Candidate> GetFilteredCandidates(IEnumerable<Candidate> candidates,  CandidateFilterModel filterBy)
-        {
-
-            if (filterBy.Locations != null)
-                candidates = candidates.Where(c => filterBy.Locations.Any(x => x == c.Location));
-            if (filterBy.LanguageTypes != null)
-                candidates = candidates.Where(c => filterBy.LanguageTypes.Any(x => (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), x) == c.InternshipLanguage));
-            if (filterBy.StatusTypes != null)
-                candidates = candidates.Where(c => filterBy.StatusTypes.Any(x => (CandidateStatusType)Enum.Parse(typeof(CandidateStatusType), x) == c.StatusType));
-            if (filterBy.EnglishLevels != null)
-                candidates = candidates.Where(c => filterBy.EnglishLevels.Any(x => (EnglishLevelType)Enum.Parse(typeof(EnglishLevelType), x) == c.EnglishLevelType));
-            if (filterBy.UserId != null)
-                candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
-
-            return candidates.AsQueryable();
-        }
-
         public async Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId)
         {
             var candidates = await _context.Candidates
@@ -153,6 +127,32 @@ namespace DAL.Repositories
             return await base.CreateAsync(candidate);
         }
 
+        private CandidateStatusType? GetStatusType(ReportType reportType)
+        {
+            if (reportType == ReportType.CandidatesAccepted)
+                return CandidateStatusType.Accepted;
+            else if (reportType == ReportType.CandidatesRejection)
+                return CandidateStatusType.Declined;
+            else return null;
+        }
+
+        private IQueryable<Candidate> GetFilteredCandidates(IEnumerable<Candidate> candidates,  CandidateFilterModel filterBy)
+        {
+
+            if (filterBy.Locations != null)
+                candidates = candidates.Where(c => filterBy.Locations.Any(x => x == c.Location));
+            if (filterBy.LanguageTypes != null)
+                candidates = candidates.Where(c => filterBy.LanguageTypes.Any(x => (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), x) == c.InternshipLanguage));
+            if (filterBy.StatusTypes != null)
+                candidates = candidates.Where(c => filterBy.StatusTypes.Any(x => (CandidateStatusType)Enum.Parse(typeof(CandidateStatusType), x) == c.StatusType));
+            if (filterBy.EnglishLevels != null)
+                candidates = candidates.Where(c => filterBy.EnglishLevels.Any(x => (EnglishLevelType)Enum.Parse(typeof(EnglishLevelType), x) == c.EnglishLevelType));
+            if (filterBy.UserId != null)
+                candidates = candidates.Where(c => c.Users.Any(u => u.Id == filterBy.UserId));
+
+            return candidates.AsQueryable();
+        }
+
         private async Task MapFieldsToDbEntityAsync(Candidate fromCandidate, Candidate toCandidate)
         {
             toCandidate.BestContactTime = fromCandidate.BestContactTime;
@@ -181,6 +181,6 @@ namespace DAL.Repositories
             toCandidate.TeamId = fromCandidate.TeamId;
             toCandidate.TestTaskEvaluation = fromCandidate.TestTaskEvaluation;
             toCandidate.Users = await _context.Users.Include(x => x.Feedbacks.Where(x => x.CandidateId == fromCandidate.Id)).ThenInclude(x => x.Evaluations).ThenInclude(x => x.Skill).Where(x => fromCandidate.Users.Select(x => x.Id).Contains(x.Id)).ToListAsync();
-        }
+        }  
     }
 }
