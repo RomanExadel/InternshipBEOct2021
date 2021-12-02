@@ -19,20 +19,19 @@ namespace Tests.Services
 {
     public class SkillServiceTest
     {
-        SkillFixture _fixture;
-        List<SkillDTO> _skillDtos;
-
-        IMapper _mapper;
-        Mock<IUnitOfWork> _uowMock;
-        ISkillService _sut;
+        private readonly IMapper _mapper;
+        private readonly Mock<IUnitOfWork> _uowMock;
+        private readonly ISkillService _skillService;
+        private readonly SkillFixture _skillFixture;
+        private readonly List<SkillDTO> _skillDtos;
 
         public SkillServiceTest()
         {
-            _fixture = new SkillFixture();
+            _skillFixture = new SkillFixture();
             _mapper = MapperConfigurationProvider.GetConfig().CreateMapper();
-            _skillDtos = _mapper.Map<List<SkillDTO>>(_fixture.GetSkills());
+            _skillDtos = _mapper.Map<List<SkillDTO>>(_skillFixture.GetSkills());
             _uowMock = new Mock<IUnitOfWork>();
-            _sut = new SkillService(_uowMock.Object, _mapper);
+            _skillService = new SkillService(_uowMock.Object, _mapper);
         }
 
         [Fact]
@@ -43,10 +42,10 @@ namespace Tests.Services
             var expectedSkillDtos = _skillDtos.Where(x => x.StackType == stack.ToString()).ToList();
             
             _uowMock.Setup(x => x.Skills.GetSkillsByStackTypeAsync(It.IsAny<StackType>()))
-                .Returns(Task.Run(() => _fixture.GetSkills().Where(x => x.StackType == stack).ToList()));
+                .Returns(Task.Run(() => _skillFixture.GetSkills().Where(x => x.StackType == stack).ToList()));
 
             //Act
-            var actualSkillDtos = await _sut.GetSkillsByStackTypeAsync(stack);
+            var actualSkillDtos = await _skillService.GetSkillsByStackTypeAsync(stack);
 
             //Assert
             Assert.Equal(expectedSkillDtos, actualSkillDtos, new SkillDTOEqualityComparer());
@@ -65,7 +64,7 @@ namespace Tests.Services
                 .ReturnsAsync(outputSkill);
 
             //Act
-            var actualSkillDto = await _sut.CreateSkillAsync(inputSkillDto);
+            var actualSkillDto = await _skillService.CreateSkillAsync(inputSkillDto);
 
             //Assert
             Assert.Equal(expectedSkillDto, actualSkillDto, new SkillDTOEqualityComparer());
@@ -83,7 +82,7 @@ namespace Tests.Services
                 .ReturnsAsync(outputSkill);
 
             //Act
-            var actualSkillDto = await _sut.UpdateSkillAsync(_skillDtos[0]);
+            var actualSkillDto = await _skillService.UpdateSkillAsync(_skillDtos[0]);
 
             //Assert
             Assert.Equal(expectedSkillDto, actualSkillDto, new SkillDTOEqualityComparer());
