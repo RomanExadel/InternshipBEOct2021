@@ -16,7 +16,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("sendEmail")]
-        public async Task<IActionResult> SendEmailAsync([FromQuery] int id)
+        public async Task<IActionResult> SendEmailByCandidateStatusAsync([FromQuery] int id)
         {
             await _emailService.SendEmailAsync(id);
             return Ok();
