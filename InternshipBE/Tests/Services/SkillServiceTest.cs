@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using BL.DTOs;
 using BL.EqualityComparers;
+using BL.Interfaces;
 using BL.Mapping;
 using BL.Services;
+using DAL.Entities;
 using DAL.Interfaces;
 using Moq;
 using Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +24,7 @@ namespace Tests.Services
 
         IMapper _mapper;
         Mock<IUnitOfWork> _uowMock;
+        ISkillService _sut;
 
         public SkillServiceTest()
         {
@@ -28,6 +32,7 @@ namespace Tests.Services
             _mapper = MapperConfigurationProvider.GetConfig().CreateMapper();
             _skillDtos = _mapper.Map<List<SkillDTO>>(_fixture.GetSkills());
             _uowMock = new Mock<IUnitOfWork>();
+            _sut = new SkillService(_uowMock.Object, _mapper);
         }
 
         [Fact]
@@ -36,16 +41,52 @@ namespace Tests.Services
             //Arrange
             var stack = StackType.BackEnd;
             var expectedSkillDtos = _skillDtos.Where(x => x.StackType == stack.ToString()).ToList();
-            var skillService = new SkillService(_uowMock.Object, _mapper);
             
-            _uowMock.Setup(x => x.Skills.GetSkillsByStackTypeAsync(stack))
+            _uowMock.Setup(x => x.Skills.GetSkillsByStackTypeAsync(It.IsAny<StackType>()))
                 .Returns(Task.Run(() => _fixture.GetSkills().Where(x => x.StackType == stack).ToList()));
 
             //Act
-            var actualSkillDtos = await skillService.GetSkillsByStackTypeAsync(stack);
+            var actualSkillDtos = await _sut.GetSkillsByStackTypeAsync(stack);
 
             //Assert
             Assert.Equal(expectedSkillDtos, actualSkillDtos, new SkillDTOEqualityComparer());
+        }
+
+        [Fact]
+        public async void CreateSkillAsync_WhenSendingCorrectSkill_GettingSkillWithNewId11()
+        {
+            //Arrange
+            var inputSkill = new Skill { Id = 0, Name = "Name", StackType = StackType.Testing, IsHardSkill = true };
+            var outputSkill = new Skill { Id = 11, Name = "Name", StackType = StackType.Testing, IsHardSkill = true };
+            var inputSkillDto = _mapper.Map<SkillDTO>(inputSkill);
+            var expectedSkillDto = _mapper.Map<SkillDTO>(outputSkill);
+
+            _uowMock.Setup(x => x.Skills.CreateAsync(It.IsAny<Skill>()))
+                .ReturnsAsync(outputSkill);
+
+            //Act
+            var actualSkillDto = await _sut.CreateSkillAsync(inputSkillDto);
+
+            //Assert
+            Assert.Equal(expectedSkillDto, actualSkillDto, new SkillDTOEqualityComparer());
+        }
+
+        [Fact]
+        public async void UpdateSkillAsync_WhenChangingAllFields_GettingChangedSkill()
+        {
+            //Arrange
+            var inputSkill = _mapper.Map<Skill>(_skillDtos[0]);
+            var outputSkill = new Skill { Id = inputSkill.Id, Name = "Updated", StackType = StackType.FrontEnd, IsHardSkill = false };
+            var expectedSkillDto = _mapper.Map<SkillDTO>(outputSkill);
+
+            _uowMock.Setup(x => x.Skills.UpdateAsync(It.IsAny<Skill>()))
+                .ReturnsAsync(outputSkill);
+
+            //Act
+            var actualSkillDto = await _sut.UpdateSkillAsync(_skillDtos[0]);
+
+            //Assert
+            Assert.Equal(expectedSkillDto, actualSkillDto, new SkillDTOEqualityComparer());
         }
     }
 }
