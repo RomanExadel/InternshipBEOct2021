@@ -19,5 +19,6 @@
 		public const int IS_PLANNING_TO_JOIN_OFFSET = 14;
 		public const int PRIMARY_SKILL_OFFSET = 15;
 		public const int BEST_CONTACT_TIME_OFFSET = 16;
+		public const int INTERNSHIP_LANGUAGE_OFFSET = 17;
 	}
 }
