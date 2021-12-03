@@ -47,7 +47,7 @@ namespace BL.Services
                 {
                     Locations = filterBy.Locations,
                     LanguageTypes = filterBy.LanguageTypes?.Select(x => (int)Enum.Parse<InternshipLanguageType>(x)).ToList(),
-                    InternshipStatusType = (int)Enum.Parse<InternshipStatusType>(filterBy.InternshipStatusType),
+                    InternshipStatusType = filterBy.InternshipStatusType != null ? (int)Enum.Parse<InternshipStatusType>(filterBy.InternshipStatusType) : 0,
                     InternshipStacks = filterBy.InternshipStacks?.Select(x => (int)Enum.Parse<StackType>(x)).ToList(),
                     AttachedUsers = filterBy.AttachedUsers,
                     InternshipYear = filterBy.InternshipYear

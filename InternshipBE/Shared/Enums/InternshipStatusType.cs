@@ -2,7 +2,7 @@
 {
     public enum InternshipStatusType
     {
-        Open,
+        Open = 1,
         Registation,
         WaitingForStart,
         InProgress,
