@@ -5,6 +5,6 @@ namespace WebApi.Models
 {
     public class AGGridInternshipsFilter : AGGridBaseRequest
     {
-        public InternshipFilterModel IntershipsFilterBy { get; set; }
+        public InternshipFilterModel<string> InternshipsFilterBy { get; set; }
     }
 }

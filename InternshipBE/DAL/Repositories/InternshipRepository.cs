@@ -76,29 +76,7 @@ namespace DAL.Repositories
             return await base.CreateAsync(internship);
         }
 
-        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
-        {
-            if (filterBy != null)
-            {
-                return GetFilteredInternshipsAsync(pageSize, pageNumber, filterBy).ToList();
-            }
-            else
-            {
-                return await _context.Internships.AsNoTracking()
-                 .Include(x => x.InternshipStacks)
-                 .Include(x => x.LanguageTypes)
-                 .Include(x => x.Countries)
-                 .Include(x => x.Candidates)
-                 .Include(x => x.Teams)
-                 .Include(x => x.Users)
-                 .Skip(pageSize * --pageNumber)
-                 .Take(pageSize)
-                 .ToListAsync();
-            }
-
-        }
-
-        private IQueryable<Internship> GetFilteredInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
+        public async Task<List<Internship>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel<int> filterBy)
         {
             var internships = _context.Internships
                  .Include(x => x.InternshipStacks)
@@ -106,27 +84,36 @@ namespace DAL.Repositories
                  .Include(x => x.Countries)
                  .Include(x => x.Candidates)
                  .Include(x => x.Teams)
-                 .Include(x => x.Users).AsEnumerable();
+                 .Include(x => x.Users).AsQueryable();
 
+            if (filterBy != null)
+            {
+                internships = GetFilteredInternshipsAsync(internships, filterBy).AsQueryable();
+            }
+
+            return await internships.ToListAsync();
+        }
+
+        private IQueryable<Internship> GetFilteredInternshipsAsync(IQueryable<Internship> internships, InternshipFilterModel<int> filterBy)
+        {
             if (filterBy.Locations != null)
-                foreach(var internship in internships)
-                    internships = internships.Where(i => filterBy.Locations.Any(x => i.Countries.Any(c => c.Name == x)));
+                foreach (var location in filterBy.Locations)
+                    internships = internships.Where(i => i.Countries.Any(c => c.Name == location));
             if (filterBy.LanguageTypes != null)
-                foreach (var internship in internships)
-                    internships = internships.Where(i => filterBy.LanguageTypes.Any(x => i.LanguageTypes.Any(l => l.LanguageType == (InternshipLanguageType)Enum.Parse(typeof(InternshipLanguageType), x))));
-            if (filterBy.InternshipStatusType != null)
-                foreach (var internship in internships)
-                    internships = internships.Where(i => filterBy.InternshipStatusType == Enum.GetName(typeof(InternshipStatusType), i.InternshipStatusType));
+                foreach (var language in filterBy.LanguageTypes)
+                    internships = internships.Where(i => i.LanguageTypes.Any(x => (int)x.LanguageType == language));
+            if (filterBy.InternshipStatusType != 0)
+                internships = internships.Where(i => (int)i.InternshipStatusType == filterBy.InternshipStatusType);
             if (filterBy.InternshipStacks != null)
-                foreach (var internship in internships)
-                    internships = internships.Where(i => filterBy.InternshipStacks.Any(x => i.InternshipStacks.Any(l => l.TechnologyStackType == (StackType)Enum.Parse(typeof(StackType), x))));
-            if(filterBy.IntershipYear != 0)
-                internships = internships.Where(i => i.StartDate.Year == filterBy.IntershipYear);
+                foreach (var stack in filterBy.InternshipStacks)
+                    internships = internships.Where(i => i.InternshipStacks.Any(x => (int)x.TechnologyStackType == stack));
+            if (filterBy.InternshipYear != 0)
+                internships = internships.Where(i => i.StartDate.Year == filterBy.InternshipYear);
             if (filterBy.AttachedUsers != null)
-                foreach (var internship in internships)
-                    internships = internships.Where(i => filterBy.AttachedUsers.Any(u => i.Users.Any(x => x.UserName == u)));
+                foreach (var user in filterBy.AttachedUsers)
+                    internships = internships.Where(i => i.Users.Any(x => x.UserName == user));
 
-            return internships.AsQueryable().AsNoTracking();
+            return internships;
         }
     }
 }

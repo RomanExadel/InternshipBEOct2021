@@ -4,7 +4,10 @@ using BL.Interfaces;
 using DAL.Entities;
 using DAL.Entities.Filtering;
 using DAL.Interfaces;
+using Shared.Enums;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BL.Services
@@ -35,9 +38,22 @@ namespace BL.Services
             return _mapper.Map<InternshipDTO>(internship);
         }
 
-        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel filterBy)
+        public async Task<List<InternshipDTO>> GetInternshipsAsync(int pageSize, int pageNumber, InternshipFilterModel<string> filterBy)
         {
-            var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber, filterBy);
+            var _filterBy = new InternshipFilterModel<int>();
+
+            if (filterBy != null)
+                _filterBy = new InternshipFilterModel<int>
+                {
+                    Locations = filterBy.Locations,
+                    LanguageTypes = filterBy.LanguageTypes?.Select(x => (int)Enum.Parse<InternshipLanguageType>(x)).ToList(),
+                    InternshipStatusType = (int)Enum.Parse<InternshipStatusType>(filterBy.InternshipStatusType),
+                    InternshipStacks = filterBy.InternshipStacks?.Select(x => (int)Enum.Parse<StackType>(x)).ToList(),
+                    AttachedUsers = filterBy.AttachedUsers,
+                    InternshipYear = filterBy.InternshipYear
+                };
+
+            var internships = await _unitOfWork.Internships.GetInternshipsAsync(pageSize, pageNumber, _filterBy);
             
             return _mapper.Map<List<InternshipDTO>>(internships);
         }
