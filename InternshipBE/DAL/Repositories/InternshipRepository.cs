@@ -3,7 +3,6 @@ using DAL.Entities;
 using DAL.Entities.Filtering;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
