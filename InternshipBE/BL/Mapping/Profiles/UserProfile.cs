@@ -25,7 +25,6 @@ namespace BL.Mapping.Profiles
                 .ForMember(dto => dto.PhoneNumber, src => src.MapFrom(entity => entity.PhoneNumber))
                 .ForMember(dto => dto.UserName, src => src.MapFrom(entity => entity.UserName))
                 .ForMember(dto => dto.RoleType, src => src.MapFrom(entity => Enum.Parse<RoleType>(entity.RoleType)));
-
         }
     }
 }
