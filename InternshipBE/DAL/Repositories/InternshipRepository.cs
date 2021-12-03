@@ -96,21 +96,17 @@ namespace DAL.Repositories
         private IQueryable<Internship> GetFilteredInternshipsAsync(IQueryable<Internship> internships, InternshipFilterModel<int> filterBy)
         {
             if (filterBy.Locations != null)
-                foreach (var location in filterBy.Locations)
-                    internships = internships.Where(i => i.Countries.Any(c => c.Name == location));
+               internships = internships.Where(i => i.Countries.Any(x => filterBy.Locations.Any(l => l == x.Name)));
             if (filterBy.LanguageTypes != null)
-                foreach (var language in filterBy.LanguageTypes)
-                    internships = internships.Where(i => i.LanguageTypes.Any(x => (int)x.LanguageType == language));
+               internships = internships.Where(i => i.LanguageTypes.Any(x => filterBy.LanguageTypes.Any(l => l == (int)x.LanguageType)));
             if (filterBy.InternshipStatusType != 0)
                 internships = internships.Where(i => (int)i.InternshipStatusType == filterBy.InternshipStatusType);
             if (filterBy.InternshipStacks != null)
-                foreach (var stack in filterBy.InternshipStacks)
-                    internships = internships.Where(i => i.InternshipStacks.Any(x => (int)x.TechnologyStackType == stack));
+                internships = internships.Where(i => i.InternshipStacks.Any(x => filterBy.InternshipStacks.Any(l => l == (int)x.TechnologyStackType)));
             if (filterBy.InternshipYear != 0)
                 internships = internships.Where(i => i.StartDate.Year == filterBy.InternshipYear);
             if (filterBy.AttachedUsers != null)
-                foreach (var user in filterBy.AttachedUsers)
-                    internships = internships.Where(i => i.Users.Any(x => x.UserName == user));
+                internships = internships.Where(i => i.Users.Any(x => filterBy.AttachedUsers.Any(u => u == x.UserName)));
 
             return internships;
         }
