@@ -100,5 +100,12 @@ namespace BL.Services
                 return _mapper.Map<List<CandidateDTO>>(query);
             }
         }
+
+        public async Task<List<CandidateDTO>> GetCandidatesByUserIdAsync(string id)
+        {
+            var candidates = await _unitOfWork.Candidates.GetCandidatesByUserIdAsync(id);
+
+            return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
     }
 }

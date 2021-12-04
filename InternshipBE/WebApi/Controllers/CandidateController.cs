@@ -61,5 +61,13 @@ namespace WebApi.Controllers
 
             return Ok(searchResult);
         }
+
+        [HttpPost("getCandidatesByUser")]
+        public async Task<IActionResult> GetCandidatesByUserId([FromQuery] string id)
+        {
+            var candidates = await _candidateService.GetCandidatesByUserIdAsync(id);
+
+            return Ok(candidates);
+        }
     }
 }
