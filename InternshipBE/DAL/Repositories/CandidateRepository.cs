@@ -181,6 +181,12 @@ namespace DAL.Repositories
             toCandidate.TeamId = fromCandidate.TeamId;
             toCandidate.TestTaskEvaluation = fromCandidate.TestTaskEvaluation;
             toCandidate.Users = await _context.Users.Include(x => x.Feedbacks.Where(x => x.CandidateId == fromCandidate.Id)).ThenInclude(x => x.Evaluations).ThenInclude(x => x.Skill).Where(x => fromCandidate.Users.Select(x => x.Id).Contains(x.Id)).ToListAsync();
-        }  
+        }
+
+        public async Task<List<Candidate>> GetCandidatesByUserIdAsync(string id)
+        {
+            var candidates = _context.Candidates.Where(c => c.Users.Any(u => u.Id == id));
+            return await candidates.ToListAsync();
+        }
     }
 }

@@ -17,5 +17,7 @@ namespace DAL.Interfaces
         Task<List<Candidate>> SearchCandidatesAsync(int skip, int take, string searchText, string sortBy, bool isDesc, int internshipId);
 
         Task<List<Candidate>> GetCandidatesListByIdAsync(List<int> candidatesId);
+
+        Task<List<Candidate>> GetCandidatesByUserIdAsync(string id);
     }
 }
