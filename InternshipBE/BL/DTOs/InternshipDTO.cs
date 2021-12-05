@@ -15,9 +15,9 @@ namespace BL.DTOs
 
         public int AcceptedCandidatesCount { get; set; }
 
-        public int AbandonedCandidatesCount { get; set; }
+        public int RefusedCandidatesCount { get; set; }
 
-        public int SuccessfullyFinishedCandidatesCount { get; set; }
+        public int GraduatedCandidatesCount { get; set; }
 
         public int TeamsCount { get; set; }
 
