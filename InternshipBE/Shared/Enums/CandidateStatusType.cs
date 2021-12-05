@@ -9,9 +9,6 @@
         Pending,
         Accepted,
         Questionable,
-        Declined,
-        Abandoned,
-        SuccessfullyСompleted,
-        Review
+        Declined
     }
 }
