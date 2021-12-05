@@ -5,10 +5,12 @@
         New,
         HR_Review,
         TestTask,
-        InterviewerReview,
+        Interview_Review,
         Pending,
         Accepted,
         Questionable,
-        Declined
+        Declined,
+        Graduated,
+        Refused,
     }
 }
