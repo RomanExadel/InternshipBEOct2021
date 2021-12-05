@@ -59,7 +59,7 @@ namespace BL.Services
             await _unitOfWork.Feedbacks.UpdateAsync(feedback);
             await _unitOfWork.Evaluations.DeleteMissingEvaluationsByFeedbackId(feedback.Id, evaluations);
             await _unitOfWork.Evaluations.BulkSaveAsync(evaluations.Where(x => x.Id == 0).ToList());
-            feedback.Evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedback.Id);
+            feedback.Evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackIdAsync(feedback.Id);
 
             return _mapper.Map<FeedbackDTO>(feedback);
         }

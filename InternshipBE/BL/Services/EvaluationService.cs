@@ -45,7 +45,7 @@ namespace BL.Services
 
         public async Task<List<EvaluationDTO>> GetEvaluationsByFeedbackIdAsync(int feedbackId)
         {
-            var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackId(feedbackId);
+            var evaluations = await _unitOfWork.Evaluations.GetEvaluationsByFeedbackIdAsync(feedbackId);
 
             return _mapper.Map<List<EvaluationDTO>>(evaluations);
         }
