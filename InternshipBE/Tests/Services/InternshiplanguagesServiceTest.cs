@@ -20,7 +20,6 @@ namespace Tests.Services
             _uowMock = new Mock<IUnitOfWork>();
             _internshipLanguagesService = new InternshipLanguagesService(_uowMock.Object);
             _internshipLanguagesFixture = new InternshipLanguagesFixture();
-
         }
 
         [Fact]

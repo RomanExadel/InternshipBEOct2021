@@ -35,6 +35,5 @@ namespace Tests.Fixtures
         {
             return _internships;
         }
-
     }
 }
