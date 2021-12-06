@@ -30,7 +30,7 @@ namespace Tests.Services
             var newInternship = internshipLanguagesFixture[0]; 
             var oldInternship = internshipLanguagesFixture[1];
 
-            Internship expected = internshipLanguagesFixture[0];
+            var expected = internshipLanguagesFixture[0];
 
             _uowMock.Setup(x => x.InternshipLanguages.CreateOrDeleteLanguagesAsync(It.IsAny<Internship>(), It.IsAny<Internship>()))
                 .ReturnsAsync(newInternship);
