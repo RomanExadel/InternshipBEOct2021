@@ -61,10 +61,10 @@ namespace Tests.Services
             _uowMock.Setup(x => x.Evaluations.GetEvaluationsByFeedbackIdAsync(feedbackId))
                 .ReturnsAsync(outputEvaluations);
 
-            var actualEvaluationDtos = await _evaluationService.GetEvaluationsByFeedbackIdAsync(feedbackId);
+            var actualEvaluationDto = await _evaluationService.GetEvaluationsByFeedbackIdAsync(feedbackId);
 
             //Assert
-            Assert.Equal(expectedEvaluationDtos, actualEvaluationDtos, new EvaluationDTOEqualityComparer());
+            Assert.Equal(expectedEvaluationDtos, actualEvaluationDto, new EvaluationDTOEqualityComparer());
         }
         
         [Fact]
@@ -73,8 +73,8 @@ namespace Tests.Services
             //Arrange
             var inputEvaluationDTO = new EvaluationDTO { Id = 0, FeedbackId = 1, SkillId = 1, Value = 1 };
             var inputEvaluation = _mapper.Map<Evaluation>(inputEvaluationDTO);
-            var outputEvaluation = new Evaluation { Id = 1, FeedbackId = 1, SkillId = 1, Value = 1 };
-            var expectedEvaluationDtos = _mapper.Map<EvaluationDTO>(outputEvaluation);
+            var outputEvaluation = new Evaluation { Id = It.IsAny<int>(), FeedbackId = 1, SkillId = 1, Value = 1 };
+            var expectedEvaluationDto = _mapper.Map<EvaluationDTO>(outputEvaluation);
 
             //Act
             _uowMock.Setup(x => x.Evaluations.CreateAsync(It.IsAny<Evaluation>()))
@@ -82,10 +82,27 @@ namespace Tests.Services
             _uowMock.Setup(x => x.Skills.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(null as Skill);
 
-            var actualEvaluationDtos = await _evaluationService.CreateEvaluationAsync(inputEvaluationDTO);
+            var actualEvaluationDto = await _evaluationService.CreateEvaluationAsync(inputEvaluationDTO);
 
             //Assert
-            Assert.Equal(expectedEvaluationDtos, actualEvaluationDtos, new EvaluationDTOEqualityComparer());
+            Assert.Equal(expectedEvaluationDto, actualEvaluationDto, new EvaluationDTOEqualityComparer());
+        }
+
+        [Fact]
+        public async void UpdateEvaluationAsync_WhenFieldsChanged_GettingUpdatedEvaluation()
+        {
+            //Arrange
+            var expectedEvaluationDto = _evaluationDtos[0];
+            var expectedEvaluation = _mapper.Map<Evaluation>(expectedEvaluationDto);
+
+            //Act
+            _uowMock.Setup(x => x.Evaluations.UpdateAsync(It.IsAny<Evaluation>()))
+                .ReturnsAsync(expectedEvaluation);
+
+            var actualEvaluationDto = await _evaluationService.UpdateEvaluationAsync(expectedEvaluationDto);
+
+            //Assert
+            Assert.Equal(expectedEvaluationDto, actualEvaluationDto, new EvaluationDTOEqualityComparer());
         }
     }
 }
