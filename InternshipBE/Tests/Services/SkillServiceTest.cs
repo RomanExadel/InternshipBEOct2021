@@ -2,13 +2,12 @@
 using BL.DTOs;
 using BL.EqualityComparers;
 using BL.Interfaces;
-using BL.Mapping;
+using BL.Mapping.Profiles;
 using BL.Services;
 using DAL.Entities;
 using DAL.Interfaces;
 using Moq;
 using Shared.Enums;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +27,7 @@ namespace Tests.Services
         public SkillServiceTest()
         {
             _skillFixture = new SkillFixture();
-            _mapper = MapperConfigurationProvider.GetConfig().CreateMapper();
+            _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new SkillProfile())).CreateMapper();
             _skillDtos = _mapper.Map<List<SkillDTO>>(_skillFixture.GetSkills());
             _uowMock = new Mock<IUnitOfWork>();
             _skillService = new SkillService(_uowMock.Object, _mapper);

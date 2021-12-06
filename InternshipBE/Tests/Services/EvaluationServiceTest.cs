@@ -2,7 +2,7 @@
 using BL.DTOs;
 using BL.EqualityComparers;
 using BL.Interfaces;
-using BL.Mapping;
+using BL.Mapping.Profiles;
 using BL.Services;
 using DAL.Entities;
 using DAL.Interfaces;
@@ -25,7 +25,7 @@ namespace Tests.Services
         public EvaluationServiceTest()
         {
             _evaluationFixture = new EvaluationFixture();
-            _mapper = MapperConfigurationProvider.GetConfig().CreateMapper();
+            _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new EvaluationProfile())).CreateMapper();
             _evaluationDtos = _mapper.Map<List<EvaluationDTO>>(_evaluationFixture.GetEvaluations());
             _uowMock = new Mock<IUnitOfWork>();
             _evaluationService = new EvaluationService(_uowMock.Object, _mapper);
