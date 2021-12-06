@@ -28,15 +28,6 @@ namespace Tests.Fixtures
                         new InternshipLanguage { Id = 3, LanguageType = InternshipLanguageType.French, InternshipId = 1, Internship = null }
                     }
                 },
-                new Internship
-                {
-                    LanguageTypes = new List<InternshipLanguage>
-                    {
-                        new InternshipLanguage { Id = 4, LanguageType = InternshipLanguageType.Russian, InternshipId = 1, Internship = null },
-                        new InternshipLanguage { Id = 5, LanguageType = InternshipLanguageType.Russian, InternshipId = 2, Internship = null }
-                    }
-                }
-
             };
         }
 
