@@ -17,7 +17,7 @@ namespace DAL.Repositories
             _validator = validator;
         }
 
-        public async Task<List<Evaluation>> GetEvaluationsByFeedbackId(int feedbackId)
+        public async Task<List<Evaluation>> GetEvaluationsByFeedbackIdAsync(int feedbackId)
         {
             return await _context.Evaluations
                 .AsNoTracking()
