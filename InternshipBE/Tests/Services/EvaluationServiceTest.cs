@@ -34,9 +34,24 @@ namespace Tests.Services
         [Fact]
         public async void GetEvaluationsByFeedbackIdAsync_WhenFeedbackIsExist_GettingEvaluations()
         {
-            var feedbackId = It.IsAny<int>();
+            var feedbackId = 1;
             var outputEvaluations = _mapper.Map<List<Evaluation>>(_evaluationDtos.Where(x => x.FeedbackId == feedbackId).ToList());
             var expectedEvaluationDtos = _evaluationDtos.Where(x => x.FeedbackId == feedbackId).ToList();
+
+            _uowMock.Setup(x => x.Evaluations.GetEvaluationsByFeedbackIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(outputEvaluations);
+
+            var actualEvaluationDtos = await _evaluationService.GetEvaluationsByFeedbackIdAsync(feedbackId);
+
+            Assert.Equal(expectedEvaluationDtos, actualEvaluationDtos, new EvaluationDTOEqualityComparer());
+        }
+
+        [Fact]
+        public async void GetEvaluationsByFeedbackIdAsync_WhenFeedbackIsNotExist_GettingEmptyList()
+        {
+            var feedbackId = -1;
+            var outputEvaluations = _mapper.Map<List<Evaluation>>(_evaluationDtos.Where(x => x.FeedbackId == feedbackId).ToList());
+            var expectedEvaluationDtos = new List<EvaluationDTO>();
 
             _uowMock.Setup(x => x.Evaluations.GetEvaluationsByFeedbackIdAsync(feedbackId))
                 .ReturnsAsync(outputEvaluations);
