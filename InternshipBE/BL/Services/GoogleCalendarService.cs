@@ -54,7 +54,7 @@ namespace BL.Services
 
 			Event newEvent = new Event()
 			{
-				Summary = _calendarEventsConfig.Summary,
+				Summary = _calendarEventsConfig.Summary + model.CandidateName,
 				Location = _calendarEventsConfig.Location,
 				Description = _calendarEventsConfig.Description,
 				Start = new EventDateTime()
