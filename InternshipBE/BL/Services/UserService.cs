@@ -121,5 +121,11 @@ namespace BL.Services
             return user;
         }
 
+        public async Task<UserDTO> GetUserInfoByUserIdAsync(string id)
+        {
+            var user = await _unitOfWork.Users.GetUserInfoById(id);
+
+            return _mapper.Map<UserDTO>(user);
+        }
     }
 }

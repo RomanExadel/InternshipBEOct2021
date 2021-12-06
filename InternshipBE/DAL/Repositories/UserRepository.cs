@@ -25,7 +25,7 @@ namespace DAL.Repositories
 			return internship?.Users.ToList();
 		}
 
-		public async Task<List<User>> GetUsersByCandidateIdAsync(int id)
+        public async Task<List<User>> GetUsersByCandidateIdAsync(int id)
 		{
 			var candidat = await _context.Candidates.AsNoTracking()
 				.Include(x => x.Users)
@@ -55,5 +55,13 @@ namespace DAL.Repositories
 
 			return users;
 		}
+
+		public async Task<User> GetUserInfoById(string id)
+		{
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+			
+			return user;
+		}
+
 	}
 }
