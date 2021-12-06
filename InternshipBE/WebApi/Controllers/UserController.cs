@@ -50,5 +50,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _userService.UpdateUsersFromInternshipAsync(request.InternshipId, request.UserIds, request.UpdateType));
         }
+
+        [HttpGet("getUserInfoById")]
+        public async Task<IActionResult> GetUserInfoById([FromQuery] string id)
+        {
+            return Ok(await _userService.GetUserInfoByUserIdAsync(id));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BL.DTOs;
+using DAL.Entities;
 using Shared.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,5 +19,7 @@ namespace BL.Interfaces
         Task<List<UserDTO>> UpdateUsersFromInternshipAsync(int id, string[] userIds, UpdateUserType updateType);
 
         Task<List<UserDTO>> GetAllUsersAsync();
+
+        Task<UserDTO> GetUserInfoByUserIdAsync(string id);
     }
 }

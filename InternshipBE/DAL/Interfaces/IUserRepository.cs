@@ -12,5 +12,7 @@ namespace DAL.Interfaces
 		Task<List<User>> GetUsersByCandidateIdAsync(int id);
 
 		Task<List<User>> UpdateUsersFromInternshipAsync(int id, string[] usersId, UpdateUserType updateType);
+
+		Task<User> GetUserInfoById(string id);
 	}
 }
