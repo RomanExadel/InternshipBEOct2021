@@ -58,7 +58,9 @@ namespace DAL.Repositories
 
 		public async Task<User> GetUserInfoById(string id)
 		{
-			var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+			var user = await _context.Users
+				.AsNoTracking()
+				.FirstOrDefaultAsync(u => u.Id == id);
 			
 			return user;
 		}
