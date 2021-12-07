@@ -26,7 +26,7 @@ namespace Tests.Validators
             // assert
             Assert.False(result.IsValid);
         }
-               // I know DRY (for Roma) Ento vso Zeny. Ego Bei
+              
         [Fact]
         public async void InternshipLanguagesValidator_IfCorrectData_ThenThrowsException()
         {
