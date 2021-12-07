@@ -7,6 +7,7 @@ namespace Tests.Fixtures
     public class InternshipLanguagesFixture
     {
         private readonly List<Internship> _internships;
+        private readonly List<InternshipLanguage> _internshipLanguages;
 
         public InternshipLanguagesFixture()
         {
@@ -29,11 +30,25 @@ namespace Tests.Fixtures
                     }
                 },
             };
+
+            _internshipLanguages = new List<InternshipLanguage> 
+            {
+                new InternshipLanguage {Id = 1, InternshipId = 1, LanguageType = InternshipLanguageType.English },
+                new InternshipLanguage {Id = 2, InternshipId = 0, LanguageType = InternshipLanguageType.German },
+                new InternshipLanguage {InternshipId = 1, LanguageType = InternshipLanguageType.Russian },
+                new InternshipLanguage {InternshipId = 1},
+                new InternshipLanguage {LanguageType = InternshipLanguageType.Indian }
+            };
         }
 
         public List<Internship> GetInternships() 
         {
             return _internships;
+        }
+
+        public List<InternshipLanguage> GetInternshipLanguages() 
+        {
+            return _internshipLanguages;
         }
     }
 }

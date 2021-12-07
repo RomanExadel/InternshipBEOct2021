@@ -9,13 +9,13 @@ using Xunit;
 
 namespace Tests.Services
 {
-    public class InternshiplanguagesServiceTest
+    public class InternshipLanguagesServiceTest
     {
         private readonly Mock<IUnitOfWork> _uowMock;
         private readonly IInternshipLanguagesService _internshipLanguagesService;
         private readonly InternshipLanguagesFixture _internshipLanguagesFixture;
 
-        public InternshiplanguagesServiceTest()
+        public InternshipLanguagesServiceTest()
         {
             _uowMock = new Mock<IUnitOfWork>();
             _internshipLanguagesService = new InternshipLanguagesService(_uowMock.Object);
@@ -27,7 +27,7 @@ namespace Tests.Services
         {
             // arrange
             var internshipLanguagesFixture = _internshipLanguagesFixture.GetInternships();
-            var newInternship = internshipLanguagesFixture[0]; 
+            var newInternship = internshipLanguagesFixture[0];
             var oldInternship = internshipLanguagesFixture[1];
 
             var expected = internshipLanguagesFixture[0];
