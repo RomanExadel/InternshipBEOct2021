@@ -30,7 +30,7 @@ namespace Tests.Services
         }
 
         [Fact]
-        public async void GetAllLocations()
+        public async void GetAllLocations_InvokeMethod_GettingLocations()
         {
             //Arrange
             var locations = _locationFixture.GetCountries();
@@ -45,7 +45,7 @@ namespace Tests.Services
         }
 
         [Fact]
-        public async void GetAllLocationsNames()
+        public async void GetAllLocationsNames_InvokeMethod_GettingLocationsNames()
         {
             //Arrange
             var locationsNames = _locationFixture.GetCountries().Select(x => x.Name).Distinct().ToList();
@@ -60,7 +60,7 @@ namespace Tests.Services
         }
 
         [Fact]
-        public async void CreateLocation()
+        public async void CreateLocation_WhenLocationNameIsCorrect_GetUpdatedLocationsList()
         {
             //Arrange
             var inputLocation = new Country { Id = 0, Name = "Name" };
