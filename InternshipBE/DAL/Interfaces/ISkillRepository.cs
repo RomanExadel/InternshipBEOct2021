@@ -8,5 +8,7 @@ namespace DAL.Interfaces
     public interface ISkillRepository : IGenericRepository<Skill>
     {
         Task<List<Skill>> GetSkillsByStackTypeAsync(StackType stackType);
+
+        Task<List<Skill>> GetSkillsByStackTypesAsync(StackType[] stackTypes);
     }
 }

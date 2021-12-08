@@ -38,6 +38,13 @@ namespace BL.Services
             return _mapper.Map<List<SkillDTO>>(skills);
         }
 
+        public async Task<List<SkillDTO>> GetSkillsByStackTypesAsync(StackType[] stackTypes)
+        {
+            var skills = await _unitOfWork.Skills.GetSkillsByStackTypesAsync(stackTypes);
+
+            return _mapper.Map<List<SkillDTO>>(skills);
+        }
+
         public async Task<SkillDTO> UpdateSkillAsync(SkillDTO skillDTO)
         {
             var skill = _mapper.Map<Skill>(skillDTO);

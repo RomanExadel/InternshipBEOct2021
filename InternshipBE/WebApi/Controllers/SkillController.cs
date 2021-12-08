@@ -34,5 +34,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _skillService.GetSkillsByStackTypeAsync(stackType));
         }
+
+        [HttpGet("getSkillsByStackTypes")]
+        public async Task<IActionResult> GetSkillsByStackTypes([FromQuery] StackType[] stackTypes)
+        {
+            return Ok(await _skillService.GetSkillsByStackTypesAsync(stackTypes));
+        }
     }
 }
