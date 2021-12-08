@@ -12,5 +12,7 @@ namespace BL.Interfaces
         Task<SkillDTO> UpdateSkillAsync(SkillDTO SkillDTO);
 
         Task<List<SkillDTO>> GetSkillsByStackTypeAsync(StackType stackType);
+        
+        Task<List<SkillDTO>> GetSkillsByStackTypesAsync(StackType[] stackTypes);
     }
 }

@@ -21,5 +21,12 @@ namespace DAL.Repositories
                                         .Where(x => x.StackType == stackType)
                                         .ToListAsync();
         }
+
+        public async Task<List<Skill>> GetSkillsByStackTypesAsync(StackType[] stackTypes)
+        {
+            return await _context.Skills.AsNoTracking()
+                                        .Where(x => stackTypes.Contains(x.StackType))
+                                        .ToListAsync();
+        }
     }
 }
