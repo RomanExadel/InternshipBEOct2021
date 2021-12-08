@@ -14,7 +14,7 @@ namespace Tests.Validators
         }
 
         [Fact]
-        public async void InternshipLanguagesValidator_IfIncorrectData_ThenThrowsException()
+        public async void InternshipLanguagesValidator_IfIncorrectData_ThenAssertFlase()
         {
             // arrange
             var internshipLanguages = _languagesFixture.GetInternshipLanguages();
@@ -28,7 +28,7 @@ namespace Tests.Validators
         }
               
         [Fact]
-        public async void InternshipLanguagesValidator_IfCorrectData_ThenThrowsException()
+        public async void InternshipLanguagesValidator_IfCorrectData_ThenAssertTrue()
         {
             // arrange
             var internshipLanguages = _languagesFixture.GetInternshipLanguages();

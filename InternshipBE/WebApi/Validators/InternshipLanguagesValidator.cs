@@ -7,7 +7,7 @@ namespace WebApi.Validators
     {
         public InternshipLanguagesValidator()
         {
-            RuleFor(languages => languages.InternshipId).NotEqual(0);
+            RuleFor(languages => languages.InternshipId).ExclusiveBetween(0, int.MaxValue);
             RuleFor(languages => languages.LanguageType).IsInEnum();
         }
     }

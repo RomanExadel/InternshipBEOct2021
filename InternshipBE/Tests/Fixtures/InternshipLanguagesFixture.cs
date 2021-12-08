@@ -35,9 +35,6 @@ namespace Tests.Fixtures
             {
                 new InternshipLanguage {Id = 1, InternshipId = 1, LanguageType = InternshipLanguageType.English },
                 new InternshipLanguage {Id = 2, InternshipId = 0, LanguageType = InternshipLanguageType.German },
-                new InternshipLanguage {InternshipId = 1, LanguageType = InternshipLanguageType.Russian },
-                new InternshipLanguage {InternshipId = 1},
-                new InternshipLanguage {LanguageType = InternshipLanguageType.Indian }
             };
         }
 
