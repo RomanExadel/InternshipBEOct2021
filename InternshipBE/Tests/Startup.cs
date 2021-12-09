@@ -6,6 +6,7 @@ using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
 using DAL.Validators;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Tests
@@ -14,7 +15,7 @@ namespace Tests
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=InternshipBE;Trusted_Connection=True;"));
 
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 

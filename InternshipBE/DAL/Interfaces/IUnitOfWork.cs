@@ -1,9 +1,12 @@
-﻿using System;
+﻿using DAL.Database;
+using System;
 
 namespace DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
 	{
+        ApplicationDbContext Context { get; }
+
 		IBestContactTimeRepository BestContactTime { get; }
 
 		ICandidateRepository Candidates { get; }
