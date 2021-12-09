@@ -9,10 +9,10 @@ using DAL.Interfaces;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using Tests.Fixtures;
+using Tests.UnitTests.Fixtures;
 using Xunit;
 
-namespace Tests.Services
+namespace Tests.UnitTests.Services
 {
     public class EvaluationServiceTest
     {

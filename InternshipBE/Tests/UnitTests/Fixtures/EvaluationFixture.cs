@@ -1,7 +1,7 @@
 ﻿using DAL.Entities;
 using System.Collections.Generic;
 
-namespace Tests.Fixtures
+namespace Tests.UnitTests.Fixtures
 {
     public class EvaluationFixture
     {

@@ -11,10 +11,10 @@ using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tests.Fixtures;
+using Tests.UnitTests.Fixtures;
 using Xunit;
 
-namespace Tests.Services
+namespace Tests.UnitTests.Services
 {
     public class SkillServiceTest
     {
