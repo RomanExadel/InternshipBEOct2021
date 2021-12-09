@@ -4,6 +4,7 @@ using BL.EqualityComparers;
 using BL.Interfaces;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -86,6 +87,30 @@ namespace Tests.IntegrationTests.Services
             Assert.Equal(expectedSkillDto, actualSkillDto, new SkillDTOEqualityComparer());
 
             await transaction.RollbackAsync();
+        }
+
+        [Fact]
+        public async void UpdateSkillAsync_WhenChangingAllFields_GettingChangedSkill()
+        {
+            using var transaction = _unitOfWork.Context.Database.BeginTransaction();
+
+            var skillId = (await _unitOfWork.Skills.CreateAsync(_mapper.Map<Skill>(_skillDtos[0]))).Id;
+            await _unitOfWork.Context.SaveChangesAsync();
+
+            var logResult = _unitOfWork.Context.Skills.AsNoTracking().ToList();
+
+            var expectedSkillDto = new SkillDTO { Id = skillId, IsHardSkill = false, Name = "emaN", StackType = StackType.FrontEnd.ToString() };
+
+            var actualSkillDto = await _skillService.UpdateSkillAsync(expectedSkillDto);
+            await _unitOfWork.Context.SaveChangesAsync();
+
+            logResult = _unitOfWork.Context.Skills.AsNoTracking().ToList();
+
+            Assert.Equal(expectedSkillDto, actualSkillDto, new SkillDTOEqualityComparer());
+
+            await transaction.RollbackAsync();
+
+            logResult = _unitOfWork.Context.Skills.AsNoTracking().ToList();
         }
     }
 }

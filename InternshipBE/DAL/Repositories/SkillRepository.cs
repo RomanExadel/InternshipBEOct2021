@@ -28,5 +28,16 @@ namespace DAL.Repositories
                                         .Where(x => stackTypes.Contains(x.StackType))
                                         .ToListAsync();
         }
+
+        public async override Task<Skill> UpdateAsync(Skill entity)
+        {
+            var skill = await _context.Skills.FirstOrDefaultAsync(x => x.Id == entity.Id);
+
+            skill.IsHardSkill = entity.IsHardSkill;
+            skill.Name = entity.Name;
+            skill.StackType = entity.StackType;
+
+            return await base.UpdateAsync(skill);
+        }
     }
 }
