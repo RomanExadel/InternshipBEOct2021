@@ -27,8 +27,4 @@
     <ProjectReference Include="..\WebApi\WebApi.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="IntegrationTests\Fixtures\" />
-  </ItemGroup>
-
 </Project>
