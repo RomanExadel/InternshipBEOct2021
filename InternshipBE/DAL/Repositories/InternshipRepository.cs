@@ -99,8 +99,8 @@ namespace DAL.Repositories
                internships = internships.Where(i => i.Countries.Any(x => filterBy.Locations.Any(l => l == x.Name)));
             if (filterBy.LanguageTypes != null)
                internships = internships.Where(i => i.LanguageTypes.Any(x => filterBy.LanguageTypes.Any(l => l == (int)x.LanguageType)));
-            if (filterBy.InternshipStatusType != 0)
-                internships = internships.Where(i => (int)i.InternshipStatusType == filterBy.InternshipStatusType);
+            if (filterBy.InternshipStatusTypes != null)
+                internships = internships.Where(i => filterBy.InternshipStatusTypes.Any(x => x == (int)i.InternshipStatusType));
             if (filterBy.InternshipStacks != null)
                 internships = internships.Where(i => i.InternshipStacks.Any(x => filterBy.InternshipStacks.Any(l => l == (int)x.TechnologyStackType)));
             if (filterBy.InternshipYear != 0)
