@@ -30,6 +30,8 @@ namespace DAL.Repositories
         private IValidator<InterviewInvite> _interviewInviteValidator;
         private IValidator<Team> _teamValidator;
 
+        public ApplicationDbContext Context => _db;
+
         public IInternshipLanguageRepository InternshipLanguages 
         {
             get 

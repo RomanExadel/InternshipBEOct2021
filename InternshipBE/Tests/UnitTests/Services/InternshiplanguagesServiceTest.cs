@@ -4,10 +4,10 @@ using BL.Services;
 using DAL.Entities;
 using DAL.Interfaces;
 using Moq;
-using Tests.Fixtures;
+using Tests.UnitTests.Fixtures;
 using Xunit;
 
-namespace Tests.Services
+namespace Tests.UnitTests.Services
 {
     public class InternshipLanguagesServiceTest
     {

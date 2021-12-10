@@ -2,7 +2,7 @@
 using Shared.Enums;
 using System.Collections.Generic;
 
-namespace Tests.Fixtures
+namespace Tests.UnitTests.Fixtures
 {
     public class SkillFixture
     {

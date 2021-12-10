@@ -1,8 +1,8 @@
-﻿using Tests.Fixtures;
+﻿using Tests.UnitTests.Fixtures;
 using WebApi.Validators;
 using Xunit;
 
-namespace Tests.Validators
+namespace Tests.UnitTests.Validators
 {
     public class InternshipLanguagesValidationTest
     {

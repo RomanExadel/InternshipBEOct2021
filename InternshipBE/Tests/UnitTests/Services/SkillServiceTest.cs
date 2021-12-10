@@ -11,10 +11,10 @@ using Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tests.Fixtures;
+using Tests.UnitTests.Fixtures;
 using Xunit;
 
-namespace Tests.Services
+namespace Tests.UnitTests.Services
 {
     public class SkillServiceTest
     {
@@ -73,12 +73,11 @@ namespace Tests.Services
         public async void UpdateSkillAsync_WhenChangingAllFields_GettingChangedSkill()
         {
             //Arrange
-            var inputSkill = _mapper.Map<Skill>(_skillDtos[0]);
-            var outputSkill = new Skill { Id = inputSkill.Id, Name = "Updated", StackType = StackType.FrontEnd, IsHardSkill = false };
-            var expectedSkillDto = _mapper.Map<SkillDTO>(outputSkill);
+            var expectedSkillDto = _skillDtos[0];
+            var skill = _mapper.Map<Skill>(expectedSkillDto);
 
             _uowMock.Setup(x => x.Skills.UpdateAsync(It.IsAny<Skill>()))
-                .ReturnsAsync(outputSkill);
+                .ReturnsAsync(skill);
 
             //Act
             var actualSkillDto = await _skillService.UpdateSkillAsync(_skillDtos[0]);
